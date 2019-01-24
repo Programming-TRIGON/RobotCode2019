@@ -18,6 +18,10 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    /**
+     * creates the SS corgo fold that extends and retracts the whole SS of the cargo
+     * collector with it
+     */
     this.cargoFlip = new CargoFold(new VictorSP(RobotMap.CARGO_FOLD_RIGHT_MOTOR),
         new VictorSP(RobotMap.CARGO_FOLD_LEFT_MOTOR));
   }
