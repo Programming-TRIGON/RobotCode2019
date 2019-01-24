@@ -17,6 +17,7 @@ public class Lift extends Subsystem {
     this.encoder = encoder;
   }
 
+  /** sets the speed of the motors of the lift to higher/lower it */
   public void setMotorSpeed(Double speed) {
     motorGroup.set(speed);
   }

@@ -19,7 +19,7 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    /**defining the subsystem lift the higher the cargo and hatch holders */
+    /**defining the subsystem lift that highers the cargo and hatch holders */
     lift = new Lift(new VictorSP(RobotMap.LIFT_LEFT_MOTOR), new VictorSP(RobotMap.LIFT_RIGHT_MOTOR),
         new Encoder(RobotMap.LIFT_ENCODER_CHANNEL_A, RobotMap.LIFT_ENCODER_CHANNEL_B));
 

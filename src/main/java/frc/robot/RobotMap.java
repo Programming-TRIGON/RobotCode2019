@@ -1,5 +1,6 @@
 package frc.robot;
 
+/** a class that defines the robot ports */
 public class RobotMap {
 
     public static final int LIFT_LEFT_MOTOR = 0;
