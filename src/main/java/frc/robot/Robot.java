@@ -4,14 +4,14 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.SubSystems.CargoFold;
+import frc.robot.SubSystems.CargoFolder;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  public CargoFold cargoFlip;
+  public static CargoFolder cargoFolder;
 
   @Override
   public void robotInit() {
@@ -22,8 +22,8 @@ public class Robot extends TimedRobot {
      * creates the SS corgo fold that extends and retracts the whole SS of the cargo
      * collector with it
      */
-    this.cargoFlip = new CargoFold(new VictorSP(RobotMap.CARGO_FOLD_RIGHT_MOTOR),
-        new VictorSP(RobotMap.CARGO_FOLD_LEFT_MOTOR));
+    this.cargoFolder = new CargoFolder(new VictorSP(RobotMap.CARGO_FOLDER_RIGHT_MOTOR),
+        new VictorSP(RobotMap.CARGO_FOLDER_LEFT_MOTOR));
   }
 
   @Override
