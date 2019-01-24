@@ -5,9 +5,16 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * the SS hatch collector collects hatch pannels that uses either motor or
+ * solenoid depending on which we use to catch the hatch by connecting to the
+ * scothes
+ */
 public class HatchCollector extends Subsystem {
+  /** folds the SS down to catch the hatch */
   private DoubleSolenoid solenoid;
-  // if there is no image procassing then we use a motor
+  // if there is no image processing then we use a motor
+  /** folds the SS down to catch the hatch */
   private SpeedController motor;
 
   public HatchCollector(SpeedController motor, DoubleSolenoid solenoid) {
@@ -16,13 +23,19 @@ public class HatchCollector extends Subsystem {
   }
 
   /**
-   * sets the status of the solenoid. DoubleSolinoids require "values" that
-   * represent off, forward, and reversed
+   * sets the status of the solenoid. DoubleSolenoids require "values" that
+   * represent off, forward, and reversed, the function sets the value of the
+   * solenoid to fold down/up for getiing the hatch or putting it on the hatch
+   * holder SS
    */
   public void setSolenoid(Value value) {
     this.solenoid.set(value);
   }
 
+  /**
+   * the function folds the motor down/up for getting the hatch or putting it on
+   * the hatch holder SS
+   */
   public void setMotor(Double speed) {
     this.motor.set(speed);
   }

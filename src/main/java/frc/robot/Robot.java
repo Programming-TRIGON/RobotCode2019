@@ -19,8 +19,9 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    /** creates the SS htach collector that collects hatch pannels */
     this.hatchCollector = new HatchCollector(new VictorSP(RobotMap.HATCH_COLLECTOR_MOTOR),
-    new DoubleSolenoid(RobotMap.HATCH_COLLECTOR_SOLENOID_A, RobotMap.HATCH_COLLECTOR_SOLENOID_B));
+        new DoubleSolenoid(RobotMap.HATCH_COLLECTOR_SOLENOID_A, RobotMap.HATCH_COLLECTOR_SOLENOID_B));
   }
 
   @Override
