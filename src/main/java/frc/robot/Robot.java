@@ -18,6 +18,9 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    /**
+     * creates the new SS that collects corgo by turning wheels that bring it in
+     */
     this.cargoCollector = new CargoCollector(new VictorSP(RobotMap.CARGO_COLLECTOR_MOTOR));
   }
 
@@ -34,11 +37,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     switch (m_autoSelected) {
-      case kCustomAuto:
-        break;
-      case kDefaultAuto:
-      default:
-        break;
+    case kCustomAuto:
+      break;
+    case kDefaultAuto:
+    default:
+      break;
     }
   }
 
