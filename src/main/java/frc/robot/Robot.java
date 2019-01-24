@@ -18,6 +18,10 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    /**
+     * creates the new susbsystem with three solenoids, two that extends the whole
+     * SS outward one one that catches the hatch
+     */
     this.hatchHolder = new HatchHolder(
         new DoubleSolenoid(RobotMap.HATCH_HOLDER_CATCH_SOLENOID_A, RobotMap.HATCH_HOLDER_CATCH_SOLENOID_B),
         new DoubleSolenoid(RobotMap.HATCH_HOLDER_RIGHT_PUSH_SOLENOID_A, RobotMap.HATCH_HOLDER_RIGHT_PUSH_SOLENOID_B),
