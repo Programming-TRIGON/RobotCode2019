@@ -4,12 +4,14 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class CargoCollector extends Subsystem {
-  private SpeedController cargoCollectorMotor;
-  public CargoCollector(SpeedController cargoCollectorMotor){
-    this.cargoCollectorMotor = cargoCollectorMotor;
+  private SpeedController motor;
+
+  public CargoCollector(SpeedController motor) {
+    this.motor = motor;
   }
-  public void setCollectorMotor(Double speed){
-    this.cargoCollectorMotor.set(speed);
+
+  public void setMotor(Double speed) {
+    this.motor.set(speed);
   }
 
   @Override
