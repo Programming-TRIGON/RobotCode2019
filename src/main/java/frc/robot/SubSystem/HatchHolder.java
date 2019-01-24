@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class HatchHolder extends Subsystem {
-  DoubleSolenoid catchSolenoid, rightPushSolenoid, leftPushSolenoid;
+  private DoubleSolenoid catchSolenoid, rightPushSolenoid, leftPushSolenoid;
 
   public HatchHolder(DoubleSolenoid catchSolenoid, DoubleSolenoid rightPushSolenoid, DoubleSolenoid leftPushSolenoid) {
     this.catchSolenoid = catchSolenoid;
