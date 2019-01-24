@@ -11,13 +11,16 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-    public OneEighty oneEighty;
+  public OneEighty oneEighty;
 
   @Override
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    /**
+     * creates the SS that turns the subsytems cargo and hatch holder 180 degrees
+     */
     this.oneEighty = new OneEighty(new VictorSP(RobotMap.ONE_EIGHTY_MOTOR));
   }
 
@@ -34,11 +37,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     switch (m_autoSelected) {
-      case kCustomAuto:
-        break;
-      case kDefaultAuto:
-      default:
-        break;
+    case kCustomAuto:
+      break;
+    case kDefaultAuto:
+    default:
+      break;
     }
   }
 
