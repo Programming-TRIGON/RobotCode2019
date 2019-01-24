@@ -4,11 +4,13 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class OneEighty extends Subsystem {
-  SpeedController motor;
-  public OneEighty(SpeedController motor){
+  private SpeedController motor;
+
+  public OneEighty(SpeedController motor) {
     this.motor = motor;
   }
-  public void setOneEighty(Double speed){
+
+  public void setOneEighty(Double speed) {
     this.motor.set(speed);
   }
 
