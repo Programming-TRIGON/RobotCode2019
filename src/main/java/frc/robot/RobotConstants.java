@@ -3,11 +3,11 @@ package frc.robot;
 public class RobotConstants {
     public static class RobotDimensions {
         /**
-         * The diameter of the crank in the lift which twists the rope used to change
+         * The diameter of the tube in the lift which twists the rope used to change
          * ticks to meters.
          */
 
-        public final static Double LIFT_CRANK_DIAMETER = 4.347;
+        public final static Double LIFT_TUBE_DIAMETER = 4.347;
 
     }
 
