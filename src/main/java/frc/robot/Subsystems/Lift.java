@@ -40,8 +40,8 @@ public class Lift extends Subsystem {
   }
 
   /** This function returns the curent state of the potentiometer. */
-  public AnalogPotentiometer getPotentiometer() {
-    return this.potentiometer;
+  public Double getPotentiometer() {
+    return this.potentiometer.get();
   }
 
   @Override

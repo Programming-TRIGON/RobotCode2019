@@ -30,7 +30,7 @@ public class RobotConstants {
          * to the potentiometer beacuse we desire the value it returns to be in meters
          * and not in turns of the tube.
          */
-        public static final double LIFT_POTENTIOMETER_SCALE_FRACTOR = RobotDimensions.LIFT_TUBE_CIRCUMFERENCE;
+        public static final double LIFT_POTENTIOMETER_SCALE_FACTOR = RobotDimensions.LIFT_TUBE_CIRCUMFERENCE;
         /**
          * The value that the potentiometer will add to the number that the
          * potentiometer returns after multiplying the potentiometer output by the scale

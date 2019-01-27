@@ -24,7 +24,7 @@ public class Robot extends TimedRobot {
     /** defining the subsystem lift that highers the cargo and hatch holders */
     lift = new Lift(new PWMTalonSRX(RobotMap.LIFT_LEFT_MOTOR), new PWMTalonSRX(RobotMap.LIFT_RIGHT_MOTOR),
         new DigitalInput(RobotMap.LIFT_BOTTOM_MICRO_SWITCH), new DigitalInput(RobotMap.LIFT_TOP_MICRO_SWITCH),
-        new AnalogPotentiometer(RobotMap.LIFT_POTENTIOMETER, RobotConstants.Sensors.LIFT_POTENTIOMETER_SCALE_FRACTOR,
+        new AnalogPotentiometer(RobotMap.LIFT_POTENTIOMETER, RobotConstants.Sensors.LIFT_POTENTIOMETER_SCALE_FACTOR,
             RobotConstants.Sensors.LIFT_POTENTOIMETER_OFFSET));
 
   }
