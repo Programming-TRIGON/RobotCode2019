@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.SubSystem.HatchHolder;
+import frc.robot.SubSystems.HatchHolder;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
@@ -23,7 +23,7 @@ public class Robot extends TimedRobot {
      * SS outward one one that catches the hatch
      */
     this.hatchHolder = new HatchHolder(
-        new DoubleSolenoid(RobotMap.HATCH_HOLDER_CATCH_SOLENOID_A, RobotMap.HATCH_HOLDER_CATCH_SOLENOID_B),
+        new DoubleSolenoid(RobotMap.HATCH_HOLDER_PVC_SOLENOID_A, RobotMap.HATCH_HOLDER_PVC_SOLENOID_B),
         new DoubleSolenoid(RobotMap.HATCH_HOLDER_RIGHT_PUSH_SOLENOID_A, RobotMap.HATCH_HOLDER_RIGHT_PUSH_SOLENOID_B),
         new DoubleSolenoid(RobotMap.HATCH_HOLDER_LEFT_PUSH_SOLENOID_A, RobotMap.HATCH_HOLDER_LEFT_PUSH_SOLENOID_B));
   }
