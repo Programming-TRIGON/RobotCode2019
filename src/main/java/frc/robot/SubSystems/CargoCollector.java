@@ -1,7 +1,7 @@
 package frc.robot.SubSystems;
 
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -10,18 +10,18 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class CargoCollector extends Subsystem {
   /** The motor that turns the wheel for bringing in the cargo. */
-  private SpeedController collectorMotor;
+  private TalonSRX collectorMotor;
   /**
    * After the cargo collector collects the cargo it goes into the cargo holder.
    * these motors put the cargo in the holder. after lifted up these motors shoot
    * the cargo out of them.
    */
-  private SpeedControllerGroup cargoHolder;
+  private TalonSRX rightCargoHolder, leftCargoHolder;
 
-  public CargoCollector(SpeedController collectorMotor, SpeedController rightCargoHolder,
-      SpeedController leftCargoHolder) {
+  public CargoCollector(TalonSRX collectorMotor, TalonSRX rightCargoHolder, TalonSRX leftCargoHolder) {
     this.collectorMotor = collectorMotor;
-    this.cargoHolder = new SpeedControllerGroup(rightCargoHolder, leftCargoHolder);
+    this.rightCargoHolder = rightCargoHolder;
+    this.leftCargoHolder = leftCargoHolder;
   }
 
   /**
@@ -29,7 +29,8 @@ public class CargoCollector extends Subsystem {
    * wheels to bring the cargo into the robot.
    */
   public void setCargoCollectorMotor(Double speed) {
-    this.collectorMotor.set(speed);
+    this.collectorMotor.set(ControlMode.PercentOutput, speed);
+    ;
   }
 
   /**
@@ -37,7 +38,8 @@ public class CargoCollector extends Subsystem {
    * bring the cargo into the holder.
    */
   public void setCargoHolderMotors(Double speed) {
-    this.cargoHolder.set(speed);
+    this.rightCargoHolder.set(ControlMode.PercentOutput, speed);
+    this.leftCargoHolder.set(ControlMode.PercentOutput, speed);
   }
 
   @Override
