@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -15,14 +14,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class CargoCollector extends Subsystem {
   /** The motor that turns the wheel for bringing in the cargo. */
   private TalonSRX collectorMotor;
-    
+
   /**
    * After the cargo collector collects the cargo it goes into the cargo holder.
    * these motors put the cargo in the holder. after lifted up these motors shoot
    * the cargo out of them.
    */
-  private VictorSPX leftHolder;
-  private VictorSPX rightHolder;
+
+  private VictorSPX leftHolder, rightHolder;
 
   //TODO: change this to a light sensor and change isHoldingBall respectively. 
   private AnalogInput sensor;
@@ -41,6 +40,7 @@ public class CargoCollector extends Subsystem {
    */
   public void setCargoCollectorMotor(Double speed) {
     this.collectorMotor.set(ControlMode.PercentOutput, speed);
+
   }
 
   /**
@@ -56,6 +56,7 @@ public class CargoCollector extends Subsystem {
    */
   public boolean isHoldingBall(){
     return false;
+
   }
 
   @Override

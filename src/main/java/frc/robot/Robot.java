@@ -3,6 +3,7 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,7 +26,7 @@ public class Robot extends TimedRobot {
      */
     this.cargoCollector = new CargoCollector(new TalonSRX(RobotMap.CARGO_COLLECTOR_MOTOR),
         new VictorSPX(RobotMap.CARGO_COLLECTOR_HOLDER_RIGHT_MOTOR),
-        new VictorSPX(RobotMap.CARGO_COLLECTOR_HOLDER_LEFT_MOTOR));
+        new VictorSPX(RobotMap.CARGO_COLLECTOR_HOLDER_LEFT_MOTOR),new AnalogInput(0));
   }
 
   @Override
