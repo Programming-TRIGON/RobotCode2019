@@ -1,7 +1,5 @@
 package frc.robot.SubSystems;
 
-import com.sun.jdi.Value;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
