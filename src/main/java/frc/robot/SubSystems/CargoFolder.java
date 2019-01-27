@@ -1,21 +1,35 @@
 package frc.robot.SubSystems;
 
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import com.sun.jdi.Value;
+
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /** Folds the whole SS of the cargo collector */
 public class CargoFolder extends Subsystem {
   /** This motor group connects the two motors that bring the SS up and down */
-  private SpeedControllerGroup motorGroup;
+  private DoubleSolenoid solenoid;
+  /** these switches ensure that the cargo folder has reached its destination */
+  private DigitalInput bottomSwitch, topSwitch;
 
-  public CargoFolder(SpeedController rightMotor, SpeedController leftMotor) {
-    this.motorGroup = new SpeedControllerGroup(rightMotor, leftMotor);
+  public CargoFolder(DoubleSolenoid solenoid, DigitalInput bottomSwitch, DigitalInput topSwitch) {
+    this.solenoid = solenoid;
+    this.bottomSwitch = bottomSwitch;
+    this.topSwitch = topSwitch;
   }
 
   /** folds/unfolds the SS */
-  public void setFold(Double speed) {
-    this.motorGroup.set(speed);
+  public void setFold(DoubleSolenoid.Value value) {
+    this.solenoid.set(value);
+  }
+
+  public boolean bottomSwitchIsClicked() {
+    return bottomSwitch.get();
+  }
+
+  public boolean topSwitchIsClicked() {
+    return topSwitch.get();
   }
 
   @Override

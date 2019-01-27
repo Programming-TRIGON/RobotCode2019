@@ -1,7 +1,8 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.SubSystems.CargoFolder;
@@ -22,8 +23,9 @@ public class Robot extends TimedRobot {
      * creates the SS corgo fold that extends and retracts the whole SS of the cargo
      * collector with it
      */
-    this.cargoFolder = new CargoFolder(new VictorSP(RobotMap.CARGO_FOLDER_RIGHT_MOTOR),
-        new VictorSP(RobotMap.CARGO_FOLDER_LEFT_MOTOR));
+    this.cargoFolder = new CargoFolder(
+        new DoubleSolenoid(RobotMap.CARGO_FOLDER_SOLENOID_A, RobotMap.CARGO_FOLDER_SOLENOID_B),
+        new DigitalInput(RobotMap.CARGO_FOLDER_TOP_SWITCH), new DigitalInput(RobotMap.CARGO_FOLDER_BOTTOM_SWITCH));
   }
 
   @Override
