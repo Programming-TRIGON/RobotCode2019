@@ -8,6 +8,12 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.SubSystems.CargoCollector;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.SubSystems.CargoFolder;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
@@ -15,6 +21,7 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static CargoCollector cargoCollector;
+  public static CargoFolder cargoFolder;
 
   @Override
   public void robotInit() {
@@ -27,6 +34,12 @@ public class Robot extends TimedRobot {
     this.cargoCollector = new CargoCollector(new TalonSRX(RobotMap.CARGO_COLLECTOR_MOTOR),
         new VictorSPX(RobotMap.CARGO_COLLECTOR_HOLDER_RIGHT_MOTOR),
         new VictorSPX(RobotMap.CARGO_COLLECTOR_HOLDER_LEFT_MOTOR),new AnalogInput(0));
+     * creates the SS corgo fold that extends and retracts the whole SS of the cargo
+     * collector with it
+     */
+    this.cargoFolder = new CargoFolder(
+        new DoubleSolenoid(RobotMap.CARGO_FOLDER_SOLENOID_A, RobotMap.CARGO_FOLDER_SOLENOID_B),
+        new DigitalInput(RobotMap.CARGO_FOLDER_TOP_SWITCH), new DigitalInput(RobotMap.CARGO_FOLDER_BOTTOM_SWITCH));
   }
 
   @Override
