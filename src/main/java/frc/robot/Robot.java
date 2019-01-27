@@ -1,8 +1,9 @@
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,9 +21,8 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    //TODO set the PWMTalonSRX to TalonSRX
     /** defining the subsystem lift that highers the cargo and hatch holders */
-    lift = new Lift(new PWMTalonSRX(RobotMap.LIFT_LEFT_MOTOR), new PWMTalonSRX(RobotMap.LIFT_RIGHT_MOTOR),
+    lift = new Lift(new TalonSRX(RobotMap.LIFT_LEFT_MOTOR), new TalonSRX(RobotMap.LIFT_RIGHT_MOTOR),
         new DigitalInput(RobotMap.LIFT_BOTTOM_MICRO_SWITCH), new DigitalInput(RobotMap.LIFT_TOP_MICRO_SWITCH),
         new AnalogPotentiometer(RobotMap.LIFT_POTENTIOMETER, RobotConstants.Sensors.LIFT_POTENTIOMETER_SCALE_FACTOR,
             RobotConstants.Sensors.LIFT_POTENTOIMETER_OFFSET));
