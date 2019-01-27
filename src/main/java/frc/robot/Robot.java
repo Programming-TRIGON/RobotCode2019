@@ -1,7 +1,9 @@
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.SubSystems.CargoCollector;
@@ -21,9 +23,9 @@ public class Robot extends TimedRobot {
     /**
      * creates the new SS that collects corgo by turning wheels that bring it in
      */
-    this.cargoCollector = new CargoCollector(new VictorSP(RobotMap.CARGO_COLLECTOR_MOTOR),
-        new VictorSP(RobotMap.CARGO_COLLECTOR_HOLDER_RIGHT_MOTOR),
-        new VictorSP(RobotMap.CARGO_COLLECTOR_HOLDER_LEFT_MOTOR));
+    this.cargoCollector = new CargoCollector(new TalonSRX(RobotMap.CARGO_COLLECTOR_MOTOR),
+        new VictorSPX(RobotMap.CARGO_COLLECTOR_HOLDER_RIGHT_MOTOR),
+        new VictorSPX(RobotMap.CARGO_COLLECTOR_HOLDER_LEFT_MOTOR));
   }
 
   @Override

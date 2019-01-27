@@ -1,6 +1,10 @@
 package frc.robot.SubSystems;
 
-import edu.wpi.first.wpilibj.SpeedController;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -10,18 +14,25 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class CargoCollector extends Subsystem {
   /** The motor that turns the wheel for bringing in the cargo. */
-  private SpeedController collectorMotor;
+  private TalonSRX collectorMotor;
+    
   /**
    * After the cargo collector collects the cargo it goes into the cargo holder.
    * these motors put the cargo in the holder. after lifted up these motors shoot
    * the cargo out of them.
    */
-  private SpeedControllerGroup cargoHolder;
+  private VictorSPX leftHolder;
+  private VictorSPX rightHolder;
 
-  public CargoCollector(SpeedController collectorMotor, SpeedController rightCargoHolder,
-      SpeedController leftCargoHolder) {
+  //TODO: change this to a light sensor and change isHoldingBall respectively. 
+  private AnalogInput sensor;
+
+  public CargoCollector(TalonSRX collectorMotor, VictorSPX rightCargoHolder,
+      VictorSPX leftCargoHolder,AnalogInput AI) {
     this.collectorMotor = collectorMotor;
-    this.cargoHolder = new SpeedControllerGroup(rightCargoHolder, leftCargoHolder);
+    this.leftHolder = leftCargoHolder;
+    this.rightHolder = rightCargoHolder;  
+    this.sensor =AI;
   }
 
   /**
@@ -29,7 +40,7 @@ public class CargoCollector extends Subsystem {
    * wheels to bring the cargo into the robot.
    */
   public void setCargoCollectorMotor(Double speed) {
-    this.collectorMotor.set(speed);
+    this.collectorMotor.set(ControlMode.PercentOutput, speed);
   }
 
   /**
@@ -37,7 +48,14 @@ public class CargoCollector extends Subsystem {
    * bring the cargo into the holder.
    */
   public void setCargoHolderMotors(Double speed) {
-    this.cargoHolder.set(speed);
+    this.leftHolder.set(ControlMode.PercentOutput, speed);
+    this.rightHolder.set(ControlMode.PercentOutput, speed);
+  }
+  /**
+   * This function returns true if the ball is being held
+   */
+  public boolean isHoldingBall(){
+    return false;
   }
 
   @Override
