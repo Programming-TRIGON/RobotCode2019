@@ -1,7 +1,8 @@
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,7 +24,7 @@ public class Robot extends TimedRobot {
      * creates the SS that turns the subsytems cargo and hatch holder 180 degrees
      */
     this.oneEighty = new OneEighty(
-        new Talon(RobotMap.ONE_EIGHTY_MOTOR), new AnalogPotentiometer(RobotMap.ONE_EIGHTY_POTENTIOMETER,
+        new TalonSRX(RobotMap.ONE_EIGHTY_MOTOR), new AnalogPotentiometer(RobotMap.ONE_EIGHTY_POTENTIOMETER,
             RobotConstants.POTENTIOMETER_ANGLE_MULTIPLIER, RobotConstants.POTENTIOMETER_OFFSET));
   }
 
