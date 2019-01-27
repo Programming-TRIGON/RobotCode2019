@@ -11,9 +11,11 @@ public class Lift extends Subsystem {
   private SpeedControllerGroup motorGroup;
   /** these limit switches make sure the lift doesn't pass the required highet */
   private DigitalInput topSwitch, bottomSwitch;
-  AnalogPotentiometer potentiometer;
-  public Lift(SpeedController rightMotor, SpeedController leftMotor, DigitalInput topwSwitch,
-      DigitalInput bottomSwitch, AnalogPotentiometer potentiometer) {
+
+  private AnalogPotentiometer potentiometer;
+
+  public Lift(SpeedController rightMotor, SpeedController leftMotor, DigitalInput topwSwitch, DigitalInput bottomSwitch,
+      AnalogPotentiometer potentiometer) {
     this.motorGroup = new SpeedControllerGroup(rightMotor, leftMotor);
     this.topSwitch = topwSwitch;
     this.bottomSwitch = bottomSwitch;
@@ -25,22 +27,22 @@ public class Lift extends Subsystem {
     motorGroup.set(speed);
   }
 
-  /**This function checks whether the lift has activated the top micro switch. */
+  /** This function checks whether the lift has activated the top micro switch. */
   public boolean getTopSwitch() {
-  return topSwitch.get();
+    return topSwitch.get();
   }
 
-  /**This function checks whether the lift has activated the botton micro switch. */
+  /**
+   * This function checks whether the lift has activated the botton micro switch.
+   */
   public boolean getBottomSwitch() {
     return bottomSwitch.get();
   }
-//  /** we reset the encoders for measuring the correct distance */
-  
-/*  /**
-   * The Encoder uses ticks to measure movement. 4 tick = 1 pulse. This function
-   * tells the encoder how many meters does a single pulse produce. Then this
-   * function tells us how many meters has the encoder counted.
-   */ 
+
+  /** This function returns the curent state of the potentiometer. */
+  public AnalogPotentiometer getPotentiometer() {
+    return this.potentiometer;
+  }
 
   @Override
   public void initDefaultCommand() {
