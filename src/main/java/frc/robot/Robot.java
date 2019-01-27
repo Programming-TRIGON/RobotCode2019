@@ -2,7 +2,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.SubSystems.HatchCollector;
@@ -20,7 +19,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     /** creates the SS htach collector that collects hatch pannels */
-    this.hatchCollector = new HatchCollector(new VictorSP(RobotMap.HATCH_COLLECTOR_MOTOR),
+    this.hatchCollector = new HatchCollector(
         new DoubleSolenoid(RobotMap.HATCH_COLLECTOR_SOLENOID_A, RobotMap.HATCH_COLLECTOR_SOLENOID_B));
   }
 

@@ -1,7 +1,6 @@
 package frc.robot.SubSystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -15,11 +14,8 @@ public class HatchCollector extends Subsystem {
   private DoubleSolenoid solenoid;
   // if there is no image processing then we use a motor
   /** folds the SS down to catch the hatch */
-  private SpeedController motor;
-
-  public HatchCollector(SpeedController motor, DoubleSolenoid solenoid) {
+  public HatchCollector(DoubleSolenoid solenoid) {
     this.solenoid = solenoid;
-    this.motor = motor;
   }
 
   /**
@@ -36,9 +32,6 @@ public class HatchCollector extends Subsystem {
    * the function folds the motor down/up for getting the hatch or putting it on
    * the hatch holder SS
    */
-  public void setMotor(Double speed) {
-    this.motor.set(speed);
-  }
 
   @Override
   public void initDefaultCommand() {
