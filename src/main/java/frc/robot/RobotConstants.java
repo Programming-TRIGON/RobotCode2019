@@ -41,4 +41,13 @@ public class RobotConstants {
          */
         public static final Double LIFT_POTENTOIMETER_OFFSET = RobotDimensions.DISTANCE_LIFT_MECHANISM_FROM_FLOOR;
     }
+
+    /**
+     * The value at which the potentiometer will multiply the fraction it returns
+     */
+    public static final double POTENTIOMETER_ANGLE_MULTIPLIER = 360;
+    // to do change change offset
+    /** the angle at which the potentiometer starts */
+    public static final double POTENTIOMETER_OFFSET = -180;
+
 }
