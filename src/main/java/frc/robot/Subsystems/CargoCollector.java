@@ -31,7 +31,7 @@ public class CargoCollector extends Subsystem {
     this.collectorMotor = collectorMotor;
     this.leftHolder = leftCargoHolder;
     this.rightHolder = rightCargoHolder;  
-    this.sensor =AI;
+    this.sensor = AI;
   }
 
   /**

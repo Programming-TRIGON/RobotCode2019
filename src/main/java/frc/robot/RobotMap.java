@@ -43,6 +43,7 @@ public class RobotMap {
 
         public final static int ONE_EIGHTY_POTENTIOMETER = 1;
 
+        public final static int CARGO_COLLECTOR_COLOR = 2;
     }
 
 }
