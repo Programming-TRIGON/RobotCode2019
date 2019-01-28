@@ -1,5 +1,6 @@
 package frc.robot;
 
+
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Subsystems.HatchHolder;
 import frc.robot.SubSystems.CargoFolder;
 
 public class Robot extends TimedRobot {
@@ -26,9 +28,11 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  public HatchHolder hatchHolder;
   public OneEighty oneEighty;
   public static CargoCollector cargoCollector;
   public static CargoFolder cargoFolder;
+ 
 
   @Override
   public void robotInit() {
@@ -36,6 +40,14 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     /**
+     * creates the new susbsystem with three solenoids, two that extends the whole
+     * SS outward one one that catches the hatch
+     */
+    this.hatchHolder = new HatchHolder(
+        new DoubleSolenoid(RobotMap.HATCH_HOLDER_PVC_SOLENOID_A, RobotMap.HATCH_HOLDER_PVC_SOLENOID_B),
+        new DoubleSolenoid(RobotMap.HATCH_HOLDER_RIGHT_PUSH_SOLENOID_A, RobotMap.HATCH_HOLDER_RIGHT_PUSH_SOLENOID_B),
+        new DoubleSolenoid(RobotMap.HATCH_HOLDER_LEFT_PUSH_SOLENOID_A, RobotMap.HATCH_HOLDER_LEFT_PUSH_SOLENOID_B));
+    /*
      * creates the SS that turns the subsytems cargo and hatch holder 180 degrees
      */
     this.oneEighty = new OneEighty(
@@ -54,6 +66,7 @@ public class Robot extends TimedRobot {
     this.cargoFolder = new CargoFolder(
         new DoubleSolenoid(RobotMap.CARGO_FOLDER_SOLENOID_A, RobotMap.CARGO_FOLDER_SOLENOID_B),
         new DigitalInput(RobotMap.CARGO_FOLDER_TOP_SWITCH), new DigitalInput(RobotMap.CARGO_FOLDER_BOTTOM_SWITCH));
+
   }
 
   @Override
