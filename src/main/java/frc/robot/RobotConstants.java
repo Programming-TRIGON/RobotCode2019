@@ -4,12 +4,11 @@ package frc.robot;
 public class RobotConstants {
     /** The measurments of the robot */
     public static class RobotDimensions {
-        //TODO set real values
+        // TODO set real values
         /**
          * The diameter (in CM) of the tube in the lift which twists the rope connected
          * to the lift. this is used to caculate the circumference of the tube.
          */
-
         public final static Double LIFT_TUBE_DIAMETER = 3.447;
         /**
          * The circumference (in meters) of the tube in the lift which twists the rope
