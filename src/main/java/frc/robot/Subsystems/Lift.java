@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Lift extends Subsystem {
+public class Lift extends JoystickOverridableSubsystem {
   /** the two motors that turn to higher the lift */
   private TalonSRX leftMotor, rightMotor;
   /** these limit switches make sure the lift doesn't pass the required highet */
@@ -25,9 +25,9 @@ public class Lift extends Subsystem {
   }
 
   /** sets the speed of the motors of the lift to higher/lower it */
-  public void setMotorSpeed(Double speed) {
-    leftMotor.set(ControlMode.PercentOutput, speed);
-    rightMotor.set(ControlMode.PercentOutput, speed);
+  public void setMotorSpeed(double power) {
+    leftMotor.set(ControlMode.PercentOutput, power);
+    rightMotor.set(ControlMode.PercentOutput, power);
   }
 
   /** This function checks whether the lift has activated the top micro switch. */
@@ -50,5 +50,10 @@ public class Lift extends Subsystem {
   @Override
   public void initDefaultCommand() {
 
+  }
+
+  @Override
+  public void move(double power) {
+    setMotorSpeed(power);
   }
 }
