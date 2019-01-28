@@ -1,7 +1,6 @@
-package frc.robot.SubSystems;
+package frc.robot.Subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -24,7 +23,7 @@ public class HatchCollector extends Subsystem {
    * solenoid to fold down/up for getiing the hatch or putting it on the hatch
    * holder SS
    */
-  public void setSolenoid(Value value) {
+  public void setSolenoid(DoubleSolenoid.Value value) {
     this.solenoid.set(value);
   }
 
