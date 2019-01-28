@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Lift extends Subsystem {
@@ -26,7 +27,7 @@ public class Lift extends Subsystem {
 
   /** sets the speed of the motors of the lift to higher/lower it */
   public void setMotorSpeed(Double speed) {
-    leftMotor.set(ControlMode.PercentOutput, speed);
+    leftMotor.set(ControlMode.PercentOutput, speed); 
     rightMotor.set(ControlMode.PercentOutput, speed);
   }
 
@@ -43,8 +44,12 @@ public class Lift extends Subsystem {
   }
 
   /** This function returns the curent state of the potentiometer. */
-  public double getPotentiometer() {
+  public double getPotentiometerValue() {
     return this.potentiometer.get();
+  }
+
+  public PIDSource getPotentoimeter() {
+    return this.potentiometer;
   }
 
   @Override

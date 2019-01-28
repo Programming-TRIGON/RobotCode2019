@@ -1,4 +1,4 @@
-package frc.robot.SubSystems;
+package frc.robot.Subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;

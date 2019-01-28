@@ -10,32 +10,14 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Subsystems.Lift;
-
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Subsystems.OneEighty;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.SubSystems.CargoCollector;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
-import frc.robot.SubSystems.CargoFolder;
+import frc.robot.Subsystems.CargoFolder;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
@@ -49,7 +31,6 @@ public class Robot extends TimedRobot {
   public OneEighty oneEighty;
   public static CargoCollector cargoCollector;
   public static CargoFolder cargoFolder;
- 
 
   @Override
   public void robotInit() {
@@ -76,15 +57,15 @@ public class Robot extends TimedRobot {
     /*
      * creates the SS that turns the subsytems cargo and hatch holder 180 degrees
      */
-    this.oneEighty = new OneEighty(
-        new TalonSRX(RobotMap.ONE_EIGHTY_MOTOR), new AnalogPotentiometer(RobotMap.ONE_EIGHTY_POTENTIOMETER,
-            RobotConstants.POTENTIOMETER_ANGLE_MULTIPLIER, RobotConstants.POTENTIOMETER_OFFSET));
+    this.oneEighty = new OneEighty(new TalonSRX(RobotMap.ONE_EIGHTY_MOTOR),
+        new AnalogPotentiometer(RobotMap.ONE_EIGHTY_POTENTIOMETER, RobotConstants.POTENTIOMETER_ANGLE_MULTIPLIER,
+            RobotConstants.POTENTIOMETER_OFFSET));
     /*
      * creates the new SS that collects corgo by turning wheels that bring it in
      */
     this.cargoCollector = new CargoCollector(new TalonSRX(RobotMap.CARGO_COLLECTOR_MOTOR),
         new VictorSPX(RobotMap.CARGO_COLLECTOR_HOLDER_RIGHT_MOTOR),
-        new VictorSPX(RobotMap.CARGO_COLLECTOR_HOLDER_LEFT_MOTOR),new AnalogInput(0));
+        new VictorSPX(RobotMap.CARGO_COLLECTOR_HOLDER_LEFT_MOTOR), new AnalogInput(0));
     /*
      * creates the SS corgo fold that extends and retracts the whole SS of the cargo
      * collector with it
