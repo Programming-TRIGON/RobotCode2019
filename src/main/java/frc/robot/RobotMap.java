@@ -1,7 +1,10 @@
 package frc.robot;
 
-/** a class that defines the robot ports */
+/** a class that defines the ports of the robot */
 public class RobotMap {
+    public final static int HATCH_COLLECTOR_SOLENOID_A = 1;
+    public final static int HATCH_COLLECTOR_SOLENOID_B = 2;
+
 
     public static final int LIFT_LEFT_MOTOR = 0;
     public static final int LIFT_RIGHT_MOTOR = 1;
