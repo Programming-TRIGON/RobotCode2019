@@ -1,4 +1,4 @@
-package frc.robot.SubSystems;
+package frc.robot.Subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -21,9 +21,8 @@ public class OneEighty extends Subsystem {
   }
 
   /** turns the SS to where the driver wants it */
-  public void setOneEighty(Double speed) {
+  public void setOneEighty(double speed) {
     this.motor.set(ControlMode.PercentOutput, speed);
-    ;
   }
 
   public double getAngle() {

@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.SubSystems.OneEighty;
+import frc.robot.Subsystems.OneEighty;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
