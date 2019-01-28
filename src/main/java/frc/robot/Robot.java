@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.SubSystems.HatchHolder;
+import frc.robot.Subsystems.HatchHolder;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
