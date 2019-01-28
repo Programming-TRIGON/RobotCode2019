@@ -36,15 +36,13 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
     /** creates the SS htach collector that collects hatch pannels */
-    this.hatchCollector = new HatchCollector(
-        new DoubleSolenoid(RobotMap.HATCH_COLLECTOR_SOLENOID_A, RobotMap.HATCH_COLLECTOR_SOLENOID_B));
+    Robot.hatchCollector = new HatchCollector(RobotComponents.HatchCollector.SOLENOID);
 
     /** defining the subsystem lift that highers the cargo and hatch holders */
-    lift = new Lift(new TalonSRX(RobotMap.LIFT_LEFT_MOTOR), new TalonSRX(RobotMap.LIFT_RIGHT_MOTOR),
-        new DigitalInput(RobotMap.LIFT_BOTTOM_MICRO_SWITCH), new DigitalInput(RobotMap.LIFT_TOP_MICRO_SWITCH),
-        new AnalogPotentiometer(RobotMap.LIFT_POTENTIOMETER, RobotConstants.Sensors.LIFT_POTENTIOMETER_SCALE_FACTOR,
-            RobotConstants.Sensors.LIFT_POTENTOIMETER_OFFSET));
+    Robot.lift = new Lift(RobotComponents.Lift.LIFT_RIGHT_M, RobotComponents.Lift.LIFT_LEFT_M, 
+    RobotComponents.Lift.TOP_SWITCH, RobotComponents.Lift.BOTTOM_SWITCH, RobotComponents.Lift.POT);
     /**
      * creates the new susbsystem with three solenoids, two that extends the whole
      * SS outward one one that catches the hatch
