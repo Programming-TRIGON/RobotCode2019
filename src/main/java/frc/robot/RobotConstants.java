@@ -23,7 +23,9 @@ public class RobotConstants {
          */
         public static enum Angle{
             //TODO: Set real angles.
-            kHatch(0), kCargo(180), kFeeder(270);
+            kStraight(0),// The cargo collector faces ahead in this angle.  
+            kBack(180),//The cargo collector faces back in this angle.
+            kFeeder(270); //This is the angle in order to collect the hatch from the feeder.
             public double key;
             Angle(double angle){
                 this.key = angle;
