@@ -18,6 +18,17 @@ public class RobotConstants {
         public final static Double LIFT_TUBE_CIRCUMFERENCE = LIFT_TUBE_DIAMETER * Math.PI;
         /** */
         public final static Double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
+        /**
+         * the angles which the oneEighty subsystem should do a PID on.
+         */
+        public static enum Angle{
+            //TODO: Set real angles.
+            kHatch(0), kCargo(180), kFeeder(270);
+            public double key;
+            Angle(double angle){
+                this.key = angle;
+            }
+        }
     }
 
     /** constants for sensors on the robot */

@@ -2,9 +2,7 @@ package frc.robot.Subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * the class that is on the lift and turns 180 degrees allowing the placement of
@@ -27,6 +25,9 @@ public class OneEighty extends JoystickOverridableSubsystem {
 
   public double getAngle() {
     return potentiometer.get();
+  }
+  public AnalogPotentiometer getPotentiometer(){
+    return this.potentiometer;
   }
 
   @Override
