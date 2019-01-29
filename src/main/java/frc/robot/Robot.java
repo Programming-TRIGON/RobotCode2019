@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.util.function.Supplier;
+
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.spikes2212.dashboard.DashBoardController;
@@ -69,7 +71,13 @@ public class Robot extends TimedRobot {
      */
     Robot.cargoFolder = new CargoFolder(RobotComponents.CargoFolder.SOLENOID, RobotComponents.CargoFolder.BOTTOM_SWITCH, RobotComponents.CargoFolder.TOP_SWITCH);
 
-    Robot.dbc.addNumber("Drivetrain Gyro", () -> Robot.lift.getHeight);
+    Robot.dbc.addNumber("Drivetrain Gyro", new Supplier<Number>(){
+    
+      @Override
+      public Number get() {
+        return Robot.lift.getHeight();
+      }
+    });
 
   }
 
