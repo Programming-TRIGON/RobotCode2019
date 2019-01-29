@@ -12,23 +12,23 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class SetCargoFolderState extends Command {
-  private boolean fold;
+  private boolean folderState;
   /**
    * 
    * @param fold Folds if true, otherwise unfolds.
    */
-  public SetCargoFolderState(boolean fold) {
+  public SetCargoFolderState(boolean folderState) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.cargoFolder);
-    this.fold = fold;
+    this.folderState = folderState;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     // Folds/unfolds based on the fold parameter. 
-    if(fold)
+    if(folderState)
       Robot.cargoFolder.setFold(Value.kReverse);
     else
       Robot.cargoFolder.setFold(Value.kForward);
