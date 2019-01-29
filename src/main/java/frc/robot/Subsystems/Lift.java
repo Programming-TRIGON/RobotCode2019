@@ -43,7 +43,11 @@ public class Lift extends JoystickOverridableSubsystem {
   }
 
   /** This function returns the curent state of the potentiometer. */
-  public double getPotentiometer() {
+  public AnalogPotentiometer getPotentiometer() {
+    return this.potentiometer;
+  }
+
+  public double getHeight(){
     return this.potentiometer.get();
   }
 
