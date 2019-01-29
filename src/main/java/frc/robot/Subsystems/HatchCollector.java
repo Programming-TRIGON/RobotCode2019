@@ -27,6 +27,7 @@ public class HatchCollector extends Subsystem {
     this.solenoid.set(value);
   }
 
+
   /**
    * the function folds the motor down/up for getting the hatch or putting it on
    * the hatch holder SS
