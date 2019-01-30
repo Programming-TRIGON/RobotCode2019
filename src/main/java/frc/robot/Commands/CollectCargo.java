@@ -10,13 +10,15 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class setCargoHolder extends Command {
+public class CollectCargo extends Command {
   double power;
   //defines power
-  public setCargoHolder(double power) {
-    //requires cargoCollector SS
+  public CollectCargo(double power) {
+    //requires the cargoCollector
     requires(Robot.cargoCollector);
     this.power = power;
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
@@ -27,14 +29,13 @@ public class setCargoHolder extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //the cargo holder motors turn on 
+    Robot.cargoCollector.setCargoCollectorMotor(power);
     Robot.cargoCollector.setCargoHolderMotors(power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    //the command is finished when the ball is being held
     return Robot.cargoCollector.isHoldingBall();
   }
 

@@ -7,35 +7,39 @@
 
 package frc.robot.Commands;
 
+import org.hamcrest.core.Is;
+import org.junit.rules.Timeout;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class setCargoCollector extends Command {
+public class PushCargo extends Command {
   double power;
   //defines power
-  public setCargoCollector(double power) {
-    //requires the cargoCollector
+  public PushCargo (double power, double timeout) {
+    //requires cargoCollector SS
     requires(Robot.cargoCollector);
     this.power = power;
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    setTimeout(1);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.cargoCollector.setCargoCollectorMotor(power);
+    //the cargo holder motors turn on 
+    Robot.cargoCollector.setCargoHolderMotors(power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.cargoCollector.isHoldingBall();
+    //the command is finished when the ball is being held
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true
