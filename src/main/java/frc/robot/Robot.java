@@ -1,10 +1,6 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Subsystems.HatchCollector;
+import java.util.function.Supplier;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -12,72 +8,93 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
+
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.spikes2212.dashboard.DashBoardController;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
 import frc.robot.Subsystems.CargoFolder;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Subsystems.CargoCollector;
+import frc.robot.Subsystems.CargoFolder;
+import frc.robot.Subsystems.HatchCollector;
+import frc.robot.Subsystems.HatchHolder;
+import frc.robot.Subsystems.Lift;
+import frc.robot.Subsystems.OneEighty;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  public HatchCollector hatchCollector;
 
+  public static HatchCollector hatchCollector;
   public static Lift lift;
-  public HatchHolder hatchHolder;
-  public OneEighty oneEighty;
+  public static HatchHolder hatchHolder;
+  public static OneEighty oneEighty;
   public static CargoCollector cargoCollector;
   public static CargoFolder cargoFolder;
+
+ 
+  public static DashBoardController dbc;
 
   @Override
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
+    Robot.dbc = new DashBoardController();
+
     /** creates the SS htach collector that collects hatch pannels */
-    this.hatchCollector = new HatchCollector(
-        new DoubleSolenoid(RobotMap.HATCH_COLLECTOR_SOLENOID_A, RobotMap.HATCH_COLLECTOR_SOLENOID_B));
+    Robot.hatchCollector = new HatchCollector(RobotComponents.HatchCollector.SOLENOID);
 
     /** defining the subsystem lift that highers the cargo and hatch holders */
-    lift = new Lift(new TalonSRX(RobotMap.LIFT_LEFT_MOTOR), new TalonSRX(RobotMap.LIFT_RIGHT_MOTOR),
-        new DigitalInput(RobotMap.LIFT_BOTTOM_MICRO_SWITCH), new DigitalInput(RobotMap.LIFT_TOP_MICRO_SWITCH),
-        new AnalogPotentiometer(RobotMap.LIFT_POTENTIOMETER, RobotConstants.Sensors.LIFT_POTENTIOMETER_SCALE_FACTOR,
-            RobotConstants.Sensors.LIFT_POTENTOIMETER_OFFSET));
+    Robot.lift = new Lift(RobotComponents.Lift.LIFT_RIGHT_M, RobotComponents.Lift.LIFT_LEFT_M, 
+    RobotComponents.Lift.TOP_SWITCH, RobotComponents.Lift.BOTTOM_SWITCH, RobotComponents.Lift.POT);
     /**
      * creates the new susbsystem with three solenoids, two that extends the whole
      * SS outward one one that catches the hatch
      */
-    this.hatchHolder = new HatchHolder(
-        new DoubleSolenoid(RobotMap.HATCH_HOLDER_PVC_SOLENOID_A, RobotMap.HATCH_HOLDER_PVC_SOLENOID_B),
-        new DoubleSolenoid(RobotMap.HATCH_HOLDER_RIGHT_PUSH_SOLENOID_A, RobotMap.HATCH_HOLDER_RIGHT_PUSH_SOLENOID_B),
-        new DoubleSolenoid(RobotMap.HATCH_HOLDER_LEFT_PUSH_SOLENOID_A, RobotMap.HATCH_HOLDER_LEFT_PUSH_SOLENOID_B));
+    Robot.hatchHolder = new HatchHolder(RobotComponents.HatchHolder.PVC, RobotComponents.HatchHolder.RIGHT_HOLDER, RobotComponents.HatchHolder.LEFT_HOLDER);
+      
     /*
      * creates the SS that turns the subsytems cargo and hatch holder 180 degrees
      */
-    this.oneEighty = new OneEighty(new TalonSRX(RobotMap.ONE_EIGHTY_MOTOR),
-        new AnalogPotentiometer(RobotMap.ONE_EIGHTY_POTENTIOMETER, RobotConstants.POTENTIOMETER_ANGLE_MULTIPLIER,
-            RobotConstants.POTENTIOMETER_OFFSET));
+
+    Robot.oneEighty = new OneEighty(RobotComponents.OneEighty.MOTOR, RobotComponents.OneEighty.POT);
+      
     /*
      * creates the new SS that collects corgo by turning wheels that bring it in
      */
-    this.cargoCollector = new CargoCollector(new TalonSRX(RobotMap.CARGO_COLLECTOR_MOTOR),
-        new VictorSPX(RobotMap.CARGO_COLLECTOR_HOLDER_RIGHT_MOTOR),
-        new VictorSPX(RobotMap.CARGO_COLLECTOR_HOLDER_LEFT_MOTOR), new AnalogInput(0));
+    Robot.cargoCollector = new CargoCollector(RobotComponents.CargoCollector.COLECTOR_MOTOR, 
+    RobotComponents.CargoCollector.RIGHT_HOLDER, RobotComponents.CargoCollector.LEFT_HOLDER, RobotComponents.CargoCollector.COLOR_SENSOR);
     /*
      * creates the SS corgo fold that extends and retracts the whole SS of the cargo
      * collector with it
      */
-    this.cargoFolder = new CargoFolder(
-        new DoubleSolenoid(RobotMap.CARGO_FOLDER_SOLENOID_A, RobotMap.CARGO_FOLDER_SOLENOID_B),
-        new DigitalInput(RobotMap.CARGO_FOLDER_TOP_SWITCH), new DigitalInput(RobotMap.CARGO_FOLDER_BOTTOM_SWITCH));
+    Robot.cargoFolder = new CargoFolder(RobotComponents.CargoFolder.SOLENOID, RobotComponents.CargoFolder.BOTTOM_SWITCH, RobotComponents.CargoFolder.TOP_SWITCH);
+
+    Robot.dbc.addNumber("Drivetrain Gyro", new Supplier<Number>(){
+    
+      @Override
+      public Number get() {
+        return Robot.lift.getHeight();
+      }
+    });
 
   }
 
   @Override
   public void robotPeriodic() {
+    Robot.dbc.update();
   }
 
   @Override

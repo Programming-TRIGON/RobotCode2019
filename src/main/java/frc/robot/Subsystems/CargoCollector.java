@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * A SS that collects the cargo and holds it by turning wheels on top of the
  * cargo and bringing it in.
  */
-public class CargoCollector extends Subsystem {
+public class CargoCollector extends JoystickOverridableSubsystem {
   /** The motor that turns the wheel for bringing in the cargo. */
   private TalonSRX collectorMotor;
 
@@ -24,32 +24,32 @@ public class CargoCollector extends Subsystem {
   private VictorSPX leftHolder, rightHolder;
 
   //TODO: change this to a light sensor and change isHoldingBall respectively. 
-  private AnalogInput sensor;
+  private AnalogInput ballSensor;
 
   public CargoCollector(TalonSRX collectorMotor, VictorSPX rightCargoHolder,
-      VictorSPX leftCargoHolder,AnalogInput AI) {
+      VictorSPX leftCargoHolder, AnalogInput AI) {
     this.collectorMotor = collectorMotor;
     this.leftHolder = leftCargoHolder;
     this.rightHolder = rightCargoHolder;  
-    this.sensor =AI;
+    this.ballSensor = AI;
   }
 
   /**
-   * This function sets the speed at which the cargo collector motor will turn the
+   * This function sets the power at which the cargo collector motor will turn the
    * wheels to bring the cargo into the robot.
    */
-  public void setCargoCollectorMotor(Double speed) {
-    this.collectorMotor.set(ControlMode.PercentOutput, speed);
+  public void setCollectorMotor(double power) {
+    this.collectorMotor.set(ControlMode.PercentOutput, power);
 
   }
 
   /**
-   * This function sets the speed at which the cargo holder motor will turn to
+   * This function sets the power at which the cargo holder motor will turn to
    * bring the cargo into the holder.
    */
-  public void setCargoHolderMotors(Double speed) {
-    this.leftHolder.set(ControlMode.PercentOutput, speed);
-    this.rightHolder.set(ControlMode.PercentOutput, speed);
+  public void setHolderMotors(double power) {
+    this.leftHolder.set(ControlMode.PercentOutput, power);
+    this.rightHolder.set(ControlMode.PercentOutput, power);
   }
   /**
    * This function returns true if the ball is being held
@@ -62,5 +62,10 @@ public class CargoCollector extends Subsystem {
   @Override
   public void initDefaultCommand() {
 
+  }
+
+  @Override
+  public void move(double power) {
+    setCollectorMotor(power);
   }
 }

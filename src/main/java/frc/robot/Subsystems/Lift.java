@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Commands.SetLiftHeight;
 
-public class Lift extends Subsystem {
+public class Lift extends JoystickOverridableSubsystem {
   /** the two motors that turn to higher the lift */
   private TalonSRX leftMotor, rightMotor;
   /** these limit switches make sure the lift doesn't pass the required highet */
@@ -34,8 +34,6 @@ public class Lift extends Subsystem {
     leftMotor.set(ControlMode.PercentOutput, speed); 
     rightMotor.set(ControlMode.PercentOutput, speed);
 
-    
-  
   }
 
   /** This function checks whether the lift has activated the top micro switch. */
@@ -51,7 +49,12 @@ public class Lift extends Subsystem {
   }
 
   /** This function returns the curent state of the potentiometer. */
-  public double getPotentiometerValue() {
+  public AnalogPotentiometer getPotentiometer() {
+    return this.potentiometer;
+  }
+
+  public double getHeight(){
+
     return this.potentiometer.get();
   }
 
@@ -63,5 +66,10 @@ public class Lift extends Subsystem {
   @Override
   public void initDefaultCommand() {
 
+  }
+
+  @Override
+  public void move(double power) {
+    setMotorSpeed(power);
   }
 }
