@@ -60,7 +60,7 @@ public class SetAngle extends Command {
   protected void interrupted() {
     // this function shouldn't be called
     pidController.disable();
-    Robot.oneEighty.setOneEighty(0);
+    pidController.close();
     System.out.println("PID on the oneEigthy has stopped!");
   }
 }
