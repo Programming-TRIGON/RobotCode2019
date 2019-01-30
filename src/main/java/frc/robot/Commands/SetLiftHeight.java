@@ -14,6 +14,7 @@ public class SetLiftHeight extends Command {
   private PIDController pidController;
   private PIDOutput pidOutput;
   private double lastTimeNotOnTarget;
+  private double waitTime;
 
   public SetLiftHeight(double height) {
     requires(Robot.lift);
@@ -47,7 +48,7 @@ public class SetLiftHeight extends Command {
     if (!pidController.onTarget()) {
       lastTimeNotOnTarget = Timer.getFPGATimestamp();
     }
-    if (Timer.getFPGATimestamp() - lastTimeNotOnTarget >= RobotConstants.LIFT_WAIT_TIME)
+    if (Timer.getFPGATimestamp() - lastTimeNotOnTarget >= waitTime)
       return true;
     else
       return false;

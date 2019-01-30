@@ -53,6 +53,5 @@ public class RobotConstants {
     /**
      * the amount of time we want the lift to stay on the target fof the PID to end
      */
-    public static final double LIFT_WAIT_TIME = 1;
 
 }
