@@ -17,8 +17,6 @@ public class setCargoHolder extends Command {
     //requires cargoCollector SS
     requires(Robot.cargoCollector);
     this.power = power;
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
