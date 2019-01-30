@@ -5,7 +5,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Commands.SetLiftHeight;
 
 public class Lift extends JoystickOverridableSubsystem {
   /** the two motors that turn to higher the lift */
@@ -14,6 +16,7 @@ public class Lift extends JoystickOverridableSubsystem {
   private DigitalInput topSwitch, bottomSwitch;
 
   private AnalogPotentiometer potentiometer;
+
 
   public Lift(TalonSRX rightMotor, TalonSRX leftMotor, DigitalInput topwSwitch, DigitalInput bottomSwitch,
       AnalogPotentiometer potentiometer) {
@@ -25,9 +28,12 @@ public class Lift extends JoystickOverridableSubsystem {
   }
 
   /** sets the speed of the motors of the lift to higher/lower it */
-  public void setMotorSpeed(double power) {
-    leftMotor.set(ControlMode.PercentOutput, power);
-    rightMotor.set(ControlMode.PercentOutput, power);
+  public void setMotorSpeed(double speed) {
+    if(speed > 0 && getTopSwitch() || speed < 0 && getBottomSwitch())
+      return;
+    leftMotor.set(ControlMode.PercentOutput, speed); 
+    rightMotor.set(ControlMode.PercentOutput, speed);
+
   }
 
   /** This function checks whether the lift has activated the top micro switch. */
@@ -48,8 +54,14 @@ public class Lift extends JoystickOverridableSubsystem {
   }
 
   public double getHeight(){
+
     return this.potentiometer.get();
   }
+
+  public PIDSource getPotentoimeter() {
+    return this.potentiometer;
+  }
+
 
   @Override
   public void initDefaultCommand() {
