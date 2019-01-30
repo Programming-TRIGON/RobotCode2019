@@ -12,11 +12,13 @@ import frc.robot.Robot;
 
 public class CollectCargo extends Command {
   double power;
+  double power1;
   //defines power
-  public CollectCargo(double power) {
+  public CollectCargo(double power, double power1) {
     //requires the cargoCollector
     requires(Robot.cargoCollector);
     this.power = power;
+    this.power1 = power1;
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -30,7 +32,7 @@ public class CollectCargo extends Command {
   @Override
   protected void execute() {
     Robot.cargoCollector.setCargoCollectorMotor(power);
-    Robot.cargoCollector.setCargoHolderMotors(power);
+    Robot.cargoCollector.setCargoHolderMotors(power1);
   }
 
   // Make this return true when this Command no longer needs to run execute()
