@@ -11,12 +11,16 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class CollectCargo extends Command {
-  double power;
-  //defines power
-  public CollectCargo(double power) {
+  //the power for the collectorMotor.
+  double collectPower;
+  //the power for the holderMotors.
+  double holderPower;
+  
+  public CollectCargo(double collectPower, double holderPower) {
     //requires the cargoCollector
     requires(Robot.cargoCollector);
-    this.power = power;
+    this.collectPower = collectPower;
+    this.holderPower = holderPower;
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -29,8 +33,8 @@ public class CollectCargo extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.cargoCollector.setCargoCollectorMotor(power);
-    Robot.cargoCollector.setCargoHolderMotors(power);
+    Robot.cargoCollector.setCargoCollectorMotor(collectPower);
+    Robot.cargoCollector.setCargoHolderMotors(holderPower);
   }
 
   // Make this return true when this Command no longer needs to run execute()
