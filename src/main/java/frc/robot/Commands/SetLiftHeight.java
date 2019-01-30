@@ -1,14 +1,19 @@
 package frc.robot.Commands;
 
+import com.spikes2212.genericsubsystems.basicSubsystem.BasicSubsystem;
+
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotConstants;
 
 public class SetLiftHeight extends Command {
   private double height;
   private PIDController pidController;
   private PIDOutput pidOutput;
+  private double lastTimeNotOnTarget;
 
   public SetLiftHeight(double height) {
     requires(Robot.lift);
@@ -39,7 +44,14 @@ public class SetLiftHeight extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return pidController.onTarget();
+    if (!pidController.onTarget()) {
+      lastTimeNotOnTarget = Timer.getFPGATimestamp();
+    }
+    if (Timer.getFPGATimestamp() - lastTimeNotOnTarget >= RobotConstants.LIFT_WAIT_TIME)
+      return true;
+    else
+      return false;
+
   }
 
   // Called once after isFinished returns true

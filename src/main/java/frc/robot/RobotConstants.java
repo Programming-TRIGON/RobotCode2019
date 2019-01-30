@@ -4,21 +4,22 @@ package frc.robot;
 public class RobotConstants {
     /** The measurments of the robot */
     public static class RobotDimensions {
-        //TODO set real values
+        // TODO set real values
         /**
          * The diameter (in CM) of the tube in the lift which twists the rope connected
          * to the lift. this is used to caculate the circumference of the tube.
          */
 
-        public final static Double LIFT_TUBE_DIAMETER = 3.447;
+        public final static double LIFT_TUBE_DIAMETER = 3.447;
         /**
          * The circumference (in meters) of the tube in the lift which twists the rope
          * connected to the lift. this is used to caculate the scale fractor used to
          * change the given values from the potentoimeter to CM.
          */
-        public final static Double LIFT_TUBE_CIRCUMFERENCE = LIFT_TUBE_DIAMETER * Math.PI;
+        public final static double LIFT_TUBE_CIRCUMFERENCE = LIFT_TUBE_DIAMETER * Math.PI;
         /** */
-        public final static Double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
+        public final static double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
+
     }
 
     /** constants for sensors on the robot */
@@ -49,5 +50,9 @@ public class RobotConstants {
     // to do change change offset
     /** the angle at which the potentiometer starts */
     public static final double POTENTIOMETER_OFFSET = -180;
+    /**
+     * the amount of time we want the lift to stay on the target fof the PID to end
+     */
+    public static final double LIFT_WAIT_TIME = 1;
 
 }

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Commands.SetLiftHeight;
 
 public class Lift extends Subsystem {
   /** the two motors that turn to higher the lift */
@@ -15,6 +16,7 @@ public class Lift extends Subsystem {
   private DigitalInput topSwitch, bottomSwitch;
 
   private AnalogPotentiometer potentiometer;
+
 
   public Lift(TalonSRX rightMotor, TalonSRX leftMotor, DigitalInput topwSwitch, DigitalInput bottomSwitch,
       AnalogPotentiometer potentiometer) {
@@ -26,9 +28,14 @@ public class Lift extends Subsystem {
   }
 
   /** sets the speed of the motors of the lift to higher/lower it */
-  public void setMotorSpeed(Double speed) {
+  public void setMotorSpeed(double speed) {
+    if(speed > 0 && getTopSwitch() || speed < 0 && getBottomSwitch())
+      return;
     leftMotor.set(ControlMode.PercentOutput, speed); 
     rightMotor.set(ControlMode.PercentOutput, speed);
+
+    
+  
   }
 
   /** This function checks whether the lift has activated the top micro switch. */
@@ -51,6 +58,7 @@ public class Lift extends Subsystem {
   public PIDSource getPotentoimeter() {
     return this.potentiometer;
   }
+
 
   @Override
   public void initDefaultCommand() {
