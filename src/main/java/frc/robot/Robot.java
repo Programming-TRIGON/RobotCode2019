@@ -1,34 +1,19 @@
 package frc.robot;
 
-
 import java.util.function.Supplier;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
 
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.spikes2212.dashboard.DashBoardController;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
 import frc.robot.Subsystems.CargoFolder;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import frc.robot.Subsystems.HatchCollector;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Subsystems.CargoCollector;
-import frc.robot.Subsystems.CargoFolder;
-import frc.robot.Subsystems.HatchCollector;
-import frc.robot.Subsystems.HatchHolder;
-import frc.robot.Subsystems.Lift;
-import frc.robot.Subsystems.OneEighty;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
@@ -43,7 +28,6 @@ public class Robot extends TimedRobot {
   public static CargoCollector cargoCollector;
   public static CargoFolder cargoFolder;
 
- 
   public static DashBoardController dbc;
 
   @Override
@@ -58,33 +42,36 @@ public class Robot extends TimedRobot {
     Robot.hatchCollector = new HatchCollector(RobotComponents.HatchCollector.SOLENOID);
 
     /** defining the subsystem lift that highers the cargo and hatch holders */
-    Robot.lift = new Lift(RobotComponents.Lift.LIFT_RIGHT_M, RobotComponents.Lift.LIFT_LEFT_M, 
-    RobotComponents.Lift.TOP_SWITCH, RobotComponents.Lift.BOTTOM_SWITCH, RobotComponents.Lift.POT);
+    Robot.lift = new Lift(RobotComponents.Lift.LIFT_RIGHT_M, RobotComponents.Lift.LIFT_LEFT_M,
+        RobotComponents.Lift.TOP_SWITCH, RobotComponents.Lift.BOTTOM_SWITCH, RobotComponents.Lift.POT);
     /**
      * creates the new susbsystem with three solenoids, two that extends the whole
      * SS outward one one that catches the hatch
      */
-    Robot.hatchHolder = new HatchHolder(RobotComponents.HatchHolder.PVC, RobotComponents.HatchHolder.RIGHT_HOLDER, RobotComponents.HatchHolder.LEFT_HOLDER);
-      
+    Robot.hatchHolder = new HatchHolder(RobotComponents.HatchHolder.PVC, RobotComponents.HatchHolder.RIGHT_HOLDER,
+        RobotComponents.HatchHolder.LEFT_HOLDER);
+
     /*
      * creates the SS that turns the subsytems cargo and hatch holder 180 degrees
      */
 
     Robot.oneEighty = new OneEighty(RobotComponents.OneEighty.MOTOR, RobotComponents.OneEighty.POT);
-      
+
     /*
      * creates the new SS that collects corgo by turning wheels that bring it in
      */
-    Robot.cargoCollector = new CargoCollector(RobotComponents.CargoCollector.COLECTOR_MOTOR, 
-    RobotComponents.CargoCollector.RIGHT_HOLDER, RobotComponents.CargoCollector.LEFT_HOLDER, RobotComponents.CargoCollector.SWITCH);
+    Robot.cargoCollector = new CargoCollector(RobotComponents.CargoCollector.COLECTOR_MOTOR,
+        RobotComponents.CargoCollector.RIGHT_HOLDER, RobotComponents.CargoCollector.LEFT_HOLDER,
+        RobotComponents.CargoCollector.SWITCH);
     /*
      * creates the SS corgo fold that extends and retracts the whole SS of the cargo
      * collector with it
      */
-    Robot.cargoFolder = new CargoFolder(RobotComponents.CargoFolder.SOLENOID, RobotComponents.CargoFolder.BOTTOM_SWITCH, RobotComponents.CargoFolder.TOP_SWITCH);
+    Robot.cargoFolder = new CargoFolder(RobotComponents.CargoFolder.SOLENOID, RobotComponents.CargoFolder.BOTTOM_SWITCH,
+        RobotComponents.CargoFolder.TOP_SWITCH);
 
-    Robot.dbc.addNumber("Drivetrain Gyro", new Supplier<Number>(){
-    
+    Robot.dbc.addNumber("Drivetrain Gyro", new Supplier<Number>() {
+
       @Override
       public Number get() {
         return Robot.lift.getHeight();
