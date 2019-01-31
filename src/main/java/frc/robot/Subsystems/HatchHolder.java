@@ -1,6 +1,7 @@
 package frc.robot.Subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class HatchHolder extends Subsystem {
@@ -19,15 +20,16 @@ public class HatchHolder extends Subsystem {
    * sets the status of the front solenoid, the one that chatches the Hatch.
    * DoubleSolinoids require "values" that represent off, forward, and reversed.
    */
-  public void setCatch(DoubleSolenoid.Value value) {
+  public void setLock(DoubleSolenoid.Value value) {
     this.pvcSolenoid.set(value);
+    this.pvcSolenoid.set(Value.kOff);
   }
 
   /**
    * sets the status of the rear solenoids, the ones that pushes the SS outwards.
    * DoubleSolinoids require "values" that represent off, forward, and reversed
    */
-  public void setPush(DoubleSolenoid.Value value) {
+  public void setEjection(DoubleSolenoid.Value value) {
     this.leftPushSolenoid.set(value);
     this.rightPushSolenoid.set(value);
   }

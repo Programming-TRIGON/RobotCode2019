@@ -1,5 +1,6 @@
 package frc.robot;
 
+
 import java.util.function.Supplier;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -75,7 +76,7 @@ public class Robot extends TimedRobot {
      * creates the new SS that collects corgo by turning wheels that bring it in
      */
     Robot.cargoCollector = new CargoCollector(RobotComponents.CargoCollector.COLECTOR_MOTOR, 
-    RobotComponents.CargoCollector.RIGHT_HOLDER, RobotComponents.CargoCollector.LEFT_HOLDER, RobotComponents.CargoCollector.COLOR_SENSOR);
+    RobotComponents.CargoCollector.RIGHT_HOLDER, RobotComponents.CargoCollector.LEFT_HOLDER, RobotComponents.CargoCollector.SWITCH);
     /*
      * creates the SS corgo fold that extends and retracts the whole SS of the cargo
      * collector with it

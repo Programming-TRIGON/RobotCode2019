@@ -3,7 +3,6 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -13,7 +12,7 @@ public class RobotComponents {
         public final static TalonSRX COLECTOR_MOTOR = new TalonSRX(RobotMap.CAN.CARGO_COLLECTOR_MOTOR);
         public final static VictorSPX RIGHT_HOLDER = new VictorSPX(RobotMap.CAN.CARGO_COLLECTOR_HOLDER_RIGHT_MOTOR);
         public final static VictorSPX LEFT_HOLDER = new VictorSPX(RobotMap.CAN.CARGO_COLLECTOR_HOLDER_LEFT_MOTOR);
-        public final static AnalogInput COLOR_SENSOR = new AnalogInput(RobotMap.AI.CARGO_COLLECTOR_COLOR);
+        public final static DigitalInput SWITCH = new DigitalInput(RobotMap.DIO.CARGO_COLLECTOR_SWITCH);
     }
 
     static class CargoFolder{
