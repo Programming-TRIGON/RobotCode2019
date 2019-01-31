@@ -43,7 +43,7 @@ public class RobotConstants {
             /**a height that is safe to use OneEighty */
             kOneEightySafety(1),
             /**a height that is safe to fold cargo colleter */
-            kCargoFolderSafety(1);
+
             public double key;
             Height(double height){
                 this.key = height;
