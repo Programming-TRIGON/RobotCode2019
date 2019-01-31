@@ -5,18 +5,20 @@ import frc.robot.Robot;
 
 public class PushCargo extends Command {
   double power;
+  double TIMEOUT;
   //defines power
   public PushCargo (double power) {
     //requires cargoCollector SS
     requires(Robot.cargoCollector);
     this.power = power;
+    this.TIMEOUT = 1;
   }
 
 
 // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    setTimeout(1);
+    setTimeout(TIMEOUT);
   }
 
   @Override

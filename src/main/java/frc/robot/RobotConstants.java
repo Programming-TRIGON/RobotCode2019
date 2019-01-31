@@ -19,13 +19,6 @@ public class RobotConstants {
         public final static double LIFT_TUBE_CIRCUMFERENCE = LIFT_TUBE_DIAMETER * Math.PI;
         /** the potentoimeter gets its initial height for subtracting from the calculations*/
         public final static double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
-        /** the one eighty cannot move at a height */
-        public final static double MINUMAN_ONE_EIGHTY_LIFT_HEIGHT = 8642;
-        /** the one eighty cannot move at a height */
-        public final static double MINUMAN_CARGO_FOLDER_LIFT_HEIGHT = 8622;
-        /**the bottom height of the lift */
-        public final static double BOTTOM_LIFT_HEIGHT = 7244;
-        public final static double ONE_EIGHTY_FORWARD = 360;
         /**
          * the angles which the oneEighty subsystem should do a PID on.
          */
@@ -37,6 +30,23 @@ public class RobotConstants {
             public double key;
             Angle(double angle){
                 this.key = angle;
+            }
+        }
+        public static enum Height{
+            kRocketTopHatch(1),
+            kRocketMiddleHatch(1),
+            kRocketBottomHatch(1),
+            kRocketTopCargo(1),
+            kRocketBottomCargo(1),
+            kRocketMiddleCargo(1),
+            kLiftBottom(1),
+            /**a height that is safe to use OneEighty */
+            kOneEightySafety(1),
+            /**a height that is safe to fold cargo colleter */
+            kCargoFolderSafety(1);
+            public double key;
+            Height(double height){
+                this.key = height;
             }
         }
     }
