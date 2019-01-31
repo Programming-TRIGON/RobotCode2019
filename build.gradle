@@ -46,11 +46,15 @@ repositories {
     url = "https://mymavenrepo.com/repo/fDwN5Fqu32WHQ4GM9lTY/"
     }
     mavenCentral()
+    maven {
+    url = "https://mymavenrepo.com/repo/fDwN5Fqu32WHQ4GM9lTY/"
+}
 }
 
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 4.
 dependencies {
+    compile "com.spikes2212:sl:3.1.2"
     compile wpi.deps.wpilib()
     compile wpi.deps.vendor.java()
     compile "com.spikes2212:sl:3.1.2"

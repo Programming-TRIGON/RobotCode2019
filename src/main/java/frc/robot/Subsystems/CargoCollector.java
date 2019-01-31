@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -22,23 +23,22 @@ public class CargoCollector extends JoystickOverridableSubsystem {
    */
 
   private VictorSPX leftHolder, rightHolder;
-
-  //TODO: change this to a light sensor and change isHoldingBall respectively. 
-  private AnalogInput sensor;
+  private DigitalInput microswitch;
 
   public CargoCollector(TalonSRX collectorMotor, VictorSPX rightCargoHolder,
-      VictorSPX leftCargoHolder,AnalogInput AI) {
+      VictorSPX leftCargoHolder,DigitalInput DI) {
     this.collectorMotor = collectorMotor;
     this.leftHolder = leftCargoHolder;
     this.rightHolder = rightCargoHolder;  
-    this.sensor = AI;
+    this.microswitch = DI;
+
   }
 
   /**
    * This function sets the power at which the cargo collector motor will turn the
    * wheels to bring the cargo into the robot.
    */
-  public void setCargoCollectorMotor(double power) {
+  public void setCollectorMotor(double power) {
     this.collectorMotor.set(ControlMode.PercentOutput, power);
 
   }
@@ -47,7 +47,7 @@ public class CargoCollector extends JoystickOverridableSubsystem {
    * This function sets the power at which the cargo holder motor will turn to
    * bring the cargo into the holder.
    */
-  public void setCargoHolderMotors(double power) {
+  public void setHolderMotors(double power) {
     this.leftHolder.set(ControlMode.PercentOutput, power);
     this.rightHolder.set(ControlMode.PercentOutput, power);
   }
@@ -55,7 +55,7 @@ public class CargoCollector extends JoystickOverridableSubsystem {
    * This function returns true if the ball is being held
    */
   public boolean isHoldingBall(){
-    return false;
+    return this.microswitch.get();
 
   }
 
@@ -66,6 +66,6 @@ public class CargoCollector extends JoystickOverridableSubsystem {
 
   @Override
   public void move(double power) {
-    setCargoCollectorMotor(power);
+    setCollectorMotor(power);
   }
 }

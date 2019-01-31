@@ -33,17 +33,14 @@ public class RobotMap {
     class DIO {
         public static final int LIFT_TOP_MICRO_SWITCH = 0;
         public static final int LIFT_BOTTOM_MICRO_SWITCH = 1;
-
         public final static int CARGO_FOLDER_TOP_SWITCH = 2;
         public final static int CARGO_FOLDER_BOTTOM_SWITCH = 3;
+        public final static int CARGO_COLLECTOR_SWITCH = 4;
     }
 
     class AI {
         public static final int LIFT_POTENTIOMETER = 0;
-
         public final static int ONE_EIGHTY_POTENTIOMETER = 1;
-
-        public final static int CARGO_COLLECTOR_COLOR = 2;
     }
 
 }
