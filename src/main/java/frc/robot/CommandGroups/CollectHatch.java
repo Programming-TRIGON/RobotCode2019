@@ -26,7 +26,7 @@ public class CollectHatch extends CommandGroup {
 
     public CollectHatch(){
 
-        addParallel(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kReset));
+        addParallel(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kLiftBottom));
         addSequential(new SetAngle(RobotConstants.RobotDimensions.Angle.kStraight));
         addSequential(new setHatchCollectorstate(SSDown));
         addSequential(new WaitCommand(1));

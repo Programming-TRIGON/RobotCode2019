@@ -18,11 +18,6 @@ public class SetLiftHeight extends Command {
   public SetLiftHeight(Height finishingHeight) {
     requires(Robot.lift);
     this.height = finishingHeight;
-
-
-  public SetLiftHeight(RobotConstants.RobotDimensions.Height height) {
-    this.height = height.key;
-    requires(Robot.lift);
   }
 
   // Called just before this Command runs the first time
