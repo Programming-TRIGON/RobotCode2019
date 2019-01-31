@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -22,16 +23,15 @@ public class CargoCollector extends JoystickOverridableSubsystem {
    */
 
   private VictorSPX leftHolder, rightHolder;
-
-  //TODO: change this to a light sensor and change isHoldingBall respectively. 
-  private AnalogInput ballSensor;
+  private DigitalInput microswitch;
 
   public CargoCollector(TalonSRX collectorMotor, VictorSPX rightCargoHolder,
-      VictorSPX leftCargoHolder, AnalogInput AI) {
+      VictorSPX leftCargoHolder,DigitalInput DI) {
     this.collectorMotor = collectorMotor;
     this.leftHolder = leftCargoHolder;
     this.rightHolder = rightCargoHolder;  
-    this.ballSensor = AI;
+    this.microswitch = DI;
+
   }
 
   /**
@@ -55,7 +55,7 @@ public class CargoCollector extends JoystickOverridableSubsystem {
    * This function returns true if the ball is being held
    */
   public boolean isHoldingBall(){
-    return false;
+    return this.microswitch.get();
 
   }
 
