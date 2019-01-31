@@ -26,6 +26,7 @@ public class ScoreHatch extends CommandGroup {
 
     public ScoreHatch(double height) {
         this.height = height;
+        
         addSequential(new SetLiftHeight(height));
         addSequential(new SetHatchLock(lockedValue));
         addSequential(new SetHatchEject(push));
