@@ -10,7 +10,7 @@ public class RobotConstants {
          * to the lift. this is used to caculate the circumference of the tube.
          */
 
-        public final static double LIFT_TUBE_DIAMETER = 3.447;
+        public final static Double LIFT_TUBE_DIAMETER = 3.447;
         /**
          * The circumference (in meters) of the tube in the lift which twists the rope
          * connected to the lift. this is used to caculate the scale fractor used to
@@ -20,6 +20,21 @@ public class RobotConstants {
         /** the potentoimeter gets its initial height for subtracting from the calculations*/
         public final static double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
 
+
+        public final static Double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
+        /**
+         * the angles which the oneEighty subsystem should do a PID on.
+         */
+        public static enum Angle{
+            //TODO: Set real angles.
+            kStraight(0),// The cargo collector faces ahead in this angle.  
+            kBack(180),//The cargo collector faces back in this angle.
+            kFeeder(270); //This is the angle in order to collect the hatch from the feeder.
+            public double key;
+            Angle(double angle){
+                this.key = angle;
+            }
+        }
     }
 
     /** constants for sensors on the robot */

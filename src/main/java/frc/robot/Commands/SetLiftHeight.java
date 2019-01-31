@@ -59,7 +59,7 @@ public class SetLiftHeight extends Command {
   @Override
   protected void end() {
     pidController.disable();
-    Robot.lift.setMotorSpeed(0.0);
+    pidController.close();
   }
 
   // Called when another command which requires one or more of the same
