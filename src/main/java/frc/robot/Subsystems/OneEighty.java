@@ -1,5 +1,6 @@
 package frc.robot.Subsystems;
 
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -17,17 +18,17 @@ public class OneEighty extends JoystickOverridableSubsystem {
   private TalonSRX motor;
   private AnalogPotentiometer potentiometer;
   //This supplier checks if the S.S. is high enough to move.
-  private Supplier<Boolean> liftSupplier;
+  private Supplier<Boolean> canRotate;
 
-  public OneEighty(TalonSRX motor, AnalogPotentiometer potentiometer) {
+  public OneEighty(TalonSRX motor, AnalogPotentiometer potentiometer, Supplier<Boolean> canRotate){
     this.motor = motor;
     this.potentiometer = potentiometer;
-    liftSupplier = () -> Robot.lift.getHeight() >= RobotConstants.oneEighty.MINIMUM_HEIGHT;
+    this.canRotate = canRotate;
   } 
 
   /** turns the SS to where the driver wants it */
   public void setOneEighty(double power) {
-    if(liftSupplier.get())
+    if(canRotate.get())
       this.motor.set(ControlMode.PercentOutput, power);
   }
 

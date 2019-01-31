@@ -70,7 +70,11 @@ public class Robot extends TimedRobot {
      * creates the SS that turns the subsytems cargo and hatch holder 180 degrees
      */
 
-    Robot.oneEighty = new OneEighty(RobotComponents.OneEighty.MOTOR, RobotComponents.OneEighty.POT);
+    Robot.oneEighty = new OneEighty(RobotComponents.OneEighty.MOTOR, RobotComponents.OneEighty.POT, 
+    () -> {
+      return Robot.lift.getHeight() >= RobotConstants.oneEighty.MINIMUM_HEIGHT;
+    }
+      );
       
     /*
      * creates the new SS that collects corgo by turning wheels that bring it in
