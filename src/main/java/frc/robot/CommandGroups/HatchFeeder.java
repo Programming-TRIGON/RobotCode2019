@@ -24,7 +24,7 @@ public class HatchFeeder extends CommandGroup {
     public HatchFeeder() {
         
         addParallel(new SetAngle(RobotConstants.RobotDimensions.Angle.kStraight));
-        addSequential(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kReset));
+        addSequential(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kLiftBottom));
         addSequential(new SetHatchLock(unlock));
     }
 }

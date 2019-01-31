@@ -21,7 +21,6 @@ public class EjectHatch extends CommandGroup{
     Value unlock = Value.kReverse;
     Value extend = Value.kForward;
     Value retract = Value.kReverse;
-    double angle;
 
     public EjectHatch(){
 

@@ -15,6 +15,8 @@ import frc.robot.Commands.SetAngle;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
+import frc.robot.RobotConstants.RobotDimensions.Angle;
+import frc.robot.RobotConstants.RobotDimensions.Height;
 /**
  * Add your docs here.
  */
@@ -22,18 +24,18 @@ public class ScoreHatch extends CommandGroup{
     private Value lockedValue = Value.kReverse;
     private Value push = Value.kForward;
     private Value retract = Value.kReverse;
-    private double startingHeight = 1.0;
-    private double height, angle; 
+    private Height height;
+    private Angle angle; 
 
-    public ScoreHatch(RobotConstants.RobotDimensions.Height height, RobotConstants.RobotDimensions.Angle angle) {
-        this.height = height.key;
-        this.angle = angle.key;
+    public ScoreHatch(Height height, Angle angle) {
+        this.height = height;
+        this.angle = angle;
 
-        addParallel(new SetAngle(angle));
-        addSequential(new SetLiftHeight(height));
-        addSequential(new SetHatchLock(lockedValue));
-        addSequential(new SetHatchEject(push));
-        addSequential(new SetHatchEject(retract));
-        addSequential(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kReset));
+        addParallel(new SetAngle(this.angle));
+        addSequential(new SetLiftHeight(this.height));
+        addSequential(new SetHatchLock(this.lockedValue));
+        addSequential(new SetHatchEject(this.push));
+        addSequential(new SetHatchEject(this.retract));
+        addSequential(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kLiftBottom));
     }
 }
