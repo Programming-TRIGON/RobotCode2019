@@ -34,6 +34,17 @@ public class RobotConstants {
                 this.key = angle;
             }
         }
+        public static enum Height{
+            //TODO: Set real heights.
+            kRocket1(1),// The height of the first cargo hole on the rocket.  
+            kRocket2(2),//The height of the second cargo.
+            kRocket3(3), //The third height.
+            kReset(1);// The bottom of the lift.
+            public double key;
+            Height(double height){
+                this.key = height;
+            }
+        }
     }
 
     /** constants for sensors on the robot */

@@ -9,28 +9,27 @@ package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.RobotConstants;
 import frc.robot.Commands.SetAngle;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.Commands.setHatchCollectorstate;
-
+import edu.wpi.first.wpilibj.command.WaitCommand;
 /**
  * Add your docs here.
  */
 public class CollectHatch extends CommandGroup {
-    private double liftHeight, angle;
     //TODO switch to the correct values for the go down and up
     private boolean SSDown = true;
     private boolean SSUp;
     private Value lock = Value.kForward;
 
-    public CollectHatch(double liftHeight, double angle){
-        this.liftHeight = liftHeight;
-        this.angle = angle;
+    public CollectHatch(){
 
-        addParallel(new SetLiftHeight(liftHeight));
-        addSequential(new SetAngle(angle));
+        addParallel(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kReset));
+        addSequential(new SetAngle(RobotConstants.RobotDimensions.Angle.kStraight));
         addSequential(new setHatchCollectorstate(SSDown));
+        addSequential(new WaitCommand(1));
         addSequential(new setHatchCollectorstate(SSUp));
         addSequential(new SetHatchLock(lock));
     }

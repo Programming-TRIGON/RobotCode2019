@@ -1,6 +1,5 @@
 package frc.robot.Commands;
 
-import com.spikes2212.genericsubsystems.basicSubsystem.BasicSubsystem;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -19,7 +18,11 @@ public class SetLiftHeight extends Command {
   public SetLiftHeight(double height) {
     requires(Robot.lift);
     this.height = height;
+  }
 
+  public SetLiftHeight(RobotConstants.RobotDimensions.Height height) {
+    this.height = height.key;
+    requires(Robot.lift);
   }
 
   // Called just before this Command runs the first time
