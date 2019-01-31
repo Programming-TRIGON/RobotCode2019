@@ -21,7 +21,6 @@ public class RobotConstants {
         public final static double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
 
 
-        public final static Double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
         /**
          * the angles which the oneEighty subsystem should do a PID on.
          */

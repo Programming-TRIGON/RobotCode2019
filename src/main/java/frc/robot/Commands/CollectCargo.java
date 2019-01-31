@@ -33,8 +33,8 @@ public class CollectCargo extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.cargoCollector.setCargoCollectorMotor(collectPower);
-    Robot.cargoCollector.setCargoHolderMotors(holderPower);
+    Robot.cargoCollector.setCollectorMotor(collectPower);
+    Robot.cargoCollector.setHolderMotors(holderPower);
   }
 
   // Make this return true when this Command no longer needs to run execute()

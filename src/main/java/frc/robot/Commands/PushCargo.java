@@ -32,7 +32,7 @@ public class PushCargo extends Command {
   @Override
   protected void execute() {
     //the cargo holder motors turn on 
-    Robot.cargoCollector.setCargoHolderMotors(power);
+    Robot.cargoCollector.setHolderMotors(power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
