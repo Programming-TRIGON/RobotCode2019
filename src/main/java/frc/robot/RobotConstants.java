@@ -2,6 +2,11 @@ package frc.robot;
 
 /** a class used to store constants related to the robot */
 public class RobotConstants {
+    //oneEighty constants
+    public static class oneEighty{
+        // TODO set real height
+        public static final double MINIMUM_HEIGHT = 1;
+    }
     /** The measurments of the robot */
     public static class RobotDimensions {
         // TODO set real values
