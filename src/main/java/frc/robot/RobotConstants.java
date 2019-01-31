@@ -19,6 +19,12 @@ public class RobotConstants {
         public final static double LIFT_TUBE_CIRCUMFERENCE = LIFT_TUBE_DIAMETER * Math.PI;
         /** the potentoimeter gets its initial height for subtracting from the calculations*/
         public final static double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
+        /** the one eighty cannot move at a height */
+        public final static double MINUMAN_ONE_EIGHTY_LIFT_HEIGHT = 8642;
+        /** the one eighty cannot move at a height */
+        public final static double MINUMAN_CARGO_FOLDER_LIFT_HEIGHT = 8622;
+        /**the bottom height of the lift */
+        public final static double BOTTOM_LIFT_HEIGHT = 7244;
 
 
         /**
@@ -60,10 +66,10 @@ public class RobotConstants {
     /**
      * The value at which the potentiometer will multiply the fraction it returns
      */
-    public static final double POTENTIOMETER_ANGLE_MULTIPLIER = 360;
+    public static final double ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER = 360;
     // to do change change offset
     /** the angle at which the potentiometer starts */
-    public static final double POTENTIOMETER_OFFSET = -180;
+    public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET = -180;
     /**
      * the amount of time we want the lift to stay on the target fof the PID to end
      */

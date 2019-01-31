@@ -1,13 +1,10 @@
 package frc.robot.Commands;
 
-import com.spikes2212.genericsubsystems.basicSubsystem.BasicSubsystem;
-
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotConstants;
 
 public class SetLiftHeight extends Command {
   private double height;
