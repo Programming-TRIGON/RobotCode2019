@@ -9,6 +9,7 @@ package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.Commands.SetAngle;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
@@ -21,12 +22,14 @@ public class ScoreHatch extends CommandGroup {
     private Value lockedValue = Value.kReverse;
     private Value push = Value.kForward;
     private Value retract = Value.kReverse;
-    private double height;
+    private double height, angle;
     private double startingHeight = 1;
 
-    public ScoreHatch(double height) {
+    public ScoreHatch(double height, double angle) {
         this.height = height;
-        
+        this.angle = angle;
+
+        addParallel(new SetAngle(angle));
         addSequential(new SetLiftHeight(height));
         addSequential(new SetHatchLock(lockedValue));
         addSequential(new SetHatchEject(push));
