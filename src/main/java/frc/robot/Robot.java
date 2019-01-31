@@ -1,9 +1,21 @@
 package frc.robot;
 
+import java.util.function.Supplier;
+
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DigitalInput;
+import frc.robot.Subsystems.Lift;
+import frc.robot.Subsystems.OneEighty;
+
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.spikes2212.dashboard.DashBoardController;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import frc.robot.Subsystems.CargoCollector;
+import frc.robot.Subsystems.HatchHolder;
+import frc.robot.Subsystems.CargoFolder;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -29,13 +41,17 @@ public class Robot extends TimedRobot {
   public static OneEighty oneEighty;
   public static CargoCollector cargoCollector;
   public static CargoFolder cargoFolder;
+
  
+  public static DashBoardController dbc;
 
   @Override
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
+    Robot.dbc = new DashBoardController();
 
     /** creates the SS htach collector that collects hatch pannels */
     Robot.hatchCollector = new HatchCollector(RobotComponents.HatchCollector.SOLENOID);
@@ -52,6 +68,7 @@ public class Robot extends TimedRobot {
     /*
      * creates the SS that turns the subsytems cargo and hatch holder 180 degrees
      */
+
     Robot.oneEighty = new OneEighty(RobotComponents.OneEighty.MOTOR, RobotComponents.OneEighty.POT);
       
     /*
@@ -65,10 +82,19 @@ public class Robot extends TimedRobot {
      */
     Robot.cargoFolder = new CargoFolder(RobotComponents.CargoFolder.SOLENOID, RobotComponents.CargoFolder.BOTTOM_SWITCH, RobotComponents.CargoFolder.TOP_SWITCH);
 
+    Robot.dbc.addNumber("Drivetrain Gyro", new Supplier<Number>(){
+    
+      @Override
+      public Number get() {
+        return Robot.lift.getHeight();
+      }
+    });
+
   }
 
   @Override
   public void robotPeriodic() {
+    Robot.dbc.update();
   }
 
   @Override

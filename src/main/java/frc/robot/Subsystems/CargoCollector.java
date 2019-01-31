@@ -31,13 +31,14 @@ public class CargoCollector extends JoystickOverridableSubsystem {
     this.leftHolder = leftCargoHolder;
     this.rightHolder = rightCargoHolder;  
     this.microswitch = DI;
+
   }
 
   /**
    * This function sets the power at which the cargo collector motor will turn the
    * wheels to bring the cargo into the robot.
    */
-  public void setCargoCollectorMotor(double power) {
+  public void setCollectorMotor(double power) {
     this.collectorMotor.set(ControlMode.PercentOutput, power);
 
   }
@@ -46,7 +47,7 @@ public class CargoCollector extends JoystickOverridableSubsystem {
    * This function sets the power at which the cargo holder motor will turn to
    * bring the cargo into the holder.
    */
-  public void setCargoHolderMotors(double power) {
+  public void setHolderMotors(double power) {
     this.leftHolder.set(ControlMode.PercentOutput, power);
     this.rightHolder.set(ControlMode.PercentOutput, power);
   }
@@ -65,6 +66,6 @@ public class CargoCollector extends JoystickOverridableSubsystem {
 
   @Override
   public void move(double power) {
-    setCargoCollectorMotor(power);
+    setCollectorMotor(power);
   }
 }

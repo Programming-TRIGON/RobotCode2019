@@ -7,46 +7,42 @@
 
 package frc.robot.Commands;
 
-import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotConstants;
 
-public class SetAngle extends Command {
-  PIDController pidController;
-  double angle;
-
+public class SetCargoFolderState extends Command {
+  private boolean folderState;
   /**
    * 
-   * @param angle the angle the SS seeks
+   * @param fold Folds if true, otherwise unfolds.
    */
-  public SetAngle(double angle) {
-    this.angle = angle;
-    requires(Robot.oneEighty);
-  }
-
-  public SetAngle(RobotConstants.RobotDimensions.Angle angle) {
-    this.angle = angle.key;
-    requires(Robot.oneEighty);
+  public SetCargoFolderState(boolean folderState) {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(Robot.cargoFolder);
+    this.folderState = folderState;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    // setting up the PID
-    this.pidController = new PIDController(0.2, 0, 0, Robot.oneEighty.getPotentiometer(),
-        (output) -> Robot.oneEighty.setOneEighty(output), 0.05);
-    pidController.setAbsoluteTolerance(0.01);
-    pidController.setSetpoint(angle);
-    pidController.setOutputRange(-1, 1);
-    pidController.enable();
+    // Folds/unfolds based on the fold parameter. 
+    if(folderState)
+      Robot.cargoFolder.setFold(Value.kReverse);
+    else
+      Robot.cargoFolder.setFold(Value.kForward);
+  }
 
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
@@ -58,9 +54,5 @@ public class SetAngle extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    // this function shouldn't be called
-    pidController.disable();
-    pidController.close();
-    System.out.println("PID on the oneEigthy has stopped!");
   }
 }
