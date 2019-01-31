@@ -17,7 +17,9 @@ public class RobotConstants {
          * change the given values from the potentoimeter to CM.
          */
         public final static double LIFT_TUBE_CIRCUMFERENCE = LIFT_TUBE_DIAMETER * Math.PI;
-        /** */
+        /** the potentoimeter gets its initial height for subtracting from the calculations*/
+        public final static double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
+
 
         public final static Double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
         /**
