@@ -25,8 +25,7 @@ public class RobotConstants {
         public final static double MINUMAN_CARGO_FOLDER_LIFT_HEIGHT = 8622;
         /**the bottom height of the lift */
         public final static double BOTTOM_LIFT_HEIGHT = 7244;
-
-
+        public final static double ONE_EIGHTY_FORWARD = 360;
         /**
          * the angles which the oneEighty subsystem should do a PID on.
          */
