@@ -18,7 +18,7 @@ public class HatchCollector extends Subsystem {
   }
 
   /**
-   * sets the stat
+   * sets the state
    * us of the solenoid. DoubleSolenoids require "values" that
    * represent off, forward, and reversed, the function sets the value of the
    * solenoid to fold down/up for getiing the hatch or putting it on the hatch

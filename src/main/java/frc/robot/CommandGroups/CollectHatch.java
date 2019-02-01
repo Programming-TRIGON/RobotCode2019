@@ -13,7 +13,7 @@ import frc.robot.RobotConstants;
 import frc.robot.Commands.SetAngle;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
-import frc.robot.Commands.setHatchCollectorstate;
+import frc.robot.Commands.setHatchCollectorState;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 /**
  * Add your docs here.
@@ -21,16 +21,15 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class CollectHatch extends CommandGroup {
     //TODO switch to the correct values for the go down and up
     private boolean SSDown = true;
-    private boolean SSUp;
     private Value lock = Value.kForward;
 
     public CollectHatch(){
 
         addParallel(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kLiftBottom));
         addSequential(new SetAngle(RobotConstants.RobotDimensions.Angle.kStraight));
-        addSequential(new setHatchCollectorstate(SSDown));
+        addSequential(new setHatchCollectorState(SSDown));
         addSequential(new WaitCommand(1));
-        addSequential(new setHatchCollectorstate(SSUp));
+        addSequential(new setHatchCollectorState(!SSDown));
         addSequential(new SetHatchLock(lock));
     }
 }

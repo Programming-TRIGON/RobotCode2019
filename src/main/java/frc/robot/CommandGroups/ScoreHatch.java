@@ -21,19 +21,17 @@ import frc.robot.RobotConstants.RobotDimensions.Height;
  * Add your docs here.
  */
 public class ScoreHatch extends CommandGroup{
-    private Value lockedValue = Value.kReverse;
+    private Value unlockedValue = Value.kReverse;
     private Value push = Value.kForward;
     private Value retract = Value.kReverse;
-    private Height height;
-    private Angle angle; 
+    private Height height; 
 
-    public ScoreHatch(Height height, Angle angle) {
+    public ScoreHatch(Height height) {
         this.height = height;
-        this.angle = angle;
 
-        addParallel(new SetAngle(this.angle));
+        addParallel(new SetAngle(RobotConstants.RobotDimensions.Angle.kStraight));
         addSequential(new SetLiftHeight(this.height));
-        addSequential(new SetHatchLock(this.lockedValue));
+        addSequential(new SetHatchLock(this.unlockedValue));
         addSequential(new SetHatchEject(this.push));
         addSequential(new SetHatchEject(this.retract));
         addSequential(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kLiftBottom));

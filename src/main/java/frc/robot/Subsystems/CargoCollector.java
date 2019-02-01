@@ -7,8 +7,9 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
- * A SS that collects the cargo and holds it by turning wheels on top of the
- * cargo and bringing it in.
+ * This subsystem contains:
+ *    - The roller that collects the cargo from the top
+ *    - The wheels that hold the cargo in the 180 lift
  */
 public class CargoCollector extends JoystickOverridableSubsystem {
   /** The motor that turns the wheel for bringing in the cargo. */
@@ -20,11 +21,11 @@ public class CargoCollector extends JoystickOverridableSubsystem {
    * the cargo out of them.
    */
 
-  private VictorSPX leftHolder, rightHolder;
+  private TalonSRX leftHolder, rightHolder; 
   private DigitalInput microswitch;
 
-  public CargoCollector(TalonSRX collectorMotor, VictorSPX rightCargoHolder,
-      VictorSPX leftCargoHolder,DigitalInput DI) {
+  public CargoCollector(TalonSRX collectorMotor, TalonSRX rightCargoHolder,
+      TalonSRX leftCargoHolder,DigitalInput DI) {
     this.collectorMotor = collectorMotor;
     this.leftHolder = leftCargoHolder;
     this.rightHolder = rightCargoHolder;  
@@ -54,7 +55,6 @@ public class CargoCollector extends JoystickOverridableSubsystem {
    */
   public boolean isHoldingBall(){
     return this.microswitch.get();
-
   }
 
   @Override

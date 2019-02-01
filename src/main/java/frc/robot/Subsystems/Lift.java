@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PIDSource;
 
 public class Lift extends JoystickOverridableSubsystem {
-  /** the two motors that turn to higher the lift */
+  /** Motors to raise/lower the lift */
   private TalonSRX leftMotor, rightMotor;
-  /** these limit switches make sure the lift doesn't pass the required highet */
+  /** Top and bottom limit switches */
   private DigitalInput topSwitch, bottomSwitch;
 
   private AnalogPotentiometer potentiometer;
@@ -27,7 +27,7 @@ public class Lift extends JoystickOverridableSubsystem {
 
   /** sets the speed of the motors of the lift to higher/lower it */
   public void setMotorSpeed(double speed) {
-    if(speed > 0 && getTopSwitch() || speed < 0 && getBottomSwitch())
+    if(speed > 0 && isAtTop() || speed < 0 && isAtBottom())
       return;
     leftMotor.set(ControlMode.PercentOutput, speed); 
     rightMotor.set(ControlMode.PercentOutput, speed);
@@ -35,14 +35,14 @@ public class Lift extends JoystickOverridableSubsystem {
   }
 
   /** This function checks whether the lift has activated the top micro switch. */
-  public boolean getTopSwitch() {
+  public boolean isAtTop() {
     return topSwitch.get();
   }
 
   /**
    * This function checks whether the lift has activated the botton micro switch.
    */
-  public boolean getBottomSwitch() {
+  public boolean isAtBottom() {
     return bottomSwitch.get();
   }
 
@@ -52,14 +52,8 @@ public class Lift extends JoystickOverridableSubsystem {
   }
 
   public double getHeight(){
-
     return this.potentiometer.get();
   }
-
-  public PIDSource getPotentoimeter() {
-    return this.potentiometer;
-  }
-
 
   @Override
   public void initDefaultCommand() {

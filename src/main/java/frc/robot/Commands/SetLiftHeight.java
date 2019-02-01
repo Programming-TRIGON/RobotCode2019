@@ -28,7 +28,7 @@ public class SetLiftHeight extends Command {
         Robot.lift.setMotorSpeed(output);
       }
     };
-    this.pidController = new PIDController(0.2, 0, 0, Robot.lift.getPotentoimeter(), this.pidOutput, 0.05);
+    this.pidController = new PIDController(0.2, 0, 0, Robot.lift.getPotentiometer(), this.pidOutput, 0.05);
     pidController.setAbsoluteTolerance(1);
     pidController.setSetpoint(height.key);
     pidController.setOutputRange(-1, 1);
