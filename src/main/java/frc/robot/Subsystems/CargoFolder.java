@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/** Folds the whole SS of the cargo collector */
+/** Folds and unfolds the cargo collector roller */
 public class CargoFolder extends Subsystem {
   /** This motor group connects the two motors that bring the SS up and down */
   private DoubleSolenoid solenoid;
@@ -22,11 +22,11 @@ public class CargoFolder extends Subsystem {
     this.solenoid.set(value);
   }
 
-  public boolean bottomSwitchIsClicked() {
+  public boolean isUnfolded() {
     return bottomSwitch.get();
   }
 
-  public boolean topSwitchIsClicked() {
+  public boolean isFolded() {
     return topSwitch.get();
   }
 
