@@ -9,13 +9,13 @@ import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.RobotDimensions.Angle;
 import frc.robot.RobotConstants.RobotDimensions.Height;
 
-public class CargoCollectProcedure extends CommandGroup {
+public class CargoCollectCmdG extends CommandGroup {
   Angle angle = RobotConstants.RobotDimensions.Angle.kStraight;
   double COLLECTOR_POWER = 0.5;
   double HOLDER_POWER = 0.7;
   Height height;
 //TODO: real values.
-  public CargoCollectProcedure() {
+  public CargoCollectCmdG() {
     this.height = RobotConstants.RobotDimensions.Height.kLiftBottom;
     /** starts by unfolding the crago collecter */
     addSequential(new SetCargoFolderState(false));

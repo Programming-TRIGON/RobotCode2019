@@ -1,6 +1,5 @@
 package frc.robot.Commands;
 
-
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Timer;
@@ -18,6 +17,7 @@ public class SetLiftHeight extends Command {
   public SetLiftHeight(Height finishingHeight) {
     requires(Robot.lift);
     this.height = finishingHeight;
+
   }
 
   // Called just before this Command runs the first time
