@@ -48,8 +48,7 @@ public class Robot extends TimedRobot {
      * creates the new susbsystem with three solenoids, two that extends the whole
      * SS outward one one that catches the hatch
      */
-    Robot.hatchHolder = new HatchHolder(RobotComponents.HatchHolder.PVC, RobotComponents.HatchHolder.RIGHT_HOLDER,
-        RobotComponents.HatchHolder.LEFT_HOLDER);
+    Robot.hatchHolder = new HatchHolder(RobotComponents.HatchHolder.PVC, RobotComponents.HatchHolder.PUSH_SOLENOID);
 
     /*
      * creates the SS that turns the subsytems cargo and hatch holder 180 degrees
@@ -70,13 +69,7 @@ public class Robot extends TimedRobot {
     Robot.cargoFolder = new CargoFolder(RobotComponents.CargoFolder.SOLENOID, RobotComponents.CargoFolder.BOTTOM_SWITCH,
         RobotComponents.CargoFolder.TOP_SWITCH);
 
-    Robot.dbc.addNumber("Drivetrain Gyro", new Supplier<Number>() {
-
-      @Override
-      public Number get() {
-        return Robot.lift.getHeight();
-      }
-    });
+    Robot.dbc.addNumber("Drivetrain Gyro", Robot.lift::getHeight);
 
   }
 

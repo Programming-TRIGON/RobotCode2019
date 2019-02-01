@@ -21,13 +21,11 @@ public class RobotMap {
         public final static int HATCH_HOLDER_PVC_SOLENOID_A = 2;
         public final static int HATCH_HOLDER_PVC_SOLENOID_B = 3;
 
-        public final static int HATCH_HOLDER_LEFT_PUSH_SOLENOID_A = 4;
-        public final static int HATCH_HOLDER_LEFT_PUSH_SOLENOID_B = 5;
-        public final static int HATCH_HOLDER_RIGHT_PUSH_SOLENOID_A = 6;
-        public final static int HATCH_HOLDER_RIGHT_PUSH_SOLENOID_B = 7;
+        public final static int HATCH_HOLDER_PUSH_SOLENOID_A = 4;
+        public final static int HATCH_HOLDER_PUSH_SOLENOID_B = 5;
 
-        public final static int CARGO_FOLDER_SOLENOID_A = 8;
-        public final static int CARGO_FOLDER_SOLENOID_B = 9;
+        public final static int CARGO_FOLDER_SOLENOID_A = 7;
+        public final static int CARGO_FOLDER_SOLENOID_B = 8;
     }
 
     class DIO {

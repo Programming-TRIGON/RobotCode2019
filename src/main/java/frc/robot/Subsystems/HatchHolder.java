@@ -8,12 +8,11 @@ public class HatchHolder extends Subsystem {
   /** this solenoid opens a pvc to catch the hatch */
   private DoubleSolenoid pvcSolenoid;
   /** these solenoids push the mechanism farword to chatch the hatch */
-  private DoubleSolenoid rightPushSolenoid, leftPushSolenoid;
+  private DoubleSolenoid pushSolenoid;
 
-  public HatchHolder(DoubleSolenoid pvcSolenoid, DoubleSolenoid rightPushSolenoid, DoubleSolenoid leftPushSolenoid) {
+  public HatchHolder(DoubleSolenoid pvcSolenoid, DoubleSolenoid pushSolenoid) {
     this.pvcSolenoid = pvcSolenoid;
-    this.rightPushSolenoid = rightPushSolenoid;
-    this.leftPushSolenoid = leftPushSolenoid;
+    this.pushSolenoid = pushSolenoid;
   }
 
   /**
@@ -30,8 +29,7 @@ public class HatchHolder extends Subsystem {
    * DoubleSolinoids require "values" that represent off, forward, and reversed
    */
   public void setEjection(DoubleSolenoid.Value value) {
-    this.leftPushSolenoid.set(value);
-    this.rightPushSolenoid.set(value);
+    this.pushSolenoid.set(value);
   }
 
   @Override

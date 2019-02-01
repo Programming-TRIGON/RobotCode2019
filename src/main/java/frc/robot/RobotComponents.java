@@ -29,10 +29,8 @@ public class RobotComponents {
 
     static class HatchHolder{
         public final static DoubleSolenoid PVC = new DoubleSolenoid(RobotMap.PCM.HATCH_HOLDER_PVC_SOLENOID_A, RobotMap.PCM.HATCH_HOLDER_PVC_SOLENOID_B);
-        public final static DoubleSolenoid RIGHT_HOLDER = new DoubleSolenoid(RobotMap.PCM.HATCH_HOLDER_RIGHT_PUSH_SOLENOID_A, 
-        RobotMap.PCM.HATCH_HOLDER_RIGHT_PUSH_SOLENOID_B);
-        public final static DoubleSolenoid LEFT_HOLDER = new DoubleSolenoid(RobotMap.PCM.HATCH_HOLDER_LEFT_PUSH_SOLENOID_A, 
-        RobotMap.PCM.HATCH_HOLDER_LEFT_PUSH_SOLENOID_B);
+        public final static DoubleSolenoid PUSH_SOLENOID = new DoubleSolenoid(RobotMap.PCM.HATCH_HOLDER_PUSH_SOLENOID_A, 
+        RobotMap.PCM.HATCH_HOLDER_PUSH_SOLENOID_B);
     }
 
     static class HatchCollector{
