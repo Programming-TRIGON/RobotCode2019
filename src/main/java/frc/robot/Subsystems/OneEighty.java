@@ -18,17 +18,17 @@ public class OneEighty extends JoystickOverridableSubsystem {
   private TalonSRX motor;
   private AnalogPotentiometer potentiometer;
   //This supplier checks if the S.S. is high enough to move.
-  private Supplier<Boolean> canRotate;
+  private Supplier<Number> heightSupplier;
 
-  public OneEighty(TalonSRX motor, AnalogPotentiometer potentiometer, Supplier<Boolean> canRotate){
+  public OneEighty(TalonSRX motor, AnalogPotentiometer potentiometer, Supplier<Number> heightSupplier){
     this.motor = motor;
     this.potentiometer = potentiometer;
-    this.canRotate = canRotate;
+    this.heightSupplier = heightSupplier;
   } 
 
   /** turns the SS to where the driver wants it */
   public void setOneEighty(double power) {
-    if(canRotate.get())
+    if((double)heightSupplier.get() >= RobotConstants.oneEighty.MINIMUM_HEIGHT) 
       this.motor.set(ControlMode.PercentOutput, power);
   }
 

@@ -7,36 +7,40 @@
 
 package frc.robot.Commands;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class PushCargo extends Command {
-  double power;
-  //defines power
-  public PushCargo (double power, double timeout) {
-    //requires cargoCollector SS
-    requires(Robot.cargoCollector);
-    this.power = power;
+public class setHatchCollectorState extends Command {
+  private boolean state;
+
+  public setHatchCollectorState(boolean state) {
+    requires(Robot.hatchCollector);
+    this.state = state;
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    setTimeout(1);
+    //see at what state it is at, if it's reverse it's true, otherwise false.
+    if (state)
+      Robot.hatchCollector.setSolenoid(Value.kReverse);
+    else
+      Robot.hatchCollector.setSolenoid(Value.kForward);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //the cargo holder motors turn on 
-    Robot.cargoCollector.setHolderMotors(power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    //the command is finished when the ball is being held
-    return isTimedOut();
+    //is always true
+    return true;
   }
 
   // Called once after isFinished returns true
