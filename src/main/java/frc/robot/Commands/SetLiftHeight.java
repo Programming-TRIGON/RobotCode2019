@@ -1,24 +1,22 @@
 package frc.robot.Commands;
 
-import com.spikes2212.genericsubsystems.basicSubsystem.BasicSubsystem;
-
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotConstants;
+import frc.robot.RobotConstants.RobotDimensions.Height;
 
 public class SetLiftHeight extends Command {
-  private double height;
+  private Height height;
   private PIDController pidController;
   private PIDOutput pidOutput;
   private double lastTimeNotOnTarget;
   private double waitTime;
 
-  public SetLiftHeight(double height) {
+  public SetLiftHeight(Height finishingHeight) {
     requires(Robot.lift);
-    this.height = height;
+    this.height = finishingHeight;
 
   }
 
@@ -32,7 +30,7 @@ public class SetLiftHeight extends Command {
     };
     this.pidController = new PIDController(0.2, 0, 0, Robot.lift.getPotentoimeter(), this.pidOutput, 0.05);
     pidController.setAbsoluteTolerance(1);
-    pidController.setSetpoint(height);
+    pidController.setSetpoint(height.key);
     pidController.setOutputRange(-1, 1);
     pidController.enable();
   }

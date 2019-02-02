@@ -24,7 +24,7 @@ public class RobotComponents {
     static class OneEighty{
         public final static TalonSRX MOTOR = new TalonSRX(RobotMap.CAN.ONE_EIGHTY_MOTOR);
         public final static AnalogPotentiometer POT = new AnalogPotentiometer(RobotMap.AI.ONE_EIGHTY_POTENTIOMETER,
-            RobotConstants.POTENTIOMETER_ANGLE_MULTIPLIER, RobotConstants.POTENTIOMETER_OFFSET);
+            RobotConstants.ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER, RobotConstants.ONE_EIGHTY_POTENTIOMETER_OFFSET);
     }
 
     static class HatchHolder{
