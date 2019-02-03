@@ -22,7 +22,7 @@ public class RobotComponents {
 
     static class OneEighty{
         public final static TalonSRX MOTOR = new TalonSRX(RobotMap.CAN.ONE_EIGHTY_MOTOR);
-        public final static AnalogPotentiometer POT = new AnalogPotentiometer(RobotMap.AI.ONE_EIGHTY_POTENTIOMETER,
+        public final static AnalogPotentiometer POT = new AnalogPotentiometer(RobotMap.ANALOG_INPUT.ONE_EIGHTY_POTENTIOMETER,
             RobotConstants.ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER, RobotConstants.ONE_EIGHTY_POTENTIOMETER_OFFSET);
     }
 
@@ -41,7 +41,7 @@ public class RobotComponents {
         public final static TalonSRX LIFT_RIGHT_M = new TalonSRX(RobotMap.CAN.LIFT_RIGHT_MOTOR);
         public final static DigitalInput BOTTOM_SWITCH = new DigitalInput(RobotMap.DIO.LIFT_BOTTOM_MICRO_SWITCH); 
         public final static DigitalInput TOP_SWITCH = new DigitalInput(RobotMap.DIO.LIFT_TOP_MICRO_SWITCH);
-        public final static AnalogPotentiometer POT = new AnalogPotentiometer(RobotMap.AI.LIFT_POTENTIOMETER, 
+        public final static AnalogPotentiometer POT = new AnalogPotentiometer(RobotMap.ANALOG_INPUT.LIFT_POTENTIOMETER, 
         RobotConstants.Sensors.LIFT_POTENTIOMETER_SCALE_FACTOR, RobotConstants.Sensors.LIFT_POTENTOIMETER_OFFSET);
     }
 }

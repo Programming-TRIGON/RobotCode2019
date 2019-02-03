@@ -40,7 +40,7 @@ public class RobotMap {
     }
 
     // Analog input device ports
-    static class AI {
+    static class ANALOG_INPUT {
         public static final int LIFT_POTENTIOMETER = 0;
         public final static int ONE_EIGHTY_POTENTIOMETER = 1;
     }
