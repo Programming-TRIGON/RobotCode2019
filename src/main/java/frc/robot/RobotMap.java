@@ -3,6 +3,7 @@ package frc.robot;
 /** a class that defines the ports of the robot */
 public class RobotMap {
 
+    // Device ID's for devices connected to the CAN bus
    static class CAN {
         public static final int LIFT_LEFT_MOTOR = 0;
         public static final int LIFT_RIGHT_MOTOR = 1;
@@ -14,7 +15,8 @@ public class RobotMap {
         public final static int CARGO_COLLECTOR_HOLDER_LEFT_MOTOR = 5;
     }
 
-    static class PCM {
+    // Solenoid ports connected to PCM0
+    static class PCM0 {
         public final static int HATCH_COLLECTOR_SOLENOID_A = 0;
         public final static int HATCH_COLLECTOR_SOLENOID_B = 1;
 
