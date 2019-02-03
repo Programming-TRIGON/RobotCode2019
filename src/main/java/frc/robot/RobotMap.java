@@ -30,6 +30,7 @@ public class RobotMap {
         public final static int CARGO_FOLDER_SOLENOID_B = 7;
     }
 
+    // Robot components connected to roboRIO Digital Input Output ports
     static class DIO {
         public static final int LIFT_TOP_MICRO_SWITCH = 0;
         public static final int LIFT_BOTTOM_MICRO_SWITCH = 1;
@@ -38,6 +39,7 @@ public class RobotMap {
         public final static int CARGO_COLLECTOR_SWITCH = 4;
     }
 
+    // Analog input device ports
     static class AI {
         public static final int LIFT_POTENTIOMETER = 0;
         public final static int ONE_EIGHTY_POTENTIOMETER = 1;
