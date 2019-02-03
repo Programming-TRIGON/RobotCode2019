@@ -6,18 +6,13 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.Commands;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class SetCargoFolderState extends Command {
-  private boolean folderState;
-  /**
-   * 
-   * @param fold Folds if true, otherwise unfolds.
-   */
-  public SetCargoFolderState(boolean folderState) {
+  private Value folderState;
+  public SetCargoFolderState(Value folderState) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.cargoFolder);
@@ -28,10 +23,7 @@ public class SetCargoFolderState extends Command {
   @Override
   protected void initialize() {
     // Folds/unfolds based on the fold parameter. 
-    if(folderState)
-      Robot.cargoFolder.setFold(Value.kReverse);
-    else
-      Robot.cargoFolder.setFold(Value.kForward);
+      Robot.cargoFolder.setFold(this.folderState);
   }
 
   // Called repeatedly when this Command is scheduled to run

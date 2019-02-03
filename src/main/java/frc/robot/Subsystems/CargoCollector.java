@@ -2,14 +2,11 @@ package frc.robot.Subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
- * This subsystem contains:
- *    - The roller that collects the cargo from the top
- *    - The wheels that hold the cargo in the 180 lift
+ * This subsystem contains: - The roller that collects the cargo from the top -
+ * The wheels that hold the cargo in the 180 lift
  */
 public class CargoCollector extends JoystickOverridableSubsystem {
   /** The motor that turns the wheel for bringing in the cargo. */
@@ -21,14 +18,13 @@ public class CargoCollector extends JoystickOverridableSubsystem {
    * the cargo out of them.
    */
 
-  private TalonSRX leftHolder, rightHolder; 
+  private TalonSRX leftHolder, rightHolder;
   private DigitalInput microswitch;
 
-  public CargoCollector(TalonSRX collectorMotor, TalonSRX rightCargoHolder,
-      TalonSRX leftCargoHolder,DigitalInput DI) {
+  public CargoCollector(TalonSRX collectorMotor, TalonSRX rightCargoHolder, TalonSRX leftCargoHolder, DigitalInput DI) {
     this.collectorMotor = collectorMotor;
     this.leftHolder = leftCargoHolder;
-    this.rightHolder = rightCargoHolder;  
+    this.rightHolder = rightCargoHolder;
     this.microswitch = DI;
     this.leftHolder.set(ControlMode.Follower, this.leftHolder.getDeviceID());
     //this.leftMotor.setInverted(true);
@@ -50,12 +46,12 @@ public class CargoCollector extends JoystickOverridableSubsystem {
   public void setHolderMotors(double power) {
     this.rightHolder.set(ControlMode.PercentOutput, power);
   }
+
   /**
    * This function returns true if the ball is being held
    */
-  public boolean isHoldingBall(){
-    double amps=50; // TODO: find how much amps a holder motor takes when it stalled (go to the internet)  
-    return this.microswitch.get() || (this.leftHolder.getOutputCurrent()>amps && this.rightHolder.getOutputCurrent()>amps);
+  public boolean isHoldingBall() {
+    return this.microswitch.get();
   }
 
   @Override
