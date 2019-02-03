@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.RobotConstants;
-import frc.robot.Commands.SetAngle;
+import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
@@ -31,7 +31,7 @@ public class ScoreHatch extends CommandGroup{
         this.height = height;
         this.angle = angle;
 
-        addParallel(new SetAngle(this.angle));
+        addParallel(new SetOneEightyAngle(this.angle));
         addSequential(new SetLiftHeight(this.height));
         addSequential(new SetHatchLock(this.lockedValue));
         addSequential(new SetHatchEject(this.push));
