@@ -17,11 +17,11 @@ import frc.robot.RobotConstants;
 /**
  * Add your docs here.
  */
-public class CollectFeederHatch extends CommandGroup {
+public class CollectHatchFromFeeder extends CommandGroup {
     Value lock = Value.kForward;
     Value unlock = Value.kReverse;
 
-    public CollectFeederHatch() {
+    public CollectHatchFromFeeder() {
         
         addParallel(new SetOneEightyAngle(RobotConstants.Angle.kStraight));
         addSequential(new SetLiftHeight(RobotConstants.Height.kLiftBottom));
