@@ -9,7 +9,7 @@ package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.Commands.SetAngle;
+import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants;
@@ -17,14 +17,14 @@ import frc.robot.RobotConstants;
 /**
  * Add your docs here.
  */
-public class HatchFeeder extends CommandGroup {
+public class CollectFeederHatch extends CommandGroup {
     Value lock = Value.kForward;
     Value unlock = Value.kReverse;
 
-    public HatchFeeder() {
+    public CollectFeederHatch() {
         
-        addParallel(new SetAngle(RobotConstants.RobotDimensions.Angle.kStraight));
-        addSequential(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kLiftBottom));
+        addParallel(new SetOneEightyAngle(RobotConstants.Angle.kStraight));
+        addSequential(new SetLiftHeight(RobotConstants.Height.kLiftBottom));
         addSequential(new SetHatchLock(unlock));
     }
 }

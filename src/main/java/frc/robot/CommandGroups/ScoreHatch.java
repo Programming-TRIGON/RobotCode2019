@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.RobotConstants;
-import frc.robot.Commands.SetAngle;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
-import frc.robot.RobotConstants.RobotDimensions.Angle;
-import frc.robot.RobotConstants.RobotDimensions.Height;
+import frc.robot.Commands.SetOneEightyAngle;
+import frc.robot.RobotConstants.Angle;
+import frc.robot.RobotConstants.Height;
 /**
  * Add your docs here.
  */
@@ -29,11 +29,11 @@ public class ScoreHatch extends CommandGroup{
     public ScoreHatch(Height height) {
         this.height = height;
 
-        addParallel(new SetAngle(RobotConstants.RobotDimensions.Angle.kStraight));
+        addParallel(new SetOneEightyAngle(RobotConstants.Angle.kStraight));
         addSequential(new SetLiftHeight(this.height));
         addSequential(new SetHatchLock(this.unlockedValue));
         addSequential(new SetHatchEject(this.push));
         addSequential(new SetHatchEject(this.retract));
-        addSequential(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kLiftBottom));
+        addSequential(new SetLiftHeight(RobotConstants.Height.kLiftBottom));
     }
 }
