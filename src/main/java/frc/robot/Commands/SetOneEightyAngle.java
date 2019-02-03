@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 
-public class SetAngle extends Command {
+public class SetOneEightyAngle extends Command {
   PIDController pidController;
   double angle;
 
@@ -20,12 +20,12 @@ public class SetAngle extends Command {
    * 
    * @param angle the angle the SS seeks
    */
-  public SetAngle(double angle) {
+  public SetOneEightyAngle(double angle) {
     this.angle = angle;
     requires(Robot.oneEighty);
   }
 
-  public SetAngle(RobotConstants.RobotDimensions.Angle angle) {
+  public SetOneEightyAngle(RobotConstants.RobotDimensions.Angle angle) {
     this.angle = angle.key;
     requires(Robot.oneEighty);
   }

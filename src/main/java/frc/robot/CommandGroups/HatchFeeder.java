@@ -9,7 +9,7 @@ package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.Commands.SetAngle;
+import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants;
@@ -23,7 +23,7 @@ public class HatchFeeder extends CommandGroup {
 
     public HatchFeeder() {
         
-        addParallel(new SetAngle(RobotConstants.RobotDimensions.Angle.kStraight));
+        addParallel(new SetOneEightyAngle(RobotConstants.RobotDimensions.Angle.kStraight));
         addSequential(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kLiftBottom));
         addSequential(new SetHatchLock(unlock));
     }

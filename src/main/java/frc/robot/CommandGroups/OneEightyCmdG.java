@@ -10,7 +10,7 @@ package frc.robot.CommandGroups;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
-import frc.robot.Commands.SetAngle;
+import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.RobotDimensions.Angle;
 
@@ -24,7 +24,7 @@ double angle;
       if(Robot.lift.getHeight() < RobotConstants.RobotDimensions.Height.kOneEightySafety.key){
         addSequential(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kOneEightySafety));
       }
-      addSequential(new SetAngle(this.angle));
+      addSequential(new SetOneEightyAngle(this.angle));
     }
   }
 }
