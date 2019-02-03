@@ -30,6 +30,7 @@ public class HatchHolder extends Subsystem {
    */
   public void setEjection(DoubleSolenoid.Value value) {
     this.rightPushSolenoid.set(value);
+    this.rightPushSolenoid.set(Value.kOff);
   }
 
   @Override

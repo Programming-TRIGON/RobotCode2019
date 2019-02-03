@@ -1,6 +1,7 @@
 package frc.robot.Subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -26,6 +27,7 @@ public class HatchCollector extends Subsystem {
    */
   public void setSolenoid(DoubleSolenoid.Value value) {
     this.solenoid.set(value);
+    this.solenoid.set(Value.kOff);
   }
 
 
