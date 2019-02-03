@@ -60,19 +60,19 @@ public class RobotConstants {
     /**
      * the angles which the oneEighty subsystem should do a PID on.
      */
-    public static enum Angle {
+    public static enum OneEightyAngle {
         // TODO: Set real angles.
         kStraight(0), // The cargo collector faces ahead in this angle.
         kBack(180), // The cargo collector faces back in this angle.
         kFeeder(270); // This is the angle in order to collect the hatch from the feeder.
         public double key;
 
-        Angle(double angle) {
+        OneEightyAngle(double angle) {
             this.key = angle;
         }
     }
 
-    public static enum Height {
+    public static enum LiftHeight {
         // TODO:set real values.
         kRocketTopHatch(1), kRocketMiddleHatch(1), kRocketBottomHatch(1), kRocketTopCargo(1), kRocketBottomCargo(1),
         kRocketMiddleCargo(1), kLiftBottom(1),
@@ -82,7 +82,7 @@ public class RobotConstants {
         kCargoFolderSafty(1);
         public double key;
 
-        Height(double height) {
+        LiftHeight(double height) {
             this.key = height;
         }
     }

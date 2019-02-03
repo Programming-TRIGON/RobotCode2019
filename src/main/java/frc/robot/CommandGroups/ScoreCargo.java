@@ -5,18 +5,18 @@ import frc.robot.RobotConstants;
 import frc.robot.Commands.PushCargo;
 import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.SetLiftHeight;
-import frc.robot.RobotConstants.Angle;
-import frc.robot.RobotConstants.Height;
+import frc.robot.RobotConstants.OneEightyAngle;
+import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.PushCargoPower;
 
 public class ScoreCargo extends CommandGroup {
   double startingAngle;
   PushCargoPower pushCargoByHeight;
-  Height height;
-  Angle finishingAngle = RobotConstants.Angle.kStraight;;
-  Height finishingHeight = RobotConstants.Height.kLiftBottom; ;
+  LiftHeight height;
+  OneEightyAngle finishingAngle = RobotConstants.OneEightyAngle.kStraight;;
+  LiftHeight finishingHeight = RobotConstants.LiftHeight.kLiftBottom; ;
 
-  public ScoreCargo(double startingAngle, Height height) {
+  public ScoreCargo(double startingAngle, LiftHeight height) {
     this.startingAngle = startingAngle;
     this.height = height;
     //connecting the Height to PushCargoByHeight to push the cargo in the right speed

@@ -5,10 +5,10 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotConstants.Height;
+import frc.robot.RobotConstants.LiftHeight;
 
 public class SetLiftHeight extends Command {
-  private Height height;
+  private LiftHeight height;
   private PIDController pidController;
   private PIDOutput pidOutput;
   private double lastTimeNotOnTarget, waitTime;
@@ -18,7 +18,7 @@ public class SetLiftHeight extends Command {
   private double kD = 0;
   private double timeFrame = 0.05;
 
-  public SetLiftHeight(Height finishingHeight) {
+  public SetLiftHeight(LiftHeight finishingHeight) {
     requires(Robot.lift);
     this.height = finishingHeight;
   }

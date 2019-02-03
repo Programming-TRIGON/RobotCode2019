@@ -16,13 +16,13 @@ public class CollectCargoProcedure extends CommandGroup {
   public CollectCargoProcedure() {
     /** starts by unfolding the crago collecter */
     /** turn to the required angle */
-    addSequential(new SetOneEightyAngle(RobotConstants.Angle.kStraight));
+    addSequential(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));
     addSequential(new SetCargoFolderState(Value.kReverse));
     /**turn to the required angle */
 
 
     /** set lift height to bottom in order to collect cargo */
-    addSequential(new SetLiftHeight(RobotConstants.Height.kLiftBottom));
+    addSequential(new SetLiftHeight(RobotConstants.LiftHeight.kLiftBottom));
     /** collects the cargo */
     addSequential(new CollectCargo(this.COLLECTOR_POWER, this.HOLDER_POWER));
   }

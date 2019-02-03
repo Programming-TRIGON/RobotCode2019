@@ -25,7 +25,7 @@ public class SetOneEightyAngle extends Command {
     requires(Robot.oneEighty);
   }
 
-  public SetOneEightyAngle(RobotConstants.Angle angle) {
+  public SetOneEightyAngle(RobotConstants.OneEightyAngle angle) {
     this.angle = angle.key;
     requires(Robot.oneEighty);
   }
