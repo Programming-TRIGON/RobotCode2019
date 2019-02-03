@@ -16,7 +16,7 @@ public class RobotComponents {
     }
 
     static class CargoFolder{
-        public final static DoubleSolenoid SOLENOID = new DoubleSolenoid(RobotMap.PCM.CARGO_FOLDER_SOLENOID_A, RobotMap.PCM.CARGO_FOLDER_SOLENOID_B);
+        public final static DoubleSolenoid SOLENOID = new DoubleSolenoid(RobotMap.PCM0.CARGO_FOLDER_SOLENOID_A, RobotMap.PCM0.CARGO_FOLDER_SOLENOID_B);
         public final static DigitalInput TOP_SWITCH = new DigitalInput(RobotMap.DIO.CARGO_FOLDER_TOP_SWITCH);
         public final static DigitalInput BOTTOM_SWITCH = new DigitalInput(RobotMap.DIO.CARGO_FOLDER_BOTTOM_SWITCH);
     }
@@ -28,13 +28,13 @@ public class RobotComponents {
     }
 
     static class HatchHolder{
-        public final static DoubleSolenoid PVC = new DoubleSolenoid(RobotMap.PCM.HATCH_HOLDER_PVC_SOLENOID_A, RobotMap.PCM.HATCH_HOLDER_PVC_SOLENOID_B);
-        public final static DoubleSolenoid PUSH_SOLENOID = new DoubleSolenoid(RobotMap.PCM.HATCH_HOLDER_PUSH_SOLENOID_A, 
-        RobotMap.PCM.HATCH_HOLDER_PUSH_SOLENOID_B);
+        public final static DoubleSolenoid PVC = new DoubleSolenoid(RobotMap.PCM0.HATCH_HOLDER_PVC_SOLENOID_A, RobotMap.PCM0.HATCH_HOLDER_PVC_SOLENOID_B);
+        public final static DoubleSolenoid PUSH_SOLENOID = new DoubleSolenoid(RobotMap.PCM0.HATCH_HOLDER_PUSH_SOLENOID_A, 
+        RobotMap.PCM0.HATCH_HOLDER_PUSH_SOLENOID_B);
     }
 
     static class HatchCollector{
-        public final static DoubleSolenoid SOLENOID = new DoubleSolenoid(RobotMap.PCM.HATCH_COLLECTOR_SOLENOID_A, RobotMap.PCM.HATCH_COLLECTOR_SOLENOID_B);
+        public final static DoubleSolenoid SOLENOID = new DoubleSolenoid(RobotMap.PCM0.HATCH_COLLECTOR_SOLENOID_A, RobotMap.PCM0.HATCH_COLLECTOR_SOLENOID_B);
     }
 
     static class Lift{

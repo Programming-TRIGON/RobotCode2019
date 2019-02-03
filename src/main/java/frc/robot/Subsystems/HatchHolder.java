@@ -6,13 +6,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class HatchHolder extends Subsystem {
   /** this solenoid opens a pvc to catch the hatch */
-  private DoubleSolenoid ejectorSolenoid;
+  private DoubleSolenoid hatchLocker;
   /** these solenoids push the mechanism farword to chatch the hatch */
-  private DoubleSolenoid rightPushSolenoid;
+  private DoubleSolenoid hatchEjector;
 
   public HatchHolder(DoubleSolenoid pvcSolenoid, DoubleSolenoid pushSolenoid) {
-    this.ejectorSolenoid = pvcSolenoid;
-    this.rightPushSolenoid = pushSolenoid;
+    this.hatchLocker = pvcSolenoid;
+    this.hatchEjector = pushSolenoid;
   }
 
   /**
@@ -20,8 +20,8 @@ public class HatchHolder extends Subsystem {
    * DoubleSolinoids require "values" that represent off, forward, and reversed.
    */
   public void setLock(DoubleSolenoid.Value value) {
-    this.ejectorSolenoid.set(value);
-    this.ejectorSolenoid.set(Value.kOff);
+    this.hatchLocker.set(value);
+    this.hatchLocker.set(Value.kOff);
   }
 
   /**
@@ -29,7 +29,8 @@ public class HatchHolder extends Subsystem {
    * DoubleSolinoids require "values" that represent off, forward, and reversed
    */
   public void setEjection(DoubleSolenoid.Value value) {
-    this.rightPushSolenoid.set(value);
+    this.hatchEjector.set(value);
+    this.hatchEjector.set(Value.kOff);
   }
 
   @Override
