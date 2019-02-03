@@ -1,5 +1,7 @@
 package frc.robot.Commands;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Timer;
@@ -8,21 +10,38 @@ import frc.robot.Robot;
 import frc.robot.RobotConstants.RobotDimensions.Height;
 
 public class SetLiftHeight extends Command {
-  private double height;
+  private Supplier<Double> height;
   private PIDController pidController;
   private PIDOutput pidOutput;
   private double lastTimeNotOnTarget;
   private double waitTime;
+  private boolean isInfinate;
 
   public SetLiftHeight(Height finishingHeight) {
     requires(Robot.lift);
-    this.height = finishingHeight.key;
-
+    this.height = new Supplier<Double>(){
+      @Override
+      public Double get() {
+        return finishingHeight.key;
+      }
+    };
   }
 
-  public SetLiftHeight(double d) {
+  public SetLiftHeight(double d, boolean isInfinate) {
     requires(Robot.lift);
-    this.height = d;
+    this.height = new Supplier<Double>(){
+      @Override
+      public Double get() {
+        return d;
+      }
+    };
+    this.isInfinate = isInfinate;
+  }
+
+  public SetLiftHeight(Supplier<Double> setpointSupplier, boolean isInfinate){
+    requires(Robot.lift);
+    this.isInfinate = isInfinate;
+    this.height = setpointSupplier;
   }
 
 // Called just before this Command runs the first time
@@ -35,7 +54,7 @@ public class SetLiftHeight extends Command {
     };
     this.pidController = new PIDController(0.2, 0, 0, Robot.lift.getPotentoimeter(), this.pidOutput, 0.05);
     pidController.setAbsoluteTolerance(1);
-    pidController.setSetpoint(height);
+    pidController.setSetpoint(height.get());
     pidController.setOutputRange(-1, 1);
     pidController.enable();
   }
@@ -48,6 +67,9 @@ public class SetLiftHeight extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    if (isInfinate)
+      return false;
+      
     if (!pidController.onTarget()) {
       lastTimeNotOnTarget = Timer.getFPGATimestamp();
     }
