@@ -10,7 +10,7 @@ public class CargoFolder extends Subsystem {
   // solenoid that extents and retracts the cargo intake
   private DoubleSolenoid intakeFolder;
 
-  public CargoFolder(DoubleSolenoid solenoid, DigitalInput bottomSwitch, DigitalInput topSwitch) {
+  public CargoFolder(DoubleSolenoid solenoid) {
     this.intakeFolder = solenoid;
   }
 

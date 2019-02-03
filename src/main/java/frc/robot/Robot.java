@@ -66,8 +66,7 @@ public class Robot extends TimedRobot {
      * creates the SS corgo fold that extends and retracts the whole SS of the cargo
      * collector with it
      */
-    Robot.cargoFolder = new CargoFolder(RobotComponents.CargoFolder.SOLENOID, RobotComponents.CargoFolder.BOTTOM_SWITCH,
-        RobotComponents.CargoFolder.TOP_SWITCH);
+    Robot.cargoFolder = new CargoFolder(RobotComponents.CargoFolder.SOLENOID);
 
     Robot.dbc.addNumber("Drivetrain Gyro", new Supplier<Number>() {
 
