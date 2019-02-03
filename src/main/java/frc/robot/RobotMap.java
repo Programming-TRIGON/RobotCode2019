@@ -3,7 +3,7 @@ package frc.robot;
 /** a class that defines the ports of the robot */
 public class RobotMap {
 
-    class CAN {
+   static class CAN {
         public static final int LIFT_LEFT_MOTOR = 0;
         public static final int LIFT_RIGHT_MOTOR = 1;
 
@@ -14,7 +14,7 @@ public class RobotMap {
         public final static int CARGO_COLLECTOR_HOLDER_LEFT_MOTOR = 5;
     }
 
-    class PCM {
+    static class PCM {
         public final static int HATCH_COLLECTOR_SOLENOID_A = 0;
         public final static int HATCH_COLLECTOR_SOLENOID_B = 1;
 
@@ -28,7 +28,7 @@ public class RobotMap {
         public final static int CARGO_FOLDER_SOLENOID_B = 7;
     }
 
-    class DIO {
+    static class DIO {
         public static final int LIFT_TOP_MICRO_SWITCH = 0;
         public static final int LIFT_BOTTOM_MICRO_SWITCH = 1;
         public final static int CARGO_FOLDER_TOP_SWITCH = 2;
@@ -36,7 +36,7 @@ public class RobotMap {
         public final static int CARGO_COLLECTOR_SWITCH = 4;
     }
 
-    class AI {
+    static class AI {
         public static final int LIFT_POTENTIOMETER = 0;
         public final static int ONE_EIGHTY_POTENTIOMETER = 1;
     }
