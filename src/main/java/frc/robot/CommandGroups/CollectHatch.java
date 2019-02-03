@@ -33,3 +33,4 @@ public class CollectHatch extends CommandGroup {
         addSequential(new SetHatchLock(lock));
     }
 }
+

@@ -2,14 +2,11 @@ package frc.robot.Subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
- * This subsystem contains:
- *    - The roller that collects the cargo from the top
- *    - The wheels that hold the cargo in the 180 lift
+ * This subsystem contains: - The roller that collects the cargo from the top -
+ * The wheels that hold the cargo in the 180 lift
  */
 public class CargoCollector extends JoystickOverridableSubsystem {
   /** The motor that turns the wheel for bringing in the cargo. */
@@ -21,14 +18,13 @@ public class CargoCollector extends JoystickOverridableSubsystem {
    * the cargo out of them.
    */
 
-  private TalonSRX leftHolder, rightHolder; 
+  private TalonSRX leftHolder, rightHolder;
   private DigitalInput microswitch;
 
-  public CargoCollector(TalonSRX collectorMotor, TalonSRX rightCargoHolder,
-      TalonSRX leftCargoHolder,DigitalInput DI) {
+  public CargoCollector(TalonSRX collectorMotor, TalonSRX rightCargoHolder, TalonSRX leftCargoHolder, DigitalInput DI) {
     this.collectorMotor = collectorMotor;
     this.leftHolder = leftCargoHolder;
-    this.rightHolder = rightCargoHolder;  
+    this.rightHolder = rightCargoHolder;
     this.microswitch = DI;
 
   }
@@ -50,10 +46,11 @@ public class CargoCollector extends JoystickOverridableSubsystem {
     this.leftHolder.set(ControlMode.PercentOutput, power);
     this.rightHolder.set(ControlMode.PercentOutput, power);
   }
+
   /**
    * This function returns true if the ball is being held
    */
-  public boolean isHoldingBall(){
+  public boolean isHoldingBall() {
     return this.microswitch.get();
   }
 
