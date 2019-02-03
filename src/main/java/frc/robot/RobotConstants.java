@@ -17,39 +17,12 @@ public class RobotConstants {
          * change the given values from the potentoimeter to CM.
          */
         public final static double LIFT_TUBE_CIRCUMFERENCE = LIFT_TUBE_DIAMETER * Math.PI;
-        /** the potentoimeter gets its initial height for subtracting from the calculations*/
-        public final static double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
         /**
-         * the angles which the oneEighty subsystem should do a PID on.
+         * the potentoimeter gets its initial height for subtracting from the
+         * calculations
          */
-        public static enum Angle{
-            //TODO: Set real angles.
-            kStraight(0),// The cargo collector faces ahead in this angle.  
-            kBack(180),//The cargo collector faces back in this angle.
-            kFeeder(270); //This is the angle in order to collect the hatch from the feeder.
-            public double key;
-            Angle(double angle){
-                this.key = angle;
-            }
-        }
-        public static enum Height{
-            //TODO:set real values.
-            kRocketTopHatch(1),
-            kRocketMiddleHatch(1),
-            kRocketBottomHatch(1),
-            kRocketTopCargo(1),
-            kRocketBottomCargo(1),
-            kRocketMiddleCargo(1),
-            kLiftBottom(1),
-            /**a height that is safe to use OneEighty */
-            kOneEightySafety(1),
-            /**a height that is safe to fold cargo colleter */
-            kCargoFolderSafty(1);
-            public double key;
-            Height(double height){
-                this.key = height;
-            }
-        }
+        public final static double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
+
     }
 
     /** constants for sensors on the robot */
@@ -80,8 +53,38 @@ public class RobotConstants {
     // to do change change offset
     /** the angle at which the potentiometer starts */
     public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET = -180;
+
     /**
      * the amount of time we want the lift to stay on the target fof the PID to end
      */
+    /**
+     * the angles which the oneEighty subsystem should do a PID on.
+     */
+    public static enum Angle {
+        // TODO: Set real angles.
+        kStraight(0), // The cargo collector faces ahead in this angle.
+        kBack(180), // The cargo collector faces back in this angle.
+        kFeeder(270); // This is the angle in order to collect the hatch from the feeder.
+        public double key;
+
+        Angle(double angle) {
+            this.key = angle;
+        }
+    }
+
+    public static enum Height {
+        // TODO:set real values.
+        kRocketTopHatch(1), kRocketMiddleHatch(1), kRocketBottomHatch(1), kRocketTopCargo(1), kRocketBottomCargo(1),
+        kRocketMiddleCargo(1), kLiftBottom(1),
+        /** a height that is safe to use OneEighty */
+        kOneEightySafety(1),
+        /** a height that is safe to fold cargo colleter */
+        kCargoFolderSafty(1);
+        public double key;
+
+        Height(double height) {
+            this.key = height;
+        }
+    }
 
 }

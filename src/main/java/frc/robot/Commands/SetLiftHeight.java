@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotConstants.RobotDimensions.Height;
+import frc.robot.RobotConstants.Height;
 
 public class SetLiftHeight extends Command {
   private Height height;
