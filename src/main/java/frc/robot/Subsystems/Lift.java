@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.PIDSource;
 
 public class Lift extends JoystickOverridableSubsystem {
   /** Motors to raise/lower the lift */
@@ -23,13 +22,14 @@ public class Lift extends JoystickOverridableSubsystem {
     this.topSwitch = topwSwitch;
     this.bottomSwitch = bottomSwitch;
     this.potentiometer = potentiometer;
+    this.leftMotor.set(ControlMode.Follower, rightMotor.getDeviceID());
+    //this.leftMotor.setInverted(true);
   }
 
   /** sets the speed of the motors of the lift to higher/lower it */
   public void setMotorSpeed(double speed) {
     if(speed > 0 && isAtTop() || speed < 0 && isAtBottom())
       return;
-    leftMotor.set(ControlMode.PercentOutput, speed); 
     rightMotor.set(ControlMode.PercentOutput, speed);
 
   }

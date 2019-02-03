@@ -27,6 +27,7 @@ public class CargoCollector extends JoystickOverridableSubsystem {
     this.rightHolder = rightCargoHolder;
     this.microswitch = DI;
     this.leftHolder.set(ControlMode.Follower, this.leftHolder.getDeviceID());
+    //this.leftMotor.setInverted(true);
   }
 
   /**
