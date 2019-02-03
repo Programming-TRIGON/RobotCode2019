@@ -18,13 +18,7 @@ public class SetLiftHeight extends Command {
   private boolean isInfinate;
 
   public SetLiftHeight(Height finishingHeight) {
-    requires(Robot.lift);
-    this.height = new Supplier<Double>(){
-      @Override
-      public Double get() {
-        return finishingHeight.key;
-      }
-    };
+    this(finishingHeight.key, false);
   }
 
   public SetLiftHeight(double d, boolean isInfinate) {

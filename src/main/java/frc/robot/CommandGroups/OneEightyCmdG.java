@@ -34,9 +34,5 @@ Supplier<Double> liftSetpointSupplier;
     addSequential(new SetOneEightyAngle(angle));  
     addParallel(new SetLiftHeight(liftSetpointSupplier, true));
   }
-
-  @Override
-  protected void execute() {
-  }
 }
 
