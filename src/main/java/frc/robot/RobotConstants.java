@@ -15,6 +15,8 @@ public class RobotConstants {
          * to the lift. this is used to caculate the circumference of the tube.
          */
 
+        public final  static double ONE_EIGHTY_LENGTH = 42;
+
         public final static Double LIFT_TUBE_DIAMETER = 3.447;
         /**
          * The circumference (in meters) of the tube in the lift which twists the rope

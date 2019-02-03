@@ -8,7 +8,7 @@ import frc.robot.Robot;
 import frc.robot.RobotConstants.RobotDimensions.Height;
 
 public class SetLiftHeight extends Command {
-  private Height height;
+  private double height;
   private PIDController pidController;
   private PIDOutput pidOutput;
   private double lastTimeNotOnTarget;
@@ -16,11 +16,16 @@ public class SetLiftHeight extends Command {
 
   public SetLiftHeight(Height finishingHeight) {
     requires(Robot.lift);
-    this.height = finishingHeight;
+    this.height = finishingHeight.key;
 
   }
 
-  // Called just before this Command runs the first time
+  public SetLiftHeight(double d) {
+    requires(Robot.lift);
+    this.height = d;
+  }
+
+// Called just before this Command runs the first time
   @Override
   protected void initialize() {
     this.pidOutput = new PIDOutput() {
@@ -30,7 +35,7 @@ public class SetLiftHeight extends Command {
     };
     this.pidController = new PIDController(0.2, 0, 0, Robot.lift.getPotentoimeter(), this.pidOutput, 0.05);
     pidController.setAbsoluteTolerance(1);
-    pidController.setSetpoint(height.key);
+    pidController.setSetpoint(height);
     pidController.setOutputRange(-1, 1);
     pidController.enable();
   }

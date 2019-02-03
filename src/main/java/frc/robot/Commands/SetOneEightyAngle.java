@@ -20,6 +20,7 @@ public class SetOneEightyAngle extends Command {
   private final double kD= 0;
   private final double PERIOD =0.05;
   private final double TOLERANCE =0.1;
+
   /**
    * 
    * @param angle the angle the SS seeks
@@ -41,7 +42,6 @@ public class SetOneEightyAngle extends Command {
     this.pidController = new PIDController(kP, kI, kD, Robot.oneEighty.getPotentiometer(),
         (output) -> Robot.oneEighty.setOneEighty(output), PERIOD);
     pidController.setAbsoluteTolerance(TOLERANCE);
-    pidController.setSetpoint(angle);
     pidController.setOutputRange(-1, 1);
     pidController.enable();
 

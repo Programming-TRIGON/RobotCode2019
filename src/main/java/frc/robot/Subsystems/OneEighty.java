@@ -28,7 +28,6 @@ public class OneEighty extends JoystickOverridableSubsystem {
 
   /** turns the SS to where the driver wants it */
   public void setOneEighty(double power) {
-    if((double)heightSupplier.get() >= RobotConstants.oneEighty.MINIMUM_HEIGHT) 
       this.motor.set(ControlMode.PercentOutput, power);
   }
 

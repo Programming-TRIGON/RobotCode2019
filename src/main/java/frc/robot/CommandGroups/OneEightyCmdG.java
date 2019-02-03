@@ -15,16 +15,17 @@ import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.RobotDimensions.Angle;
 
 public class OneEightyCmdG extends CommandGroup {
-double angle;
+final double ONE_EIGHTY_SAFETY_HEIGHT = 5;
+
   public OneEightyCmdG(Angle angle) {
-    this.angle = angle.key;
-    if (this.angle - 1 < Robot.oneEighty.getAngle() && Robot.oneEighty.getAngle() > this.angle + 1){
-    }
-    else {
-      if(Robot.lift.getHeight() < RobotConstants.RobotDimensions.Height.kOneEightySafety.key){
-        addSequential(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kOneEightySafety));
-      }
-      addSequential(new SetOneEightyAngle(this.angle));
+    addSequential(new SetOneEightyAngle(angle));  
+  }
+
+  @Override
+  protected void execute() {
+    if(RobotConstants.RobotDimensions.ONE_EIGHTY_LENGTH * Math.cos(Robot.oneEighty.getAngle()) < Robot.lift.getHeight() + ONE_EIGHTY_SAFETY_HEIGHT){
+      addParallel(new SetLiftHeight(RobotConstants.RobotDimensions.ONE_EIGHTY_LENGTH * Math.cos(Robot.oneEighty.getAngle())));;
     }
   }
 }
+
