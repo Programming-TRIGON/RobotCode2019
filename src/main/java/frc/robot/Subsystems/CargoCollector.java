@@ -54,7 +54,8 @@ public class CargoCollector extends JoystickOverridableSubsystem {
    * This function returns true if the ball is being held
    */
   public boolean isHoldingBall(){
-    return this.microswitch.get();
+    double amps=50; // TODO: find how much amps a holder motor takes when it stalled (go to the internet)  
+    return this.microswitch.get() || (this.leftHolder.getOutputCurrent()>amps && this.rightHolder.getOutputCurrent()>amps);
   }
 
   @Override
