@@ -10,7 +10,7 @@ package frc.robot.CommandGroups;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.RobotConstants;
-import frc.robot.Commands.SetAngle;
+import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.Commands.setHatchCollectorState;
@@ -27,7 +27,7 @@ public class CollectHatch extends CommandGroup {
     public CollectHatch(){
 
         addParallel(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kLiftBottom));
-        addSequential(new SetAngle(RobotConstants.RobotDimensions.Angle.kStraight));
+        addSequential(new SetOneEightyAngle(RobotConstants.RobotDimensions.Angle.kStraight));
         addSequential(new setHatchCollectorState(SSDown));
         addSequential(new WaitCommand(1));
         addSequential(new setHatchCollectorState(SSUp));

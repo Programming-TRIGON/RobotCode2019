@@ -13,9 +13,13 @@ import frc.robot.Robot;
 import frc.robot.RobotConstants;
 
 public class SetOneEightyAngle extends Command {
-  PIDController pidController;
-  double angle;
-
+  private PIDController pidController;
+  private double angle;
+  private final double kP= 0.2;
+  private final double kI= 0;
+  private final double kD= 0;
+  private final double PERIOD =0.05;
+  private final double TOLERANCE =0.1;
   /**
    * 
    * @param angle the angle the SS seeks
@@ -34,9 +38,9 @@ public class SetOneEightyAngle extends Command {
   @Override
   protected void initialize() {
     // setting up the PID
-    this.pidController = new PIDController(0.2, 0, 0, Robot.oneEighty.getPotentiometer(),
-        (output) -> Robot.oneEighty.setOneEighty(output), 0.05);
-    pidController.setAbsoluteTolerance(0.01);
+    this.pidController = new PIDController(kP, kI, kD, Robot.oneEighty.getPotentiometer(),
+        (output) -> Robot.oneEighty.setOneEighty(output), PERIOD);
+    pidController.setAbsoluteTolerance(TOLERANCE);
     pidController.setSetpoint(angle);
     pidController.setOutputRange(-1, 1);
     pidController.enable();
