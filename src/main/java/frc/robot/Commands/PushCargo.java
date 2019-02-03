@@ -2,14 +2,15 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotConstants.PushCargoByHeight;
 
 public class PushCargo extends Command {
   double power;
   final double TIMEOUT = 1;
   //defines power
-  public PushCargo (double power) {
+  public PushCargo (PushCargoByHeight power) {
     requires(Robot.cargoCollector);
-    this.power = power;
+    this.power = power.key;
   }
 
 

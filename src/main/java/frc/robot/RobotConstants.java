@@ -87,4 +87,15 @@ public class RobotConstants {
         }
     }
 
+    //we might want to change the enum name...
+    public static enum PushCargoByHeight {
+         // TODO:set real values.
+         /** the speed we want to push the cargo */
+        kCargoShip(1), kLowRocket(1), kMiddleRocket(1), kTopRocket(1);
+        public double key;
+
+        PushCargoByHeight(double power) {
+            this.key = power;
+        }
+    }
 }
