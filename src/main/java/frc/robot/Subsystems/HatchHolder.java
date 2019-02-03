@@ -5,10 +5,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class HatchHolder extends Subsystem {
-  /** this solenoid opens a pvc to catch the hatch */
-  private DoubleSolenoid hatchLocker;
-  /** these solenoids push the mechanism farword to chatch the hatch */
-  private DoubleSolenoid hatchEjector;
+  /** hatchLocker solenoid opens the pvc to catch the hatch and hatchEjector push the mechanism farword to chatch the hatch*/
+  private DoubleSolenoid hatchLocker, hatchEjector;
 
   public HatchHolder(DoubleSolenoid pvcSolenoid, DoubleSolenoid pushSolenoid) {
     this.hatchLocker = pvcSolenoid;

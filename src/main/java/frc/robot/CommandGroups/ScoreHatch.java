@@ -15,7 +15,6 @@ import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.Commands.SetOneEightyAngle;
-import frc.robot.RobotConstants.Angle;
 import frc.robot.RobotConstants.Height;
 /**
  * Add your docs here.
