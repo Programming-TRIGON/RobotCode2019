@@ -1,5 +1,6 @@
 package frc.robot.CommandGroups;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.RobotConstants;
 import frc.robot.Commands.CollectCargo;
@@ -18,7 +19,7 @@ public class CollectCargoProcedure extends CommandGroup {
   public CollectCargoProcedure() {
     this.height = RobotConstants.Height.kLiftBottom;
     /** starts by unfolding the crago collecter */
-    addSequential(new SetCargoFolderState(false));
+    addSequential(new SetCargoFolderState(Value.kReverse));
     /**turn to the required angle */
     addSequential(new SetOneEightyAngle(this.angle));
     /** set lift height to bottom in order to collect cargo */
