@@ -6,23 +6,19 @@ import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.Commands.SetLiftHeight;
-import frc.robot.RobotConstants.Angle;
-import frc.robot.RobotConstants.Height;
 
 public class CollectCargoProcedure extends CommandGroup {
-  Angle angle = RobotConstants.Angle.kStraight;
   double COLLECTOR_POWER = 0.5;
   double HOLDER_POWER = 0.7;
-  Height height;
-//TODO: real values.
+
+  // TODO: real values.
   public CollectCargoProcedure() {
-    this.height = RobotConstants.Height.kLiftBottom;
     /** starts by unfolding the crago collecter */
     addSequential(new SetCargoFolderState(false));
-    /**turn to the required angle */
-    addSequential(new SetOneEightyAngle(this.angle));
+    /** turn to the required angle */
+    addSequential(new SetOneEightyAngle(RobotConstants.Angle.kStraight));
     /** set lift height to bottom in order to collect cargo */
-    addSequential(new SetLiftHeight(height));
+    addSequential(new SetLiftHeight(RobotConstants.Height.kLiftBottom));
     /** collects the cargo */
     addSequential(new CollectCargo(this.COLLECTOR_POWER, this.HOLDER_POWER));
   }
