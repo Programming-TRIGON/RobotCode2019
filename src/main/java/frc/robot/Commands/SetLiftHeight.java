@@ -1,6 +1,5 @@
 package frc.robot.Commands;
 
-
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Timer;
@@ -12,8 +11,12 @@ public class SetLiftHeight extends Command {
   private Height height;
   private PIDController pidController;
   private PIDOutput pidOutput;
-  private double lastTimeNotOnTarget;
-  private double waitTime;
+  private double lastTimeNotOnTarget, waitTime;
+  private double tolerance = 1;
+  private double kP = 0.2;
+  private double kI = 0;
+  private double kD = 0;
+  private double timeFrame = 0.05;
 
   public SetLiftHeight(Height finishingHeight) {
     requires(Robot.lift);
@@ -28,8 +31,8 @@ public class SetLiftHeight extends Command {
         Robot.lift.setMotorSpeed(output);
       }
     };
-    this.pidController = new PIDController(0.2, 0, 0, Robot.lift.getPotentiometer(), this.pidOutput, 0.05);
-    pidController.setAbsoluteTolerance(1);
+    this.pidController = new PIDController(kP, kI, kD, Robot.lift.getPotentiometer(), this.pidOutput, timeFrame);
+    pidController.setAbsoluteTolerance(tolerance);
     pidController.setSetpoint(height.key);
     pidController.setOutputRange(-1, 1);
     pidController.enable();
