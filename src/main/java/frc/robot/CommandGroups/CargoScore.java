@@ -3,7 +3,7 @@ package frc.robot.CommandGroups;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.RobotConstants;
 import frc.robot.Commands.PushCargo;
-import frc.robot.Commands.SetAngle;
+import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.RobotDimensions.Angle;
 import frc.robot.RobotConstants.RobotDimensions.Height;
@@ -21,7 +21,7 @@ public class CargoScore extends CommandGroup {
     this.finishingAngle = RobotConstants.RobotDimensions.Angle.kStraight;
     this.finishingHeight = RobotConstants.RobotDimensions.Height.kLiftBottom; 
     /** one eighty turns to the desired angle */
-    addSequential(new SetAngle(startingAngle));
+    addSequential(new SetOneEightyAngle(startingAngle));
     /** setting the lift to the desired height. */
     addSequential(new SetLiftHeight(height));
     /** ejecting the cargo from the system. */
@@ -29,7 +29,7 @@ public class CargoScore extends CommandGroup {
     /**
      * setting the one eighty to thedesied angle for use after this command group
      */
-    addSequential(new SetAngle(finishingAngle));
+    addSequential(new SetOneEightyAngle(finishingAngle));
     /** returning the lift to the bottom */
     addSequential(new SetLiftHeight(finishingHeight));
   }

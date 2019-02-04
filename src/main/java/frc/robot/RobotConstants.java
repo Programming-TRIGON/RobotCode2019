@@ -2,6 +2,11 @@ package frc.robot;
 
 /** a class used to store constants related to the robot */
 public class RobotConstants {
+    //oneEighty constants
+    public static class oneEighty{
+        // TODO set real height
+        public static final double MINIMUM_HEIGHT = 1;
+    }
     /** The measurments of the robot */
     public static class RobotDimensions {
         // TODO set real values
@@ -9,6 +14,8 @@ public class RobotConstants {
          * The diameter (in CM) of the tube in the lift which twists the rope connected
          * to the lift. this is used to caculate the circumference of the tube.
          */
+
+        public final  static double ONE_EIGHTY_LENGTH = 42;
 
         public final static Double LIFT_TUBE_DIAMETER = 3.447;
         /**
