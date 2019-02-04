@@ -13,43 +13,35 @@ public class CargoCollector extends JoystickOverridableSubsystem {
   private TalonSRX collectorMotor;
 
   /**
-   * After the cargo collector collects the cargo it goes into the cargo holder.
-   * these motors put the cargo in the holder. after lifted up these motors shoot
-   * the cargo out of them.
+   * After collecting the cargo it goes into the holder. after lifted up these
+   * motors shoote cargo out of them.
    */
 
   private TalonSRX leftHolder, rightHolder;
   private DigitalInput microswitch;
 
-  public CargoCollector(TalonSRX collectorMotor, TalonSRX rightCargoHolder, TalonSRX leftCargoHolder, DigitalInput cargoSwitch) {
+  public CargoCollector(TalonSRX collectorMotor, TalonSRX rightCargoHolder, TalonSRX leftCargoHolder,
+      DigitalInput cargoSwitch) {
     this.collectorMotor = collectorMotor;
     this.leftHolder = leftCargoHolder;
     this.rightHolder = rightCargoHolder;
     this.microswitch = cargoSwitch;
     this.leftHolder.set(ControlMode.Follower, this.leftHolder.getDeviceID());
-    //this.leftMotor.setInverted(true);
+    // this.leftMotor.setInverted(true);
   }
 
-  /**
-   * This function sets the power at which the cargo collector motor will turn the
-   * wheels to bring the cargo into the robot.
-   */
+  /** sets motor power of the collector */
   public void setCollectorMotor(double power) {
     this.collectorMotor.set(ControlMode.PercentOutput, power);
 
   }
 
-  /**
-   * This function sets the power at which the cargo holder motor will turn to
-   * bring the cargo into the holder.
-   */
+  /** sets motor power of the holder */
   public void setHolderMotors(double power) {
     this.rightHolder.set(ControlMode.PercentOutput, power);
   }
 
-  /**
-   * This function returns true if the ball is being held
-   */
+  /** This function returns true if the ball is being held */
   public boolean isHoldingBall() {
     return this.microswitch.get();
   }
