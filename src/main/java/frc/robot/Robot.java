@@ -68,13 +68,7 @@ public class Robot extends TimedRobot {
      */
     Robot.cargoFolder = new CargoFolder(RobotComponents.CargoFolder.SOLENOID);
 
-    Robot.dbc.addNumber("Drivetrain Gyro", new Supplier<Number>() {
-
-      @Override
-      public Number get() {
-        return Robot.lift.getHeight();
-      }
-    });
+    Robot.dbc.addNumber("Drivetrain Gyro", Robot.lift::getHeight);
 
   }
 

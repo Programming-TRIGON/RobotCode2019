@@ -22,7 +22,6 @@ public class RobotConstants {
          * calculations
          */
         public final static double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
-
     }
 
     /** constants for sensors on the robot */

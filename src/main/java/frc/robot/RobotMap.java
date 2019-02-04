@@ -28,6 +28,7 @@ public class RobotMap {
 
         public final static int CARGO_FOLDER_SOLENOID_A = 6;
         public final static int CARGO_FOLDER_SOLENOID_B = 7;
+
     }
 
     // Robot components connected to roboRIO Digital Input Output ports
