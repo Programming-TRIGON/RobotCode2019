@@ -17,14 +17,13 @@ import frc.robot.RobotConstants;
 /**
  * Add your docs here.
  */
-public class HatchFeeder extends CommandGroup {
+public class CollectHatchFromFeeder extends CommandGroup {
     Value lock = Value.kForward;
     Value unlock = Value.kReverse;
 
-    public HatchFeeder() {
-        
-        addParallel(new SetOneEightyAngle(RobotConstants.RobotDimensions.Angle.kStraight));
-        addSequential(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kLiftBottom));
+    public CollectHatchFromFeeder() {
+        addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));
+        addSequential(new SetLiftHeight(RobotConstants.LiftHeight.kLiftBottom));
         addSequential(new SetHatchLock(unlock));
     }
 }

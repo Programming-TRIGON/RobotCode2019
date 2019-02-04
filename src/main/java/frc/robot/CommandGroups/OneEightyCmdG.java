@@ -14,13 +14,13 @@ import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.SetLiftHeight;
-import frc.robot.RobotConstants.RobotDimensions.Angle;
+import frc.robot.RobotConstants.OneEightyAngle;;
 
 public class OneEightyCmdG extends CommandGroup {
 final double ONE_EIGHTY_SAFETY_HEIGHT = 5;
 Supplier<Double> liftSetpointSupplier;
 
-  public OneEightyCmdG(Angle angle) {
+  public OneEightyCmdG(OneEightyAngle angle) {
     liftSetpointSupplier = new Supplier<Double>() {
       @Override
       public Double get() {

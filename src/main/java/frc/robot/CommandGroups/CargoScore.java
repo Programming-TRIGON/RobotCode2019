@@ -5,27 +5,29 @@ import frc.robot.RobotConstants;
 import frc.robot.Commands.PushCargo;
 import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.SetLiftHeight;
-import frc.robot.RobotConstants.RobotDimensions.Angle;
-import frc.robot.RobotConstants.RobotDimensions.Height;
+import frc.robot.RobotConstants.OneEightyAngle;
+import frc.robot.Subsystems.Lift;
+import frc.robot.RobotConstants.LiftHeight;
 
 public class CargoScore extends CommandGroup {
   double startingAngle, POWER;
-  Height height;
-  Angle finishingAngle;
-  Height finishingHeight;
+  LiftHeight height;
+  OneEightyAngle finishingAngle;
+  LiftHeight finishingHeight;
 
-  public CargoScore(double startingAngle, Height height) {
+  public CargoScore(double startingAngle, LiftHeight height) {
     this.startingAngle = startingAngle;
     this.height = height;
-    this.POWER = 0.5;
-    this.finishingAngle = RobotConstants.RobotDimensions.Angle.kStraight;
-    this.finishingHeight = RobotConstants.RobotDimensions.Height.kLiftBottom; 
+    this.finishingAngle = RobotConstants.OneEightyAngle.kStraight;
+    this.finishingHeight = RobotConstants.LiftHeight.kLiftBottom; 
+
+
     /** one eighty turns to the desired angle */
     addSequential(new SetOneEightyAngle(startingAngle));
     /** setting the lift to the desired height. */
     addSequential(new SetLiftHeight(height));
     /** ejecting the cargo from the system. */
-    addSequential(new PushCargo(POWER));
+    addSequential(new PushCargo(RobotConstants.heightToCargoPower.get(height)));
     /**
      * setting the one eighty to thedesied angle for use after this command group
      */

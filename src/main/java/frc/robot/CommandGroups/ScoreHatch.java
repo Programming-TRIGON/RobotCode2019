@@ -11,31 +11,29 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.RobotConstants;
-import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
-import frc.robot.RobotConstants.RobotDimensions.Angle;
-import frc.robot.RobotConstants.RobotDimensions.Height;
+import frc.robot.Commands.SetOneEightyAngle;
+import frc.robot.RobotConstants.LiftHeight;
 /**
  * Add your docs here.
  */
 public class ScoreHatch extends CommandGroup{
-    private Value lockedValue = Value.kReverse;
+    private Value unlockedValue = Value.kReverse;
     private Value push = Value.kForward;
     private Value retract = Value.kReverse;
-    private Height height;
-    private Angle angle; 
+    private LiftHeight height; 
 
-    public ScoreHatch(Height height, Angle angle) {
+    public ScoreHatch(LiftHeight height) {
         this.height = height;
-        this.angle = angle;
 
-        addParallel(new SetOneEightyAngle(this.angle));
+
+        addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));
         addSequential(new SetLiftHeight(this.height));
-        addSequential(new SetHatchLock(this.lockedValue));
+        addSequential(new SetHatchLock(this.unlockedValue));
         addSequential(new SetHatchEject(this.push));
         addSequential(new SetHatchEject(this.retract));
-        addSequential(new SetLiftHeight(RobotConstants.RobotDimensions.Height.kLiftBottom));
+        addSequential(new SetLiftHeight(RobotConstants.LiftHeight.kLiftBottom));
     }
 }

@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotConstants.RobotDimensions.Height;
+import frc.robot.RobotConstants.LiftHeight;
 
 public class SetLiftHeight extends Command {
   private Supplier<Double> height;
@@ -16,8 +16,13 @@ public class SetLiftHeight extends Command {
   private double lastTimeNotOnTarget;
   private double waitTime;
   private boolean isInfinate;
+  private double tolerance = 1;
+  private double kP = 0.2;
+  private double kI = 0;
+  private double kD = 0;
+  private double timeFrame = 0.05;
 
-  public SetLiftHeight(Height finishingHeight) {
+  public SetLiftHeight(LiftHeight finishingHeight) {
     this(finishingHeight.key, false);
   }
 
@@ -36,7 +41,7 @@ public class SetLiftHeight extends Command {
     requires(Robot.lift);
     this.isInfinate = isInfinate;
     this.height = setpointSupplier;
-  }
+}
 
 // Called just before this Command runs the first time
   @Override
@@ -46,9 +51,10 @@ public class SetLiftHeight extends Command {
         Robot.lift.setMotorSpeed(output);
       }
     };
-    this.pidController = new PIDController(0.2, 0, 0, Robot.lift.getPotentoimeter(), this.pidOutput, 0.05);
-    pidController.setAbsoluteTolerance(1);
+
     pidController.setSetpoint(height.get());
+    this.pidController = new PIDController(kP, kI, kD, Robot.lift.getPotentiometer(), this.pidOutput, timeFrame);
+    pidController.setAbsoluteTolerance(tolerance);
     pidController.setOutputRange(-1, 1);
     pidController.enable();
   }

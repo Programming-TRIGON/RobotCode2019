@@ -21,6 +21,7 @@ public class SetOneEightyAngle extends Command {
   private final double PERIOD =0.05;
   private final double TOLERANCE =0.1;
 
+
   /**
    * 
    * @param angle the angle the SS seeks
@@ -30,7 +31,7 @@ public class SetOneEightyAngle extends Command {
     requires(Robot.oneEighty);
   }
 
-  public SetOneEightyAngle(RobotConstants.RobotDimensions.Angle angle) {
+  public SetOneEightyAngle(RobotConstants.OneEightyAngle angle) {
     this.angle = angle.key;
     requires(Robot.oneEighty);
   }

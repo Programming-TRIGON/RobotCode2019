@@ -4,15 +4,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class CollectCargo extends Command {
-  //the power for the collectorMotor.
-  double collectPower;
-  //the power for the holderMotors.
+  double collectorPower;
   double holderPower;
   
   public CollectCargo(double collectPower, double holderPower) {
     //requires the cargoCollector
     requires(Robot.cargoCollector);
-    this.collectPower = collectPower;
+    this.collectorPower = collectPower;
     this.holderPower = holderPower;
   }
 
@@ -24,7 +22,7 @@ public class CollectCargo extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.cargoCollector.setCollectorMotor(collectPower);
+    Robot.cargoCollector.setCollectorMotor(collectorPower);
     Robot.cargoCollector.setHolderMotors(holderPower);
   }
 

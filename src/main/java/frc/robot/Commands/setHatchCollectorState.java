@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class setHatchCollectorState extends Command {
-  private boolean state;
+  private Value state;
 
-  public setHatchCollectorState(boolean state) {
+  public setHatchCollectorState(Value state) {
     requires(Robot.hatchCollector);
     this.state = state;
     // Use requires() here to declare subsystem dependencies
@@ -25,10 +25,7 @@ public class setHatchCollectorState extends Command {
   @Override
   protected void initialize() {
     //see at what state it is at, if it's reverse it's true, otherwise false.
-    if (state)
-      Robot.hatchCollector.setSolenoid(Value.kReverse);
-    else
-      Robot.hatchCollector.setSolenoid(Value.kForward);
+    Robot.hatchCollector.setSolenoid(this.state);
   }
 
   // Called repeatedly when this Command is scheduled to run
