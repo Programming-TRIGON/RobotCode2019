@@ -5,7 +5,9 @@ import java.util.function.Supplier;
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.dashboard.DashBoardController;
+import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
@@ -27,6 +29,7 @@ public class Robot extends TimedRobot {
   public static OneEighty oneEighty;
   public static CargoCollector cargoCollector;
   public static CargoFolder cargoFolder;
+  public static TankDrivetrain driveTrain;
 
   public static DashBoardController dbc;
 
@@ -67,6 +70,11 @@ public class Robot extends TimedRobot {
      * collector with it
      */
     Robot.cargoFolder = new CargoFolder(RobotComponents.CargoFolder.SOLENOID);
+
+    /*
+     * creates the drive train SS with SpikesLib 
+     */
+    Robot.driveTrain = new TankDrivetrain(RobotComponents.DriveTrain.FRONT_LEFT_M::set, RobotComponents.DriveTrain.FRONT_RIGHT_M::set);
 
     Robot.dbc.addNumber("Drivetrain Gyro", Robot.lift::getHeight);
 

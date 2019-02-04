@@ -1,5 +1,8 @@
 package frc.robot;
 
+import java.util.function.Consumer;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -44,4 +47,11 @@ public class RobotComponents {
         public final static AnalogPotentiometer POT = new AnalogPotentiometer(RobotMap.ANALOG_INPUT.LIFT_POTENTIOMETER, 
         RobotConstants.Sensors.LIFT_POTENTIOMETER_SCALE_FACTOR, RobotConstants.Sensors.LIFT_POTENTOIMETER_OFFSET);
     }
+    
+    static class DriveTrain{
+        public final static TalonSRX REAR_LEFT_M = new TalonSRX(RobotMap.CAN.REAR_LEFT_MOTOR);
+        public final static TalonSRX FRONT_LEFT_M = new TalonSRX(RobotMap.CAN.FRONT_LEFT_MOTOR);
+        public final static TalonSRX REAR_RIGHT_M = new TalonSRX(RobotMap.CAN.REAR_RIGHT_MOTOR);
+        public final static TalonSRX FRONT_RIGHT_M = new TalonSRX(RobotMap.CAN.FRONT_RIGHT_MOTOR);
+    }    
 }

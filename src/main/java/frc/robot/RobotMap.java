@@ -13,6 +13,11 @@ public class RobotMap {
         public final static int CARGO_COLLECTOR_MOTOR = 3;
         public final static int CARGO_COLLECTOR_HOLDER_RIGHT_MOTOR = 4;
         public final static int CARGO_COLLECTOR_HOLDER_LEFT_MOTOR = 5;
+
+        public final static int REAR_LEFT_MOTOR = 6;
+        public final static int FRONT_LEFT_MOTOR = 7;
+        public final static int REAR_RIGHT_MOTOR = 8;
+        public final static int FRONT_RIGHT_MOTOR = 9;
     }
 
     // Solenoid ports connected to PCM0
