@@ -74,6 +74,8 @@ public class Robot extends TimedRobot {
     /*
      * creates the drive train SS with SpikesLib 
      */
+    RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower, RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID());
+    RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower, RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID());
     Robot.driveTrain = new TankDrivetrain(RobotComponents.DriveTrain.FRONT_LEFT_M::set, RobotComponents.DriveTrain.FRONT_RIGHT_M::set);
 
     Robot.dbc.addNumber("Drivetrain Gyro", Robot.lift::getHeight);
