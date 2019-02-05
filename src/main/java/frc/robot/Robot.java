@@ -1,13 +1,9 @@
 package frc.robot;
 
-import java.awt.Dimension;
-import java.util.function.Supplier;
-
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 
