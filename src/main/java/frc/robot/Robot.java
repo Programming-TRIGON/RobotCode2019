@@ -59,7 +59,8 @@ public class Robot extends TimedRobot {
      * creates the SS that turns the subsytems cargo and hatch holder 180 degrees
      */
 
-    Robot.oneEighty = new OneEighty(RobotComponents.OneEighty.MOTOR, RobotComponents.OneEighty.POT, Robot.lift::getHeight);
+    Robot.oneEighty = new OneEighty(RobotComponents.OneEighty.MOTOR, RobotComponents.OneEighty.POT,
+        Robot.lift::getHeight);
 
     /*
      * creates the new SS that collects corgo by turning wheels that bring it in
@@ -74,19 +75,21 @@ public class Robot extends TimedRobot {
     Robot.cargoFolder = new CargoFolder(RobotComponents.CargoFolder.SOLENOID);
 
     /*
-     * creates the drive train SS with SpikesLib 
+     * creates the drive train SS with SpikesLib
      */
-    RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower, RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); //now front and rear motors are moving toghether
-    RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower, RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); //ditto
-    //made functions that set speed to the motors on the drive train by double insted of ControlMode and double
-    Robot.driveTrain = new TankDrivetrain(Robot::setDriveTrainLeftMotor, Robot::setDriveTrainRightMotor); 
+    RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower,
+        RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); // now front and rear motors are moving toghether
+    RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower,
+        RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); // ditto
+    // made functions that set speed to the motors on the drive train by double
+    // insted of ControlMode and double
+    Robot.driveTrain = new TankDrivetrain(
+        (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
+        (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, speed));
 
     Robot.dbc.addNumber("Drivetrain Gyro", Robot.lift::getHeight);
 
   }
-
-  public static void setDriveTrainLeftMotor(double speed) {RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed); } //
-  public static void setDriveTrainRightMotor(double speed) {RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, speed); }
 
   @Override
   public void robotPeriodic() {
