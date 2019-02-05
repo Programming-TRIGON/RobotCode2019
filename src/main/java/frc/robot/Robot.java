@@ -1,11 +1,13 @@
 package frc.robot;
 
+import java.awt.Dimension;
 import java.util.function.Supplier;
 
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 
@@ -74,13 +76,17 @@ public class Robot extends TimedRobot {
     /*
      * creates the drive train SS with SpikesLib 
      */
-    RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower, RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID());
-    RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower, RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID());
-    Robot.driveTrain = new TankDrivetrain(RobotComponents.DriveTrain.FRONT_LEFT_M::set, RobotComponents.DriveTrain.FRONT_RIGHT_M::set);
+    RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower, RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); //now front and rear motors are moving toghether
+    RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower, RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); //ditto
+    //made functions that set speed to the motors on the drive train by double insted of ControlMode and double
+    Robot.driveTrain = new TankDrivetrain(Robot::setDriveTrainLeftMotor, Robot::setDriveTrainRightMotor); 
 
     Robot.dbc.addNumber("Drivetrain Gyro", Robot.lift::getHeight);
 
   }
+
+  public static void setDriveTrainLeftMotor(double speed) {RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed); } //
+  public static void setDriveTrainRightMotor(double speed) {RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, speed); }
 
   @Override
   public void robotPeriodic() {
