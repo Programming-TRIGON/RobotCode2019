@@ -83,7 +83,6 @@ public class Robot extends TimedRobot {
         (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
         (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, speed));
 
-    Robot.dbc.addNumber("Drivetrain Gyro", Robot.lift::getHeight);
 
   }
 
