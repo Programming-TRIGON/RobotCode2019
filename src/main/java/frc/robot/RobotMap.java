@@ -15,9 +15,9 @@ public class RobotMap {
         public final static int CARGO_COLLECTOR_HOLDER_LEFT_MOTOR = 5;
 
         public final static int REAR_LEFT_MOTOR = 6;
-        public final static int FRONT_LEFT_MOTOR = 7;
-        public final static int REAR_RIGHT_MOTOR = 8;
-        public final static int FRONT_RIGHT_MOTOR = 9;
+        public final static int FRONT_LEFT_MOTOR = 10;
+        public final static int REAR_RIGHT_MOTOR = 9;
+        public final static int FRONT_RIGHT_MOTOR = 8;
     }
 
     // Solenoid ports connected to PCM0
@@ -38,11 +38,11 @@ public class RobotMap {
 
     // Robot components connected to roboRIO Digital Input Output ports
     static class DIO {
-        public static final int LIFT_TOP_MICRO_SWITCH = 0;
-        public static final int LIFT_BOTTOM_MICRO_SWITCH = 1;
+        public static final int LIFT_TOP_MICRO_SWITCH = 4;
+        public static final int LIFT_BOTTOM_MICRO_SWITCH = 5;
         public final static int CARGO_FOLDER_TOP_SWITCH = 2;
         public final static int CARGO_FOLDER_BOTTOM_SWITCH = 3;
-        public final static int CARGO_COLLECTOR_SWITCH = 4;
+        public final static int CARGO_COLLECTOR_SWITCH = 0;
     }
 
     // Analog input device ports
