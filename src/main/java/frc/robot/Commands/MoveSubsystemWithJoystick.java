@@ -7,18 +7,26 @@
 
 package frc.robot.Commands;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Subsystems.JoystickOverridableSubsystem;
 
 public class MoveSubsystemWithJoystick extends Command {
   JoystickOverridableSubsystem subsystem;
-  Joystick joystick;
+  GenericHID joystick;
 
-  public MoveSubsystemWithJoystick(JoystickOverridableSubsystem subsystem, Joystick joystick) {
+  public MoveSubsystemWithJoystick(JoystickOverridableSubsystem subsystem, GenericHID joystick) {
     requires(subsystem);
     this.subsystem = subsystem;
     this.joystick = joystick;
+  }
+
+  public MoveSubsystemWithJoystick(JoystickOverridableSubsystem subsystem, GenericHID joystick, String name) {
+    requires(subsystem);
+    this.subsystem = subsystem;
+    this.joystick = joystick;
+    this.setName(name);
   }
 
   // Called just before this Command runs the first time
@@ -41,11 +49,13 @@ public class MoveSubsystemWithJoystick extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    this.subsystem.move(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }
