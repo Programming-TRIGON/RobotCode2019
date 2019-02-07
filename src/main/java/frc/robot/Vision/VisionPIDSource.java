@@ -16,13 +16,14 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 public class VisionPIDSource implements PIDSource {
     private VisionDirectionType type;
     private NetworkTableEntry visionEntry;
-    private final double IMAGE_WIDGH = 2000; // important to know if the target on the middle of the image
+    private double imageWidth; // important to know if the target on the middle of the image
 
     public VisionPIDSource(VisionTarget target, VisionDirectionType type) {
         this.type = type;
         NetworkTableInstance inst = NetworkTableInstance.getDefault();
         NetworkTable targetTable = inst.getTable("SmartDashboard");
         this.visionEntry = targetTable.getEntry(target.key);
+        imageWidth = type.width;
     }
 
     @Override
@@ -47,7 +48,7 @@ public class VisionPIDSource implements PIDSource {
         }
         //extracts the x/y direction from the targetLocation 
         double directionValue = Double.parseDouble(targetLocation.split(" ")[type.key]);
-        return (-directionValue / (this.IMAGE_WIDGH / 2)) + 1; // give the pid controller value between -1 and 1
+        return (-directionValue / (this.imageWidth / 2)) + 1; // give the pid controller value between -1 and 1
     }
      /**
      * types of targets that the robot can track 
@@ -84,11 +85,13 @@ public class VisionPIDSource implements PIDSource {
      * VisionDirectionType is either x or y.
      */
     public static enum VisionDirectionType {
-        x(0), y(1);
+        x(0,320), y(1,240);
         public int key;
+        public int width;//the width/height
 
-        private VisionDirectionType(int key) {
+        private VisionDirectionType(int key,int width) {
             this.key = key;
+            this.width = width;
         }
     }
 

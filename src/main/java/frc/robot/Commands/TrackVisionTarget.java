@@ -81,11 +81,11 @@ public class TrackVisionTarget extends Command {
   @Override
   protected void execute() {
     // if no direction is received, the driveTrain is controlled by the joystick
-    if (x == 9999 || y == 9999) {
+    if (this.x == 9999 || this.y == 9999) {
       double y = -xbox.getY(Hand.kLeft);
       Robot.driveTrain.arcadeDrive(xbox.getX(Hand.kLeft), y);
     } else {
-      Robot.driveTrain.arcadeDrive(x, -y);
+      Robot.driveTrain.arcadeDrive(this.x, -this.y);
     }
   }
 
