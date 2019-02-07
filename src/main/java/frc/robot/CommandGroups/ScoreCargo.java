@@ -13,18 +13,23 @@ public class ScoreCargo extends CommandGroup {
   double startingAngle;
   PushCargoPower pushCargoByHeight;
   LiftHeight height;
-  OneEightyAngle finishingAngle = RobotConstants.OneEightyAngle.kStraight;;
-  LiftHeight finishingHeight = RobotConstants.LiftHeight.kLiftBottom; ;
+  OneEightyAngle finishingAngle = RobotConstants.OneEightyAngle.kStraight;
+  LiftHeight finishingHeight = RobotConstants.LiftHeight.kLiftBottom; 
+
 
   public ScoreCargo(double startingAngle, LiftHeight height) {
     this.startingAngle = startingAngle;
     this.height = height;
     //connecting the Height to PushCargoByHeight to push the cargo in the right speed
     switch(height){
-      case kRocketBottomCargo: pushCargoByHeight = PushCargoPower.kLowRocket; break;
-      case kRocketMiddleCargo: pushCargoByHeight = PushCargoPower.kMiddleRocket;break;
-      case kRocketTopCargo: pushCargoByHeight = PushCargoPower.kLowRocket;break;
-      default: pushCargoByHeight = PushCargoPower.kCargoShip;break;
+      case kRocketBottomCargo: pushCargoByHeight = PushCargoPower.kLowRocket; 
+      break;
+      case kRocketMiddleCargo: pushCargoByHeight = PushCargoPower.kMiddleRocket;
+      break;
+      case kRocketTopCargo: pushCargoByHeight = PushCargoPower.kLowRocket;
+      break;
+      default: pushCargoByHeight = PushCargoPower.kCargoShip;
+      break;
     }
     addSequential(new SetOneEightyAngle(startingAngle));
     addSequential(new SetLiftHeight(height));
