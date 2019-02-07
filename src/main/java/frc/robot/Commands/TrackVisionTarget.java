@@ -83,9 +83,9 @@ public class TrackVisionTarget extends Command {
     // if no direction is received, the driveTrain is controlled by the joystick
     if (x == 9999 || y == 9999) {
       double y = -xbox.getY(Hand.kLeft);
-      Robot.driveTrain.arcadeDrive(xbox.getX(Hand.kLeft), y, Math.abs(y) <= 0.50);
+      Robot.driveTrain.arcadeDrive(xbox.getX(Hand.kLeft), y);
     } else {
-      Robot.driveTrain.arcadeDrive(x, -y, Math.abs(y) <= 0.50);
+      Robot.driveTrain.arcadeDrive(x, -y);
     }
   }
 
@@ -105,6 +105,7 @@ public class TrackVisionTarget extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    //pid controllers are disabled and closed
     visionXPIDController.disable();
     visionYPIDController.disable();
     visionXPIDController.close();

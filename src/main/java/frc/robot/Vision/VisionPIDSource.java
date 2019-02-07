@@ -12,19 +12,15 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionPIDSource implements PIDSource {
-    private VisionTarget target;
     private VisionDirectionType type;
     private NetworkTableEntry visionEntry;
     private final double IMAGE_WIDGH = 2000; // important to know if the target on the middle of the image
 
     public VisionPIDSource(VisionTarget target, VisionDirectionType type) {
-        this.target = target;
         this.type = type;
         NetworkTableInstance inst = NetworkTableInstance.getDefault();
-        // TODO: find which table we are using to upload vision target dircetions
         NetworkTable targetTable = inst.getTable("SmartDashboard");
         this.visionEntry = targetTable.getEntry(target.key);
     }
@@ -43,17 +39,21 @@ public class VisionPIDSource implements PIDSource {
         if (this.visionEntry == null) {
             return 9999;
         }
+        //gets directions from networktable.
         String targetLocation = this.visionEntry.getString("9999");
         if (targetLocation.equals("9999")) {
+            //If no target is found, 9999 will be returned.
             return 9999;
         }
+        //extracts the x/y direction from the targetLocation 
         double directionValue = Double.parseDouble(targetLocation.split(" ")[type.key]);
-
         return (-directionValue / (this.IMAGE_WIDGH / 2)) + 1; // give the pid controller value between -1 and 1
     }
-
+     /**
+     * types of targets that the robot can track 
+     */
     public static enum VisionTarget {
-        
+
         kHatch("HatchDirection") {
             public String toString() {
                 return "hatch";
@@ -80,7 +80,9 @@ public class VisionPIDSource implements PIDSource {
             this.key = key;
         }
     }
-
+    /**
+     * VisionDirectionType is either x or y.
+     */
     public static enum VisionDirectionType {
         x(0), y(1);
         public int key;

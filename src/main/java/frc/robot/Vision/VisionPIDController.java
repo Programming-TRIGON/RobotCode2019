@@ -1,33 +1,22 @@
 package frc.robot.Vision;
 
-import edu.wpi.first.wpilibj.Controller;
-import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import frc.robot.Vision.VisionPIDSource;
 
-public class VisionPIDController extends PIDController implements Controller {
-    Notifier m_controlLoop = new Notifier(this::calculate);
+public class VisionPIDController extends PIDController{
+    //overrides the pidInput to be VisionPIDSource type
     VisionPIDSource m_pidInput;
 
     public VisionPIDController(double Kp, double Ki, double Kd, VisionPIDSource source, PIDOutput output) {
-        this(Kp, Ki, Kd, source, output, kDefaultPeriod);
+        super(Kp, Ki, Kd, source, output, kDefaultPeriod);
     }
 
     public VisionPIDController(double Kp, double Ki, double Kd, VisionPIDSource source, PIDOutput output,
             double period) {
-        this(Kp, Ki, Kd, 0.0, source, output, period);
+        super(Kp, Ki, Kd, source, output, period);
     }
 
-    public VisionPIDController(double Kp, double Ki, double Kd, double Kf, VisionPIDSource source, PIDOutput output,
-            double period) {
-        super(Kp, Ki, Kd, Kf, source, output);
-        m_pidInput = source;
-    }
-
-    public VisionPIDController(double Kp, double Ki, double Kd, double Kf, VisionPIDSource source, PIDOutput output) {
-        this(Kp, Ki, Kd, Kf, source, output, kDefaultPeriod);
-    }
 
     /**
      * calculates only if the direction has been found. If the direction is not found it
@@ -36,6 +25,7 @@ public class VisionPIDController extends PIDController implements Controller {
     @Override
     protected void calculate() {
         boolean isUpdated;
+        //checks if the direction is found
         this.m_thisMutex.lock();
         try {
             isUpdated = m_pidInput.isUpdated();
@@ -43,14 +33,27 @@ public class VisionPIDController extends PIDController implements Controller {
             this.m_thisMutex.unlock();
         }
         if (isUpdated)
+            //the direction was found
             super.calculate();
         else {
             //the direction wasn't found
-            this.m_thisMutex.lock();
+            //this code snippet was taken from PIDbase(original calculate() code)
+            m_pidWriteMutex.lock();
             try {
-                m_pidOutput.pidWrite(9999);
+              m_thisMutex.lock();
+              try {
+                if (m_enabled) {
+                  // Don't block other PIDController operations on pidWrite()
+                  m_thisMutex.unlock();
+                  m_pidOutput.pidWrite(9999);
+                }
+              } finally {
+                if (m_thisMutex.isHeldByCurrentThread()) {
+                  m_thisMutex.unlock();
+                }
+              }
             } finally {
-                this.m_thisMutex.unlock();
+              m_pidWriteMutex.unlock();
             }
         }
     }

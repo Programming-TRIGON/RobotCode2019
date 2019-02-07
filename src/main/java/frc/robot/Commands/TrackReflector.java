@@ -38,7 +38,7 @@ public class TrackReflector extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    edu.wpi.first.networktables.NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
+    NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
     NetworkTableEntry target = imageProcessingTable.getEntry("target");
     target.setString(this.target.toString());
     // pid source for x
@@ -59,10 +59,10 @@ public class TrackReflector extends Command {
     // if no direction is received, the driveTrain is controlled by the joystick
     if (x == 9999) {
       double y = -xbox.getY(Hand.kLeft);
-      Robot.driveTrain.arcadeDrive(xbox.getX(Hand.kLeft), y, Math.abs(y) <= 0.50);
+      Robot.driveTrain.arcadeDrive(xbox.getX(Hand.kLeft), y);
     } else {
       double y = -xbox.getY(Hand.kLeft);
-      Robot.driveTrain.arcadeDrive(x, y, Math.abs(y) <= 0.50);
+      Robot.driveTrain.arcadeDrive(x, y);
     }
   }
 
@@ -82,6 +82,7 @@ public class TrackReflector extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    //pid controllers are disabled and closed
     visionXPIDController.disable();
     visionXPIDController.close();
   }
