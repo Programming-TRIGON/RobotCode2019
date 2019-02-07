@@ -9,8 +9,9 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
+/** this class sets what all of the robot components are */
 public class RobotComponents {
-    static class CargoCollector{
+    static class CargoCollector {
         public final static TalonSRX COLECTOR_MOTOR = new TalonSRX(RobotMap.CAN.CARGO_COLLECTOR_MOTOR);
         public final static TalonSRX RIGHT_HOLDER = new TalonSRX(RobotMap.CAN.CARGO_COLLECTOR_HOLDER_RIGHT_MOTOR);
         public final static TalonSRX LEFT_HOLDER = new TalonSRX(RobotMap.CAN.CARGO_COLLECTOR_HOLDER_LEFT_MOTOR);
@@ -23,10 +24,12 @@ public class RobotComponents {
         public final static DigitalInput BOTTOM_SWITCH = new DigitalInput(RobotMap.DIO.CARGO_FOLDER_BOTTOM_SWITCH);
     }
 
-    static class OneEighty{
+    static class OneEighty {
         public final static TalonSRX MOTOR = new TalonSRX(RobotMap.CAN.ONE_EIGHTY_MOTOR);
-        public final static AnalogPotentiometer POT = new AnalogPotentiometer(RobotMap.ANALOG_INPUT.ONE_EIGHTY_POTENTIOMETER,
-            RobotConstants.ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER, RobotConstants.ONE_EIGHTY_POTENTIOMETER_OFFSET);
+        public final static AnalogPotentiometer POT = new AnalogPotentiometer(
+                RobotMap.ANALOG_INPUT.ONE_EIGHTY_POTENTIOMETER,
+                RobotConstants.ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER,
+                RobotConstants.ONE_EIGHTY_POTENTIOMETER_OFFSET);
     }
 
     static class HatchHolder{
@@ -37,15 +40,17 @@ public class RobotComponents {
 
     static class HatchCollector{
         public final static DoubleSolenoid SOLENOID = new DoubleSolenoid(RobotMap.CAN.pcm, RobotMap.PCM0.HATCH_COLLECTOR_SOLENOID_A, RobotMap.PCM0.HATCH_COLLECTOR_SOLENOID_B);
+
     }
 
-    static class Lift{
+    static class Lift {
         public final static TalonSRX LIFT_LEFT_M = new TalonSRX(RobotMap.CAN.LIFT_LEFT_MOTOR);
         public final static TalonSRX LIFT_RIGHT_M = new TalonSRX(RobotMap.CAN.LIFT_RIGHT_MOTOR);
-        public final static DigitalInput BOTTOM_SWITCH = new DigitalInput(RobotMap.DIO.LIFT_BOTTOM_MICRO_SWITCH); 
+        public final static DigitalInput BOTTOM_SWITCH = new DigitalInput(RobotMap.DIO.LIFT_BOTTOM_MICRO_SWITCH);
         public final static DigitalInput TOP_SWITCH = new DigitalInput(RobotMap.DIO.LIFT_TOP_MICRO_SWITCH);
-        public final static AnalogPotentiometer POT = new AnalogPotentiometer(RobotMap.ANALOG_INPUT.LIFT_POTENTIOMETER, 
-        RobotConstants.Sensors.LIFT_POTENTIOMETER_SCALE_FACTOR, RobotConstants.Sensors.LIFT_POTENTOIMETER_OFFSET);
+        public final static AnalogPotentiometer POT = new AnalogPotentiometer(RobotMap.ANALOG_INPUT.LIFT_POTENTIOMETER,
+                RobotConstants.Sensors.LIFT_POTENTIOMETER_SCALE_FACTOR,
+                RobotConstants.Sensors.LIFT_POTENTOIMETER_OFFSET);
     }
     
     static class DriveTrain{

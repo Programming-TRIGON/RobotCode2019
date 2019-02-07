@@ -22,13 +22,14 @@ public class SetLiftHeight extends Command {
   private double kD = 0;
   private double timeFrame = 0.05;
 
+  /** sets the height of the lift depending on the situation */
   public SetLiftHeight(LiftHeight finishingHeight) {
     this(finishingHeight.key, false);
   }
 
   public SetLiftHeight(double d, boolean isInfinate) {
     requires(Robot.lift);
-    this.height = new Supplier<Double>(){
+    this.height = new Supplier<Double>() {
       @Override
       public Double get() {
         return d;
@@ -37,13 +38,12 @@ public class SetLiftHeight extends Command {
     this.isInfinate = isInfinate;
   }
 
-  public SetLiftHeight(Supplier<Double> setpointSupplier, boolean isInfinate){
+  public SetLiftHeight(Supplier<Double> setpointSupplier, boolean isInfinate) {
     requires(Robot.lift);
     this.isInfinate = isInfinate;
     this.height = setpointSupplier;
-}
+  }
 
-// Called just before this Command runs the first time
   @Override
   protected void initialize() {
     this.pidOutput = new PIDOutput() {
@@ -51,7 +51,6 @@ public class SetLiftHeight extends Command {
         Robot.lift.setMotorSpeed(output);
       }
     };
-
     pidController.setSetpoint(height.get());
     this.pidController = new PIDController(kP, kI, kD, Robot.lift.getPotentiometer(), this.pidOutput, timeFrame);
     pidController.setAbsoluteTolerance(tolerance);
@@ -59,17 +58,16 @@ public class SetLiftHeight extends Command {
     pidController.enable();
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    /** checks if we want to run the command forever */
     if (isInfinate)
       return false;
-      
+    /** checks if the lift is in position for lon enough */
     if (!pidController.onTarget()) {
       lastTimeNotOnTarget = Timer.getFPGATimestamp();
     }
