@@ -5,6 +5,8 @@ public class RobotMap {
 
     // Device ID's for devices connected to the CAN bus
    static class CAN {
+        public static final int pcm = 1;
+
         public static final int LIFT_LEFT_MOTOR = 7;
         public static final int LIFT_RIGHT_MOTOR = 4;
 
