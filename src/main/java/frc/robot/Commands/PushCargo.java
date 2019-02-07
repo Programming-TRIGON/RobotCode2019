@@ -4,17 +4,18 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotConstants.PushCargoPower;
 
+/** puts the cargo in the rocket */
+
 public class PushCargo extends Command {
   double power;
   final double TIMEOUT = 1;
-  //defines power
-  public PushCargo (PushCargoPower power) {
+
+  /** accepts the power from an Enum */
+  public PushCargo(PushCargoPower power) {
     requires(Robot.cargoCollector);
     this.power = power.key;
   }
 
-
-// Called just before this Command runs the first time
   @Override
   protected void initialize() {
     setTimeout(TIMEOUT);
@@ -22,13 +23,13 @@ public class PushCargo extends Command {
 
   @Override
   protected void execute() {
+    /** ejects the cargo */
     Robot.cargoCollector.setHolderMotors(power);
   }
 
   @Override
   protected boolean isFinished() {
-    //the command is finished when the ball is being held
-    // note from editor: really?
+    // the command is finished when the ball is being held
     return isTimedOut();
   }
 
@@ -37,8 +38,6 @@ public class PushCargo extends Command {
     Robot.cargoCollector.setHolderMotors(0);
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
     end();

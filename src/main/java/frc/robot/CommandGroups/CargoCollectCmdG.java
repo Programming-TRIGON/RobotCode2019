@@ -10,14 +10,17 @@ import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotConstants.LiftHeight;
 
+/** collects caro from the floor */
+
 public class CargoCollectCmdG extends CommandGroup {
   double COLLECTOR_POWER = 0.5;
   double HOLDER_POWER = 0.7;
-//TODO: real values.
+
+  // TODO: real values.
   public CargoCollectCmdG() {
-    /** starts by unfolding the crago collecter */
+    /** starts by unfolding the cargo collecter */
     addSequential(new SetCargoFolderState(Value.kReverse));
-    /**turn to the required angle */
+    /** turns to the required angle */
     addSequential(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));
     /** set lift height to bottom in order to collect cargo */
     addSequential(new SetLiftHeight(RobotConstants.LiftHeight.kLiftBottom));
