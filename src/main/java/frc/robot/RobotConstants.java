@@ -95,6 +95,12 @@ public class RobotConstants {
             this.key = power;
         }
     }
+    public static class PathFinder {
+
+		public static final double WheelDiameter = 0;
+		public static final int TicksPerRevolution = 0;
+		public static final int MaxVelocity = 0;
+    }
 
     public static Map<LiftHeight, PushCargoPower> heightToCargoPower = new HashMap<LiftHeight, PushCargoPower>() {
         {
