@@ -44,8 +44,8 @@ public class SetOneEightyAngle extends Command {
         (output) -> Robot.oneEighty.setOneEighty(output), PERIOD);
     pidController.setAbsoluteTolerance(TOLERANCE);
     pidController.setOutputRange(-1, 1);
+    pidController.setSetpoint(angle);
     pidController.enable();
-
   }
 
   // Make this return true when this Command no longer needs to run execute()
