@@ -10,12 +10,12 @@ import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
 
 public class PathFinder extends Command {
-  //TODO: make real values
+  // TODO: make real values
   private double desired_heading, heading, heading_difference, turn, right_speed, left_speed;
   private EncoderFollower encoderFollowerLeft, encoderFollowerRight;
   private Trajectory leftTrajectory, rightTrajectory;
   private String pathName;
-//TODO: set path names as enums
+
   public PathFinder(String pathName) {
     requires(Robot.driveTrain);
     this.pathName = pathName;
@@ -40,23 +40,23 @@ public class PathFinder extends Command {
   @Override
   protected void execute() {
 
-      this.left_speed = encoderFollowerLeft.calculate(RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_LEFT.get());
-      this.right_speed = encoderFollowerRight.calculate(RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_RIGHT.get());
-      this.heading = RobotComponents.DriveTrain.DRIVETRAIN_GYRO.getAngle();
-      this.desired_heading = Pathfinder.r2d(encoderFollowerLeft.getHeading());
-      this.heading_difference = Pathfinder.boundHalfDegrees(this.desired_heading - this.heading);
-      this.turn = 0.8 * (-1.0 / 80.0) * this.heading_difference;
-      Robot.driveTrain.tankDrive((this.left_speed + this.turn), (this.right_speed - this.turn));
+    this.left_speed = encoderFollowerLeft.calculate(RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_LEFT.get());
+    this.right_speed = encoderFollowerRight.calculate(RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_RIGHT.get());
+    this.heading = RobotComponents.DriveTrain.DRIVETRAIN_GYRO.getAngle();
+    this.desired_heading = Pathfinder.r2d(encoderFollowerLeft.getHeading());
+    this.heading_difference = Pathfinder.boundHalfDegrees(this.desired_heading - this.heading);
+    this.turn = 0.8 * (-1.0 / 80.0) * this.heading_difference;
+    Robot.driveTrain.tankDrive((this.left_speed + this.turn), (this.right_speed - this.turn));
   }
 
   @Override
   protected boolean isFinished() {
-  return encoderFollowerLeft.isFinished() && encoderFollowerRight.isFinished();
+    return encoderFollowerLeft.isFinished() && encoderFollowerRight.isFinished();
   }
 
   @Override
   protected void end() {
-    Robot.driveTrain.tankDrive(0,0);
+    Robot.driveTrain.tankDrive(0, 0);
 
   }
 

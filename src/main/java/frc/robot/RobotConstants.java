@@ -83,6 +83,20 @@ public class RobotConstants {
             this.key = height;
         }
     }
+    public static enum pathName{
+        //TODO: set real values
+        kPathBottomRight("PathBottomRight"),
+        kPathBottomMiddle("PathBottomMiddle"),
+        kPathBottomLeft("PathBottomLeft"),
+        kPathTopRight("PathTopRight"),
+        kPathTopLeft("PathTopLeft");
+
+        public String key;
+        pathName(String pathName) {
+            this.key = pathName;
+        }
+
+    }
 
     // we might want to change the enum name...
     public static enum PushCargoPower {
