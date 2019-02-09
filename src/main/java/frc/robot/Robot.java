@@ -2,18 +2,30 @@ package frc.robot;
 
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
+import frc.robot.TestCommands.CargoHolderTest;
+import frc.robot.TestCommands.CargoRollerTest;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
 
+import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
+import frc.robot.Commands.SetHatchEject;
+import frc.robot.Commands.SetHatchLock;
+import frc.robot.Commands.SetLiftHeight;
+import frc.robot.Commands.SetOneEightyAngle;
+import frc.robot.Commands.setHatchCollectorState;
+import frc.robot.RobotConstants.LiftHeight;
+import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
 import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -34,6 +46,8 @@ public class Robot extends TimedRobot {
 
   public static DashBoardController dbc;
   public static OI oi;
+
+  final SendableChooser<Command> testsChooser = new SendableChooser<Command>();;
 
   @Override
   public void robotInit() {
@@ -134,6 +148,28 @@ public class Robot extends TimedRobot {
   }
 
   @Override
+  public void testInit() {
+    // testsChooser.addOption("cargoRoller", new CargoRollerTest());
+    // testsChooser.addOption("cargoHolder", new CargoHolderTest());
+    testsChooser.addOption("cargoCollection", new CollectCargo(0.3, 0.3));
+
+    testsChooser.addOption("lift", new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
+    testsChooser.addOption("oneEighty", new SetOneEightyAngle(OneEightyAngle.kStraight));
+
+    testsChooser.addOption("hatchEject", new SetHatchEject(Value.kForward));
+    testsChooser.addOption("hatchEject", new SetHatchEject(Value.kReverse));
+
+    testsChooser.addOption("hatchLock", new SetHatchLock(Value.kForward));
+    testsChooser.addOption("hatchLock", new SetHatchLock(Value.kReverse));
+
+    testsChooser.addOption("hatchCollector", new setHatchCollectorState(Value.kForward));
+    testsChooser.addOption("hatchCollector", new setHatchCollectorState(Value.kReverse));
+
+
+  }
+  @Override
   public void testPeriodic() {
+    Command currentTestCommand = testsChooser.getSelected();
+
   }
 }
