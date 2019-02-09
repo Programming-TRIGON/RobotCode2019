@@ -169,7 +169,7 @@ public class Robot extends TimedRobot {
   }
   @Override
   public void testPeriodic() {
-    Command currentTestCommand = testsChooser.getSelected();
+    SmartDashboard.putData("selected test command" ,testsChooser.getSelected());
 
   }
 }
