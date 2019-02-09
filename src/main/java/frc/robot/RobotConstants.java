@@ -58,10 +58,10 @@ public class RobotConstants {
     /**
      * The value at which the potentiometer will multiply the fraction it returns
      */
-    public static final double ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER = 360;
+    public static final double ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER = 0;
     // to do change change offset
     /** the angle at which the potentiometer starts */
-    public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET = -180;
+    public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET = 0;
 
     /**
      * the amount of time we want the lift to stay on the target fof the PID to end
