@@ -73,6 +73,7 @@ public class PathFinder extends Command {
      * making the value smaller so it doesn't have as much of a affect as the
      * encoders
      */
+    //TODO: FIX THIS
     this.turn = this.turnSize * this.heading_difference;
     /** setting the numbers given by the PID to the motors */
     Robot.driveTrain.tankDrive((this.left_speed + this.turn), (this.right_speed - this.turn));
