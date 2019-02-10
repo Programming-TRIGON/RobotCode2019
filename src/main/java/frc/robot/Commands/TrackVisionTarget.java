@@ -23,6 +23,10 @@ import frc.robot.Vision.VisionPIDController;
 import frc.robot.Vision.VisionPIDSource;
 import frc.robot.Vision.VisionPIDSource.VisionDirectionType;
 
+/**
+ * This command makes the follow the target in the constructor by using vision
+ * PID.
+ */
 public class TrackVisionTarget extends Command {
 
   private VisionPIDSource.VisionTarget target;
@@ -94,7 +98,7 @@ public class TrackVisionTarget extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    //returns true if the robot reached his target
+    // returns true if the robot reached his target
     if (this.distancePIDController.onTarget() && this.rotationPIDController.onTarget())
       lastTimeNotOnTarget = Timer.getFPGATimestamp();
     return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= this.waitTime;

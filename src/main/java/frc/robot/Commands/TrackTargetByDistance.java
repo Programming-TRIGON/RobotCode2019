@@ -22,6 +22,12 @@ import frc.robot.Robot;
 import frc.robot.Vision.VisionPIDController;
 import frc.robot.Vision.VisionPIDSource;
 
+/**
+ * This command tracks the target in the constructor with both vision and
+ * encoders: the driveTrain will drive a set amount of distance, by using the
+ * supplier for calculating the error, and the given setpoint as the setpoint.
+ * The driveTrain will also rotate using vision PID.
+ */
 public class TrackTargetByDistance extends Command {
   private double lastTimeNotOnTarget;
   private final double waitTime = 0.1;
@@ -42,8 +48,9 @@ public class TrackTargetByDistance extends Command {
   private final Supplier<Double> distanceKD = ConstantHandler.addConstantDouble("distanceKD", 0);
   private final double SETPOINT = 0;
 
-  public TrackTargetByDistance(XboxController xbox, Supplier<Double> distanceSupplier, double setpoint) {
-    this.target = VisionPIDSource.VisionTarget.kReflector;
+  public TrackTargetByDistance(VisionPIDSource.VisionTarget target, XboxController xbox,
+      Supplier<Double> distanceSupplier, double setpoint) {
+    this.target = target;
     this.distanceSupplier = distanceSupplier;
     this.distanceSetpoint = setpoint;
     requires(Robot.driveTrain);
@@ -56,8 +63,8 @@ public class TrackTargetByDistance extends Command {
     NetworkTableEntry target = imageProcessingTable.getEntry("target");
     target.setString(this.target.toString());
     // pid source for rotation
-    VisionPIDSource visionXPIDSource = new VisionPIDSource(this.target, VisionPIDSource.VisionDirectionType.x);
-   //pid source for distance
+    VisionPIDSource rotationPIDSource = new VisionPIDSource(this.target, VisionPIDSource.VisionDirectionType.x);
+    // pid source for distance
     PIDSource distancePIDSource = new PIDSource() {
 
       @Override
@@ -75,8 +82,8 @@ public class TrackTargetByDistance extends Command {
       }
     };
     // pid controller for the x axis
-    rotationPIDController = new VisionPIDController(this.rotationKP.get(), this.rotationKI.get(), this.rotationKD.get(), visionXPIDSource,
-        (output) -> rotation = output);
+    rotationPIDController = new VisionPIDController(this.rotationKP.get(), this.rotationKI.get(), this.rotationKD.get(),
+        rotationPIDSource, (output) -> rotation = output);
     rotationPIDController.setAbsoluteTolerance(this.rotationTolerance.get());
     rotationPIDController.setSetpoint(this.SETPOINT);
     rotationPIDController.setOutputRange(-1, 1);
@@ -105,10 +112,10 @@ public class TrackTargetByDistance extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    //returns true if the robot reached his target
-    if (this.distancePIDController.onTarget()) 
-			lastTimeNotOnTarget = Timer.getFPGATimestamp();
-		return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= this.waitTime;
+    // returns true if the robot reached his target
+    if (this.distancePIDController.onTarget())
+      lastTimeNotOnTarget = Timer.getFPGATimestamp();
+    return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= this.waitTime;
   }
 
   // Called once after isFinished returns true
