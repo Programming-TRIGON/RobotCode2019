@@ -5,6 +5,8 @@ import java.util.function.Supplier;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
@@ -18,12 +20,11 @@ public class OneEighty extends JoystickOverridableSubsystem {
   private TalonSRX motor;
   private AnalogPotentiometer potentiometer;
   //This supplier checks if the S.S. is high enough to move.
-  private Supplier<Number> heightSupplier;
+  private AnalogInput analogPotentiometer;
 
-  public OneEighty(TalonSRX motor, AnalogPotentiometer potentiometer, Supplier<Number> heightSupplier){
+  public OneEighty(TalonSRX motor, AnalogInput potentiometer){
     this.motor = motor;
-    this.potentiometer = potentiometer;
-    this.heightSupplier = heightSupplier;
+    this.analogPotentiometer = potentiometer;
   } 
 
   /** turns the SS to where the driver wants it */
@@ -32,7 +33,7 @@ public class OneEighty extends JoystickOverridableSubsystem {
   }
 
   public double getAngle() {
-    return potentiometer.get();
+    return Math.exp(analogPotentiometer.getVoltage());
   }
   public AnalogPotentiometer getPotentiometer(){
     return this.potentiometer;

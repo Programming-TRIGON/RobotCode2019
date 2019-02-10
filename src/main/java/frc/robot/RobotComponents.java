@@ -1,10 +1,8 @@
 package frc.robot;
 
-import java.util.function.Consumer;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -26,10 +24,11 @@ public class RobotComponents {
 
     static class OneEighty {
         public final static TalonSRX MOTOR = new TalonSRX(RobotMap.CAN.ONE_EIGHTY_MOTOR);
-        public final static AnalogPotentiometer POT = new AnalogPotentiometer(
+        /*public final static AnalogPotentiometer POT = new AnalogPotentiometer(
                 RobotMap.ANALOG_INPUT.ONE_EIGHTY_POTENTIOMETER,
                 RobotConstants.ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER,
-                RobotConstants.ONE_EIGHTY_POTENTIOMETER_OFFSET);
+    RobotConstants.ONE_EIGHTY_POTENTIOMETER_OFFSET);*/
+        public final static AnalogInput POT = new AnalogInput(1);
     }
 
     static class HatchHolder{
