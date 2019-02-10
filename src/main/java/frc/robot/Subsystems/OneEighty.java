@@ -28,7 +28,7 @@ public class OneEighty extends JoystickOverridableSubsystem {
   }
 
   public double getAngle() {
-    return Math.exp(analogPotentiometer.getVoltage());
+    return potentiometer.get();
   }
   public AnalogPotentiometer getPotentiometer(){
     return this.potentiometer;
