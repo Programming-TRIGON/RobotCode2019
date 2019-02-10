@@ -1,5 +1,5 @@
 package frc.robot;
-
+//TODO: add real ports
 /** a class that defines the ports of the robot */
 public class RobotMap {
 
@@ -45,12 +45,17 @@ public class RobotMap {
         public final static int CARGO_FOLDER_TOP_SWITCH = 2;
         public final static int CARGO_FOLDER_BOTTOM_SWITCH = 3;
         public final static int CARGO_COLLECTOR_SWITCH = 0;
+        public final static int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A = 2;
+        public final static int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B = 1;
+        public final static int DRIVETRAIN_LEFT_ENCODER_CHANNEL_A = 3;
+        public final static int DRIVETRAIN_LEFT_ENCODER_CHANNEL_B = 0;
     }
 
     // Analog input device ports
     static class ANALOG_INPUT {
         public static final int LIFT_POTENTIOMETER = 0;
         public final static int ONE_EIGHTY_POTENTIOMETER = 1;
+        public final static int GYRO = 2;
     }
 
 }
