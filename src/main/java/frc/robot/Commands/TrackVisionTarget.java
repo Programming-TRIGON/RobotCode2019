@@ -107,17 +107,17 @@ public class TrackVisionTarget extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    interrupted();
+    // pid controllers are disabled and closed
+    rotationPIDController.disable();
+    rotationPIDController.close();
+    distancePIDController.disable();
+    distancePIDController.close();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    // pid controllers are disabled and closed
-    rotationPIDController.disable();
-    rotationPIDController.close();
-    distancePIDController.disable();
-    distancePIDController.close();
+    end();
   }
 }
