@@ -58,10 +58,10 @@ public class TrackVisionTarget extends Command {
     NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
     NetworkTableEntry target = imageProcessingTable.getEntry("target");
     target.setString(this.target.toString());
-    // pid sources for y and x
+    // pid sources for distance and rotation
     VisionPIDSource rotationPIDSource = new VisionPIDSource(this.target, VisionDirectionType.x);
     VisionPIDSource distancePIDSource = new VisionPIDSource(this.target, VisionDirectionType.y);
-    // pid controller for the x axis
+    // pid controller for the rotation
     rotationPIDController = new VisionPIDController(this.rotationKP.get(), this.rotationKI.get(), this.rotationKD.get(),
         rotationPIDSource, (output) -> rotation = output);
     rotationPIDController.setAbsoluteTolerance(this.rotationTolerance.get());
@@ -69,7 +69,7 @@ public class TrackVisionTarget extends Command {
     rotationPIDController.setOutputRange(-1, 1);
     rotationPIDController.setInputRange(-1, 1);
     rotationPIDController.enable();
-    // pid controller for the y axis
+    // pid controller for the distance
     distancePIDController = new VisionPIDController(this.distanceKP.get(), this.distanceKI.get(), this.distanceKD.get(),
         distancePIDSource, (output) -> distance = output);
     distancePIDController.setAbsoluteTolerance(this.distanceTolerance.get());
@@ -94,6 +94,7 @@ public class TrackVisionTarget extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    //returns true if the robot reached his target
     if (this.distancePIDController.onTarget() && this.rotationPIDController.onTarget())
       lastTimeNotOnTarget = Timer.getFPGATimestamp();
     return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= this.waitTime;

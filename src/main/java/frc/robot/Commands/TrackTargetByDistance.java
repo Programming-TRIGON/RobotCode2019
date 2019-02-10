@@ -95,7 +95,7 @@ public class TrackTargetByDistance extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // if no direction is received, the driveTrain is controlled by the joystick
+    // if no direction is received, the driveTrain will move straight
     if (this.rotation != 9999)
       Robot.driveTrain.arcadeDrive(this.rotation, this.distance);
     else
@@ -105,12 +105,9 @@ public class TrackTargetByDistance extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if (this.distancePIDController.onTarget()) {
-
+    //returns true if the robot reached his target
+    if (this.distancePIDController.onTarget()) 
 			lastTimeNotOnTarget = Timer.getFPGATimestamp();
-
-		}
-
 		return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= this.waitTime;
   }
 
