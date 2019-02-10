@@ -72,7 +72,6 @@ public class TrackVisionTarget extends Command {
     rotationPIDController.setSetpoint(this.ROTATION_SETPOINT);
     rotationPIDController.setOutputRange(-1, 1);
     rotationPIDController.setInputRange(-1, 1);
-    rotationPIDController.enable();
     // pid controller for the distance
     distancePIDController = new VisionPIDController(this.distanceKP.get(), this.distanceKI.get(), this.distanceKD.get(),
         distancePIDSource, (output) -> distance = output);
@@ -80,6 +79,8 @@ public class TrackVisionTarget extends Command {
     distancePIDController.setSetpoint(this.DISTANCE_SETPOINT);
     distancePIDController.setOutputRange(-1, 1);
     distancePIDController.setInputRange(-1, 1);
+    //enables the controllers
+    rotationPIDController.enable();
     distancePIDController.enable();
   }
 

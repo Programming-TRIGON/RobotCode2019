@@ -48,7 +48,7 @@ public class TrackTargetByDistance extends Command {
   private final Supplier<Double> distanceKD = ConstantHandler.addConstantDouble("distanceKD", 0);
   private final double SETPOINT = 0;
 
-  public TrackTargetByDistance(VisionPIDSource.VisionTarget target, XboxController xbox,
+  public TrackTargetByDistance(VisionPIDSource.VisionTarget target,
       Supplier<Double> distanceSupplier, double setpoint) {
     this.target = target;
     this.distanceSupplier = distanceSupplier;
@@ -88,7 +88,6 @@ public class TrackTargetByDistance extends Command {
     rotationPIDController.setSetpoint(this.SETPOINT);
     rotationPIDController.setOutputRange(-1, 1);
     rotationPIDController.setInputRange(-1, 1);
-    rotationPIDController.enable();
     // pid controller for the y axis
     distancePIDController = new PIDController(this.distanceKP.get(), this.distanceKI.get(), this.distanceKD.get(),
         distancePIDSource, (output) -> distance = output);
@@ -96,6 +95,8 @@ public class TrackTargetByDistance extends Command {
     distancePIDController.setSetpoint(this.distanceSetpoint);
     distancePIDController.setOutputRange(-1, 1);
     distancePIDController.setInputRange(-1, 1);
+    //enables the controllers
+    rotationPIDController.enable();
     distancePIDController.enable();
   }
 
