@@ -11,7 +11,8 @@ import jaci.pathfinder.followers.EncoderFollower;
 
 public class PathFinder extends Command {
   // TODO: make real values
-  private double desired_heading, heading, heading_difference, turn, right_speed, left_speed, kP, kI, kD, kA, turnSize;
+  private double desired_heading, heading, heading_difference, turn, right_speed, left_speed;
+  private double kP, kI, kD, kA, turnSize, maxVelocity;
   private EncoderFollower encoderFollowerLeft, encoderFollowerRight;
   private Trajectory leftTrajectory, rightTrajectory;
   private String pathName;
@@ -24,6 +25,7 @@ public class PathFinder extends Command {
     this.kD = 0;
     this.kA = 0;
     this.turnSize = -0.01;
+    this.maxVelocity = 0.4;
   }
 
   @Override
@@ -48,11 +50,11 @@ public class PathFinder extends Command {
      * we don't want it sto bbe in ticks we want a usable measurment
      */
     encoderFollowerLeft.configureEncoder(RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_LEFT.get(),
-        RobotConstants.PathFinder.TicksPerRevolution, RobotConstants.PathFinder.WheelDiameter);
+        RobotConstants.Sensors.TicksPerRevolution, RobotConstants.RobotDimensions.WheelDiameter);
     encoderFollowerRight.configureEncoder(RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_RIGHT.get(),
-        RobotConstants.PathFinder.TicksPerRevolution, RobotConstants.PathFinder.WheelDiameter);
+        RobotConstants.Sensors.TicksPerRevolution, RobotConstants.RobotDimensions.WheelDiameter);
     /** setting the PID values: kp, ki,kd, kv, ka */
-    encoderFollowerLeft.configurePIDVA(this.kP, this.kI, this.kD, 1 / RobotConstants.PathFinder.MaxVelocity, this.kA);
+    encoderFollowerLeft.configurePIDVA(this.kP, this.kI, this.kD, 1 / this.maxVelocity, this.kA);
   }
 
   @Override
@@ -73,7 +75,7 @@ public class PathFinder extends Command {
      * making the value smaller so it doesn't have as much of a affect as the
      * encoders
      */
-    //TODO: FIX THIS
+    // TODO: FIX THIS
     this.turn = this.turnSize * this.heading_difference;
     /** setting the numbers given by the PID to the motors */
     Robot.driveTrain.tankDrive((this.left_speed + this.turn), (this.right_speed - this.turn));

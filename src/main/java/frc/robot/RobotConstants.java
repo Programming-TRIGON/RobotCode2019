@@ -13,6 +13,8 @@ public class RobotConstants {
 
     /** The measurments of the robot */
     public static class RobotDimensions {
+
+        public static final double WheelDiameter = 15.24;
         // TODO set real values
         /**
          * The diameter (in CM) of the tube in the lift which twists the rope connected
@@ -37,6 +39,8 @@ public class RobotConstants {
 
     /** constants for sensors on the robot */
     public static class Sensors {
+        // TODO set real ticks per revolution
+        public static final int TicksPerRevolution = 0;
 
         /** returns potentiometer value by meters */
         public static final double LIFT_POTENTIOMETER_SCALE_FACTOR = RobotDimensions.LIFT_TUBE_CIRCUMFERENCE;
@@ -111,13 +115,6 @@ public class RobotConstants {
         PushCargoPower(double power) {
             this.key = power;
         }
-    }
-
-    public static class PathFinder {
-
-        public static final double WheelDiameter = 0;
-        public static final int TicksPerRevolution = 0;
-        public static final int MaxVelocity = 0;
     }
 
     public static Map<LiftHeight, PushCargoPower> heightToCargoPower = new HashMap<LiftHeight, PushCargoPower>() {
