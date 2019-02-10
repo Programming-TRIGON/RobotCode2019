@@ -83,15 +83,18 @@ public class RobotConstants {
             this.key = height;
         }
     }
-    public static enum pathName{
-        //TODO: set real values
-        kPathBottomRight("PathBottomRight"),
-        kPathBottomMiddle("PathBottomMiddle"),
-        kPathBottomLeft("PathBottomLeft"),
-        kPathTopRight("PathTopRight"),
-        kPathTopLeft("PathTopLeft");
+
+    public static enum pathName {
+        // TODO: set real values
+        /*
+         * kPathBottomRight("PathBottomRight"), kPathBottomMiddle("PathBottomMiddle"),
+         * kPathBottomLeft("PathBottomLeft"), kPathTopRight("PathTopRight"),
+         * kPathTopLeft("PathTopLeft"),
+         */
+        kPathTestStraight("TestStraight"), kPathTestArc("TestArc"), kPathTestStraightArc("TestStraightArc");
 
         public String key;
+
         pathName(String pathName) {
             this.key = pathName;
         }
@@ -109,11 +112,12 @@ public class RobotConstants {
             this.key = power;
         }
     }
+
     public static class PathFinder {
 
-		public static final double WheelDiameter = 0;
-		public static final int TicksPerRevolution = 0;
-		public static final int MaxVelocity = 0;
+        public static final double WheelDiameter = 0;
+        public static final int TicksPerRevolution = 0;
+        public static final int MaxVelocity = 0;
     }
 
     public static Map<LiftHeight, PushCargoPower> heightToCargoPower = new HashMap<LiftHeight, PushCargoPower>() {

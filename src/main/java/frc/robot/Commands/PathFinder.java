@@ -33,7 +33,7 @@ public class PathFinder extends Command {
     RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_LEFT.reset();
     RobotComponents.DriveTrain.DRIVETRAIN_GYRO.reset();
     /**
-     * The tarjectory is the path(each side of the drivetrain has one) this is ike
+     * The tarjectory is the path(each side of the drivetrain has one) this is like
      * the "error" in PID
      */
     this.rightTrajectory = PathfinderFRC.getTrajectory(this.pathName + ".right");
@@ -88,7 +88,6 @@ public class PathFinder extends Command {
   @Override
   protected void end() {
     Robot.driveTrain.tankDrive(0, 0);
-
   }
 
   @Override
