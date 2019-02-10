@@ -1,128 +1,133 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package frc.robot.Commands;
 
 import java.util.function.Supplier;
-import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
-import com.spikes2212.utils.PIDSettings;
+import com.spikes2212.dashboard.ConstantHandler;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
+import frc.robot.Vision.VisionPIDController;
+import frc.robot.Vision.VisionPIDSource;
 
-/**
- * This command turns an instance of {@link TankDrivetrain} with wpilib's
- * <a href =
- * "http://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/PIDController.html">PIDController</a>
- * using the output from <a href=
- * "http://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/PIDSource.html">PIDSources</a>.
- * and moves it forward using {@link Supplier} to supply the movement speed to
- * the {@link TankDrivetrain#arcadeDrive}. <br />
- * This class can be used to force the instance of {@link TankDrivetrain} move
- * straight by giving its starting state as the setpoint.
- *
- * @see PIDController
- * @see TankDrivetrain
- */
 public class TrackTargetByDistance extends Command {
-  protected TankDrivetrain drivetrain;
-  protected PIDSource rotatePIDSource;
-  protected PIDSettings rotatePIDSettings;
-  protected final Supplier<Double> rotateSetpointSupplier;
-  protected PIDSource movementPIDSource;
-  protected PIDSettings movementPIDSettings;
-  protected final Supplier<Double> movementSetpointSupplier;
-  protected final int INPUT_RANGE = 2;
-  protected PIDController rotationController;
+  private double lastTimeNotOnTarget;
+  private final double waitTime = 0.1;
+  private VisionPIDSource.VisionTarget target;
+  private VisionPIDController rotationPIDController;
+  private PIDController distancePIDController;
+  private double distanceSetpoint;
+  private Supplier<Double> distanceSupplier;
+  private double rotation;
+  private double distance;
+  private final Supplier<Double> rotationKP = ConstantHandler.addConstantDouble("rotationKP", 0.4);
+  private final Supplier<Double> rotationKI = ConstantHandler.addConstantDouble("rotationKI", 0);
+  private final Supplier<Double> rotationKD = ConstantHandler.addConstantDouble("rotationKD", 0);
+  private final Supplier<Double> rotationTolerance = ConstantHandler.addConstantDouble("rotationTolerance", 0.1);
+  private final Supplier<Double> distanceTolerance = ConstantHandler.addConstantDouble("distanceTolerance", 0.3);
+  private final Supplier<Double> distanceKP = ConstantHandler.addConstantDouble("distanceKP", 0.4);
+  private final Supplier<Double> distanceKI = ConstantHandler.addConstantDouble("distanceKI", 0);
+  private final Supplier<Double> distanceKD = ConstantHandler.addConstantDouble("distanceKD", 0);
+  private final double SETPOINT = 0;
 
-  /**
-   * This constructs a new {@link TrackTargetByDistance} using <a href=
-   * "http://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/PIDSource.html">PIDSources</a>,
-   * {@link Supplier<Double>}s for the setpoint and the movement, and the
-   * {@link PIDSettings} for this command
-   * 
-   * @param drivetrain      the {@link TrackTargetByDistance} this command
-   *                        operates on
-   * @param rotatePIDSource the <a href=
-   *                        "http://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/PIDSource.html">PIDSources</a>
-   *                        that this command uses to get feedback about the
-   *                        {@link TankDrivetrain}'s current state
-   * @param PIDSettings     {@link PIDSettings} for this command
-   */
-  public TrackTargetByDistance(TankDrivetrain drivetrain, PIDSource rotatePIDSource,
-      Supplier<Double> rotateSetpointSupplier, PIDSettings rotatePIDSettings, PIDSource movementPIDSource,
-      Supplier<Double> movementSetpointSupplier, PIDSettings movementPIDSettings) {
-    requires(drivetrain);
-    this.drivetrain = drivetrain;
-    this.rotatePIDSource = rotatePIDSource;
-    this.rotatePIDSettings = rotatePIDSettings;
-    this.rotateSetpointSupplier = rotateSetpointSupplier;
-    this.movementPIDSource = movementPIDSource;
-    this.movementPIDSettings = movementPIDSettings;
-    this.movementSetpointSupplier = movementSetpointSupplier;
+  public TrackTargetByDistance(XboxController xbox, Supplier<Double> distanceSupplier, double setpoint) {
+    this.target = VisionPIDSource.VisionTarget.kReflector;
+    this.distanceSupplier = distanceSupplier;
+    this.distanceSetpoint = setpoint;
+    requires(Robot.driveTrain);
   }
 
-  /**
-   * This constructs a new {@link TrackTargetByDistance} using static values for
-   * {@link TrackTargetByDistance#setpointSupplier} and
-   * {@link TrackTargetByDistance#movementSupplier} instead of
-   * {@link Supplier<Double>}s
-   * 
-   * @param drivetrain         the {@link TrackTargetByDistance} this command
-   *                           operates on
-   * @param rotatePIDSource          the <a href=
-   *                           "http://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/PIDSource.html">PIDSources</a>
-   *                           that this command uses to get feedback about the
-   *                           {@link TankDrivetrain}'s current state
-   * @param rotateSetpoint           the target point of this command.
-   *                           <p>
-   *                           This command will try to move
-   *                           {@link TankDrivetrain} to the setpoint. setpoint
-   *                           should supply values using the same units as
-   *                           source.
-   *                           </p>
-   * @param rotatePIDSettings        {@link PIDSettings} for this command
-  
-   */
-  public TrackTargetByDistance(TankDrivetrain drivetrain, PIDSource rotatePIDSource,
-  Double rotateSetpoint, PIDSettings rotatePIDSettings, PIDSource movementPIDSource,
-  Double movementSetpoint, PIDSettings movementPIDSettings) {
-
-    this(drivetrain, rotatePIDSource, () -> rotateSetpoint, rotatePIDSettings, movementPIDSource, () -> movementSetpoint, movementPIDSettings);
-  }
-
+  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    this.rotationController = new PIDController(rotatePIDSettings.getKP(), rotatePIDSettings.getKI(), rotatePIDSettings.getKD(),
-        rotatePIDSource, (rotate) -> drivetrain.arcadeDrive(movementSupplier.get(), rotate));
-    rotationController.setAbsoluteTolerance(PIDSettings.getTolerance());
-    rotationController.setSetpoint(setpointSupplier.get());
-    rotationController.setOutputRange(-1, 1);
-    rotationController.setInputRange(-inputRange / 2, inputRange / 2);
-    rotationController.setContinuous(continuous);
-    rotationController.enable();
+    NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
+    NetworkTableEntry target = imageProcessingTable.getEntry("target");
+    target.setString(this.target.toString());
+    // pid source for rotation
+    VisionPIDSource visionXPIDSource = new VisionPIDSource(this.target, VisionPIDSource.VisionDirectionType.x);
+   //pid source for distance
+    PIDSource distancePIDSource = new PIDSource() {
+
+      @Override
+      public void setPIDSourceType(PIDSourceType pidSource) {
+      }
+
+      @Override
+      public double pidGet() {
+        return distanceSupplier.get();
+      }
+
+      @Override
+      public PIDSourceType getPIDSourceType() {
+        return PIDSourceType.kDisplacement;
+      }
+    };
+    // pid controller for the x axis
+    rotationPIDController = new VisionPIDController(this.rotationKP.get(), this.rotationKI.get(), this.rotationKD.get(), visionXPIDSource,
+        (output) -> rotation = output);
+    rotationPIDController.setAbsoluteTolerance(this.rotationTolerance.get());
+    rotationPIDController.setSetpoint(this.SETPOINT);
+    rotationPIDController.setOutputRange(-1, 1);
+    rotationPIDController.setInputRange(-1, 1);
+    rotationPIDController.enable();
+    // pid controller for the y axis
+    distancePIDController = new PIDController(this.distanceKP.get(), this.distanceKI.get(), this.distanceKD.get(),
+        distancePIDSource, (output) -> distance = output);
+    distancePIDController.setAbsoluteTolerance(this.distanceTolerance.get());
+    distancePIDController.setSetpoint(this.distanceSetpoint);
+    distancePIDController.setOutputRange(-1, 1);
+    distancePIDController.setInputRange(-1, 1);
+    distancePIDController.enable();
   }
 
+  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double newSetpoint = setpointSupplier.get();
-    if (rotationController.getSetpoint() != newSetpoint)
-      rotationController.setSetpoint(newSetpoint);
+    // if no direction is received, the driveTrain is controlled by the joystick
+    if (this.rotation != 9999)
+      Robot.driveTrain.arcadeDrive(this.rotation, this.distance);
+    else
+      Robot.driveTrain.arcadeDrive(0, this.distance);
   }
 
+  // Make this return true when this Command no longer needs to run execute()
   @Override
-
   protected boolean isFinished() {
-    return isTimedOut() || isFinishedSupplier.get();
+    if (this.distancePIDController.onTarget()) {
+
+			lastTimeNotOnTarget = Timer.getFPGATimestamp();
+
+		}
+
+		return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= this.waitTime;
   }
 
+  // Called once after isFinished returns true
   @Override
-
   protected void end() {
-    rotationController.disable();
-    drivetrain.stop();
+    interrupted();
   }
 
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
   @Override
-
   protected void interrupted() {
-    end();
+    // pid controllers are disabled and closed
+    rotationPIDController.disable();
+    rotationPIDController.close();
+    distancePIDController.disable();
+    distancePIDController.close();
   }
 }

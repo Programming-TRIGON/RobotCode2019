@@ -16,6 +16,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.Vision.VisionPIDController;
@@ -24,24 +25,25 @@ import frc.robot.Vision.VisionPIDSource.VisionDirectionType;
 
 public class TrackVisionTarget extends Command {
 
-  VisionPIDSource.VisionTarget target;
-  VisionPIDController visionXPIDController;
-  VisionPIDController visionYPIDController;
-  XboxController xbox;
-  String networkTableChange;
+  private VisionPIDSource.VisionTarget target;
+  private VisionPIDController rotationPIDController;
+  private VisionPIDController distancePIDController;
+  private XboxController xbox;
+  private double rotation;
+  private double distance;
+  private double lastTimeNotOnTarget;
 
-  final Supplier<Double> XkP = ConstantHandler.addConstantDouble("XkP", 0.4);
-  final Supplier<Double> XkI = ConstantHandler.addConstantDouble("XkI", 0);
-  final Supplier<Double> XkD = ConstantHandler.addConstantDouble("XkD", 0);
-  final Supplier<Double> xTolerance = ConstantHandler.addConstantDouble("xTolerance", 0.1);
-  final Supplier<Double> YkP = ConstantHandler.addConstantDouble("YkP", 0.4);
-  final Supplier<Double> YkI = ConstantHandler.addConstantDouble("YkI", 0);
-  final Supplier<Double> YkD = ConstantHandler.addConstantDouble("YkD", 0);
-  final Supplier<Double> yTolerance = ConstantHandler.addConstantDouble("YTolerance", 0.1);
-  final double X_SETPOINT = 0;
-  final double Y_SETPOINT = 0;
-  private double x;
-  private double y;
+  private final Supplier<Double> rotationKP = ConstantHandler.addConstantDouble("rotationKP", 0.4);
+  private final Supplier<Double> rotationKI = ConstantHandler.addConstantDouble("rotationKI", 0);
+  private final Supplier<Double> rotationKD = ConstantHandler.addConstantDouble("rotationKD", 0);
+  private final Supplier<Double> rotationTolerance = ConstantHandler.addConstantDouble("rotationTolerance", 0.1);
+  private final Supplier<Double> distanceKP = ConstantHandler.addConstantDouble("distanceKP", 0.4);
+  private final Supplier<Double> distanceKI = ConstantHandler.addConstantDouble("distanceKI", 0);
+  private final Supplier<Double> distanceKD = ConstantHandler.addConstantDouble("distanceKD", 0);
+  private final Supplier<Double> distanceTolerance = ConstantHandler.addConstantDouble("distanceTolerance", 0.1);
+  private final double ROTATION_SETPOINT = 0;
+  private final double DISTANCE_SETPOINT = 0;
+  private final double waitTime = 0.1;
 
   public TrackVisionTarget(VisionPIDSource.VisionTarget target, XboxController xbox) {
     this.target = target;
@@ -57,42 +59,44 @@ public class TrackVisionTarget extends Command {
     NetworkTableEntry target = imageProcessingTable.getEntry("target");
     target.setString(this.target.toString());
     // pid sources for y and x
-    VisionPIDSource visionXPIDSource = new VisionPIDSource(this.target, VisionDirectionType.x);
-    VisionPIDSource visionYPIDSource = new VisionPIDSource(this.target, VisionDirectionType.y);
+    VisionPIDSource rotationPIDSource = new VisionPIDSource(this.target, VisionDirectionType.x);
+    VisionPIDSource distancePIDSource = new VisionPIDSource(this.target, VisionDirectionType.y);
     // pid controller for the x axis
-    visionXPIDController = new VisionPIDController(this.XkP.get(), this.XkI.get(), this.XkD.get(), visionXPIDSource,
-        (output) -> x = output);
-    visionXPIDController.setAbsoluteTolerance(this.xTolerance.get());
-    visionXPIDController.setSetpoint(this.X_SETPOINT);
-    visionXPIDController.setOutputRange(-1, 1);
-    visionXPIDController.setInputRange(-1, 1);
-    visionXPIDController.enable();
+    rotationPIDController = new VisionPIDController(this.rotationKP.get(), this.rotationKI.get(), this.rotationKD.get(),
+        rotationPIDSource, (output) -> rotation = output);
+    rotationPIDController.setAbsoluteTolerance(this.rotationTolerance.get());
+    rotationPIDController.setSetpoint(this.ROTATION_SETPOINT);
+    rotationPIDController.setOutputRange(-1, 1);
+    rotationPIDController.setInputRange(-1, 1);
+    rotationPIDController.enable();
     // pid controller for the y axis
-    visionYPIDController = new VisionPIDController(this.YkP.get(), this.YkI.get(), this.YkD.get(), visionYPIDSource,
-        (output) -> y = output);
-    visionYPIDController.setAbsoluteTolerance(this.yTolerance.get());
-    visionYPIDController.setSetpoint(this.Y_SETPOINT);
-    visionYPIDController.setOutputRange(-1, 1);
-    visionYPIDController.setInputRange(-1, 1);
-    visionYPIDController.enable();
+    distancePIDController = new VisionPIDController(this.distanceKP.get(), this.distanceKI.get(), this.distanceKD.get(),
+        distancePIDSource, (output) -> distance = output);
+    distancePIDController.setAbsoluteTolerance(this.distanceTolerance.get());
+    distancePIDController.setSetpoint(this.DISTANCE_SETPOINT);
+    distancePIDController.setOutputRange(-1, 1);
+    distancePIDController.setInputRange(-1, 1);
+    distancePIDController.enable();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     // if no direction is received, the driveTrain is controlled by the joystick
-    if (this.x == 9999 || this.y == 9999) {
+    if (this.rotation == 9999 || this.distance == 9999) {
       double y = -xbox.getY(Hand.kLeft);
       Robot.driveTrain.arcadeDrive(xbox.getX(Hand.kLeft), y);
     } else {
-      Robot.driveTrain.arcadeDrive(this.x, -this.y);
+      Robot.driveTrain.arcadeDrive(this.rotation, -this.distance);
     }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    if (this.distancePIDController.onTarget() && this.rotationPIDController.onTarget())
+      lastTimeNotOnTarget = Timer.getFPGATimestamp();
+    return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= this.waitTime;
   }
 
   // Called once after isFinished returns true
@@ -105,10 +109,10 @@ public class TrackVisionTarget extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    //pid controllers are disabled and closed
-    visionXPIDController.disable();
-    visionYPIDController.disable();
-    visionXPIDController.close();
-    visionYPIDController.close();
+    // pid controllers are disabled and closed
+    rotationPIDController.disable();
+    rotationPIDController.close();
+    distancePIDController.disable();
+    distancePIDController.close();
   }
 }
