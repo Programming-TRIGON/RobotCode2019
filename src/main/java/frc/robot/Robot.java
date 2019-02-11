@@ -14,6 +14,7 @@ import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
 import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -36,6 +37,8 @@ public class Robot extends TimedRobot {
   public static DashBoardController dbc;
   public static OI oi;
 
+  public static Compressor compressor;
+
   @Override
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
@@ -45,6 +48,9 @@ public class Robot extends TimedRobot {
     Robot.oi = new OI();
 
     Robot.dbc = new DashBoardController();
+
+    compressor = new Compressor();
+    compressor.start();
 
     /** creates the SS htach collector that collects hatch pannels */
     Robot.hatchCollector = new HatchCollector(RobotComponents.HatchCollector.SOLENOID);
