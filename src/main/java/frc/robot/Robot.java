@@ -95,6 +95,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
     SmartDashboard.putData(new SetOneEightyAngle(180));
     dbc.addNumber("180 potentiometer angle", Robot.oneEighty::getAngle);
+    dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::get);
+    dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::get);
   }
 
   @Override
