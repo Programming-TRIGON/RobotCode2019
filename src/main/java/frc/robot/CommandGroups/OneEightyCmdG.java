@@ -17,22 +17,24 @@ import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;;
 
 public class OneEightyCmdG extends CommandGroup {
-final double ONE_EIGHTY_SAFETY_HEIGHT = 5;
-Supplier<Double> liftSetpointSupplier;
+  final double ONE_EIGHTY_SAFETY_HEIGHT = 5;
+  Supplier<Double> liftSetpointSupplier;
 
   public OneEightyCmdG(OneEightyAngle angle) {
     liftSetpointSupplier = new Supplier<Double>() {
       @Override
       public Double get() {
         // lengthOfArm*cos(angle) = the height from the robot
-        if(RobotConstants.RobotDimensions.ONE_EIGHTY_LENGTH * Math.cos(Robot.oneEighty.getAngle()) < Robot.lift.getHeight() + ONE_EIGHTY_SAFETY_HEIGHT){
-          return RobotConstants.RobotDimensions.ONE_EIGHTY_LENGTH * Math.cos(Robot.oneEighty.getAngle()) + ONE_EIGHTY_SAFETY_HEIGHT;
+        if (RobotConstants.RobotDimensions.ONE_EIGHTY_LENGTH
+            * Math.cos(Math.toRadians(Robot.oneEighty.getAngle())) < Robot.lift.getHeight()
+                + ONE_EIGHTY_SAFETY_HEIGHT) {
+          return RobotConstants.RobotDimensions.ONE_EIGHTY_LENGTH * Math.cos(Math.toRadians(Robot.oneEighty.getAngle()))
+              + ONE_EIGHTY_SAFETY_HEIGHT;
         }
         return Robot.lift.getHeight();
       }
     };
-    addSequential(new SetOneEightyAngle(angle));  
+    addSequential(new SetOneEightyAngle(angle));
     addParallel(new SetLiftHeight(liftSetpointSupplier, true));
   }
 }
-
