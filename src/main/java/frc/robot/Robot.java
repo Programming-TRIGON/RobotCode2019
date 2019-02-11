@@ -23,6 +23,7 @@ import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
 import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
@@ -47,10 +48,15 @@ public class Robot extends TimedRobot {
   public static DashBoardController dbc;
   public static OI oi;
 
+  public static Compressor comp;
+
   final SendableChooser<Command> testsChooser = new SendableChooser<Command>();;
 
   @Override
   public void robotInit() {
+    comp = new Compressor(RobotMap.CAN.pcm);
+    comp.start();
+
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     //SmartDashboard.putData("Auto choices", m_chooser);
@@ -122,7 +128,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    Scheduler.getInstance().run();
+    //Scheduler.getInstance().run();
   }
 
   @Override
@@ -144,7 +150,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    Scheduler.getInstance().run();
+    //Scheduler.getInstance().run();
   }
 
   @Override
