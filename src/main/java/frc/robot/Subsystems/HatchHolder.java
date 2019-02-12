@@ -3,6 +3,7 @@ package frc.robot.Subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class HatchHolder extends Subsystem {
   /** hatchLocker solenoid opens the pvc to catch the hatch and hatchEjector push the mechanism farword to chatch the hatch*/
@@ -15,7 +16,7 @@ public class HatchHolder extends Subsystem {
     //defult values:    
     setLock(Value.kReverse);
     setEjection(Value.kReverse);
-  }
+    }
 
   /**
    * sets the status of the front solenoid, the one that chatches the Hatch.
@@ -23,7 +24,7 @@ public class HatchHolder extends Subsystem {
    */
   public void setLock(Value value) {
     lockState = value;
-    if(!ejectionState.equals(Value.kForward))
+    //if(!ejectionState.equals(Value.kForward))
       this.hatchLocker.set(value);
     //this.hatchLocker.set(Value.kOff);
   }
@@ -33,7 +34,7 @@ public class HatchHolder extends Subsystem {
    * DoubleSolinoids require "values" that represent off, forward, and reversed
    */
   public void setEjection(Value value) {
-    if(!lockState.equals(Value.kForward))
+    //if(!lockState.equals(Value.kForward))
       this.hatchEjector.set(value);
     //this.hatchEjector.set(Value.kOff);
   }

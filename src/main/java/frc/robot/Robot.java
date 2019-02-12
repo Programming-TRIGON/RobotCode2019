@@ -1,17 +1,12 @@
 package frc.robot;
 
-import frc.robot.Subsystems.Lift;
-import frc.robot.Subsystems.OneEighty;
-import frc.robot.TestCommands.CargoHolderTest;
-import frc.robot.TestCommands.CargoRollerTest;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
-import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
 
+import frc.robot.Subsystems.Lift;
+import frc.robot.Subsystems.OneEighty;
 import frc.robot.Commands.CollectCargo;
-import frc.robot.Commands.MoveSubsystemWithJoystick;
 import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
@@ -115,12 +110,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.cargoCollector, Robot.oi.operatorXbox, "cargo holder"));
     SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));*/
-    SmartDashboard.putData("hatchLockOn", new SetHatchLock(Value.kForward));
-    SmartDashboard.putData("hatchLockOff", new SetHatchLock(Value.kReverse));
-    SmartDashboard.putData("hatchCollectorOn", new setHatchCollectorState(Value.kForward));
-    SmartDashboard.putData("hatchCollectorOff", new setHatchCollectorState(Value.kReverse));
-    SmartDashboard.putData("Hatch folder On", new SetCargoFolderState(Value.kForward));
-    SmartDashboard.putData("Hatch folder Off", new SetCargoFolderState(Value.kReverse));
+    SmartDashboard.putData("hatch Lock", new SetHatchLock(Value.kForward));
+    SmartDashboard.putData("hatch Unlock", new SetHatchLock(Value.kReverse));
+    SmartDashboard.putData("hatch Collector up", new setHatchCollectorState(Value.kForward));
+    SmartDashboard.putData("hatch Collector down", new setHatchCollectorState(Value.kReverse));
+    SmartDashboard.putData("Cargo folder Up", new SetCargoFolderState(Value.kForward));
+    SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
+    SmartDashboard.putData("Hatch eject push", new SetHatchEject(Value.kForward));
+    SmartDashboard.putData("Hatch eject pull", new SetHatchEject(Value.kReverse));
 
     dbc.addNumber("Drive train gyro", RobotComponents.DriveTrain.GYRO::getAngle);
 
@@ -162,7 +159,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testInit() {
-    
   }
   @Override
   public void testPeriodic() {
@@ -171,6 +167,7 @@ public class Robot extends TimedRobot {
   }
 
   private void addTests(){
+    testsChooser.addDefault("Hatch unloced", new SetHatchLock(Value.kReverse));
     // testsChooser.addOption("cargoRoller", new CargoRollerTest());
     // testsChooser.addOption("cargoHolder", new CargoHolderTest());
     testsChooser.addOption("cargoCollection", new CollectCargo(0.3, 0.3));
