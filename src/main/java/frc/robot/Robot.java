@@ -54,7 +54,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    comp = new Compressor(RobotMap.CAN.pcm);
+    comp = new Compressor(RobotMap.CAN.PCM);
     comp.start();
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
@@ -114,10 +114,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.cargoCollector, Robot.oi.operatorXbox, "cargo holder"));
     SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
 
-
-
-    
-
+    dbc.addNumber("Drive train gyro", RobotComponents.DriveTrain.GYRO::getAngle);
   }
 
   @Override

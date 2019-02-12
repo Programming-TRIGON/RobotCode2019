@@ -19,20 +19,20 @@ public class RobotConstants {
          * to the lift. this is used to caculate the circumference of the tube.
          */
 
-        public final static double ONE_EIGHTY_LENGTH = 42;
+        public static final double ONE_EIGHTY_LENGTH = 42;
 
-        public final static Double LIFT_TUBE_DIAMETER = 3.447;
+        public static final Double LIFT_TUBE_DIAMETER = 3.447;
         /**
          * The circumference (in meters) of the tube in the lift which twists the rope
          * connected to the lift. this is used to caculate the scale fractor used to
          * change the given values from the potentoimeter to CM.
          */
-        public final static double LIFT_TUBE_CIRCUMFERENCE = LIFT_TUBE_DIAMETER * Math.PI;
+        public static final double LIFT_TUBE_CIRCUMFERENCE = LIFT_TUBE_DIAMETER * Math.PI;
         /**
          * the potentoimeter gets its initial height for subtracting from the
          * calculations
          */
-        public final static double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
+        public static final double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
     }
 
     /** constants for sensors on the robot */
