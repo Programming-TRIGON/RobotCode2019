@@ -12,6 +12,7 @@ import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
 
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
+import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
@@ -60,6 +61,7 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     //SmartDashboard.putData("Auto choices", m_chooser);
+    SmartDashboard.putData(this.testsChooser);
 
     Robot.oi = new OI();
 
@@ -109,12 +111,19 @@ public class Robot extends TimedRobot {
         (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
         (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, speed));
 
-    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox, "lift"));
+    /*SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox, "lift"));
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.cargoCollector, Robot.oi.operatorXbox, "cargo holder"));
-    SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
+    SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));*/
+    SmartDashboard.putData("hatchLockOn", new SetHatchLock(Value.kForward));
+    SmartDashboard.putData("hatchLockOff", new SetHatchLock(Value.kReverse));
+    SmartDashboard.putData("hatchCollectorOn", new setHatchCollectorState(Value.kForward));
+    SmartDashboard.putData("hatchCollectorOff", new setHatchCollectorState(Value.kReverse));
+    SmartDashboard.putData("Hatch folder On", new SetCargoFolderState(Value.kForward));
+    SmartDashboard.putData("Hatch folder Off", new SetCargoFolderState(Value.kReverse));
 
     dbc.addNumber("Drive train gyro", RobotComponents.DriveTrain.GYRO::getAngle);
+
   }
 
   @Override
@@ -125,7 +134,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    //Scheduler.getInstance().run();
+    Scheduler.getInstance().run();
   }
 
   @Override
@@ -147,7 +156,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    //Scheduler.getInstance().run();
+    Scheduler.getInstance().run();
   }
 
   @Override
@@ -159,20 +168,18 @@ public class Robot extends TimedRobot {
     testsChooser.addOption("lift", new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
     testsChooser.addOption("oneEighty", new SetOneEightyAngle(OneEightyAngle.kStraight));
 
-    testsChooser.addOption("hatchEject", new SetHatchEject(Value.kForward));
-    testsChooser.addOption("hatchEject", new SetHatchEject(Value.kReverse));
+    testsChooser.addOption("hatchEjectOn", new SetHatchEject(Value.kForward));
+    testsChooser.addOption("hatchEjectOff", new SetHatchEject(Value.kReverse));
 
-    testsChooser.addOption("hatchLock", new SetHatchLock(Value.kForward));
-    testsChooser.addOption("hatchLock", new SetHatchLock(Value.kReverse));
+    testsChooser.addOption("hatchLockOn", new SetHatchLock(Value.kForward));
+    testsChooser.addOption("hatchLockOff", new SetHatchLock(Value.kReverse));
 
-    testsChooser.addOption("hatchCollector", new setHatchCollectorState(Value.kForward));
-    testsChooser.addOption("hatchCollector", new setHatchCollectorState(Value.kReverse));
-
-
+    testsChooser.addOption("hatchCollectorOn", new setHatchCollectorState(Value.kForward));
+    testsChooser.addOption("hatchCollectorOff", new setHatchCollectorState(Value.kReverse));
   }
   @Override
   public void testPeriodic() {
-    SmartDashboard.putData("selected test command" ,testsChooser.getSelected());
-
+    Scheduler.getInstance().run();
+    SmartDashboard.putData("selected test command", this.testsChooser.getSelected());
   }
 }
