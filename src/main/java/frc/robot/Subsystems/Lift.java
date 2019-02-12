@@ -23,7 +23,7 @@ public class Lift extends JoystickOverridableSubsystem {
     this.bottomSwitch = bottomSwitch;
     this.potentiometer = potentiometer;
     this.leftMotor.set(ControlMode.Follower, rightMotor.getDeviceID());
-    //this.leftMotor.setInverted(true);
+    this.leftMotor.setInverted(true);
   }
 
   /** sets the speed of the motors of the lift to higher/lower it */

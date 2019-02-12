@@ -7,6 +7,8 @@ import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
 import frc.robot.Commands.CollectCargo;
+import frc.robot.Commands.MoveSubsystemWithJoystick;
+import frc.robot.Commands.PushCargo;
 import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
@@ -15,6 +17,7 @@ import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.setHatchCollectorState;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
+import frc.robot.RobotConstants.PushCargoPower;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
 import frc.robot.Subsystems.CargoFolder;
@@ -118,8 +121,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
     SmartDashboard.putData("Hatch eject push", new SetHatchEject(Value.kForward));
     SmartDashboard.putData("Hatch eject pull", new SetHatchEject(Value.kReverse));
+    SmartDashboard.putData("Cargo Collector", new CollectCargo(0.1, 0.1));
+    SmartDashboard.putData("Cargo Push", new PushCargo(PushCargoPower.kCargoShip));  
 
     dbc.addNumber("Drive train gyro", RobotComponents.DriveTrain.GYRO::getAngle);
+
+    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, oi.operatorXbox));
 
     addTests();
   }

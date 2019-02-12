@@ -25,9 +25,9 @@ public class HatchCollector extends Subsystem {
    * solenoid to fold down/up for getiing the hatch or putting it on the hatch
    * holder SS
    */
-  public void setSolenoid(DoubleSolenoid.Value value) {
+  public void setSolenoid(Value value) {
     this.solenoid.set(value);
-    this.solenoid.set(Value.kOff);
+    //this.solenoid.set(Value.kOff);
   }
 
 

@@ -88,7 +88,7 @@ public class RobotConstants {
     public static enum PushCargoPower {
         // TODO:set real values.
         /** the speed we want to push the cargo */
-        kCargoShip(1), kLowRocket(1), kMiddleRocket(1), kTopRocket(1);
+        kCargoShip(-0.2), kLowRocket(1), kMiddleRocket(1), kTopRocket(1);
         public double key;
 
         PushCargoPower(double power) {

@@ -25,7 +25,7 @@ public class HatchHolder extends Subsystem {
   public void setLock(Value value) {
     lockState = value;
     //if(!ejectionState.equals(Value.kForward))
-      this.hatchLocker.set(value);
+    this.hatchLocker.set(value);
     //this.hatchLocker.set(Value.kOff);
   }
 
@@ -35,7 +35,7 @@ public class HatchHolder extends Subsystem {
    */
   public void setEjection(Value value) {
     //if(!lockState.equals(Value.kForward))
-      this.hatchEjector.set(value);
+    this.hatchEjector.set(value);
     //this.hatchEjector.set(Value.kOff);
   }
 
