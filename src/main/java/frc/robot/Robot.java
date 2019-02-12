@@ -3,6 +3,8 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
 
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
@@ -25,6 +27,7 @@ import frc.robot.Subsystems.HatchCollector;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -47,14 +50,14 @@ public class Robot extends TimedRobot {
   public static DashBoardController dbc;
   public static OI oi;
 
-  public static Compressor comp;
+  //public static Compressor comp;
 
   final SendableChooser<Command> testsChooser = new SendableChooser<Command>();;
 
   @Override
   public void robotInit() {
-    comp = new Compressor(RobotMap.CAN.PCM);
-    comp.start();
+    //comp = new Compressor(RobotMap.CAN.PCM);
+    //comp.start();
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -101,8 +104,10 @@ public class Robot extends TimedRobot {
      */
     RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower,
         RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); // now front and rear motors are moving toghether
+    RobotComponents.DriveTrain.FRONT_LEFT_M.setInverted(true);
     RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower,
         RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); // ditto
+    RobotComponents.DriveTrain.FRONT_RIGHT_M.setInverted(true);
     // made functions that set speed to the motors on the drive train by double
     // insted of ControlMode and double
     Robot.driveTrain = new TankDrivetrain(
@@ -113,18 +118,18 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.cargoCollector, Robot.oi.operatorXbox, "cargo holder"));
     SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));*/
-    SmartDashboard.putData("hatch Lock", new SetHatchLock(Value.kForward));
-    SmartDashboard.putData("hatch Unlock", new SetHatchLock(Value.kReverse));
-    SmartDashboard.putData("hatch Collector up", new setHatchCollectorState(Value.kForward));
-    SmartDashboard.putData("hatch Collector down", new setHatchCollectorState(Value.kReverse));
+    SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
+    SmartDashboard.putData("Hatch Unlock", new SetHatchLock(Value.kReverse));
+    SmartDashboard.putData("Hatch Collector Up", new setHatchCollectorState(Value.kForward));
+    SmartDashboard.putData("Hatch Collector Down", new setHatchCollectorState(Value.kReverse));
     SmartDashboard.putData("Cargo folder Up", new SetCargoFolderState(Value.kForward));
     SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
-    SmartDashboard.putData("Hatch eject push", new SetHatchEject(Value.kForward));
-    SmartDashboard.putData("Hatch eject pull", new SetHatchEject(Value.kReverse));
-    SmartDashboard.putData("Cargo Collector", new CollectCargo(0.1, 0.1));
-    SmartDashboard.putData("Cargo Push", new PushCargo(PushCargoPower.kCargoShip));  
+    SmartDashboard.putData("Hatch Eject Push", new SetHatchEject(Value.kForward));
+    SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
+    SmartDashboard.putData("Drive", new DriveTank(Robot.driveTrain, Robot.oi::getYLeft, Robot.oi.operatorXbox::getY));
 
     dbc.addNumber("Drive train gyro", RobotComponents.DriveTrain.GYRO::getAngle);
+
 
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, oi.operatorXbox));
 

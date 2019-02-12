@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 /**
  * Add your docs here.
@@ -20,5 +21,7 @@ public class OI {
     public OI(){
 
     }   
-
+    public double getYLeft(){
+        return this.operatorXbox.getY(Hand.kLeft);
+    }
 }
