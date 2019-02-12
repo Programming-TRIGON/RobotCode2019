@@ -173,6 +173,7 @@ public class Robot extends TimedRobot {
   }
 
   private void addTests(){
+    testsChooser.addDefault("cargoFolderClosed", new SetCargoFolderState(Value.kReverse));
     // testsChooser.addOption("cargoRoller", new CargoRollerTest());
     // testsChooser.addOption("cargoHolder", new CargoHolderTest());
     testsChooser.addOption("cargoCollection", new CollectCargo(0.3, 0.3));
@@ -188,5 +189,9 @@ public class Robot extends TimedRobot {
 
     testsChooser.addOption("hatchCollectorOn", new setHatchCollectorState(Value.kForward));
     testsChooser.addOption("hatchCollectorOff", new setHatchCollectorState(Value.kReverse));
+
+    testsChooser.addOption("cargoFolderOpen", new SetCargoFolderState(Value.kForward));
+    testsChooser.addOption("cargoFolderClosed", new SetCargoFolderState(Value.kReverse));
+
   }
 }
