@@ -60,8 +60,8 @@ public class Robot extends TimedRobot {
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
-    //SmartDashboard.putData("Auto choices", m_chooser);
-    SmartDashboard.putData(this.testsChooser);
+    SmartDashboard.putData("Auto choices", m_chooser);
+    SmartDashboard.putData("Test Commands", this.testsChooser);
 
     Robot.oi = new OI();
 
