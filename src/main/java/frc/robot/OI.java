@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj.XboxController;
  */
 
 public class OI {
-    XboxController operatorXbox = new XboxController(0);  
-   
+    public XboxController operatorXbox = new XboxController(0);  
+    
     public OI(){
 
     }   
