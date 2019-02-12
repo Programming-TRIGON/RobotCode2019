@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    SmartDashboard.putData("Test Commands", this.testsChooser);
+    SmartDashboard.putData("Test Commands", testsChooser);
 
     Robot.oi = new OI();
 
@@ -124,6 +124,7 @@ public class Robot extends TimedRobot {
 
     dbc.addNumber("Drive train gyro", RobotComponents.DriveTrain.GYRO::getAngle);
 
+    addTests();
   }
 
   @Override
@@ -161,6 +162,15 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testInit() {
+    
+  }
+  @Override
+  public void testPeriodic() {
+    Scheduler.getInstance().run();
+    SmartDashboard.putData("selected test command", this.testsChooser.getSelected());
+  }
+
+  private void addTests(){
     // testsChooser.addOption("cargoRoller", new CargoRollerTest());
     // testsChooser.addOption("cargoHolder", new CargoHolderTest());
     testsChooser.addOption("cargoCollection", new CollectCargo(0.3, 0.3));
@@ -176,10 +186,5 @@ public class Robot extends TimedRobot {
 
     testsChooser.addOption("hatchCollectorOn", new setHatchCollectorState(Value.kForward));
     testsChooser.addOption("hatchCollectorOff", new setHatchCollectorState(Value.kReverse));
-  }
-  @Override
-  public void testPeriodic() {
-    Scheduler.getInstance().run();
-    SmartDashboard.putData("selected test command", this.testsChooser.getSelected());
   }
 }
