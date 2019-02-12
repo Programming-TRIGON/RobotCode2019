@@ -121,6 +121,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("hatchCollectorOff", new setHatchCollectorState(Value.kReverse));
     SmartDashboard.putData("Hatch folder On", new SetCargoFolderState(Value.kForward));
     SmartDashboard.putData("Hatch folder Off", new SetCargoFolderState(Value.kReverse));
+    SmartDashboard.putData("Hatch Eject Off", new SetHatchEject(Value.kReverse));
+    SmartDashboard.putData("Hatch Eject On", new SetCargoFolderState(Value.kForward));
 
     dbc.addNumber("Drive train gyro", RobotComponents.DriveTrain.GYRO::getAngle);
 
