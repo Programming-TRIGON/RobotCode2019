@@ -52,8 +52,9 @@ public class Robot extends TimedRobot {
 
     Robot.dbc = new DashBoardController();
 
-    compressor = new Compressor();
-    compressor.start();
+    compressor = new Compressor(1);
+    compressor.stop();
+    //compressor.start();
 
     /** creates the SS htach collector that collects hatch pannels */
     Robot.hatchCollector = new HatchCollector(RobotComponents.HatchCollector.SOLENOID);
@@ -170,7 +171,10 @@ public class Robot extends TimedRobot {
   }
   @Override
   public void teleopInit() {
-    PathFinderClass.pathNotifier.stop();
+    if (PathFinderClass.pathNotifier != null){
+      PathFinderClass.pathNotifier.stop();
+      PathFinderClass.pathNotifier.close();
+    }
     Robot.DriveTrain.tankDrive(0, 0);
   }
 
