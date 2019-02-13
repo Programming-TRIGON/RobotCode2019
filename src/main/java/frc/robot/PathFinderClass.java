@@ -36,7 +36,7 @@ public class PathFinderClass {
 
     public static void followPath(){
              if(encoderFollowerLeft.isFinished() && encoderFollowerRight.isFinished()){
- 
+                PathFinderClass.pathNotifier.stop();
              }
                
            /** PID on encoders */

@@ -170,6 +170,11 @@ public class Robot extends TimedRobot {
       break;
     }
   }
+  @Override
+  public void teleopInit() {
+    PathFinderClass.pathNotifier.stop();
+    Robot.DriveTrain.tankDrive(0, 0);
+  }
 
   @Override
   public void teleopPeriodic() {
