@@ -27,7 +27,6 @@ public class HatchCollector extends Subsystem {
    */
   public void setSolenoid(DoubleSolenoid.Value value) {
     this.solenoid.set(value);
-    this.solenoid.set(Value.kOff);
   }
 
 

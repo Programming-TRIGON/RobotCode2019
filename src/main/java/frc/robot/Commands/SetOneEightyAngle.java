@@ -15,11 +15,11 @@ import frc.robot.RobotConstants;
 public class SetOneEightyAngle extends Command {
   private PIDController pidController;
   private double angle;
-  private final double kP= 0.2;
+  private final double kP= 0.01;
   private final double kI= 0;
   private final double kD= 0;
   private final double PERIOD =0.05;
-  private final double TOLERANCE =0.1;
+  private final double TOLERANCE =2;
 
 
   /**
@@ -44,6 +44,7 @@ public class SetOneEightyAngle extends Command {
         (output) -> Robot.oneEighty.setOneEighty(output), PERIOD);
     pidController.setAbsoluteTolerance(TOLERANCE);
     pidController.setOutputRange(-1, 1);
+    pidController.setSetpoint(angle);
     pidController.enable();
 
   }

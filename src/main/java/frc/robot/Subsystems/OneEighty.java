@@ -18,12 +18,10 @@ public class OneEighty extends JoystickOverridableSubsystem {
   private TalonSRX motor;
   private AnalogPotentiometer potentiometer;
   //This supplier checks if the S.S. is high enough to move.
-  private Supplier<Number> heightSupplier;
 
-  public OneEighty(TalonSRX motor, AnalogPotentiometer potentiometer, Supplier<Number> heightSupplier){
+  public OneEighty(TalonSRX motor, AnalogPotentiometer potentiometer){
     this.motor = motor;
     this.potentiometer = potentiometer;
-    this.heightSupplier = heightSupplier;
   } 
 
   /** turns the SS to where the driver wants it */

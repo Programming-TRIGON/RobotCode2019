@@ -11,10 +11,12 @@ import java.util.function.Supplier;
 
 import com.spikes2212.dashboard.ConstantHandler;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTankWithPID;
 import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 
@@ -33,17 +35,22 @@ public class ScoreHatchLeft extends CommandGroup {
   }
 
 
-  Supplier<Double> KP = ConstantHandler.addConstantDouble("ScoreHatchLeft-KP", 0.2);
-  Supplier<Double> KI = ConstantHandler.addConstantDouble("ScoreHatchLeft-KI", 0);
-  Supplier<Double> KD = ConstantHandler.addConstantDouble("ScoreHatchLeft-KD", 0);
-  Supplier<Double> tolerance = ConstantHandler.addConstantDouble("ScoreHatchLeft- tolerance", 0.1);
+  Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", -0.0001);
+  Supplier<Double> KI = ConstantHandler.addConstantDouble("KI", 0);
+  Supplier<Double> KD = ConstantHandler.addConstantDouble("KD", 0.001);
+  Supplier<Double> tolerance = ConstantHandler.addConstantDouble("tolerance", 10);
+  Supplier<Double> t = () -> {return 0.0;};
+
+  
 
   public ScoreHatchLeft(Target target) {
+    PIDSettings pidSettings = new PIDSettings(KP.get(), KI.get(), KD.get(), tolerance.get(), 0);
+    
     RobotComponents.DriveTrain.LEFT_ENCODER.reset();
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
     
-    addSequential(new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER, RobotComponents.DriveTrain.RIGHT_ENCODER, target.getDistance(), new PIDSettings(KP.get(), KI.get(), KD.get(), tolerance.get(), 0.1)));
-    //addSequential(new DriveArcade(Robot.driveTrain, moveValueSupplier, rotateValueSupplier));
-
+    //addSequential(new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER, RobotComponents.DriveTrain.RIGHT_ENCODER, target.getDistance(), pidSettings));
+    //addSequential(new WaitCommand(5));
+    addSequential(new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 90.0, () -> 0.0, pidSettings, 360.0, true));
   }
 }

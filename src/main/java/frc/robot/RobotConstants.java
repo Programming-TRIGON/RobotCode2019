@@ -50,10 +50,10 @@ public class RobotConstants {
     /**
      * The value at which the potentiometer will multiply the fraction it returns
      */
-    public static final double ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER = 360;
+    public static final double ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER = 600;
     // TODO change change offset
     /** the angle at which the potentiometer starts */
-    public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET = -180;
+    public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET = -300;
 
     /** the angles of the oneEighty subsystem when performing a task */
     public static enum OneEightyAngle {
@@ -88,7 +88,7 @@ public class RobotConstants {
     public static enum PushCargoPower {
         // TODO:set real values.
         /** the speed we want to push the cargo */
-        kCargoShip(1), kLowRocket(1), kMiddleRocket(1), kTopRocket(1);
+        kCargoShip(1), kLowRocket(1), kMiddleRocket(1), kTopRocket(-1);
         public double key;
 
         PushCargoPower(double power) {

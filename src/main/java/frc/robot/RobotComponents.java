@@ -61,8 +61,8 @@ public class RobotComponents {
         public static final TalonSRX FRONT_LEFT_M = new TalonSRX(RobotMap.CAN.FRONT_LEFT_MOTOR);
         public static final TalonSRX REAR_RIGHT_M = new TalonSRX(RobotMap.CAN.REAR_RIGHT_MOTOR);
         public static final TalonSRX FRONT_RIGHT_M = new TalonSRX(RobotMap.CAN.FRONT_RIGHT_MOTOR);
-        public static final Encoder LEFT_ENCODER = new Encoder(RobotMap.DIO.DRIVETRAIN_LEFT_ENCODER_A, RobotMap.DIO.DRIVETRAIN_LEFT_ENCODER_B); 
-        public static final Encoder RIGHT_ENCODER = new Encoder(RobotMap.DIO.DRIVETRAIN_RIGHT_ENCODER_A, RobotMap.DIO.DRIVETRAIN_RIGHT_ENCODER_B); 
+        public static final Encoder LEFT_ENCODER = new Encoder(RobotMap.DIO.DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DIO.DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_B); 
+        public static final Encoder RIGHT_ENCODER = new Encoder(RobotMap.DIO.DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DIO.DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_B); 
         public static final ADXRS450_Gyro GYRO = new ADXRS450_Gyro();
     }    
 }

@@ -3,6 +3,9 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
+import com.spikes2212.utils.PIDSettings;
 
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
@@ -10,6 +13,7 @@ import frc.robot.Autonomous.FirstHatch.ScoreHatchLeft;
 import frc.robot.Autonomous.FirstHatch.ScoreHatchLeft.Target;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
+import frc.robot.Commands.PushCargo;
 import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
@@ -18,6 +22,7 @@ import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.setHatchCollectorState;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
+import frc.robot.RobotConstants.PushCargoPower;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
 import frc.robot.Subsystems.CargoFolder;
@@ -54,7 +59,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     comp = new Compressor(1);
-    comp.start();
+    comp.stop();
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -81,8 +86,7 @@ public class Robot extends TimedRobot {
      * creates the SS that turns the subsytems cargo and hatch holder 180 degrees
      */
 
-    Robot.oneEighty = new OneEighty(RobotComponents.OneEighty.MOTOR, RobotComponents.OneEighty.POT,
-        Robot.lift::getHeight);
+    Robot.oneEighty = new OneEighty(RobotComponents.OneEighty.MOTOR, RobotComponents.OneEighty.POT);
 
     /*
      * creates the new SS that collects corgo by turning wheels that bring it in
@@ -106,7 +110,7 @@ public class Robot extends TimedRobot {
     // made functions that set speed to the motors on the drive train by double
     // insted of ControlMode and double
     Robot.driveTrain = new TankDrivetrain(
-        (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
+        (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, -speed),
         (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, speed));
 
     /*SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox, "lift"));
@@ -123,7 +127,13 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Hatch eject pull", new SetHatchEject(Value.kReverse));
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
     SmartDashboard.putData(new ScoreHatchLeft(Target.FIRST));
+    SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY,  Robot.oi.operatorXbox::getX));
+    SmartDashboard.putData(new SetOneEightyAngle(0));
+    SmartDashboard.putData(new PushCargo(PushCargoPower.kTopRocket));
+    SmartDashboard.putData(new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
+     ()->90.0, ()->0.0, new PIDSettings(0.3,0,0, 200000, 0), 360, true));
 
+    dbc.addNumber("180 pot", Robot.oneEighty::getAngle);
     dbc.addNumber("Drive train gyro", RobotComponents.DriveTrain.GYRO::getAngle);
 
     addTests();
