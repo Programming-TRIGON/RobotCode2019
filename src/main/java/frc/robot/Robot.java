@@ -8,6 +8,8 @@ import jaci.pathfinder.followers.EncoderFollower;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
 
 import frc.robot.Commands.MoveSubsystemWithJoystick;
 
@@ -99,12 +101,9 @@ public class Robot extends TimedRobot {
         (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
         (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, speed));
 
-    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox, "lift"));
-    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
-    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.cargoCollector, Robot.oi.operatorXbox, "cargo holder"));
-    SmartDashboard.putData(new com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade(Robot.DriveTrain,
-        Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
+    
     SmartDashboard.putData(new SetOneEightyAngle(180));
+    SmartDashboard.putData("Drive", new DriveArcade(Robot.DriveTrain, Robot.oi.operatorXbox::getX, Robot.oi.operatorXbox::getY));
 
     dbc.addNumber("180 potentiometer angle", Robot.oneEighty::getAngle);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_RIGHT::getDistance);
