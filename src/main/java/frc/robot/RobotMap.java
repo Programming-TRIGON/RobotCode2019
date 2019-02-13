@@ -46,6 +46,10 @@ public class RobotMap {
         public static final int CARGO_FOLDER_TOP_SWITCH = 2;
         public static final int CARGO_FOLDER_BOTTOM_SWITCH = 3;
         public static final int CARGO_COLLECTOR_SWITCH = 0;
+        public static final int DRIVETRAIN_LEFT_ENCODER_A = 6;
+        public static final int DRIVETRAIN_LEFT_ENCODER_B = 7;
+        public static final int DRIVETRAIN_RIGHT_ENCODER_A = 8;
+        public static final int DRIVETRAIN_RIGHT_ENCODER_B = 9;
     }
 
     // Analog input device ports
