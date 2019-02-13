@@ -7,8 +7,12 @@
 
 package frc.robot.Autonomous.FirstHatch;
 
+import java.util.function.Supplier;
+
 import com.spikes2212.dashboard.ConstantHandler;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTankWithPID;
+import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
@@ -25,17 +29,21 @@ public class ScoreHatchLeft extends CommandGroup {
     }
     public int getDistance() {
       return distance;
-    }
-    
+    }  
   }
 
 
-  Supplier<Double> KP = ConstantHandler.addConstantDouble("ScoreHatchLeft-KP", 0);
-  Supplier<Double> KP = ConstantHandler.addConstantDouble("ScoreHatchLeft-KP", 0);
-  Supplier<Double> KP = ConstantHandler.addConstantDouble("ScoreHatchLeft-KP", 0);
-  
+  Supplier<Double> KP = ConstantHandler.addConstantDouble("ScoreHatchLeft-KP", 0.2);
+  Supplier<Double> KI = ConstantHandler.addConstantDouble("ScoreHatchLeft-KI", 0);
+  Supplier<Double> KD = ConstantHandler.addConstantDouble("ScoreHatchLeft-KD", 0);
+  Supplier<Double> tolerance = ConstantHandler.addConstantDouble("ScoreHatchLeft- tolerance", 0.1);
 
   public ScoreHatchLeft(Target target) {
-    addSequential(new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER, RobotComponents.DriveTrain.RIGHT_ENCODER, target.getDistance(), PIDSettings);
+    RobotComponents.DriveTrain.LEFT_ENCODER.reset();
+    RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
+    
+    addSequential(new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER, RobotComponents.DriveTrain.RIGHT_ENCODER, target.getDistance(), new PIDSettings(KP.get(), KI.get(), KD.get(), tolerance.get(), 0.1)));
+    //addSequential(new DriveArcade(Robot.driveTrain, moveValueSupplier, rotateValueSupplier));
+
   }
 }
