@@ -81,6 +81,8 @@ public class RobotComponents {
                 RobotMap.DIO.DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DIO.DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_B);
         public final static ADXRS450_Gyro DRIVETRAIN_GYRO = new ADXRS450_Gyro(Port.kOnboardCS0);
               // TODO: make real values
+    }
+    
    public static double desiredAngle, angle, angleDifference, turn, rightSpeed, leftSpeed;
    public static double kP, kI, kD, kA, turnSize, maxVelocity;
    public static EncoderFollower encoderFollowerLeft, encoderFollowerRight;
@@ -153,4 +155,3 @@ public class RobotComponents {
           Robot.driveTrain.tankDrive((leftSpeed + turn), (rightSpeed - turn));
         }
     }
-}
