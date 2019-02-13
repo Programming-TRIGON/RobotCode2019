@@ -22,7 +22,7 @@ public class RobotComponents {
     }
 
     public static class CargoFolder{
-        public static final DoubleSolenoid SOLENOID = new DoubleSolenoid(RobotMap.CAN.PCM, RobotMap.PCM0.CARGO_FOLDER_SOLENOID_A, RobotMap.PCM0.CARGO_FOLDER_SOLENOID_B);
+        public static final DoubleSolenoid SOLENOID = new DoubleSolenoid(RobotMap.CAN.PCM, RobotMap.PCM0.CARGO_FOLDER_SOLENOID_FORWARD, RobotMap.PCM0.CARGO_FOLDER_SOLENOID_REVERSE);
         public static final DigitalInput TOP_SWITCH = new DigitalInput(RobotMap.DIO.CARGO_FOLDER_TOP_SWITCH);
         public static final DigitalInput BOTTOM_SWITCH = new DigitalInput(RobotMap.DIO.CARGO_FOLDER_BOTTOM_SWITCH);
     }
@@ -36,13 +36,13 @@ public class RobotComponents {
     }
 
     public static class HatchHolder{
-        public static final DoubleSolenoid PVC = new DoubleSolenoid(RobotMap.CAN.PCM, RobotMap.PCM0.HATCH_HOLDER_PVC_SOLENOID_A, RobotMap.PCM0.HATCH_HOLDER_PVC_SOLENOID_B);
-        public static final DoubleSolenoid PUSH_SOLENOID = new DoubleSolenoid(RobotMap.CAN.PCM, RobotMap.PCM0.HATCH_HOLDER_PUSH_SOLENOID_A, 
-        RobotMap.PCM0.HATCH_HOLDER_PUSH_SOLENOID_B);
+        public static final DoubleSolenoid PVC = new DoubleSolenoid(RobotMap.CAN.PCM, RobotMap.PCM0.HATCH_HOLDER_PVC_SOLENOID_FORWARD, RobotMap.PCM0.HATCH_HOLDER_PVC_SOLENOID_REVERSE);
+        public static final DoubleSolenoid PUSH_SOLENOID = new DoubleSolenoid(RobotMap.CAN.PCM, RobotMap.PCM0.HATCH_HOLDER_PUSH_SOLENOID_FORWARD, 
+        RobotMap.PCM0.HATCH_HOLDER_PUSH_SOLENOID_REVERSE);
     }
 
     public static class HatchCollector{
-        public static final DoubleSolenoid SOLENOID = new DoubleSolenoid(RobotMap.CAN.PCM, RobotMap.PCM0.HATCH_COLLECTOR_SOLENOID_A, RobotMap.PCM0.HATCH_COLLECTOR_SOLENOID_B);
+        public static final DoubleSolenoid SOLENOID = new DoubleSolenoid(RobotMap.CAN.PCM, RobotMap.PCM0.HATCH_COLLECTOR_SOLENOID_FORWARD, RobotMap.PCM0.HATCH_COLLECTOR_SOLENOID_REVERSE);
 
     }
 

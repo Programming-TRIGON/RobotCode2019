@@ -24,18 +24,17 @@ public class RobotMap {
 
     // Solenoid ports connected to PCM0
     static class PCM0 {
-        // as of 12/2/19 02:20
-        public static final int HATCH_COLLECTOR_SOLENOID_A = 7;
-        public static final int HATCH_COLLECTOR_SOLENOID_B = 6;
+        public static final int HATCH_COLLECTOR_SOLENOID_FORWARD = 5;
+        public static final int HATCH_COLLECTOR_SOLENOID_REVERSE = 4;
 
-        public static final int HATCH_HOLDER_PVC_SOLENOID_A = 4;
-        public static final int HATCH_HOLDER_PVC_SOLENOID_B = 5;//6;
+        public static final int HATCH_HOLDER_PVC_SOLENOID_FORWARD = 1;
+        public static final int HATCH_HOLDER_PVC_SOLENOID_REVERSE = 0;
 
-        public static final int HATCH_HOLDER_PUSH_SOLENOID_A = 3;
-        public static final int HATCH_HOLDER_PUSH_SOLENOID_B = 1;
+        public static final int HATCH_HOLDER_PUSH_SOLENOID_FORWARD = 3;
+        public static final int HATCH_HOLDER_PUSH_SOLENOID_REVERSE = 2;
 
-        public static final int CARGO_FOLDER_SOLENOID_A = 0; //3 Checked
-        public static final int CARGO_FOLDER_SOLENOID_B = 2; //6 Checked
+        public static final int CARGO_FOLDER_SOLENOID_FORWARD = 7; 
+        public static final int CARGO_FOLDER_SOLENOID_REVERSE = 6; 
 
     }
 
