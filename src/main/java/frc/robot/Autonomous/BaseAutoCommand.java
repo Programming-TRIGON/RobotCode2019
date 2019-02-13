@@ -35,6 +35,8 @@ public abstract class BaseAutoCommand extends CommandGroup {
     // collect second hatch 
     addSequential(new CollectHatchFromFeeder());
 
+    // Vision allign to hatch
+
     // drive to second hatch desetination
     driveToSecondHatch();
 
