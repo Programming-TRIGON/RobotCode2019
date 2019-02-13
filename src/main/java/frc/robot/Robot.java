@@ -7,6 +7,7 @@ import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
 import frc.robot.Commands.CollectCargo;
+import frc.robot.Commands.MoveSubsystemWithJoystick;
 import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
@@ -118,7 +119,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
     SmartDashboard.putData("Hatch eject push", new SetHatchEject(Value.kForward));
     SmartDashboard.putData("Hatch eject pull", new SetHatchEject(Value.kReverse));
-
+    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
+    
     dbc.addNumber("Drive train gyro", RobotComponents.DriveTrain.GYRO::getAngle);
 
     addTests();

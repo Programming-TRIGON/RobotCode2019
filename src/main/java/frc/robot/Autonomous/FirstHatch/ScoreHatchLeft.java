@@ -7,6 +7,7 @@
 
 package frc.robot.Autonomous.FirstHatch;
 
+import com.spikes2212.dashboard.ConstantHandler;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTankWithPID;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -29,6 +30,9 @@ public class ScoreHatchLeft extends CommandGroup {
   }
 
 
+  Supplier<Double> KP = ConstantHandler.addConstantDouble("ScoreHatchLeft-KP", 0);
+  Supplier<Double> KP = ConstantHandler.addConstantDouble("ScoreHatchLeft-KP", 0);
+  Supplier<Double> KP = ConstantHandler.addConstantDouble("ScoreHatchLeft-KP", 0);
   
 
   public ScoreHatchLeft(Target target) {
