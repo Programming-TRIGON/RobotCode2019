@@ -132,7 +132,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
 
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
-
+    dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
+    dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
 
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, oi.operatorXbox));
 
