@@ -20,6 +20,7 @@ import frc.robot.Commands.setHatchCollectorState;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotConstants.PushCargoPower;
+import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
 import frc.robot.Subsystems.CargoFolder;
@@ -50,9 +51,8 @@ public class Robot extends TimedRobot {
   public static DashBoardController dbc;
   public static OI oi;
 
-  //public static Compressor comp;
-
   final SendableChooser<Command> testsChooser = new SendableChooser<Command>();;
+  public static Compressor compressor;
 
   @Override
   public void robotInit() {
@@ -67,6 +67,9 @@ public class Robot extends TimedRobot {
     Robot.oi = new OI();
 
     Robot.dbc = new DashBoardController();
+
+    compressor = new Compressor();
+    compressor.start();
 
     /** creates the SS htach collector that collects hatch pannels */
     Robot.hatchCollector = new HatchCollector(RobotComponents.HatchCollector.SOLENOID);
@@ -84,8 +87,7 @@ public class Robot extends TimedRobot {
      * creates the SS that turns the subsytems cargo and hatch holder 180 degrees
      */
 
-    Robot.oneEighty = new OneEighty(RobotComponents.OneEighty.MOTOR, RobotComponents.OneEighty.POT,
-        Robot.lift::getHeight);
+    Robot.oneEighty = new OneEighty(RobotComponents.OneEighty.MOTOR, RobotComponents.OneEighty.POT);
 
     /*
      * creates the new SS that collects corgo by turning wheels that bring it in
@@ -135,6 +137,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, oi.operatorXbox));
 
     addTests();
+
   }
 
   @Override
