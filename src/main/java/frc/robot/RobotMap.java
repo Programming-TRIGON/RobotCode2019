@@ -47,7 +47,7 @@ public class RobotMap {
         public static final int CARGO_COLLECTOR_SWITCH = 4;
         public final static int DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_A = 0;        
         public final static int DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_B = 1;
-
+        
         public final static int DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_A = 3;
         public final static int DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_B = 4;
 

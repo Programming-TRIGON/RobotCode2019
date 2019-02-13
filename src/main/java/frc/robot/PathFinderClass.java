@@ -1,15 +1,7 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Notifier;
 import jaci.pathfinder.Pathfinder;
-import jaci.pathfinder.PathfinderFRC;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
 
@@ -30,7 +22,7 @@ public class PathFinderClass {
         PathFinderClass.kI = 0;
         PathFinderClass.kD = 0;
         PathFinderClass.kA = 0.1;
-        this.turnSize = -0.01;
+        PathFinderClass.turnSize = -0.01;
         PathFinderClass.maxVelocity = 0.5;
     }
 

@@ -3,7 +3,6 @@ package frc.robot;
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
 import jaci.pathfinder.PathfinderFRC;
-import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -11,7 +10,6 @@ import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 
 import frc.robot.Commands.MoveSubsystemWithJoystick;
-import frc.robot.Commands.PathFinder;
 
 import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Subsystems.CargoCollector;
