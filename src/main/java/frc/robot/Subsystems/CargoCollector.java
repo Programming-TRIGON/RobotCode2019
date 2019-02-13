@@ -20,14 +20,12 @@ public class CargoCollector extends JoystickOverridableSubsystem {
   private TalonSRX leftHolder, rightHolder;
   private DigitalInput microswitch;
 
-  public CargoCollector(TalonSRX collectorMotor, TalonSRX rightCargoHolder, TalonSRX leftCargoHolder,
-      DigitalInput cargoSwitch) {
+  public CargoCollector(TalonSRX collectorMotor, TalonSRX rightCargoHolder, TalonSRX leftCargoHolder, DigitalInput cargoSwitch){
     this.collectorMotor = collectorMotor;
     this.leftHolder = leftCargoHolder;
     this.rightHolder = rightCargoHolder;
     this.microswitch = cargoSwitch;
-    this.leftHolder.set(ControlMode.Follower, this.leftHolder.getDeviceID());
-    // this.leftMotor.setInverted(true);
+    this.leftHolder.set(ControlMode.Follower, this.leftHolder.getDeviceID()); 
   }
 
   /** sets motor power of the collector */

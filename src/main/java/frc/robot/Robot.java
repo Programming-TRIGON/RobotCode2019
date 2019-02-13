@@ -13,11 +13,14 @@ import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
 
 import frc.robot.Commands.MoveSubsystemWithJoystick;
 import frc.robot.Commands.PathFinder;
+
+import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
 import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
 import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -40,6 +43,8 @@ public class Robot extends TimedRobot {
   public static DashBoardController dbc;
   public static OI oi;
 
+  public static Compressor compressor;
+
   @Override
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
@@ -49,6 +54,9 @@ public class Robot extends TimedRobot {
     Robot.oi = new OI();
 
     Robot.dbc = new DashBoardController();
+
+    compressor = new Compressor();
+    compressor.start();
 
     /** creates the SS htach collector that collects hatch pannels */
     Robot.hatchCollector = new HatchCollector(RobotComponents.HatchCollector.SOLENOID);
@@ -66,8 +74,7 @@ public class Robot extends TimedRobot {
      * creates the SS that turns the subsytems cargo and hatch holder 180 degrees
      */
 
-    Robot.oneEighty = new OneEighty(RobotComponents.OneEighty.MOTOR, RobotComponents.OneEighty.POT,
-        Robot.lift::getHeight);
+    Robot.oneEighty = new OneEighty(RobotComponents.OneEighty.MOTOR, RobotComponents.OneEighty.POT);
 
     /*
      * creates the new SS that collects corgo by turning wheels that bring it in
@@ -98,7 +105,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.cargoCollector, Robot.oi.operatorXbox, "cargo holder"));
     SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
+    SmartDashboard.putData(new SetOneEightyAngle(180));
 
+    dbc.addNumber("180 potentiometer angle", Robot.oneEighty::getAngle);
+    dbc.addNumber("Right encoder", RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_RIGHT::getDistance);
+    dbc.addNumber("Left encoder", RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_LEFT::getDistance);
   }
 
   @Override
