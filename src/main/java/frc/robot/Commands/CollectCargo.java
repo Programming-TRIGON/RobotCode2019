@@ -34,9 +34,12 @@ public class CollectCargo extends Command {
 
   @Override
   protected void end() {
+    Robot.cargoCollector.setCollectorMotor(0);
+    Robot.cargoCollector.setHolderMotors(0);
   }
 
   @Override
   protected void interrupted() {
+    end();
   }
 }

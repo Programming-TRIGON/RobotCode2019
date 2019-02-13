@@ -31,9 +31,9 @@ public class PathFinder extends Command {
   @Override
   protected void initialize() {
     /** reseting sensors */
-    RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_RIGHT.reset();
-    RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_LEFT.reset();
-    RobotComponents.DriveTrain.DRIVETRAIN_GYRO.reset();
+    RobotComponents.Drivetrain.GYRO.reset();
+    RobotComponents.Drivetrain.RIGHT_ENCODER.reset();
+    RobotComponents.Drivetrain.GYRO.reset();
     /**
      * The tarjectory is the path(each side of the drivetrain has one) this is like
      * the "error" in PID
@@ -51,9 +51,9 @@ public class PathFinder extends Command {
      * and wheelDiamter as we don't want it to be in ticks we want a usable
      * measurment
      */
-    encoderFollowerLeft.configureEncoder(RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_LEFT.get(),
+    encoderFollowerLeft.configureEncoder(RobotComponents.Drivetrain.LEFT_ENCODER.get(),
         RobotConstants.Sensors.TicksPerRevolution, RobotConstants.RobotDimensions.WheelDiameter);
-    encoderFollowerRight.configureEncoder(RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_RIGHT.get(),
+    encoderFollowerRight.configureEncoder(RobotComponents.Drivetrain.RIGHT_ENCODER.get(),
         RobotConstants.Sensors.TicksPerRevolution, RobotConstants.RobotDimensions.WheelDiameter);
     /** setting the PID values: kp, ki, kd, kv, ka */
     encoderFollowerLeft.configurePIDVA(this.kP, this.kI, this.kD, 1 / this.maxVelocity, this.kA);
@@ -63,10 +63,10 @@ public class PathFinder extends Command {
   @Override
   protected void execute() {
     /** PID on encoders */
-    this.leftSpeed = encoderFollowerLeft.calculate(RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_LEFT.get());
-    this.rightSpeed = encoderFollowerRight.calculate(RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_RIGHT.get());
+    this.leftSpeed = encoderFollowerLeft.calculate(RobotComponents.Drivetrain.LEFT_ENCODER.get());
+    this.rightSpeed = encoderFollowerRight.calculate(RobotComponents.Drivetrain.RIGHT_ENCODER.get());
     /** getting the current angle */
-    this.angle = RobotComponents.DriveTrain.DRIVETRAIN_GYRO.getAngle();
+    this.angle = RobotComponents.Drivetrain.GYRO.getAngle();
     /**
      * getting our desired angle. we use only the left path because both sides of
      * the robot are parallel

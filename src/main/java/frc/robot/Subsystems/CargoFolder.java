@@ -15,7 +15,7 @@ public class CargoFolder extends Subsystem {
   /** folds/unfolds the SS then turns the solenoid off for safety */
   public void setFold(DoubleSolenoid.Value value) {
     this.Folder.set(value);
-    this.Folder.set(Value.kOff);
+    //this.Folder.set(Value.kOff);
   }
 
   @Override

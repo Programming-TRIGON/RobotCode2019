@@ -87,15 +87,15 @@ public class Robot extends TimedRobot {
     /*
      * creates the drive train SS with SpikesLib
      */
-    RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower,
-        RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); // now front and rear motors are moving toghether
-    RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower,
-        RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); // ditto
+    RobotComponents.Drivetrain.FRONT_LEFT_M.set(ControlMode.Follower,
+        RobotComponents.Drivetrain.REAR_LEFT_M.getDeviceID()); // now front and rear motors are moving toghether
+    RobotComponents.Drivetrain.FRONT_RIGHT_M.set(ControlMode.Follower,
+        RobotComponents.Drivetrain.REAR_RIGHT_M.getDeviceID()); // ditto
     // made functions that set speed to the motors on the drive train by double
     // insted of ControlMode and double
     Robot.driveTrain = new TankDrivetrain(
-        (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
-        (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, speed));
+        (Double speed) -> RobotComponents.Drivetrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
+        (Double speed) -> RobotComponents.Drivetrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, speed));
 
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox, "lift"));
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
@@ -104,8 +104,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(new SetOneEightyAngle(180));
 
     dbc.addNumber("180 potentiometer angle", Robot.oneEighty::getAngle);
-    dbc.addNumber("Right encoder", RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_RIGHT::getDistance);
-    dbc.addNumber("Left encoder", RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_LEFT::getDistance);
+    dbc.addNumber("Right encoder", RobotComponents.Drivetrain.RIGHT_ENCODER::getDistance);
+    dbc.addNumber("Left encoder", RobotComponents.Drivetrain.LEFT_ENCODER::getDistance);
   }
 
   @Override

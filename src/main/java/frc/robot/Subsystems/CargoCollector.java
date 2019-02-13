@@ -1,6 +1,7 @@
 package frc.robot.Subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 
@@ -25,7 +26,11 @@ public class CargoCollector extends JoystickOverridableSubsystem {
     this.leftHolder = leftCargoHolder;
     this.rightHolder = rightCargoHolder;
     this.microswitch = cargoSwitch;
-    this.leftHolder.set(ControlMode.Follower, this.leftHolder.getDeviceID()); 
+
+    this.leftHolder.set(ControlMode.Follower, this.rightHolder.getDeviceID());
+    this.leftHolder.setInverted(true);
+    this.leftHolder.setNeutralMode(NeutralMode.Coast);
+    this.rightHolder.setNeutralMode(NeutralMode.Coast);
   }
 
   /** sets motor power of the collector */
