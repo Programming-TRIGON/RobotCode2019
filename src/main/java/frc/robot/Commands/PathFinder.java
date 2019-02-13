@@ -18,7 +18,7 @@ public class PathFinder extends Command {
   private String pathName;
 
   public PathFinder(String pathName) {
-    requires(Robot.driveTrain);
+ //   requires();
     this.pathName = pathName;
     this.kP = 0.2;
     this.kI = 0;
@@ -31,11 +31,11 @@ public class PathFinder extends Command {
   @Override
   protected void initialize() {
     /** reseting sensors */
-    RobotComponents.Drivetrain.GYRO.reset();
-    RobotComponents.Drivetrain.RIGHT_ENCODER.reset();
-    RobotComponents.Drivetrain.GYRO.reset();
+    RobotComponents.DriveTrain.GYRO.reset();
+    RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
+    RobotComponents.DriveTrain.GYRO.reset();
     /**
-     * The tarjectory is the path(each side of the drivetrain has one) this is like
+     * The tarjectory is the path(each side of the DriveTrain has one) this is like
      * the "error" in PID
      */
     // TODO: check when this bug is fixed (wpilibs side)
@@ -51,9 +51,9 @@ public class PathFinder extends Command {
      * and wheelDiamter as we don't want it to be in ticks we want a usable
      * measurment
      */
-    encoderFollowerLeft.configureEncoder(RobotComponents.Drivetrain.LEFT_ENCODER.get(),
+    encoderFollowerLeft.configureEncoder(RobotComponents.DriveTrain.LEFT_ENCODER.get(),
         RobotConstants.Sensors.TicksPerRevolution, RobotConstants.RobotDimensions.WheelDiameter);
-    encoderFollowerRight.configureEncoder(RobotComponents.Drivetrain.RIGHT_ENCODER.get(),
+    encoderFollowerRight.configureEncoder(RobotComponents.DriveTrain.RIGHT_ENCODER.get(),
         RobotConstants.Sensors.TicksPerRevolution, RobotConstants.RobotDimensions.WheelDiameter);
     /** setting the PID values: kp, ki, kd, kv, ka */
     encoderFollowerLeft.configurePIDVA(this.kP, this.kI, this.kD, 1 / this.maxVelocity, this.kA);
@@ -63,10 +63,10 @@ public class PathFinder extends Command {
   @Override
   protected void execute() {
     /** PID on encoders */
-    this.leftSpeed = encoderFollowerLeft.calculate(RobotComponents.Drivetrain.LEFT_ENCODER.get());
-    this.rightSpeed = encoderFollowerRight.calculate(RobotComponents.Drivetrain.RIGHT_ENCODER.get());
+    this.leftSpeed = encoderFollowerLeft.calculate(RobotComponents.DriveTrain.LEFT_ENCODER.get());
+    this.rightSpeed = encoderFollowerRight.calculate(RobotComponents.DriveTrain.RIGHT_ENCODER.get());
     /** getting the current angle */
-    this.angle = RobotComponents.Drivetrain.GYRO.getAngle();
+    this.angle = RobotComponents.DriveTrain.GYRO.getAngle();
     /**
      * getting our desired angle. we use only the left path because both sides of
      * the robot are parallel
@@ -84,7 +84,7 @@ public class PathFinder extends Command {
     // TODO: Set real value
     this.turn = this.turnSize * this.angleDifference;
     /** setting the numbers given by the PID to the motors */
-    Robot.driveTrain.tankDrive((this.leftSpeed + this.turn), (this.rightSpeed - this.turn));
+    Robot.DriveTrain.tankDrive((this.leftSpeed + this.turn), (this.rightSpeed - this.turn));
   }
 
   @Override
@@ -95,7 +95,7 @@ public class PathFinder extends Command {
 
   @Override
   protected void end() {
-    Robot.driveTrain.tankDrive(0, 0);
+    Robot.DriveTrain.tankDrive(0, 0);
   }
 
   @Override

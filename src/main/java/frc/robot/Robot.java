@@ -8,8 +8,8 @@ import jaci.pathfinder.followers.EncoderFollower;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.dashboard.DashBoardController;
-import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
-import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
+import com.spikes2212.genericsubsystems.DriveTrains.TankDriveTrain;
+import com.spikes2212.genericsubsystems.DriveTrains.commands.DriveArcade;
 
 import frc.robot.Commands.MoveSubsystemWithJoystick;
 import frc.robot.Commands.PathFinder;
@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
   public static OneEighty oneEighty;
   public static CargoCollector cargoCollector;
   public static CargoFolder cargoFolder;
-  public static TankDrivetrain driveTrain;
+  public static TankDriveTrain DriveTrain;
 
   public static DashBoardController dbc;
   public static OI oi;
@@ -91,25 +91,25 @@ public class Robot extends TimedRobot {
     /*
      * creates the drive train SS with SpikesLib
      */
-    RobotComponents.Drivetrain.FRONT_LEFT_M.set(ControlMode.Follower,
-        RobotComponents.Drivetrain.REAR_LEFT_M.getDeviceID()); // now front and rear motors are moving toghether
-    RobotComponents.Drivetrain.FRONT_RIGHT_M.set(ControlMode.Follower,
-        RobotComponents.Drivetrain.REAR_RIGHT_M.getDeviceID()); // ditto
+    RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower,
+        RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); // now front and rear motors are moving toghether
+    RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower,
+        RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); // ditto
     // made functions that set speed to the motors on the drive train by double
     // insted of ControlMode and double
-    Robot.driveTrain = new TankDrivetrain(
-        (Double speed) -> RobotComponents.Drivetrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
-        (Double speed) -> RobotComponents.Drivetrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, speed));
+    Robot.DriveTrain = new TankDriveTrain(
+        (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
+        (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, speed));
 
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox, "lift"));
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.cargoCollector, Robot.oi.operatorXbox, "cargo holder"));
-    SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
+    SmartDashboard.putData(new DriveArcade(Robot.DriveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
     SmartDashboard.putData(new SetOneEightyAngle(180));
 
     dbc.addNumber("180 potentiometer angle", Robot.oneEighty::getAngle);
-    dbc.addNumber("Right encoder", RobotComponents.Drivetrain.RIGHT_ENCODER::getDistance);
-    dbc.addNumber("Left encoder", RobotComponents.Drivetrain.LEFT_ENCODER::getDistance);
+    dbc.addNumber("Right encoder", RobotComponents.DriveTrain.DriveTrain_ENCODER_RIGHT::getDistance);
+    dbc.addNumber("Left encoder", RobotComponents.DriveTrain.DriveTrain_ENCODER_LEFT::getDistance);
   }
 
   @Override
@@ -128,8 +128,8 @@ public class Robot extends TimedRobot {
     m_autoSelected = m_chooser.getSelected();
     System.out.println("Auto selected: " + m_autoSelected);
     Notifier pathNotifier;
-        pathNotifier = new Notifier(RobotComponents.DriveTrain::followPath);
-        pathNotifier.startPeriodic(RobotComponents.DriveTrain.leftTrajectory.get(0).dt);
+        pathNotifier = new Notifier(PathFinderClass::followPath);
+        pathNotifier.startPeriodic(PathFinderClass.leftTrajectory.get(0).dt);
   }
 
   @Override
