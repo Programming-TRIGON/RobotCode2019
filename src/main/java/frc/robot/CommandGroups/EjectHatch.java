@@ -25,8 +25,8 @@ public class EjectHatch extends CommandGroup{
 
     public EjectHatch(){
 
-        addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));
-        addSequential(new WaitCommand(1));
+        //addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));
+        //addSequential(new WaitCommand(1));
         addSequential(new SetHatchLock(unlock));
         addSequential(new WaitCommand(0.5));
         addSequential(new SetHatchEject(extend));

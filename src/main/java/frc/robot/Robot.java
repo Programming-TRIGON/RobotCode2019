@@ -11,6 +11,7 @@ import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
 import frc.robot.Autonomous.FirstHatch.ScoreHatchLeft;
 import frc.robot.Autonomous.FirstHatch.ScoreHatchLeft.Target;
+import frc.robot.CommandGroups.EjectHatch;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
 import frc.robot.Commands.PushCargo;
@@ -59,7 +60,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     comp = new Compressor(1);
-    comp.stop();
+    comp.start();
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -125,10 +126,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
     SmartDashboard.putData("Hatch eject push", new SetHatchEject(Value.kForward));
     SmartDashboard.putData("Hatch eject pull", new SetHatchEject(Value.kReverse));
-    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
     SmartDashboard.putData(new ScoreHatchLeft(Target.FIRST));
     SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY,  Robot.oi.operatorXbox::getX));
     SmartDashboard.putData(new SetOneEightyAngle(0));
+    SmartDashboard.putData(new EjectHatch());
     SmartDashboard.putData(new PushCargo(PushCargoPower.kTopRocket));
     SmartDashboard.putData(new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
      ()->90.0, ()->0.0, new PIDSettings(0.3,0,0, 200000, 0), 360, true));
