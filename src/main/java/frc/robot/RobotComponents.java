@@ -1,8 +1,5 @@
 package frc.robot;
 
-import java.util.function.Consumer;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -11,6 +8,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI.Port;
+
 
 /** this class sets what all of the robot components are */
 public class RobotComponents {
@@ -34,6 +32,7 @@ public class RobotComponents {
                 RobotMap.ANALOG_INPUT.ONE_EIGHTY_POTENTIOMETER,
                 RobotConstants.ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER,
                 RobotConstants.ONE_EIGHTY_POTENTIOMETER_OFFSET);
+        //public final static AnalogInput POT = new AnalogInput(1);
     }
 
     static class HatchHolder {
@@ -64,6 +63,7 @@ public class RobotComponents {
         public final static TalonSRX FRONT_LEFT_M = new TalonSRX(RobotMap.CAN.FRONT_LEFT_MOTOR);
         public final static TalonSRX REAR_RIGHT_M = new TalonSRX(RobotMap.CAN.REAR_RIGHT_MOTOR);
         public final static TalonSRX FRONT_RIGHT_M = new TalonSRX(RobotMap.CAN.FRONT_RIGHT_MOTOR);
+
         public final static Encoder DRIVETRAIN_ENCODER_RIGHT = new Encoder(
                 RobotMap.DIO.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DIO.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B);
         public final static Encoder DRIVETRAIN_ENCODER_LEFT = new Encoder(
