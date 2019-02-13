@@ -127,6 +127,34 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autoSelected = m_chooser.getSelected();
     System.out.println("Auto selected: " + m_autoSelected);
+             /** reseting sensors */
+             RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_RIGHT.reset();
+             RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_LEFT.reset();
+             RobotComponents.DriveTrain.DRIVETRAIN_GYRO.reset();
+             /**
+              * The tarjectory is the path(each side of the drivetrain has one) this is like
+              * the "error" in PID
+              */
+             // TODO: check when this bug is fixed (wpilibs side)
+             PathFinderClass.leftTrajectory = PathfinderFRC.getTrajectory(PathFinderClass.pathName + ".right");
+             PathFinderClass.rightTrajectory = PathfinderFRC.getTrajectory(PathFinderClass.pathName + ".left");
+             /**
+              * The encoder follower does PID using encoder input to find the motor power
+              */
+              PathFinderClass.encoderFollowerLeft = new EncoderFollower(PathFinderClass.leftTrajectory);
+              PathFinderClass.encoderFollowerRight = new EncoderFollower(PathFinderClass.rightTrajectory);
+             /**
+              * giving the encoderFollowers the current ticks (starting point) and the CPR
+              * and wheelDiamter as we don't want it to be in ticks we want a usable
+              * measurment
+              */
+              PathFinderClass.encoderFollowerLeft.configureEncoder(RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_LEFT.get(),
+                 RobotConstants.Sensors.TicksPerRevolution, RobotConstants.RobotDimensions.WheelDiameter);
+                 PathFinderClass.encoderFollowerRight.configureEncoder(RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_RIGHT.get(),
+                 RobotConstants.Sensors.TicksPerRevolution, RobotConstants.RobotDimensions.WheelDiameter);
+             /** setting the PID values: kp, ki, kd, kv, ka */
+             PathFinderClass.encoderFollowerLeft.configurePIDVA(PathFinderClass.kP, PathFinderClass.kI, PathFinderClass.kD, 1 / PathFinderClass.maxVelocity, PathFinderClass.kA);
+             PathFinderClass.encoderFollowerRight.configurePIDVA(PathFinderClass.kP, PathFinderClass.kI, PathFinderClass.kD, 1 / PathFinderClass.maxVelocity, PathFinderClass.kA);
     Notifier pathNotifier;
         pathNotifier = new Notifier(PathFinderClass::followPath);
         pathNotifier.startPeriodic(PathFinderClass.leftTrajectory.get(0).dt);

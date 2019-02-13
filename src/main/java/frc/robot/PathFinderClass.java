@@ -17,49 +17,24 @@ import jaci.pathfinder.followers.EncoderFollower;
  * Add your docs here.
  */
 public class PathFinderClass {
-    public static double desiredAngle, angle, angleDifference, turn, rightSpeed, leftSpeed;
-    public static double kP, kI, kD, kA, turnSize, maxVelocity;
+    public static double desiredAngle, angle, angleDifference, turn, rightSpeed, turnSize, leftSpeed;
+    public static double kP, kI, kD, kA, maxVelocity;
     public static EncoderFollower encoderFollowerLeft, encoderFollowerRight;
     public static Trajectory leftTrajectory, rightTrajectory;
     public static String pathName;
     public static Notifier pathNotifier;
-    {
-     pathName = "Test";
-     kP = 0.2;
-     kI = 0;
-     kD = 0;
-     kA = 0.1;
-     turnSize = -0.01;
-     maxVelocity = 0.5;
-         /** reseting sensors */
-         RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_RIGHT.reset();
-         RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_LEFT.reset();
-         RobotComponents.DriveTrain.DRIVETRAIN_GYRO.reset();
-         /**
-          * The tarjectory is the path(each side of the drivetrain has one) this is like
-          * the "error" in PID
-          */
-         // TODO: check when this bug is fixed (wpilibs side)
-         leftTrajectory = PathfinderFRC.getTrajectory(pathName + ".right");
-         rightTrajectory = PathfinderFRC.getTrajectory(pathName + ".left");
-         /**
-          * The encoder follower does PID using encoder input to find the motor power
-          */
-         encoderFollowerLeft = new EncoderFollower(leftTrajectory);
-         encoderFollowerRight = new EncoderFollower(rightTrajectory);
-         /**
-          * giving the encoderFollowers the current ticks (starting point) and the CPR
-          * and wheelDiamter as we don't want it to be in ticks we want a usable
-          * measurment
-          */
-         encoderFollowerLeft.configureEncoder(RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_LEFT.get(),
-             RobotConstants.Sensors.TicksPerRevolution, RobotConstants.RobotDimensions.WheelDiameter);
-         encoderFollowerRight.configureEncoder(RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_RIGHT.get(),
-             RobotConstants.Sensors.TicksPerRevolution, RobotConstants.RobotDimensions.WheelDiameter);
-         /** setting the PID values: kp, ki, kd, kv, ka */
-         encoderFollowerLeft.configurePIDVA(kP, kI, kD, 1 / maxVelocity, kA);
-         encoderFollowerRight.configurePIDVA(kP, kI, kD, 1 / maxVelocity, kA); } 
-         public void followPath(){
+
+    public PathFinderClass() {
+        PathFinderClass.pathName = "Test";
+        PathFinderClass.kP = 0.2;
+        PathFinderClass.kI = 0;
+        PathFinderClass.kD = 0;
+        PathFinderClass.kA = 0.1;
+        this.turnSize = -0.01;
+        PathFinderClass.maxVelocity = 0.5;
+    }
+
+    public static void followPath(){
              if(encoderFollowerLeft.isFinished() && encoderFollowerRight.isFinished()){
  
              }
@@ -73,7 +48,7 @@ public class PathFinderClass {
          * getting oucr desired angle. we use only the left path because both sides of
          * the robot are parallel
          */
-          desiredAngle = Pathfinder.r2d(EncoderFollower.getHeading());
+          desiredAngle = Pathfinder.r2d(encoderFollowerLeft.getHeading());
            /**
             * getting the anle the robot needs to move. boundHalf: converts values to a
             * number between 180 - -180 so it doesn't end up turning over 180 degrees
@@ -87,5 +62,5 @@ public class PathFinderClass {
            turn = turnSize * angleDifference;
            /** setting the numbers given by the PID to the motors */
            Robot.DriveTrain.tankDrive((leftSpeed + turn), (rightSpeed - turn));
-         }
+    }
 }
