@@ -7,8 +7,8 @@ public class RobotMap {
    static class CAN {
         public static final int PCM = 1;
 
-        public static final int LIFT_LEFT_MOTOR = 5; //
-        public static final int LIFT_RIGHT_MOTOR = 11; //
+        public static final int LIFT_LEFT_MOTOR = 5; 
+        public static final int LIFT_RIGHT_MOTOR = 6; 
 
         public static final int ONE_EIGHTY_MOTOR = 8;
 
@@ -16,10 +16,10 @@ public class RobotMap {
         public static final int FRONT_LEFT_MOTOR = 4;
         public static final int REAR_RIGHT_MOTOR = 12;
         public static final int FRONT_RIGHT_MOTOR = 7;
-     
+ 
         public static final int CARGO_COLLECTOR_MOTOR = 9;
-        public static final int CARGO_COLLECTOR_HOLDER_RIGHT_MOTOR = 6;
-        public static final int CARGO_COLLECTOR_HOLDER_LEFT_MOTOR = 10; //
+        public static final int CARGO_COLLECTOR_HOLDER_RIGHT_MOTOR = 10;
+        public static final int CARGO_COLLECTOR_HOLDER_LEFT_MOTOR = 11; 
     }
 
     // Solenoid ports connected to PCM0
