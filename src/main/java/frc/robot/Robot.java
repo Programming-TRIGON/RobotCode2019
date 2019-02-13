@@ -131,6 +131,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(new SetOneEightyAngle(0));
     SmartDashboard.putData(new EjectHatch());
     SmartDashboard.putData(new PushCargo(PushCargoPower.kTopRocket));
+    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
     SmartDashboard.putData(new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
      ()->90.0, ()->0.0, new PIDSettings(0.3,0,0, 200000, 0), 360, true));
 
