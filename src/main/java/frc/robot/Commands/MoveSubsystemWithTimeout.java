@@ -7,42 +7,49 @@
 
 package frc.robot.Commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import frc.robot.Subsystems.JoystickOverridableSubsystem;
 
-public class SetHatchEject extends Command {
-  Value value;
-  public SetHatchEject(Value value) {
-    requires(Robot.hatchHolder);
-    this.value = value;
+public class MoveSubsystemWithTimeout extends Command {
+
+  double power;
+  JoystickOverridableSubsystem subsystem;
+  public MoveSubsystemWithTimeout(JoystickOverridableSubsystem subsystem, double power, double timeout) {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    setTimeout(timeout);
+    requires(subsystem);
+    this.subsystem = subsystem;
+    this.power = power;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.hatchHolder.setEjection(this.value);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    subsystem.move(power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    subsystem.move(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

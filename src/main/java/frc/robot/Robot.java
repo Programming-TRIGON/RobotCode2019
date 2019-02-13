@@ -1,14 +1,25 @@
 package frc.robot;
 
-import frc.robot.Subsystems.Lift;
-import frc.robot.Subsystems.OneEighty;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
 
+import frc.robot.Subsystems.Lift;
+import frc.robot.Subsystems.OneEighty;
+import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
+import frc.robot.Commands.PushCargo;
+import frc.robot.Commands.SetCargoFolderState;
+import frc.robot.Commands.SetHatchEject;
+import frc.robot.Commands.SetHatchLock;
+import frc.robot.Commands.SetLiftHeight;
+import frc.robot.Commands.SetOneEightyAngle;
+import frc.robot.Commands.setHatchCollectorState;
+import frc.robot.RobotConstants.LiftHeight;
+import frc.robot.RobotConstants.OneEightyAngle;
+import frc.robot.RobotConstants.PushCargoPower;
 import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
@@ -16,6 +27,9 @@ import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -37,13 +51,18 @@ public class Robot extends TimedRobot {
   public static DashBoardController dbc;
   public static OI oi;
 
+  final SendableChooser<Command> testsChooser = new SendableChooser<Command>();;
   public static Compressor compressor;
 
   @Override
   public void robotInit() {
+    //comp = new Compressor(RobotMap.CAN.PCM);
+    //comp.start();
+
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
-    //SmartDashboard.putData("Auto choices", m_chooser);
+    SmartDashboard.putData("Auto choices", m_chooser);
+    SmartDashboard.putData("Test Commands", testsChooser);
 
     Robot.oi = new OI();
 
@@ -85,6 +104,8 @@ public class Robot extends TimedRobot {
     /*
      * creates the drive train SS with SpikesLib
      */
+    RobotComponents.DriveTrain.FRONT_LEFT_M.setInverted(true);
+    RobotComponents.DriveTrain.REAR_LEFT_M.setInverted(true);
     RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower,
         RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); // now front and rear motors are moving toghether
     RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower,
@@ -95,14 +116,28 @@ public class Robot extends TimedRobot {
         (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
         (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, speed));
 
-    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox, "lift"));
+    /*SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox, "lift"));
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.cargoCollector, Robot.oi.operatorXbox, "cargo holder"));
-    SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
-    SmartDashboard.putData(new SetOneEightyAngle(180));
-    dbc.addNumber("180 potentiometer angle", Robot.oneEighty::getAngle);
-    dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::get);
-    dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::get);
+    SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));*/
+    SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
+    SmartDashboard.putData("Hatch Unlock", new SetHatchLock(Value.kReverse));
+    SmartDashboard.putData("Hatch Collector Up", new setHatchCollectorState(Value.kForward));
+    SmartDashboard.putData("Hatch Collector Down", new setHatchCollectorState(Value.kReverse));
+    SmartDashboard.putData("Cargo folder Up", new SetCargoFolderState(Value.kForward));
+    SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
+    SmartDashboard.putData("Hatch Eject Push", new SetHatchEject(Value.kForward));
+    SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
+    SmartDashboard.putData("Drive", new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
+    SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
+
+    dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
+
+
+    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, oi.operatorXbox));
+
+    addTests();
+
   }
 
   @Override
@@ -139,6 +174,30 @@ public class Robot extends TimedRobot {
   }
 
   @Override
+  public void testInit() {
+  }
+  @Override
   public void testPeriodic() {
+    Scheduler.getInstance().run();
+    SmartDashboard.putData("selected test command", this.testsChooser.getSelected());
+  }
+
+  private void addTests(){
+    testsChooser.addDefault("Hatch unloced", new SetHatchLock(Value.kReverse));
+    // testsChooser.addOption("cargoRoller", new CargoRollerTest());
+    // testsChooser.addOption("cargoHolder", new CargoHolderTest());
+    testsChooser.addOption("cargoCollection", new CollectCargo(0.3, 0.3));
+
+    testsChooser.addOption("lift", new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
+    testsChooser.addOption("oneEighty", new SetOneEightyAngle(OneEightyAngle.kStraight));
+
+    testsChooser.addOption("hatchEjectOn", new SetHatchEject(Value.kForward));
+    testsChooser.addOption("hatchEjectOff", new SetHatchEject(Value.kReverse));
+
+    testsChooser.addOption("hatchLockOn", new SetHatchLock(Value.kForward));
+    testsChooser.addOption("hatchLockOff", new SetHatchLock(Value.kReverse));
+
+    testsChooser.addOption("hatchCollectorOn", new setHatchCollectorState(Value.kForward));
+    testsChooser.addOption("hatchCollectorOff", new setHatchCollectorState(Value.kReverse));
   }
 }

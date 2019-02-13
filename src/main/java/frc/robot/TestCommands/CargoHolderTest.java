@@ -5,23 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot;
+package frc.robot.TestCommands;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.Robot;
+import frc.robot.Commands.MoveSubsystemWithTimeout;
 
-/**
- * Add your docs here.
- */
-
-public class OI {
-    XboxController operatorXbox = new XboxController(0);  
-   
-    public OI(){
-
-    }   
-    public double getYLeft(){
-        return this.operatorXbox.getY(Hand.kLeft);
-    }
+public class CargoHolderTest extends CommandGroup {
+  /**
+   * Add your docs here.
+   */
+  public CargoHolderTest() {
+    addSequential(new MoveSubsystemWithTimeout(Robot.cargoCollector, 0.3, 1));
+  }
 }
