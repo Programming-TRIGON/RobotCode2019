@@ -101,12 +101,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.cargoCollector, Robot.oi.operatorXbox, "cargo holder"));
     SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
-
     SmartDashboard.putData(new SetOneEightyAngle(180));
-    dbc.addNumber("180 potentiometer angle", Robot.oneEighty::getAngle);
-    dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::get);
-    dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::get);
 
+    dbc.addNumber("180 potentiometer angle", Robot.oneEighty::getAngle);
+    dbc.addNumber("Right encoder", RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_RIGHT::getDistance);
+    dbc.addNumber("Left encoder", RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_LEFT::getDistance);
   }
 
   @Override
