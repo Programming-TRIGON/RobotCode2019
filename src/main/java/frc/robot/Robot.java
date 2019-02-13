@@ -2,6 +2,9 @@ package frc.robot;
 
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
+import jaci.pathfinder.PathfinderFRC;
+import jaci.pathfinder.Trajectory;
+import jaci.pathfinder.followers.EncoderFollower;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.dashboard.DashBoardController;
@@ -16,6 +19,7 @@ import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
 import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -45,7 +49,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
-    //SmartDashboard.putData("Auto choices", m_chooser);
+    // SmartDashboard.putData("Auto choices", m_chooser);
 
     Robot.oi = new OI();
 
@@ -123,6 +127,9 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autoSelected = m_chooser.getSelected();
     System.out.println("Auto selected: " + m_autoSelected);
+    Notifier pathNotifier;
+        pathNotifier = new Notifier(RobotComponents.DriveTrain::followPath);
+        pathNotifier.startPeriodic(RobotComponents.DriveTrain.leftTrajectory.get(0).dt);
   }
 
   @Override
