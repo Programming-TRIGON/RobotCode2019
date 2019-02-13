@@ -24,9 +24,9 @@ import frc.robot.Vision.VisionPIDSource;
 
 /**
  * This command tracks the target in the constructor with both vision and
- * encoders: the driveTrain will drive a set amount of distance, by using the
+ * encoders: the DriveTrain will drive a set amount of distance, by using the
  * supplier for calculating the error, and the given setpoint as the setpoint.
- * The driveTrain will also rotate using vision PID.
+ * The DriveTrain will also rotate using vision PID.
  */
 public class TrackTargetByDistance extends Command {
   private double lastTimeNotOnTarget;
@@ -53,7 +53,7 @@ public class TrackTargetByDistance extends Command {
     this.target = target;
     this.distanceSupplier = distanceSupplier;
     this.distanceSetpoint = setpoint;
-    requires(Robot.driveTrain);
+    requires(Robot.DriveTrain);
   }
 
   // Called just before this Command runs the first time
@@ -103,11 +103,11 @@ public class TrackTargetByDistance extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // if no direction is received, the driveTrain will move straight
+    // if no direction is received, the DriveTrain will move straight
     if (this.rotation != 9999)
-      Robot.driveTrain.arcadeDrive(this.rotation, this.distance);
+      Robot.DriveTrain.arcadeDrive(this.rotation, this.distance);
     else
-      Robot.driveTrain.arcadeDrive(0, this.distance);
+      Robot.DriveTrain.arcadeDrive(0, this.distance);
   }
 
   // Make this return true when this Command no longer needs to run execute()

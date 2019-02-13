@@ -53,7 +53,7 @@ public class TrackVisionTarget extends Command {
     this.target = target;
     this.xbox = xbox;
 
-    requires(Robot.driveTrain);
+    requires(Robot.DriveTrain);
   }
 
   // Called just before this Command runs the first time
@@ -87,12 +87,12 @@ public class TrackVisionTarget extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // if no direction is received, the driveTrain is controlled by the joystick
+    // if no direction is received, the DriveTrain is controlled by the joystick
     if (this.rotation == 9999 || this.distance == 9999) {
       double y = -xbox.getY(Hand.kLeft);
-      Robot.driveTrain.arcadeDrive(xbox.getX(Hand.kLeft), y);
+      Robot.DriveTrain.arcadeDrive(xbox.getX(Hand.kLeft), y);
     } else {
-      Robot.driveTrain.arcadeDrive(this.rotation, -this.distance);
+      Robot.DriveTrain.arcadeDrive(this.rotation, -this.distance);
     }
   }
 
