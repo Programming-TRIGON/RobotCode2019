@@ -45,10 +45,10 @@ public class RobotMap {
         public final static int CARGO_FOLDER_TOP_SWITCH = 2;
         public final static int CARGO_FOLDER_BOTTOM_SWITCH = 3;
         public final static int CARGO_COLLECTOR_SWITCH = 0;
-        public final static int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A = 2;
+        public final static int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A = 0;
         public final static int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B = 1;
-        public final static int DRIVETRAIN_LEFT_ENCODER_CHANNEL_A = 3;
-        public final static int DRIVETRAIN_LEFT_ENCODER_CHANNEL_B = 0;
+        public final static int DRIVETRAIN_LEFT_ENCODER_CHANNEL_A = 2;
+        public final static int DRIVETRAIN_LEFT_ENCODER_CHANNEL_B = 3;
     }
 
     // Analog input device ports
