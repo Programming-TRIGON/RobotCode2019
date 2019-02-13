@@ -94,12 +94,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.cargoCollector, Robot.oi.operatorXbox, "cargo holder"));
     SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
-
-    SmartDashboard.putData("Test Path", new PathFinder(RobotConstants.pathName.kTest.key));
-
-
-    
-
+    dbc.addNumber("left enc", RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_LEFT::getDistance);
+    dbc.addNumber("right enc", RobotComponents.DriveTrain.DRIVETRAIN_ENCODER_RIGHT::getDistance);
+    //SmartDashboard.putData("Test Path", new PathFinder(RobotConstants.pathName.kTest.key));
   }
 
   @Override
