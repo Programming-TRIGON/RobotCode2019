@@ -95,7 +95,8 @@ public class RobotConstants {
          * kPathBottomLeft("PathBottomLeft"), kPathTopRight("PathTopRight"),
          * kPathTopLeft("PathTopLeft"),
          */
-        kPathTestStraight("TestStraight"), kPathTestArc("TestArc"), kPathTestStraightArc("TestStraightArc");
+      //  kPathTestStraight("TestStraight"), kPathTestArc("TestArc"), kPathTestStraightArc("TestStraightArc");
+      kTest("Test");
 
         public String key;
 

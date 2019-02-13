@@ -23,9 +23,9 @@ public class PathFinder extends Command {
     this.kP = 0.2;
     this.kI = 0;
     this.kD = 0;
-    this.kA = 0;
+    this.kA = 0.1;
     this.turnSize = -0.01;
-    this.maxVelocity = 0.4;
+    this.maxVelocity = 0.5;
   }
 
   @Override

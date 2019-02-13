@@ -9,6 +9,7 @@ import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
 
 import frc.robot.Commands.MoveSubsystemWithJoystick;
+import frc.robot.Commands.PathFinder;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
 import frc.robot.Subsystems.CargoFolder;
@@ -94,6 +95,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.cargoCollector, Robot.oi.operatorXbox, "cargo holder"));
     SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
 
+    SmartDashboard.putData("Test Path", new PathFinder(RobotConstants.pathName.kTest.key));
 
 
     
