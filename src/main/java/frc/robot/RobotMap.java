@@ -13,8 +13,8 @@ public class RobotMap {
         public static final int ONE_EIGHTY_MOTOR = 8;
 
         public static final int REAR_LEFT_MOTOR = 3;
-        public static final int FRONT_LEFT_MOTOR = 12;
-        public static final int REAR_RIGHT_MOTOR = 4;
+        public static final int FRONT_LEFT_MOTOR = 4;
+        public static final int REAR_RIGHT_MOTOR = 12;
         public static final int FRONT_RIGHT_MOTOR = 7;
      
         public static final int CARGO_COLLECTOR_MOTOR = 9;
@@ -25,17 +25,17 @@ public class RobotMap {
     // Solenoid ports connected to PCM0
     static class PCM0 {
         // as of 12/2/19 02:20
-        public static final int HATCH_COLLECTOR_SOLENOID_A = 4;
-        public static final int HATCH_COLLECTOR_SOLENOID_B = 5;
+        public static final int HATCH_COLLECTOR_SOLENOID_FORWARD = 5;
+        public static final int HATCH_COLLECTOR_SOLENOID_REVERSE = 4;
 
-        public static final int HATCH_HOLDER_PVC_SOLENOID_A = 0;
-        public static final int HATCH_HOLDER_PVC_SOLENOID_B = 1;
+        public static final int HATCH_HOLDER_PVC_SOLENOID_FORWARD = 1;
+        public static final int HATCH_HOLDER_PVC_SOLENOID_REVERSE = 0;
 
-        public static final int HATCH_HOLDER_PUSH_SOLENOID_A = 2;
-        public static final int HATCH_HOLDER_PUSH_SOLENOID_B = 3;
+        public static final int HATCH_HOLDER_PUSH_SOLENOID_FORWARD = 3;
+        public static final int HATCH_HOLDER_PUSH_SOLENOID_REVERSE = 2;
 
-        public static final int CARGO_FOLDER_SOLENOID_A = 6; 
-        public static final int CARGO_FOLDER_SOLENOID_B = 7; 
+        public static final int CARGO_FOLDER_SOLENOID_FORWARD = 7; 
+        public static final int CARGO_FOLDER_SOLENOID_REVERSE = 6; 
     }
 
     // Robot components connected to roboRIO Digital Input Output ports

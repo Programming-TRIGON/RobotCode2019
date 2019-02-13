@@ -102,12 +102,12 @@ public class Robot extends TimedRobot {
     /*
      * creates the drive train SS with SpikesLib
      */
+    RobotComponents.DriveTrain.FRONT_LEFT_M.setInverted(true);
+    RobotComponents.DriveTrain.REAR_LEFT_M.setInverted(true);
     RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower,
         RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); // now front and rear motors are moving toghether
-    RobotComponents.DriveTrain.FRONT_LEFT_M.setInverted(true);
     RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower,
         RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); // ditto
-    RobotComponents.DriveTrain.FRONT_RIGHT_M.setInverted(true);
     // made functions that set speed to the motors on the drive train by double
     // insted of ControlMode and double
     Robot.driveTrain = new TankDrivetrain(
@@ -126,9 +126,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
     SmartDashboard.putData("Hatch Eject Push", new SetHatchEject(Value.kForward));
     SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
-    SmartDashboard.putData("Drive", new DriveTank(Robot.driveTrain, Robot.oi::getYLeft, Robot.oi.operatorXbox::getY));
+    SmartDashboard.putData("Drive", new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
+    SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
 
-    dbc.addNumber("Drive train gyro", RobotComponents.DriveTrain.GYRO::getAngle);
+    dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
 
 
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, oi.operatorXbox));
