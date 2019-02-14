@@ -6,6 +6,7 @@ import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
 import com.spikes2212.utils.PIDSettings;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
 
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
@@ -27,6 +28,7 @@ import frc.robot.Commands.setHatchCollectorState;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotConstants.PushCargoPower;
+import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
 import frc.robot.Subsystems.CargoFolder;
@@ -34,6 +36,7 @@ import frc.robot.Subsystems.HatchCollector;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -56,15 +59,14 @@ public class Robot extends TimedRobot {
   public static DashBoardController dbc;
   public static OI oi;
 
-  public static Compressor comp;
-
   final SendableChooser<Command> testsChooser = new SendableChooser<Command>();;
+  public static Compressor compressor;
 
   @Override
   public void robotInit() {
     comp = new Compressor(1);
     comp.stop();
-
+    
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
@@ -73,6 +75,9 @@ public class Robot extends TimedRobot {
     Robot.oi = new OI();
 
     Robot.dbc = new DashBoardController();
+
+    compressor = new Compressor();
+    compressor.start();
 
     /** creates the SS htach collector that collects hatch pannels */
     Robot.hatchCollector = new HatchCollector(RobotComponents.HatchCollector.SOLENOID);
@@ -107,6 +112,8 @@ public class Robot extends TimedRobot {
     /*
      * creates the drive train SS with SpikesLib
      */
+    RobotComponents.DriveTrain.FRONT_LEFT_M.setInverted(true);
+    RobotComponents.DriveTrain.REAR_LEFT_M.setInverted(true);
     RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower,
         RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); // now front and rear motors are moving toghether
     RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower,
@@ -120,37 +127,26 @@ public class Robot extends TimedRobot {
         (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
         (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
 
-    /*SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox, "lift"));
-    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
-    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.cargoCollector, Robot.oi.operatorXbox, "cargo holder"));*/
-    SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
-
-
-    // SmartDashboard.putData("hatch Lock", new SetHatchLock(Value.kForward));
-    // SmartDashboard.putData("hatch Unlock", new SetHatchLock(Value.kReverse));
-    // SmartDashboard.putData("hatch Collector up", new setHatchCollectorState(Value.kForward));
-    // SmartDashboard.putData("hatch Collector down", new setHatchCollectorState(Value.kReverse));
-    // SmartDashboard.putData("Cargo folder Up", new SetCargoFolderState(Value.kForward));
-    // SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
-    // SmartDashboard.putData("Hatch eject push", new SetHatchEject(Value.kForward));
-    // SmartDashboard.putData("Hatch eject pull", new SetHatchEject(Value.kReverse));
-    // SmartDashboard.putData(new ScoreHatchLeft(Target.FIRST));
-    // SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY,  Robot.oi.operatorXbox::getX));
-    // SmartDashboard.putData(new SetOneEightyAngle(90));
-    // SmartDashboard.putData(new EjectHatch());
-    // SmartDashboard.putData(new PushCargo(PushCargoPower.kTopRocket));
-    // SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
-    SmartDashboard.putData(new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
-     ()->90.0, ()->0.0, new PIDSettings(0.003,0,0, 20, 0.5), 360, true));
-
     SmartDashboard.putData(new TestPID());
-    // SmartDashboard.putData(new BasicDrivetrainMove(0.3, 1000));
-    // SmartDashboard.putData(new BasicDrivetrainTurn(0.3, 90));
 
+    SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
+    SmartDashboard.putData("Hatch Unlock", new SetHatchLock(Value.kReverse));
+    SmartDashboard.putData("Hatch Collector Up", new setHatchCollectorState(Value.kForward));
+    SmartDashboard.putData("Hatch Collector Down", new setHatchCollectorState(Value.kReverse));
+    SmartDashboard.putData("Cargo folder Up", new SetCargoFolderState(Value.kForward));
+    SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
+    SmartDashboard.putData("Hatch Eject Push", new SetHatchEject(Value.kForward));
+    SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
+    SmartDashboard.putData("Drive", new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
+    SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
+
+    dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
+    dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
+    dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
     dbc.addNumber("180 pot", Robot.oneEighty::getAngle);
-    dbc.addNumber("Drive train gyro", RobotComponents.DriveTrain.GYRO::getAngle);
-
+    
     addTests();
+
   }
 
   @Override

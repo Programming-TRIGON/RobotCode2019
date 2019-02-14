@@ -1,13 +1,11 @@
 package frc.robot.Subsystems;
 
-import java.util.function.Predicate;
 import java.util.function.Supplier;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import frc.robot.Robot;
-import frc.robot.RobotConstants;
 
 /**
  * the class that is on the lift and turns 180 degrees allowing the placement of
@@ -23,6 +21,7 @@ public class OneEighty extends JoystickOverridableSubsystem {
     this.motor = motor;
     this.potentiometer = potentiometer;
     motor.setInverted(true);
+
   } 
 
   /** turns the SS to where the driver wants it */

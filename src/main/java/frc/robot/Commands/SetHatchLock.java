@@ -7,13 +7,13 @@
 
 package frc.robot.Commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class SetHatchLock extends Command {
-  DoubleSolenoid.Value value;
-  public SetHatchLock(DoubleSolenoid.Value value) {
+  Value value;
+  public SetHatchLock(Value value) {
     requires(Robot.hatchHolder);
     this.value = value;
   }

@@ -7,6 +7,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -33,6 +36,7 @@ public class RobotComponents {
                 RobotMap.ANALOG_INPUT.ONE_EIGHTY_POTENTIOMETER,
                 RobotConstants.ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER,
                 RobotConstants.ONE_EIGHTY_POTENTIOMETER_OFFSET);
+        //public final static AnalogInput POT = new AnalogInput(1);
     }
 
     public static class HatchHolder{
@@ -64,5 +68,6 @@ public class RobotComponents {
         public static final Encoder LEFT_ENCODER = new Encoder(RobotMap.DIO.DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DIO.DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_B); 
         public static final Encoder RIGHT_ENCODER = new Encoder(RobotMap.DIO.DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DIO.DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_B); 
         public static final ADXRS450_Gyro GYRO = new ADXRS450_Gyro();
+        
     }    
 }
