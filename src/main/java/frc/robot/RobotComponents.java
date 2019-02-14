@@ -1,6 +1,7 @@
 package frc.robot;
 
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import com.analog.adis16448.frc.ADIS16448_IMU;
 import com.ctre.phoenix.motorcontrol.ControlMode;

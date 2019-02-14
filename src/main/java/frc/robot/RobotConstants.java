@@ -8,6 +8,7 @@ import com.spikes2212.utils.PIDSettings;
 /** a class used to store constants related to the robot */
 public class RobotConstants {
     // oneEighty constants
+    public static final double robotLength = 0.82;
     public static class oneEighty {
         // TODO set real height
         public static final double MINIMUM_HEIGHT = 1;

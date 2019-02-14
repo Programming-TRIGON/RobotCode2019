@@ -29,7 +29,9 @@ public class ScoreHatchSide extends CommandGroup {
   final double REVERSE_DIST = 0.5;
 
   enum CargoShipHatch {
-    kFirstHatch(4), kSecondHatch(5), kThirdHatch(6);
+    kFirstHatch(6.9 - RobotConstants.robotLength),
+    kSecondHatch(7.45  - RobotConstants.robotLength),
+    kThirdHatch(8 - RobotConstants.robotLength);
 
     public double key;
     CargoShipHatch(double distance){

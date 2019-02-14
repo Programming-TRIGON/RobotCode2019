@@ -24,15 +24,14 @@ import frc.robot.Vision.VisionPIDSource.VisionTarget;
  * Add your docs here.
  */
 public class ScoreHatchMiddle extends CommandGroup {
-  /**
-   * Add your docs here.
-   */
-  final double FIRST_DISTANCE = 4;
+
+  // TODO switch first distance something is wrong 
+  final double FIRST_DISTANCE = 4.25 - RobotConstants.robotLength;
   final double TURN_45 = 45;
-  final double SECOND_DISTANCE = 5;
+  final double SECOND_DISTANCE = 1.6907;
   final double TARGET_TRACK_TIME = 5;
   final double TURN_TO_FEEDER = -45;
-  final double DRIVE_TO_FEEDER = 4;
+  final double DRIVE_TO_FEEDER = 6.48;
   
   public ScoreHatchMiddle(boolean isLeft) {
     // drive a bit towards the cargo ship 
