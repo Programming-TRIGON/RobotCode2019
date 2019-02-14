@@ -68,6 +68,7 @@ public class RobotComponents {
         public static final Encoder LEFT_ENCODER = new Encoder(RobotMap.DIO.DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DIO.DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_B); 
         public static final Encoder RIGHT_ENCODER = new Encoder(RobotMap.DIO.DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DIO.DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_B); 
         public static final ADXRS450_Gyro GYRO = new ADXRS450_Gyro();
-        
+
+        public static Supplier<Double> AverageDistance = () -> (DriveTrain.LEFT_ENCODER.getDistance() + DriveTrain.RIGHT_ENCODER.getDistance())/2;
     }    
 }
