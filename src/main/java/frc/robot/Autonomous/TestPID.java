@@ -11,6 +11,8 @@ import java.util.function.Supplier;
 
 import com.spikes2212.dashboard.ConstantHandler;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTankWithPID;
 import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -26,8 +28,10 @@ public class TestPID extends Command {
   Supplier<Double> KD = ConstantHandler.addConstantDouble("KD", 0.001);
   Supplier<Double> tolerance = ConstantHandler.addConstantDouble("tolerance", 10);
   Supplier<Double> WAIT_TIME = ConstantHandler.addConstantDouble("WAIT_TIME", 1);
+  Supplier<Double> Setpoint = ConstantHandler.addConstantDouble("Setpoint", 0);
 
   PIDSettings pidSettings;
+  Command command;
 
   public TestPID() {
     // Use requires() here to declare subsystem dependencies
@@ -38,11 +42,17 @@ public class TestPID extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    // RobotComponents.DriveTrain.GYRO.reset();
-    Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 90.0, () -> 0.0, pidSettings, 360.0, true);
-    // Command command = new SetOneEightyAngle(90, pidSettings);
-    // Command command = new DriveArcadeWithPID(Robot.driveTrain, );
-    Scheduler.getInstance().add(command);
+    RobotComponents.DriveTrain.GYRO.reset();
+    RobotComponents.DriveTrain.LEFT_ENCODER.reset();
+    RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
+
+    command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, Setpoint, () -> 0.0, pidSettings, 360.0, false);
+    //  command = new SetOneEightyAngle(Setpoint.get(), pidSettings);
+
+
+    //command = new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER, RobotComponents.DriveTrain.RIGHT_ENCODER, 
+    //Setpoint.get(), pidSettings);
+    command.start();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -53,7 +63,7 @@ public class TestPID extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return command.isCompleted();
   }
 
   // Called once after isFinished returns true
