@@ -22,7 +22,8 @@ public class Lift extends JoystickOverridableSubsystem {
     this.topSwitch = topwSwitch;
     this.bottomSwitch = bottomSwitch;
     this.potentiometer = potentiometer;
-    this.leftMotor.set(ControlMode.Follower, rightMotor.getDeviceID());
+    // this.leftMotor.set(ControlMode.Follower, rightMotor.getDeviceID());
+    // this.leftMotor.set(ControlMode.PercentOutput, 0);
     this.leftMotor.setInverted(true);
   }
 

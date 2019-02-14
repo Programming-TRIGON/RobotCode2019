@@ -52,7 +52,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     comp = new Compressor(1);
-    comp.start();
+    comp.stop();
     
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -96,8 +96,12 @@ public class Robot extends TimedRobot {
     /*
      * creates the drive train SS with SpikesLib
      */
-    RobotComponents.DriveTrain.FRONT_LEFT_M.setInverted(true);
-    RobotComponents.DriveTrain.REAR_LEFT_M.setInverted(true);
+    RobotComponents.DriveTrain.FRONT_LEFT_M.setInverted(false);
+    RobotComponents.DriveTrain.REAR_LEFT_M.setInverted(false);
+
+    RobotComponents.DriveTrain.REAR_RIGHT_M.setInverted(false);
+    RobotComponents.DriveTrain.FRONT_RIGHT_M.setInverted(false);
+
     RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower,
         RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); // now front and rear motors are moving toghether
     RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower,
@@ -121,7 +125,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
     SmartDashboard.putData("Hatch Eject Push", new SetHatchEject(Value.kForward));
     SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
-    SmartDashboard.putData("Drive", new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
+    SmartDashboard.putData("Drive", new DriveArcade(Robot.driveTrain, () -> -Robot.oi.operatorXbox.getY(), () -> -Robot.oi.operatorXbox.getX()));
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
 
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
@@ -163,6 +167,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
+    RobotComponents.DriveTrain.LEFT_ENCODER.reset();
+    RobotComponents.DriveTrain.GYRO.calibrate();
   }
 
   @Override

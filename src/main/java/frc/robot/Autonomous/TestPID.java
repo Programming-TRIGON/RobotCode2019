@@ -11,6 +11,8 @@ import java.util.function.Supplier;
 
 import com.spikes2212.dashboard.ConstantHandler;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTankWithPID;
 import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.PIDController;
@@ -34,8 +36,10 @@ public class TestPID extends Command {
   Supplier<Double> movmentSupplier = () -> movmentPidOutput; 
 
   PIDController movmentPidController;
+  Supplier<Double> Setpoint = ConstantHandler.addConstantDouble("Setpoint", 0);
 
   PIDSettings pidSettings;
+  Command command;
 
   public TestPID() {
     // Use requires() here to declare subsystem dependencies
