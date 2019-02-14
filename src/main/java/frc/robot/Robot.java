@@ -1,15 +1,19 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
 
-import frc.robot.Subsystems.Lift;
-import frc.robot.Subsystems.OneEighty;
-import frc.robot.TestCommands.CargoHolderTest;
-import frc.robot.TestCommands.CargoRollerTest;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotConstants.LiftHeight;
+import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.Autonomous.TestPID;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.SetCargoFolderState;
@@ -18,20 +22,12 @@ import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.setHatchCollectorState;
-import frc.robot.RobotConstants.LiftHeight;
-import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.Subsystems.CargoCollector;
-import frc.robot.Subsystems.HatchHolder;
 import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
-
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Subsystems.HatchHolder;
+import frc.robot.Subsystems.Lift;
+import frc.robot.Subsystems.OneEighty;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
@@ -73,7 +69,6 @@ public class Robot extends TimedRobot {
     /** defining the subsystem lift that highers the cargo and hatch holders */
     Robot.lift = new Lift(RobotComponents.Lift.LIFT_RIGHT_M, RobotComponents.Lift.LIFT_LEFT_M,
         RobotComponents.Lift.TOP_SWITCH, RobotComponents.Lift.BOTTOM_SWITCH, RobotComponents.Lift.POT);
-
     /**
      * creates the new susbsystem with three solenoids, two that extends the whole
      * SS outward one one that catches the hatch
@@ -83,6 +78,7 @@ public class Robot extends TimedRobot {
     /*
      * creates the SS that turns the subsytems cargo and hatch holder 180 degrees
      */
+
     Robot.oneEighty = new OneEighty(RobotComponents.OneEighty.MOTOR, RobotComponents.OneEighty.POT);
 
     /*
@@ -91,7 +87,6 @@ public class Robot extends TimedRobot {
     Robot.cargoCollector = new CargoCollector(RobotComponents.CargoCollector.COLECTOR_MOTOR,
         RobotComponents.CargoCollector.RIGHT_HOLDER, RobotComponents.CargoCollector.LEFT_HOLDER,
         RobotComponents.CargoCollector.SWITCH);
-    
     /*
      * creates the SS corgo fold that extends and retracts the whole SS of the cargo
      * collector with it
@@ -103,18 +98,18 @@ public class Robot extends TimedRobot {
      */
     RobotComponents.DriveTrain.FRONT_LEFT_M.setInverted(true);
     RobotComponents.DriveTrain.REAR_LEFT_M.setInverted(true);
-
     RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower,
-        RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); 
+        RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); // now front and rear motors are moving toghether
     RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower,
-        RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); 
-    
+        RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); // ditto
+    // made functions that set speed to the motors on the drive train by double
+    // insted of ControlMode and double
     RobotComponents.DriveTrain.LEFT_ENCODER.setDistancePerPulse(RobotConstants.ENCODER_DPP);
     RobotComponents.DriveTrain.RIGHT_ENCODER.setDistancePerPulse(RobotConstants.ENCODER_DPP);
 
     Robot.driveTrain = new TankDrivetrain(
-      (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
-      (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
+        (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
+        (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
 
     SmartDashboard.putData(new TestPID());
 
@@ -122,8 +117,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Hatch Unlock", new SetHatchLock(Value.kReverse));
     SmartDashboard.putData("Hatch Collector Up", new setHatchCollectorState(Value.kForward));
     SmartDashboard.putData("Hatch Collector Down", new setHatchCollectorState(Value.kReverse));
-    SmartDashboard.putData("Cargo Folder Up", new SetCargoFolderState(Value.kForward));
-    SmartDashboard.putData("Cargo Folder Down", new SetCargoFolderState(Value.kReverse));
+    SmartDashboard.putData("Cargo folder Up", new SetCargoFolderState(Value.kForward));
+    SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
     SmartDashboard.putData("Hatch Eject Push", new SetHatchEject(Value.kForward));
     SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
     SmartDashboard.putData("Drive", new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
@@ -185,23 +180,21 @@ public class Robot extends TimedRobot {
   }
 
   private void addTests(){
-    testsChooser.addDefault("Hatch Unlock Default", new SetHatchLock(Value.kReverse));
+    testsChooser.addDefault("Hatch unloced", new SetHatchLock(Value.kReverse));
+    // testsChooser.addOption("cargoRoller", new CargoRollerTest());
+    // testsChooser.addOption("cargoHolder", new CargoHolderTest());
+    testsChooser.addOption("cargoCollection", new CollectCargo(0.3, 0.3));
 
-    testsChooser.addOption("Cargo Roller", new CargoRollerTest());
-    testsChooser.addOption("Cargo Holder", new CargoHolderTest());
-    testsChooser.addOption("Lift", new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
-    testsChooser.addOption("One Eighty", new SetOneEightyAngle(OneEightyAngle.kStraight));
+    testsChooser.addOption("lift", new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
+    testsChooser.addOption("oneEighty", new SetOneEightyAngle(OneEightyAngle.kStraight));
 
-    testsChooser.addOption("Cargo Folder Up", new SetCargoFolderState(Value.kForward));
-    testsChooser.addOption("Cargo Folder Down", new SetCargoFolderState(Value.kReverse));
+    testsChooser.addOption("hatchEjectOn", new SetHatchEject(Value.kForward));
+    testsChooser.addOption("hatchEjectOff", new SetHatchEject(Value.kReverse));
 
-    testsChooser.addOption("Hatch Eject", new SetHatchEject(Value.kForward));
-    testsChooser.addOption("Hatch Pull", new SetHatchEject(Value.kReverse));
+    testsChooser.addOption("hatchLockOn", new SetHatchLock(Value.kForward));
+    testsChooser.addOption("hatchLockOff", new SetHatchLock(Value.kReverse));
 
-    testsChooser.addOption("Hatch Lock", new SetHatchLock(Value.kForward));
-    testsChooser.addOption("Hatch Unlock", new SetHatchLock(Value.kReverse));
-
-    testsChooser.addOption("Hatch Collector Up", new setHatchCollectorState(Value.kForward));
-    testsChooser.addOption("Hatch Collector Down", new setHatchCollectorState(Value.kReverse));
+    testsChooser.addOption("hatchCollectorOn", new setHatchCollectorState(Value.kForward));
+    testsChooser.addOption("hatchCollectorOff", new setHatchCollectorState(Value.kReverse));
   }
 }
