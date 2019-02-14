@@ -10,11 +10,14 @@ package frc.robot.Autonomous;
 import java.util.function.Supplier;
 
 import com.spikes2212.dashboard.ConstantHandler;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
 import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
+import frc.robot.RobotComponents;
 import frc.robot.Commands.SetOneEightyAngle;
 
 public class TestPID extends Command {
@@ -36,10 +39,9 @@ public class TestPID extends Command {
   protected void initialize() {
     updatePID();
     // RobotComponents.DriveTrain.GYRO.reset();
-    // Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 
-    // () -> 90.0, () -> 0.0, pidSettings, 360.0, true);
-    Command command = new SetOneEightyAngle(90, pidSettings);
-    //Command command = new DriveArcadeWithPID(Robot.driveTrain, );
+    Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 90.0, () -> 0.0, pidSettings, 360.0, true);
+    // Command command = new SetOneEightyAngle(90, pidSettings);
+    // Command command = new DriveArcadeWithPID(Robot.driveTrain, );
     Scheduler.getInstance().add(command);
   }
 
