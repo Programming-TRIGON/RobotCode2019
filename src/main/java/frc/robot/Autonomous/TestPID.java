@@ -46,6 +46,9 @@ public class TestPID extends Command {
   @Override
   protected void initialize() {
     updatePID();
+    RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
+    RobotComponents.DriveTrain.LEFT_ENCODER.reset();
+    RobotComponents.DriveTrain.GYRO.reset();
     // RobotComponents.DriveTrain.GYRO.reset();
     // Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 
     // () -> 90.0, () -> 0.0, pidSettings, 360.0, true);
@@ -79,7 +82,7 @@ public class TestPID extends Command {
     movmentPidController.setSetpoint(200);
     movmentPidController.enable();
     
-    Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 0.0, this.movmentSupplier, pidSettings, 360, true);
+    Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 0.0, () -> 0.0, pidSettings, 360, true);
     Scheduler.getInstance().add(command);
   }
 
