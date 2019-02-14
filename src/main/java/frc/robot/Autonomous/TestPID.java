@@ -41,8 +41,8 @@ public class TestPID extends Command {
     // RobotComponents.DriveTrain.GYRO.reset();
     // Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 
     // () -> 90.0, () -> 0.0, pidSettings, 360.0, true);
-    // Command command = new SetOneEightyAngle(90, pidSettings);
-    Command command = new DriveArcadeWithPID(Robot.driveTrain, );
+    Command command = new SetOneEightyAngle(90, pidSettings);
+    //Command command = new DriveArcadeWithPID(Robot.driveTrain, );
     Scheduler.getInstance().add(command);
   }
 

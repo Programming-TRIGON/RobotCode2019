@@ -10,8 +10,6 @@ import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
 
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
-import frc.robot.Autonomous.BasicDrivetrainMove;
-import frc.robot.Autonomous.BasicDrivetrainTurn;
 import frc.robot.Autonomous.TestPID;
 import frc.robot.Autonomous.FirstHatch.ScoreHatchLeft;
 import frc.robot.Autonomous.FirstHatch.ScoreHatchLeft.Target;
@@ -60,7 +58,7 @@ public class Robot extends TimedRobot {
   public static OI oi;
 
   final SendableChooser<Command> testsChooser = new SendableChooser<Command>();;
-  public static Compressor compressor;
+  public static Compressor comp;
 
   @Override
   public void robotInit() {
@@ -75,9 +73,6 @@ public class Robot extends TimedRobot {
     Robot.oi = new OI();
 
     Robot.dbc = new DashBoardController();
-
-    compressor = new Compressor();
-    compressor.start();
 
     /** creates the SS htach collector that collects hatch pannels */
     Robot.hatchCollector = new HatchCollector(RobotComponents.HatchCollector.SOLENOID);

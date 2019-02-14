@@ -31,9 +31,7 @@ public class ScoreHatch extends CommandGroup{
 
         addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));
         addSequential(new SetLiftHeight(this.height));
-        addSequential(new SetHatchLock(this.unlockedValue));
-        addSequential(new SetHatchEject(this.push));
-        addSequential(new SetHatchEject(this.retract));
+        addSequential(new EjectHatch());
         addSequential(new SetLiftHeight(RobotConstants.LiftHeight.kLiftBottom));
     }
 }
