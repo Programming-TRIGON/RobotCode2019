@@ -48,6 +48,7 @@ public class TestPID extends Command {
 
   // Called just before this Command runs the first time
   @Override
+
   protected void initialize() {
     updatePID();
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
@@ -58,7 +59,7 @@ public class TestPID extends Command {
     // () -> 90.0, () -> 0.0, pidSettings, 360.0, true);
     // Command command = new SetOneEightyAngle(90, pidSettings);
     //Command command = new DriveArcadeWithPID(Robot.driveTrain, );
-    this.movmentPidController = new PIDController(0.05, 0, 0, new PIDSource(){
+    this.movmentPidController = new PIDController(0.0025, 0, 0.004, new PIDSource(){
     
       @Override
       public void setPIDSourceType(PIDSourceType pidSource) {        
@@ -66,7 +67,7 @@ public class TestPID extends Command {
     
       @Override
       public double pidGet() {
-        return (RobotComponents.DriveTrain.LEFT_ENCODER.getDistance() + RobotComponents.DriveTrain.RIGHT_ENCODER.getDistance())/2;
+        return (RobotComponents.DriveTrain.LEFT_ENCODER.getDistance());// + RobotComponents.DriveTrain.RIGHT_ENCODER.getDistance())/2;
       }
     
       @Override
@@ -83,10 +84,10 @@ public class TestPID extends Command {
         });
     movmentPidController.setAbsoluteTolerance(5);
     movmentPidController.setOutputRange(-1, 1);
-    movmentPidController.setSetpoint(200);
+    movmentPidController.setSetpoint(450);
     movmentPidController.enable();
     
-    Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 0.0, () -> 0.0, pidSettings, 360, true);
+    Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, Setpoint, this.movmentSupplier, pidSettings, 360, true);
     Scheduler.getInstance().add(command);
   }
 
@@ -101,12 +102,14 @@ public class TestPID extends Command {
     return this.movmentPidController.onTarget();
   }
 
+
   // Called once after isFinished returns true
   @Override
   protected void end() {
     this.movmentPidController.disable();
     this.movmentPidController.close();
   }
+
 
   public void updatePID(){
     this.pidSettings = new PIDSettings(KP.get(), KI.get(), KD.get(), tolerance.get(), WAIT_TIME.get());
@@ -117,5 +120,7 @@ public class TestPID extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+
   }
 }
+
