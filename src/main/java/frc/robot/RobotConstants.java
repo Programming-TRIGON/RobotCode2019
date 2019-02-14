@@ -52,10 +52,10 @@ public class RobotConstants {
     /**
      * The value at which the potentiometer will multiply the fraction it returns
      */
-    public static final double ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER = 600;
+    public static final double ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER = -3600;
     // TODO change change offset
     /** the angle at which the potentiometer starts */
-    public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET = -300;
+    public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET = 625;
 
     public static final double ENCODER_DPP = RobotDimensions.WHEEL_DIAMETER*Math.PI/360;
 

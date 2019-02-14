@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
+import frc.robot.Commands.SetOneEightyAngle;
 
 public class TestPID extends Command {
   Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", -0.0001);
@@ -38,7 +39,9 @@ public class TestPID extends Command {
   protected void initialize() {
     updatePID();
     RobotComponents.DriveTrain.GYRO.reset();
-    Scheduler.getInstance().add(new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 90.0, () -> 0.0, pidSettings, 360.0, true));
+    //Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 90.0, () -> 0.0, pidSettings, 360.0, true);
+    Command command = new SetOneEightyAngle(90);
+    Scheduler.getInstance().add(command);
   }
 
   // Called repeatedly when this Command is scheduled to run

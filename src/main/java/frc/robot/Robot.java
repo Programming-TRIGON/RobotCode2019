@@ -136,7 +136,7 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putData("Hatch eject pull", new SetHatchEject(Value.kReverse));
     // SmartDashboard.putData(new ScoreHatchLeft(Target.FIRST));
     // SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY,  Robot.oi.operatorXbox::getX));
-    // SmartDashboard.putData(new SetOneEightyAngle(0));
+    SmartDashboard.putData(new SetOneEightyAngle(90));
     // SmartDashboard.putData(new EjectHatch());
     // SmartDashboard.putData(new PushCargo(PushCargoPower.kTopRocket));
     // SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
