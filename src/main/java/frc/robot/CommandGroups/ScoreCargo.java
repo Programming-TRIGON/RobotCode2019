@@ -26,7 +26,7 @@ public class ScoreCargo extends CommandGroup {
       case kRocketTopCargo: pushCargoByHeight = PushCargoPower.kLowRocket;break;
       default: pushCargoByHeight = PushCargoPower.kCargoShip;break;
     }
-    addSequential(new SetOneEightyAngle(startingAngle));
+    //addSequential(new SetOneEightyAngle(startingAngle));
     addSequential(new SetLiftHeight(height));
     addSequential(new PushCargo(pushCargoByHeight));
 

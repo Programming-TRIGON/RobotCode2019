@@ -7,6 +7,8 @@
 
 package frc.robot.Commands;
 
+import com.spikes2212.utils.PIDSettings;
+
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -21,13 +23,14 @@ public class SetOneEightyAngle extends Command {
   private final double PERIOD =0.05;
   private final double TOLERANCE =2;
 
-
+  PIDSettings pidSettings;
   /**
    * 
    * @param angle the angle the SS seeks
    */
-  public SetOneEightyAngle(double angle) {
+  public SetOneEightyAngle(double angle, PIDSettings pidSettings) {
     this.angle = angle;
+    this.pidSettings = pidSettings;
     requires(Robot.oneEighty);
   }
 
@@ -40,9 +43,9 @@ public class SetOneEightyAngle extends Command {
   @Override
   protected void initialize() {
     // setting up the PID
-    this.pidController = new PIDController(kP, kI, kD, Robot.oneEighty.getPotentiometer(),
+    this.pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(), Robot.oneEighty.getPotentiometer(),
         (output) -> Robot.oneEighty.setOneEighty(output), PERIOD);
-    pidController.setAbsoluteTolerance(TOLERANCE);
+    pidController.setAbsoluteTolerance(pidSettings.getTolerance());
     pidController.setOutputRange(-1, 1);
     pidController.setSetpoint(angle);
     pidController.enable();
