@@ -13,6 +13,10 @@ import com.spikes2212.dashboard.ConstantHandler;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
 import com.spikes2212.utils.PIDSettings;
 
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,6 +30,10 @@ public class TestPID extends Command {
   Supplier<Double> KD = ConstantHandler.addConstantDouble("KD", 0.001);
   Supplier<Double> tolerance = ConstantHandler.addConstantDouble("tolerance", 10);
   Supplier<Double> WAIT_TIME = ConstantHandler.addConstantDouble("WAIT_TIME", 1);
+  double movmentPidOutput;
+  Supplier<Double> movmentSupplier = () -> movmentPidOutput; 
+
+  PIDController movmentPidController;
 
   PIDSettings pidSettings;
 
@@ -41,8 +49,37 @@ public class TestPID extends Command {
     // RobotComponents.DriveTrain.GYRO.reset();
     // Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 
     // () -> 90.0, () -> 0.0, pidSettings, 360.0, true);
-    Command command = new SetOneEightyAngle(90, pidSettings);
+    // Command command = new SetOneEightyAngle(90, pidSettings);
     //Command command = new DriveArcadeWithPID(Robot.driveTrain, );
+    this.movmentPidController = new PIDController(0.05, 0, 0, new PIDSource(){
+    
+      @Override
+      public void setPIDSourceType(PIDSourceType pidSource) {        
+      }
+    
+      @Override
+      public double pidGet() {
+        return (RobotComponents.DriveTrain.LEFT_ENCODER.getDistance() + RobotComponents.DriveTrain.RIGHT_ENCODER.getDistance())/2;
+      }
+    
+      @Override
+      public PIDSourceType getPIDSourceType() {
+        return PIDSourceType.kDisplacement;
+      }
+    },
+        new PIDOutput(){
+        
+          @Override
+          public void pidWrite(double output) {
+            movmentPidOutput = output;  
+          }
+        });
+    movmentPidController.setAbsoluteTolerance(5);
+    movmentPidController.setOutputRange(-1, 1);
+    movmentPidController.setSetpoint(200);
+    movmentPidController.enable();
+    
+    Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 0.0, this.movmentSupplier, pidSettings, 360, true);
     Scheduler.getInstance().add(command);
   }
 
@@ -54,12 +91,14 @@ public class TestPID extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return this.movmentPidController.onTarget();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    this.movmentPidController.disable();
+    this.movmentPidController.close();
   }
 
   public void updatePID(){

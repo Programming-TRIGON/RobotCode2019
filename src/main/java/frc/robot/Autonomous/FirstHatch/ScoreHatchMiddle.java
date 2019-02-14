@@ -24,7 +24,7 @@ import frc.robot.Vision.VisionPIDSource.VisionTarget;
  * Add your docs here.
  */
 public class ScoreHatchMiddle extends CommandGroup {
-
+  // TODO sort out theangle when turning to the feeder
   // TODO switch first distance something is wrong 
   final double FIRST_DISTANCE = 4.25 - RobotConstants.robotLength;
   final double TURN_45 = 45;
