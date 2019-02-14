@@ -16,7 +16,9 @@ import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTankWithPID;
 import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.WaitCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 
@@ -39,12 +41,10 @@ public class ScoreHatchLeft extends CommandGroup {
   Supplier<Double> KI = ConstantHandler.addConstantDouble("KI", 0);
   Supplier<Double> KD = ConstantHandler.addConstantDouble("KD", 0.001);
   Supplier<Double> tolerance = ConstantHandler.addConstantDouble("tolerance", 10);
-  Supplier<Double> t = () -> {return 0.0;};
+  Supplier<Double> WAIT_TIME = ConstantHandler.addConstantDouble("WAIT_TIME", 1);
 
-  
-
+  PIDSettings pidSettings;
   public ScoreHatchLeft(Target target) {
-    PIDSettings pidSettings = new PIDSettings(KP.get(), KI.get(), KD.get(), tolerance.get(), 0);
     
     RobotComponents.DriveTrain.LEFT_ENCODER.reset();
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
@@ -53,4 +53,5 @@ public class ScoreHatchLeft extends CommandGroup {
     //addSequential(new WaitCommand(5));
     addSequential(new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 90.0, () -> 0.0, pidSettings, 360.0, true));
   }
+
 }

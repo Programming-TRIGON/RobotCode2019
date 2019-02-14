@@ -9,6 +9,9 @@ import com.spikes2212.utils.PIDSettings;
 
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
+import frc.robot.Autonomous.BasicDrivetrainMove;
+import frc.robot.Autonomous.BasicDrivetrainTurn;
+import frc.robot.Autonomous.TestPID;
 import frc.robot.Autonomous.FirstHatch.ScoreHatchLeft;
 import frc.robot.Autonomous.FirstHatch.ScoreHatchLeft.Target;
 import frc.robot.CommandGroups.EjectHatch;
@@ -60,7 +63,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     comp = new Compressor(1);
-    comp.start();
+    comp.stop();
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -110,30 +113,39 @@ public class Robot extends TimedRobot {
         RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); // ditto
     // made functions that set speed to the motors on the drive train by double
     // insted of ControlMode and double
+    RobotComponents.DriveTrain.LEFT_ENCODER.setDistancePerPulse(RobotConstants.ENCODER_DPP);
+    RobotComponents.DriveTrain.RIGHT_ENCODER.setDistancePerPulse(RobotConstants.ENCODER_DPP);
+
     Robot.driveTrain = new TankDrivetrain(
-        (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, -speed),
-        (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, speed));
+        (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
+        (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
 
     /*SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox, "lift"));
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
-    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.cargoCollector, Robot.oi.operatorXbox, "cargo holder"));
-    SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));*/
-    SmartDashboard.putData("hatch Lock", new SetHatchLock(Value.kForward));
-    SmartDashboard.putData("hatch Unlock", new SetHatchLock(Value.kReverse));
-    SmartDashboard.putData("hatch Collector up", new setHatchCollectorState(Value.kForward));
-    SmartDashboard.putData("hatch Collector down", new setHatchCollectorState(Value.kReverse));
-    SmartDashboard.putData("Cargo folder Up", new SetCargoFolderState(Value.kForward));
-    SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
-    SmartDashboard.putData("Hatch eject push", new SetHatchEject(Value.kForward));
-    SmartDashboard.putData("Hatch eject pull", new SetHatchEject(Value.kReverse));
-    SmartDashboard.putData(new ScoreHatchLeft(Target.FIRST));
-    SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY,  Robot.oi.operatorXbox::getX));
-    SmartDashboard.putData(new SetOneEightyAngle(0));
-    SmartDashboard.putData(new EjectHatch());
-    SmartDashboard.putData(new PushCargo(PushCargoPower.kTopRocket));
-    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
+    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.cargoCollector, Robot.oi.operatorXbox, "cargo holder"));*/
+    SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));
+
+
+    // SmartDashboard.putData("hatch Lock", new SetHatchLock(Value.kForward));
+    // SmartDashboard.putData("hatch Unlock", new SetHatchLock(Value.kReverse));
+    // SmartDashboard.putData("hatch Collector up", new setHatchCollectorState(Value.kForward));
+    // SmartDashboard.putData("hatch Collector down", new setHatchCollectorState(Value.kReverse));
+    // SmartDashboard.putData("Cargo folder Up", new SetCargoFolderState(Value.kForward));
+    // SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
+    // SmartDashboard.putData("Hatch eject push", new SetHatchEject(Value.kForward));
+    // SmartDashboard.putData("Hatch eject pull", new SetHatchEject(Value.kReverse));
+    // SmartDashboard.putData(new ScoreHatchLeft(Target.FIRST));
+    // SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY,  Robot.oi.operatorXbox::getX));
+    // SmartDashboard.putData(new SetOneEightyAngle(0));
+    // SmartDashboard.putData(new EjectHatch());
+    // SmartDashboard.putData(new PushCargo(PushCargoPower.kTopRocket));
+    // SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
     SmartDashboard.putData(new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
-     ()->90.0, ()->0.0, new PIDSettings(0.3,0,0, 200000, 0), 360, true));
+     ()->90.0, ()->0.0, new PIDSettings(0.003,0,0, 20, 0.5), 360, true));
+
+    SmartDashboard.putData(new TestPID());
+    // SmartDashboard.putData(new BasicDrivetrainMove(0.3, 1000));
+    // SmartDashboard.putData(new BasicDrivetrainTurn(0.3, 90));
 
     dbc.addNumber("180 pot", Robot.oneEighty::getAngle);
     dbc.addNumber("Drive train gyro", RobotComponents.DriveTrain.GYRO::getAngle);
@@ -144,9 +156,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     Robot.dbc.update();
-    SmartDashboard.putData(Scheduler.getInstance());
+    SmartDashboard.putData("Scheduler", Scheduler.getInstance());
   }
-
+  
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
@@ -167,6 +179,10 @@ public class Robot extends TimedRobot {
     default:
       break;
     }
+  }
+
+  @Override
+  public void teleopInit() {
   }
 
   @Override

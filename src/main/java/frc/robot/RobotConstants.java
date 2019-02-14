@@ -33,6 +33,8 @@ public class RobotConstants {
          * calculations
          */
         public static final double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
+
+        public static final double WHEEL_DIAMETER = 15.24;
     }
 
     /** constants for sensors on the robot */
@@ -54,6 +56,8 @@ public class RobotConstants {
     // TODO change change offset
     /** the angle at which the potentiometer starts */
     public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET = -300;
+
+    public static final double ENCODER_DPP = RobotDimensions.WHEEL_DIAMETER*Math.PI/360;
 
     /** the angles of the oneEighty subsystem when performing a task */
     public static enum OneEightyAngle {
