@@ -31,7 +31,7 @@ public class ScoreCargo extends CommandGroup {
       default: pushCargoByHeight = PushCargoPower.kCargoShip;
       break;
     }
-    addSequential(new SetOneEightyAngle(startingAngle));
+    //addSequential(new SetOneEightyAngle(startingAngle));
     addSequential(new SetLiftHeight(height));
     addSequential(new PushCargo(pushCargoByHeight));
 

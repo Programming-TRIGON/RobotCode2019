@@ -4,10 +4,18 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
+import com.spikes2212.utils.PIDSettings;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
 
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
+import frc.robot.Autonomous.BasicDrivetrainMove;
+import frc.robot.Autonomous.BasicDrivetrainTurn;
+import frc.robot.Autonomous.TestPID;
+import frc.robot.Autonomous.FirstHatch.ScoreHatchLeft;
+import frc.robot.Autonomous.FirstHatch.ScoreHatchLeft.Target;
+import frc.robot.CommandGroups.EjectHatch;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
 import frc.robot.Commands.PushCargo;
@@ -56,9 +64,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    //comp = new Compressor(RobotMap.CAN.PCM);
-    //comp.start();
-
+    comp = new Compressor(1);
+    comp.stop();
+    
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
@@ -112,14 +120,15 @@ public class Robot extends TimedRobot {
         RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); // ditto
     // made functions that set speed to the motors on the drive train by double
     // insted of ControlMode and double
+    RobotComponents.DriveTrain.LEFT_ENCODER.setDistancePerPulse(RobotConstants.ENCODER_DPP);
+    RobotComponents.DriveTrain.RIGHT_ENCODER.setDistancePerPulse(RobotConstants.ENCODER_DPP);
+
     Robot.driveTrain = new TankDrivetrain(
         (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
-        (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, speed));
+        (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
 
-    /*SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox, "lift"));
-    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox, "180"));
-    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.cargoCollector, Robot.oi.operatorXbox, "cargo holder"));
-    SmartDashboard.putData(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getY, Robot.oi.operatorXbox::getX));*/
+    SmartDashboard.putData(new TestPID());
+
     SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
     SmartDashboard.putData("Hatch Unlock", new SetHatchLock(Value.kReverse));
     SmartDashboard.putData("Hatch Collector Up", new setHatchCollectorState(Value.kForward));
@@ -134,9 +143,8 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
-
-    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.oneEighty, oi.operatorXbox));
-
+    dbc.addNumber("180 pot", Robot.oneEighty::getAngle);
+    
     addTests();
 
   }
@@ -144,9 +152,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     Robot.dbc.update();
-    SmartDashboard.putData(Scheduler.getInstance());
+    SmartDashboard.putData("Scheduler", Scheduler.getInstance());
   }
-
+  
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
@@ -167,6 +175,10 @@ public class Robot extends TimedRobot {
     default:
       break;
     }
+  }
+
+  @Override
+  public void teleopInit() {
   }
 
   @Override

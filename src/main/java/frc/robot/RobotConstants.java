@@ -33,6 +33,8 @@ public class RobotConstants {
          * calculations
          */
         public static final double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
+
+        public static final double WHEEL_DIAMETER = 15.24;
     }
 
     /** constants for sensors on the robot */
@@ -50,10 +52,12 @@ public class RobotConstants {
     /**
      * The value at which the potentiometer will multiply the fraction it returns
      */
-    public static final double ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER = 360;
+    public static final double ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER = -3600;
     // TODO change change offset
     /** the angle at which the potentiometer starts */
-    public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET = -180;
+    public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET = 625;
+
+    public static final double ENCODER_DPP = RobotDimensions.WHEEL_DIAMETER*Math.PI/360;
 
     /** the angles of the oneEighty subsystem when performing a task */
     public static enum OneEightyAngle {
@@ -88,7 +92,7 @@ public class RobotConstants {
     public static enum PushCargoPower {
         // TODO:set real values.
         /** the speed we want to push the cargo */
-        kCargoShip(-0.2), kLowRocket(1), kMiddleRocket(1), kTopRocket(1);
+        kCargoShip(1), kLowRocket(1), kMiddleRocket(1), kTopRocket(-1);
         public double key;
 
         PushCargoPower(double power) {

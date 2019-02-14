@@ -9,6 +9,7 @@ package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.RobotConstants;
 import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.SetHatchEject;
@@ -24,9 +25,12 @@ public class EjectHatch extends CommandGroup{
 
     public EjectHatch(){
 
-        addSequential(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));
+        //addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));
+        //addSequential(new WaitCommand(1));
         addSequential(new SetHatchLock(unlock));
+        addSequential(new WaitCommand(0.5));
         addSequential(new SetHatchEject(extend));
+        addSequential(new WaitCommand(0.5));
         addSequential(new SetHatchEject(retract));
     }
 }
