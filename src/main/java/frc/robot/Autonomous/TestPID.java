@@ -13,6 +13,7 @@ import com.spikes2212.dashboard.ConstantHandler;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTankWithPID;
+import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -46,7 +47,7 @@ public class TestPID extends Command {
     RobotComponents.DriveTrain.LEFT_ENCODER.reset();
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
 
-    command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, Setpoint, () -> 0.0, pidSettings, 360.0, false);
+    command = new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, Setpoint, pidSettings, 360.0, false);
     //  command = new SetOneEightyAngle(Setpoint.get(), pidSettings);
 
 
