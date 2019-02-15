@@ -87,7 +87,7 @@ public class VisionPIDSource implements PIDSource {
      * VisionDirectionType is either x or y.
      */
     public static enum VisionDirectionType {
-        x(0,320), y(1,240);
+        x(0,2000), y(1,2000);
         public int key;
         public int imageLength;//the width/height
 

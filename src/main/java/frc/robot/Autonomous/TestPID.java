@@ -28,10 +28,10 @@ import frc.robot.Vision.VisionPIDSource.VisionDirectionType;
 import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 public class TestPID extends Command {
-  Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.001);
+  Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);
   Supplier<Double> KI = ConstantHandler.addConstantDouble("KI", 0);
   Supplier<Double> KD = ConstantHandler.addConstantDouble("KD", 0.00);
-  Supplier<Double> tolerance = ConstantHandler.addConstantDouble("tolerance", 10);
+  Supplier<Double> tolerance = ConstantHandler.addConstantDouble("tolerance", 0.1);
   Supplier<Double> WAIT_TIME = ConstantHandler.addConstantDouble("WAIT_TIME", 1);
   Supplier<Double> Setpoint = ConstantHandler.addConstantDouble("Setpoint", 0);
 
