@@ -41,19 +41,17 @@ public class RobotMap {
     static class DIO {
         public static final int LIFT_TOP_MICRO_SWITCH = 6;
         public static final int LIFT_BOTTOM_MICRO_SWITCH = 5;
-        public static final int CARGO_FOLDER_TOP_SWITCH = 7;
-        public static final int CARGO_FOLDER_BOTTOM_SWITCH = 8;
+        public final static int LIFT_ENCODER_CHANNEL_A = 7;
+        public final static int LIFT_ENCODER_CHANNEL_B = 8;
         public static final int CARGO_COLLECTOR_SWITCH = 4;
         public final static int DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_A = 0;        
         public final static int DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_B = 1;
         public final static int DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_A = 3;
         public final static int DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_B = 2;
-
     }
 
     // Analog input device ports
     static class ANALOG_INPUT {
-        public static final int LIFT_POTENTIOMETER = 3;
         public static final int ONE_EIGHTY_POTENTIOMETER = 0;
     }
 

@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 
 public class Lift extends JoystickOverridableSubsystem {
   /** Motors to raise/lower the lift */
@@ -12,16 +13,16 @@ public class Lift extends JoystickOverridableSubsystem {
   /** Top and bottom limit switches */
   private DigitalInput topSwitch, bottomSwitch;
 
-  private AnalogPotentiometer potentiometer;
+  private Encoder encoder;
 
 
   public Lift(TalonSRX rightMotor, TalonSRX leftMotor, DigitalInput topwSwitch, DigitalInput bottomSwitch,
-      AnalogPotentiometer potentiometer) {
+      Encoder encoder) {
     this.rightMotor = rightMotor;
     this.leftMotor = leftMotor;
     this.topSwitch = topwSwitch;
     this.bottomSwitch = bottomSwitch;
-    this.potentiometer = potentiometer;
+    this.encoder = encoder;
     // this.leftMotor.set(ControlMode.Follower, rightMotor.getDeviceID());
     // this.leftMotor.set(ControlMode.PercentOutput, 0);
     this.leftMotor.setInverted(true);
@@ -50,12 +51,13 @@ public class Lift extends JoystickOverridableSubsystem {
   }
 
   /** This function returns the curent state of the potentiometer. */
-  public AnalogPotentiometer getPotentiometer() {
-    return this.potentiometer;
+  public Encoder getEncoder() {
+    //TODO: convert ticks to meters
+    return this.encoder;
   }
 
   public double getHeight(){
-    return this.potentiometer.get();
+    return this.encoder.get();
   }
 
   @Override

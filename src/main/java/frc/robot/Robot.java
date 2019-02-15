@@ -72,7 +72,7 @@ public class Robot extends TimedRobot {
 
     /** defining the subsystem lift that highers the cargo and hatch holders */
     Robot.lift = new Lift(RobotComponents.Lift.LIFT_RIGHT_M, RobotComponents.Lift.LIFT_LEFT_M,
-        RobotComponents.Lift.TOP_SWITCH, RobotComponents.Lift.BOTTOM_SWITCH, RobotComponents.Lift.POT);
+        RobotComponents.Lift.TOP_SWITCH, RobotComponents.Lift.BOTTOM_SWITCH, RobotComponents.Lift.ENCODER);
 
     /**
      * creates the new susbsystem with three solenoids, two that extends the whole

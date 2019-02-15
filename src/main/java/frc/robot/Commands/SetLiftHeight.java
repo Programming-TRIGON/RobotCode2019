@@ -52,7 +52,7 @@ public class SetLiftHeight extends Command {
       }
     };
     pidController.setSetpoint(height.get());
-    this.pidController = new PIDController(kP, kI, kD, Robot.lift.getPotentiometer(), this.pidOutput, timeFrame);
+    this.pidController = new PIDController(kP, kI, kD, Robot.lift.getEncoder(), this.pidOutput, timeFrame);
     pidController.setAbsoluteTolerance(tolerance);
     pidController.setOutputRange(-1, 1);
     pidController.enable();
