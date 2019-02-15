@@ -14,12 +14,14 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 
 public class VisionPIDSource implements PIDSource {
+    private VisionTarget target;
     private VisionDirectionType type;
     private NetworkTableEntry visionEntry;
     private double imageLength; // important to know if the target on the middle of the image
 
     public VisionPIDSource(VisionTarget target, VisionDirectionType type) {
         this.type = type;
+        this.target = target;
         NetworkTableInstance inst = NetworkTableInstance.getDefault();
         NetworkTable targetTable = inst.getTable("SmartDashboard");
         this.visionEntry = targetTable.getEntry(target.key);
@@ -102,5 +104,34 @@ public class VisionPIDSource implements PIDSource {
      */
     public boolean isUpdated() {
         return !this.visionEntry.getString("9999").equals("9999");
+    }
+
+
+    /**
+     * @return the imageLength
+     */
+    public double getImageLength() {
+        return imageLength;
+    }
+
+    /**
+     * @param imageLength the imageLength to set
+     */
+    public void setImageLength(double imageLength) {
+        this.imageLength = imageLength;
+    }
+
+    /**
+     * @return the target
+     */
+    public VisionTarget getTarget() {
+        return target;
+    }
+
+    /**
+     * @param target the target to set
+     */
+    public void setTarget(VisionTarget target) {
+        this.target = target;
     }
 }

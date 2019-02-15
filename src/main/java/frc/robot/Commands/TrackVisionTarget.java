@@ -64,9 +64,9 @@ public class TrackVisionTarget extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
-    NetworkTableEntry target = imageProcessingTable.getEntry("target");
-    target.setString(this.target.toString());
+    // NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
+    // NetworkTableEntry target = imageProcessingTable.getEntry("target");
+    // target.setString(this.target.toString());
     // pid sources for distance and rotation
     VisionPIDSource rotationPIDSource = new VisionPIDSource(this.target, VisionDirectionType.x);
     VisionPIDSource distancePIDSource = new VisionPIDSource(this.target, VisionDirectionType.y);

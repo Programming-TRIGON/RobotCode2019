@@ -21,12 +21,16 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
+import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Commands.SetOneEightyAngle;
+import frc.robot.Vision.VisionPIDSource;
+import frc.robot.Vision.VisionPIDSource.VisionDirectionType;
+import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 public class TestPID extends Command {
-  Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", -0.0001);
+  Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.001);
   Supplier<Double> KI = ConstantHandler.addConstantDouble("KI", 0);
-  Supplier<Double> KD = ConstantHandler.addConstantDouble("KD", 0.001);
+  Supplier<Double> KD = ConstantHandler.addConstantDouble("KD", 0.00);
   Supplier<Double> tolerance = ConstantHandler.addConstantDouble("tolerance", 10);
   Supplier<Double> WAIT_TIME = ConstantHandler.addConstantDouble("WAIT_TIME", 1);
   Supplier<Double> Setpoint = ConstantHandler.addConstantDouble("Setpoint", 0);
@@ -47,7 +51,8 @@ public class TestPID extends Command {
     RobotComponents.DriveTrain.LEFT_ENCODER.reset();
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
 
-    command = new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, Setpoint, pidSettings, 360.0, false);
+    command = new DriveArcadeWithVision(Robot.driveTrain,
+     new VisionPIDSource(VisionTarget.kReflector, VisionDirectionType.x), Setpoint, Robot.oi::getYLeft, pidSettings, 2, false);
     //  command = new SetOneEightyAngle(Setpoint.get(), pidSettings);
 
 
@@ -72,7 +77,7 @@ public class TestPID extends Command {
   protected void end() {
   }
 
-  public void updatePID(){
+  public void updatePID() {
     this.pidSettings = new PIDSettings(KP.get(), KI.get(), KD.get(), tolerance.get(), WAIT_TIME.get());
     SmartDashboard.putString("PID setting", "" + KP.get() + KI.get() + KD.get() + tolerance.get() + WAIT_TIME.get());
   }
