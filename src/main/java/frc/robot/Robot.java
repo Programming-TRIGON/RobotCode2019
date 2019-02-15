@@ -16,11 +16,13 @@ import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.Autonomous.TestPID;
 import frc.robot.Commands.CollectCargo;
+import frc.robot.Commands.DriveWithGyro;
 import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.Commands.SetOneEightyAngle;
+import frc.robot.Commands.TestAuto;
 import frc.robot.Commands.setHatchCollectorState;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.CargoFolder;
@@ -127,6 +129,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
     SmartDashboard.putData("Drive", new DriveArcade(Robot.driveTrain, () -> -Robot.oi.operatorXbox.getY(), () -> -Robot.oi.operatorXbox.getX()));
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
+    SmartDashboard.putData(new TestAuto());
+    SmartDashboard.putData("drive 3 meters",new DriveWithGyro(300));
 
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
