@@ -2,46 +2,36 @@ package frc.robot.Commands;
 
 import java.util.function.Supplier;
 
+import com.spikes2212.utils.PIDSettings;
+
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.LiftHeight;
 
 public class SetLiftHeight extends Command {
   private Supplier<Double> height;
   private PIDController pidController;
   private PIDOutput pidOutput;
-  private double lastTimeNotOnTarget;
-  private double waitTime;
-  private boolean isInfinate;
-  private double tolerance = 1;
-  private double kP = 0.2;
-  private double kI = 0;
-  private double kD = 0;
-  private double timeFrame = 0.05;
+  private PIDSettings pidSettings;
 
   /** sets the height of the lift depending on the situation */
   public SetLiftHeight(LiftHeight finishingHeight) {
-    this(finishingHeight.key, false);
+    this(finishingHeight.key);
   }
 
-  public SetLiftHeight(double d, boolean isInfinate) {
+  public SetLiftHeight(double d) {
     requires(Robot.lift);
-    this.height = new Supplier<Double>() {
-      @Override
-      public Double get() {
-        return d;
-      }
-    };
-    this.isInfinate = isInfinate;
+    this.height = () -> d;
   }
 
-  public SetLiftHeight(Supplier<Double> setpointSupplier, boolean isInfinate) {
+  public SetLiftHeight(Supplier<Double> setpointSupplier,PIDSettings pidSettings) {
     requires(Robot.lift);
-    this.isInfinate = isInfinate;
     this.height = setpointSupplier;
+    this.pidSettings = pidSettings;
   }
 
   @Override
@@ -52,30 +42,25 @@ public class SetLiftHeight extends Command {
       }
     };
     pidController.setSetpoint(height.get());
-    this.pidController = new PIDController(kP, kI, kD, Robot.lift.getEncoder(), this.pidOutput, timeFrame);
-    pidController.setAbsoluteTolerance(tolerance);
+    this.pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(), Robot.lift.getEncoder(), this.pidOutput);
+    pidController.setAbsoluteTolerance(pidSettings.getTolerance());
     pidController.setOutputRange(-1, 1);
     pidController.enable();
   }
 
   @Override
   protected void execute() {
-  }
+		double newSetpoint = height.get();
+		if (pidController.getSetpoint() != newSetpoint)
+      pidController.setSetpoint(newSetpoint);
+    if(newSetpoint <= RobotConstants.LiftHeight.kCargoFolderSafty.key)
+      new SetCargoFolderState(Value.kForward).start();
+
+	}
 
   @Override
   protected boolean isFinished() {
-    /** checks if we want to run the command forever */
-    if (isInfinate)
       return false;
-    /** checks if the lift is in position for lon enough */
-    if (!pidController.onTarget()) {
-      lastTimeNotOnTarget = Timer.getFPGATimestamp();
-    }
-    if (Timer.getFPGATimestamp() - lastTimeNotOnTarget >= waitTime)
-      return true;
-    else
-      return false;
-
   }
 
   // Called once after isFinished returns true
