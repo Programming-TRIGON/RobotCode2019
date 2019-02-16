@@ -29,9 +29,9 @@ public class SetOneEightyAngle extends Command {
    * @param angle the angle the SS seeks
    */
   public SetOneEightyAngle(double angle, PIDSettings pidSettings) {
+    requires(Robot.oneEighty);
     this.angle = angle;
     this.pidSettings = pidSettings;
-    requires(Robot.oneEighty);
   }
 
   public SetOneEightyAngle(RobotConstants.OneEightyAngle angle) {
@@ -69,8 +69,6 @@ public class SetOneEightyAngle extends Command {
   protected void interrupted() {
     // this function shouldn't be called
     pidController.disable();
-    pidController.close();
-    System.out.println("PID on the oneEigthy has stopped!");
-    
+    pidController.close();    
   }
 }
