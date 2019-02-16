@@ -14,7 +14,6 @@ public class Lift extends JoystickOverridableSubsystem {
 
   private AnalogPotentiometer potentiometer;
 
-
   public Lift(TalonSRX rightMotor, TalonSRX leftMotor, DigitalInput topwSwitch, DigitalInput bottomSwitch,
       AnalogPotentiometer potentiometer) {
     this.rightMotor = rightMotor;
@@ -23,16 +22,17 @@ public class Lift extends JoystickOverridableSubsystem {
     this.bottomSwitch = bottomSwitch;
     this.potentiometer = potentiometer;
     this.leftMotor.set(ControlMode.Follower, rightMotor.getDeviceID());
+    // this.leftMotor.set(ControlMode.PercentOutput, 0);
     this.leftMotor.setInverted(true);
   }
 
   /** sets the speed of the motors of the lift to higher/lower it */
   public void setMotorSpeed(double speed) {
-    /*if(speed > 0 && isAtTop() || speed < 0 && isAtBottom())
-      rightMotor.set(ControlMode.PercentOutput, 0);
-    else{
-      rightMotor.set(ControlMode.PercentOutput, speed);
-    }*/
+    /*
+     * if(speed > 0 && isAtTop() || speed < 0 && isAtBottom())
+     * rightMotor.set(ControlMode.PercentOutput, 0); else{
+     * rightMotor.set(ControlMode.PercentOutput, speed); }
+     */
     rightMotor.set(ControlMode.PercentOutput, speed);
   }
 
@@ -53,7 +53,7 @@ public class Lift extends JoystickOverridableSubsystem {
     return this.potentiometer;
   }
 
-  public double getHeight(){
+  public double getHeight() {
     return this.potentiometer.get();
   }
 

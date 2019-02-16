@@ -9,6 +9,8 @@ package frc.robot.Commands;
 
 import java.util.function.Supplier;
 import com.spikes2212.dashboard.ConstantHandler;
+import com.spikes2212.utils.PIDSettings;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -36,20 +38,16 @@ public class TrackTargetByDistance extends Command {
   private PIDController distancePIDController;
   private double distanceSetpoint;
   private Supplier<Double> distanceSupplier;
+  private PIDSettings rotationSettings;
+  private PIDSettings distanceSettings;
   private double rotation;
   private double distance;
-  private final Supplier<Double> rotationKP = ConstantHandler.addConstantDouble("rotationKP", 0.4);
-  private final Supplier<Double> rotationKI = ConstantHandler.addConstantDouble("rotationKI", 0);
-  private final Supplier<Double> rotationKD = ConstantHandler.addConstantDouble("rotationKD", 0);
-  private final Supplier<Double> rotationTolerance = ConstantHandler.addConstantDouble("rotationTolerance", 0.1);
-  private final Supplier<Double> distanceTolerance = ConstantHandler.addConstantDouble("distanceTolerance", 0.3);
-  private final Supplier<Double> distanceKP = ConstantHandler.addConstantDouble("distanceKP", 0.4);
-  private final Supplier<Double> distanceKI = ConstantHandler.addConstantDouble("distanceKI", 0);
-  private final Supplier<Double> distanceKD = ConstantHandler.addConstantDouble("distanceKD", 0);
   private final double SETPOINT = 0;
 
-  public TrackTargetByDistance(VisionPIDSource.VisionTarget target,
-      Supplier<Double> distanceSupplier, double setpoint) {
+  public TrackTargetByDistance(VisionPIDSource.VisionTarget target, PIDSettings rotationSettings,
+      Supplier<Double> distanceSupplier, double setpoint, PIDSettings distanceSetting) {
+    this.rotationSettings = rotationSettings;
+    this.distanceSettings = distanceSetting;
     this.target = target;
     this.distanceSupplier = distanceSupplier;
     this.distanceSetpoint = setpoint;
@@ -82,20 +80,20 @@ public class TrackTargetByDistance extends Command {
       }
     };
     // pid controller for the x axis
-    rotationPIDController = new VisionPIDController(this.rotationKP.get(), this.rotationKI.get(), this.rotationKD.get(),
-        rotationPIDSource, (output) -> rotation = output);
-    rotationPIDController.setAbsoluteTolerance(this.rotationTolerance.get());
+    rotationPIDController = new VisionPIDController(rotationSettings.getKP(), rotationSettings.getKI(),
+        rotationSettings.getKD(), rotationPIDSource, (output) -> rotation = output);
+    rotationPIDController.setAbsoluteTolerance(rotationSettings.getTolerance());
     rotationPIDController.setSetpoint(this.SETPOINT);
     rotationPIDController.setOutputRange(-1, 1);
     rotationPIDController.setInputRange(-1, 1);
     // pid controller for the y axis
-    distancePIDController = new PIDController(this.distanceKP.get(), this.distanceKI.get(), this.distanceKD.get(),
+    distancePIDController = new PIDController(distanceSettings.getKP(), distanceSettings.getKI(), distanceSettings.getKD(),
         distancePIDSource, (output) -> distance = output);
-    distancePIDController.setAbsoluteTolerance(this.distanceTolerance.get());
+    distancePIDController.setAbsoluteTolerance(distanceSettings.getTolerance());
     distancePIDController.setSetpoint(this.distanceSetpoint);
     distancePIDController.setOutputRange(-1, 1);
     distancePIDController.setInputRange(-1, 1);
-    //enables the controllers
+    // enables the controllers
     rotationPIDController.enable();
     distancePIDController.enable();
   }
@@ -116,7 +114,7 @@ public class TrackTargetByDistance extends Command {
     // returns true if the robot reached his target
     if (this.distancePIDController.onTarget())
       lastTimeNotOnTarget = Timer.getFPGATimestamp();
-    return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= this.waitTime;
+    return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= distanceSettings.getWaitTime();
   }
 
   // Called once after isFinished returns true
