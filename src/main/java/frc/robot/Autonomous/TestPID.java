@@ -67,7 +67,7 @@ public class TestPID extends Command {
     
       @Override
       public double pidGet() {
-        return (RobotComponents.DriveTrain.LEFT_ENCODER.getDistance());// + RobotComponents.DriveTrain.RIGHT_ENCODER.getDistance())/2;
+        return (RobotComponents.DriveTrain.LEFT_ENCODER.getDistance() + RobotComponents.DriveTrain.RIGHT_ENCODER.getDistance())/2;
       }
     
       @Override
@@ -76,7 +76,6 @@ public class TestPID extends Command {
       }
     },
         new PIDOutput(){
-        
           @Override
           public void pidWrite(double output) {
             movmentPidOutput = output;  
@@ -84,7 +83,7 @@ public class TestPID extends Command {
         });
     movmentPidController.setAbsoluteTolerance(5);
     movmentPidController.setOutputRange(-1, 1);
-    movmentPidController.setSetpoint(450);
+    movmentPidController.setSetpoint(350);
     movmentPidController.enable();
     
     Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, Setpoint, this.movmentSupplier, pidSettings, 360, true);
