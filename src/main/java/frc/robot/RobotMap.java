@@ -39,10 +39,10 @@ public class RobotMap {
 
     // Robot components connected to roboRIO Digital Input Output ports
     static class DIO {
-        public static final int LIFT_TOP_MICRO_SWITCH = 6;
-        public static final int LIFT_BOTTOM_MICRO_SWITCH = 5;
-        public final static int LIFT_ENCODER_CHANNEL_A = 7;
-        public final static int LIFT_ENCODER_CHANNEL_B = 8;
+        public static final int LIFT_TOP_MICRO_SWITCH = 7;
+        public static final int LIFT_BOTTOM_MICRO_SWITCH = 8;
+        public final static int LIFT_ENCODER_CHANNEL_A = 5;
+        public final static int LIFT_ENCODER_CHANNEL_B = 6;
         public static final int CARGO_COLLECTOR_SWITCH = 4;
         public final static int DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_A = 0;        
         public final static int DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_B = 1;
