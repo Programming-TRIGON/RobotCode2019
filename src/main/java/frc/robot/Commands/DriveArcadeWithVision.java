@@ -23,17 +23,17 @@ import frc.robot.Vision.VisionPIDSource;
 public class DriveArcadeWithVision extends DriveArcadeWithPID {
   protected double lastTimeNotOnTarget = 1;
 
-  public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource visionPIDSource,
+  public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource.Vision visionPIDSource,
       Supplier<Double> setpointSupplier, Supplier<Double> movementSupplier, PIDSettings PIDSettings, double inputRange,
       boolean continuous) {
-    super(drivetrain, visionPIDSource, setpointSupplier, movementSupplier, () -> false, PIDSettings, inputRange,
+    super(drivetrain, new visionPIDSource(target,VisionPIDSource.VisionDirectionType.x), setpointSupplier, movementSupplier, () -> false, PIDSettings, inputRange,
         continuous);
   }
 
-  public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource visionPIDSource, double setpoint,
+  public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource.VisionTarget target, double setpoint,
       double movement, PIDSettings PIDSettings, double inputRange, boolean continuous) {
 
-    super(drivetrain, visionPIDSource, () -> setpoint, () -> movement, PIDSettings, inputRange, continuous);
+    super(drivetrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), () -> setpoint, () -> movement, PIDSettings, inputRange, continuous);
   }
 
   @Override
