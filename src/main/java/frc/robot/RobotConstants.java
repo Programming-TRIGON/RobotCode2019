@@ -53,6 +53,7 @@ public class RobotConstants {
     }
 
     public static class RobotPIDSettings {
+        // (kP, kI, kD, Tolerance, WaitTime)
         public static final PIDSettings DRIVE_SETTINGS = new PIDSettings(0.0025,0,0.004,5,0.5);
         public static final PIDSettings TURN_SETTINGS = new PIDSettings(0.022,0.00009,0.0735,4,0.5);
         public static final PIDSettings REFLECTOR_TRACK_SETTINGS = new PIDSettings(0,0,0,0,0); 

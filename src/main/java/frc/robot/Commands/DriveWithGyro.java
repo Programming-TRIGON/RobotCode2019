@@ -10,86 +10,58 @@ package frc.robot.Commands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 
 public class DriveWithGyro extends Command {
-  double movmentPidOutput, distance;
-  Supplier<Double> movmentSupplier = () -> movmentPidOutput; 
-  PIDController movmentPidController;
+  private double movementPidOutput, distance, lastTimeNotOnTarget;
+  private Supplier<Double> movementSupplier = () -> movementPidOutput; 
+  private PIDController movementPidController;
   public DriveWithGyro(double distance) {
     this.distance=distance;
-    
-    this.movmentPidController = new PIDController(RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKP(),
-    RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKI(), 
-    RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKD(), 
-    new PIDSource(){
-    
-      @Override
-      public void setPIDSourceType(PIDSourceType pidSource) {
-      }
-    
-      @Override
-      public double pidGet() {
-        return (RobotComponents.DriveTrain.LEFT_ENCODER.getDistance() + RobotComponents.DriveTrain.RIGHT_ENCODER.getDistance())/2;
-      }
-    
-      @Override
-      public PIDSourceType getPIDSourceType() {
-        return PIDSourceType.kDisplacement;
-      }
-    },
-    new PIDOutput(){
-      @Override
-      public void pidWrite(double output) {
-        movmentPidOutput = output;  
-      }
-    });
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
     RobotComponents.DriveTrain.LEFT_ENCODER.reset();
-    RobotComponents.DriveTrain.GYRO.reset();
-    movmentPidController.setAbsoluteTolerance(5);
-    movmentPidController.setOutputRange(-1, 1);
-    movmentPidController.setSetpoint(this.distance);
-    movmentPidController.enable();
+    
+    this.movementPidController = new PIDController(RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKP(),
+    RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKI(), 
+    RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKD(), 
+    new EncoderPIDSource(), (output) -> movementPidOutput = output);
+    
+    movementPidController.setAbsoluteTolerance(5);
+    movementPidController.setOutputRange(-1, 1);
+    movementPidController.setSetpoint(this.distance);
+    movementPidController.enable();
 
     Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 
     () -> RobotComponents.DriveTrain.GYRO.getAngle(), 
-    this.movmentSupplier, RobotConstants.RobotPIDSettings.GYRO_DRIVE_SETTINGS, 360, true);
-    Scheduler.getInstance().add(command);
+    this.movementSupplier, RobotConstants.RobotPIDSettings.GYRO_DRIVE_SETTINGS, 360, true);
+    command.start();
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return this.movmentPidController.onTarget();
+    if (this.movementPidController.onTarget())
+      lastTimeNotOnTarget = Timer.getFPGATimestamp();
+    return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getWaitTime();
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
-    this.movmentPidController.disable();
-    this.movmentPidController.close();
+    this.movementPidController.disable();
+    this.movementPidController.close();
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
     end();
