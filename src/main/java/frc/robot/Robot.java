@@ -139,6 +139,7 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
     dbc.addNumber("180 pot", Robot.oneEighty::getAngle);
+    dbc.addNumber("lift enc", Robot.lift::getHeight);
     
     addTests();
 

@@ -62,7 +62,6 @@ public class SetLiftHeight extends Command {
       new SetCargoFolderState(Value.kForward).start();
     if (Robot.lift.isAtBottom())
       RobotComponents.Lift.ENCODER.reset();
-
   }
 
   @Override
