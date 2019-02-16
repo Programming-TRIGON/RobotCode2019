@@ -29,6 +29,7 @@ public class SetLiftHeight extends Command {
     this.height = () -> d;
   }
 
+
   public SetLiftHeight(Supplier<Double> setpointSupplier, PIDSettings pidSettings) {
     requires(Robot.lift);
     this.height = setpointSupplier;
@@ -39,9 +40,6 @@ public class SetLiftHeight extends Command {
   protected void initialize() {
     this.pidOutput = new PIDOutput() {
       public void pidWrite(double output) {
-        if (output > 0 && Robot.lift.isAtTop() || output < 0 && Robot.lift.isAtBottom())
-          Robot.lift.setMotorSpeed(0);
-        else
           Robot.lift.setMotorSpeed(output);
       }
     };
