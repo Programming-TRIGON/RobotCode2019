@@ -5,17 +5,20 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class HatchHolder extends Subsystem {
-  /** hatchLocker solenoid opens the pvc to catch the hatch and hatchEjector push the mechanism farword to chatch the hatch*/
+  /**
+   * hatchLocker solenoid opens the pvc to catch the hatch and hatchEjector push
+   * the mechanism farword to chatch the hatch
+   */
   private DoubleSolenoid hatchLocker, hatchEjector;
   private Value lockState = Value.kReverse, ejectionState = Value.kReverse;
 
   public HatchHolder(DoubleSolenoid pvcSolenoid, DoubleSolenoid pushSolenoid) {
     this.hatchLocker = pvcSolenoid;
     this.hatchEjector = pushSolenoid;
-    //defult values:    
+    // defult values:
     setLock(Value.kReverse);
     setEjection(Value.kReverse);
-    }
+  }
 
   /**
    * sets the status of the front solenoid, the one that chatches the Hatch.
@@ -23,9 +26,10 @@ public class HatchHolder extends Subsystem {
    */
   public void setLock(Value value) {
     lockState = value;
-    //if(!ejectionState.equals(Value.kForward))
-    this.hatchLocker.set(value);
-    //this.hatchLocker.set(Value.kOff);
+
+    if (ejectionState == kReverse) {
+      this.hatchLocker.set(value);
+    }
   }
 
   /**
@@ -33,9 +37,11 @@ public class HatchHolder extends Subsystem {
    * DoubleSolinoids require "values" that represent off, forward, and reversed
    */
   public void setEjection(Value value) {
-    //if(!lockState.equals(Value.kForward))
-    this.hatchEjector.set(value);
-    //this.hatchEjector.set(Value.kOff);
+    ejectionState = value;
+
+    if (lockState == kReverse) {
+      this.hatchEjector.set(value);
+    }
   }
 
   @Override
