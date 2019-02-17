@@ -3,6 +3,7 @@ package frc.robot.Subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class HatchHolder extends Subsystem {
   /**
@@ -44,5 +45,6 @@ public class HatchHolder extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
+
   }
 }

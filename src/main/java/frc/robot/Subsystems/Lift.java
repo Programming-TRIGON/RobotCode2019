@@ -3,8 +3,8 @@ package frc.robot.Subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 
 public class Lift extends JoystickOverridableSubsystem {
   /** Motors to raise/lower the lift */
@@ -12,28 +12,30 @@ public class Lift extends JoystickOverridableSubsystem {
   /** Top and bottom limit switches */
   private DigitalInput topSwitch, bottomSwitch;
 
-  private AnalogPotentiometer potentiometer;
+  private Encoder encoder;
 
   public Lift(TalonSRX rightMotor, TalonSRX leftMotor, DigitalInput topwSwitch, DigitalInput bottomSwitch,
-      AnalogPotentiometer potentiometer) {
+      Encoder encoder) {
     this.rightMotor = rightMotor;
     this.leftMotor = leftMotor;
     this.topSwitch = topwSwitch;
     this.bottomSwitch = bottomSwitch;
-    this.potentiometer = potentiometer;
-    this.leftMotor.set(ControlMode.Follower, rightMotor.getDeviceID());
-    // this.leftMotor.set(ControlMode.PercentOutput, 0);
+    this.encoder = encoder;
+    this.rightMotor.setInverted(true);
     this.leftMotor.setInverted(true);
   }
 
   /** sets the speed of the motors of the lift to higher/lower it */
   public void setMotorSpeed(double speed) {
-    /*
-     * if(speed > 0 && isAtTop() || speed < 0 && isAtBottom())
-     * rightMotor.set(ControlMode.PercentOutput, 0); else{
-     * rightMotor.set(ControlMode.PercentOutput, speed); }
-     */
-    rightMotor.set(ControlMode.PercentOutput, speed);
+    if(speed > 0 && isAtTop() || speed < 0 && isAtBottom()){
+      rightMotor.set(ControlMode.PercentOutput, 0);
+      leftMotor.set(ControlMode.PercentOutput, 0);
+    }
+      
+    else{
+      rightMotor.set(ControlMode.PercentOutput, speed);
+      leftMotor.set(ControlMode.PercentOutput, speed);
+    }
   }
 
   /** This function checks whether the lift has activated the top micro switch. */
@@ -48,18 +50,17 @@ public class Lift extends JoystickOverridableSubsystem {
     return bottomSwitch.get();
   }
 
-  /** This function returns the curent state of the potentiometer. */
-  public AnalogPotentiometer getPotentiometer() {
-    return this.potentiometer;
+  /** This function returns the curent state of the encoder. */
+  public Encoder getEncoder() {
+    return this.encoder;
   }
 
-  public double getHeight() {
-    return this.potentiometer.get();
+  public double getHeight(){
+    return this.encoder.getDistance();
   }
 
   @Override
   public void initDefaultCommand() {
-
   }
 
   @Override

@@ -1,10 +1,15 @@
 package frc.robot;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -21,8 +26,6 @@ public class RobotComponents {
 
     public static class CargoFolder{
         public static final DoubleSolenoid SOLENOID = new DoubleSolenoid(RobotMap.CAN.PCM, RobotMap.PCM0.CARGO_FOLDER_SOLENOID_FORWARD, RobotMap.PCM0.CARGO_FOLDER_SOLENOID_REVERSE);
-        public static final DigitalInput TOP_SWITCH = new DigitalInput(RobotMap.DIO.CARGO_FOLDER_TOP_SWITCH);
-        public static final DigitalInput BOTTOM_SWITCH = new DigitalInput(RobotMap.DIO.CARGO_FOLDER_BOTTOM_SWITCH);
     }
 
     public static class OneEighty {
@@ -50,9 +53,7 @@ public class RobotComponents {
         public static final TalonSRX LIFT_RIGHT_M = new TalonSRX(RobotMap.CAN.LIFT_RIGHT_MOTOR);
         public static final DigitalInput BOTTOM_SWITCH = new DigitalInput(RobotMap.DIO.LIFT_BOTTOM_MICRO_SWITCH);
         public static final DigitalInput TOP_SWITCH = new DigitalInput(RobotMap.DIO.LIFT_TOP_MICRO_SWITCH);
-        public static final AnalogPotentiometer POT = new AnalogPotentiometer(RobotMap.ANALOG_INPUT.LIFT_POTENTIOMETER,
-                RobotConstants.Sensors.LIFT_POTENTIOMETER_SCALE_FACTOR,
-                RobotConstants.Sensors.LIFT_POTENTOIMETER_OFFSET);
+        public static final Encoder ENCODER = new Encoder(RobotMap.DIO.LIFT_ENCODER_CHANNEL_A,RobotMap.DIO.LIFT_ENCODER_CHANNEL_B);
     }
     
     public static class DriveTrain{
