@@ -10,9 +10,9 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class SetOneEightyAngleNoPID extends Command {
+public class ReachOneEightyAngle extends Command {
   private double angle;
-  public SetOneEightyAngleNoPID(double angle) {
+  public ReachOneEightyAngle(double angle) {
     requires(Robot.oneEighty);
     this.angle=angle;
   }

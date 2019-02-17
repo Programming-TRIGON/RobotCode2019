@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.Commands.DriveArcadeWithVision;
-import frc.robot.Commands.SetOneEightyAngle;
+import frc.robot.Commands.StabilizeOneEightyAngle;
 import frc.robot.Vision.VisionPIDSource;
 import frc.robot.Vision.VisionPIDSource.VisionDirectionType;
 import frc.robot.Vision.VisionPIDSource.VisionTarget;
@@ -56,7 +56,7 @@ public class TestPID extends Command {
   protected void initialize() {
     updatePID();
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
-    command = new SetOneEightyAngle(-2, pidSettings);
+    command = new StabilizeOneEightyAngle(-2, pidSettings);
     command.start();
   }
 
@@ -68,15 +68,13 @@ public class TestPID extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return this.movmentPidController.onTarget();
+    return false;
   }
 
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    this.movmentPidController.disable();
-    this.movmentPidController.close();
   }
 
 

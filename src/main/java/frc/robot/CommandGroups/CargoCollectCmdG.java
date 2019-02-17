@@ -4,11 +4,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.RobotConstants;
 import frc.robot.Commands.CollectCargo;
-import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.Commands.SetLiftHeight;
-import frc.robot.RobotConstants.OneEightyAngle;
-import frc.robot.RobotConstants.LiftHeight;
 
 /** collects caro from the floor */
 

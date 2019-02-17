@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.RobotConstants;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
-import frc.robot.Commands.SetOneEightyAngle;
 import frc.robot.Commands.setHatchCollectorState;
 /**
  * Add your docs here.

@@ -1,9 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
 
 package frc.robot.Commands;
 
@@ -11,10 +5,11 @@ import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
+
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 
-public class SetOneEightyAngle extends Command {
+public class StabilizeOneEightyAngle extends Command {
   private PIDController pidController;
   private double angle;
   private PIDSettings pidSettings;
@@ -22,13 +17,18 @@ public class SetOneEightyAngle extends Command {
    * 
    * @param angle the angle the SS seeks
    */
-  public SetOneEightyAngle(double angle, PIDSettings pidSettings) {
+  public StabilizeOneEightyAngle(double angle, PIDSettings pidSettings) {
     requires(Robot.oneEighty);
     this.angle = angle;
     this.pidSettings=pidSettings;
   }
+  
+  public StabilizeOneEightyAngle(double angle) {
+    requires(Robot.oneEighty);
+    this.angle = angle;
+  }
 
-  public SetOneEightyAngle(RobotConstants.OneEightyAngle angle) {
+  public StabilizeOneEightyAngle(RobotConstants.OneEightyAngle angle) {
     this.angle = angle.key;
     requires(Robot.oneEighty);
     this.pidSettings = RobotConstants.RobotPIDSettings.ONE_EIGHTY_SET_ANGLE_SETTINGS;
