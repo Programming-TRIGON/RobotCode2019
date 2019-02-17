@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
@@ -57,7 +56,6 @@ public class TestPID extends Command {
   protected void initialize() {
     updatePID();
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
-
 
     command = new DriveArcadeWithVision(Robot.driveTrain, VisionTarget.kReflector, Setpoint, Robot.oi::getYLeft,
         pidSettings, false);

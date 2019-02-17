@@ -25,20 +25,23 @@ public class OneEighty extends JoystickOverridableSubsystem {
   } 
 
   /** turns the SS to where the driver wants it */
-  public void setOneEighty(double power) {
+  public void setOneEighty(double power){ 
+    if((power > 0 && getAngle() >= 225) || (power < 0 && getAngle() <= 0))
+      this.motor.set(ControlMode.PercentOutput, 0);
+    else
       this.motor.set(ControlMode.PercentOutput, power);
   }
 
   public double getAngle() {
     return potentiometer.get();
   }
+
   public AnalogPotentiometer getPotentiometer(){
     return this.potentiometer;
   }
 
   @Override
   public void initDefaultCommand() {
-
   }
 
   @Override
