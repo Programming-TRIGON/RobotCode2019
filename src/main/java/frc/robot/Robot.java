@@ -116,7 +116,7 @@ public class Robot extends TimedRobot {
     RobotComponents.DriveTrain.FRONT_RIGHT_M.setInverted(false);
 
     RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower,
-        RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); // now front and rear motors are moving toghether
+        RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); 
     RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower,
         RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); 
     

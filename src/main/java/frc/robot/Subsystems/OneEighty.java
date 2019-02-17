@@ -1,6 +1,7 @@
 package frc.robot.Subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -19,7 +20,7 @@ public class OneEighty extends JoystickOverridableSubsystem {
     this.motor = motor;
     this.potentiometer = potentiometer;
     motor.setInverted(true);
-
+    motor.setNeutralMode(NeutralMode.Brake);
   } 
 
   /** turns the SS to where the driver wants it */

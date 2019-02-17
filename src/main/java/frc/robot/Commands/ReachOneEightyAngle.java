@@ -9,6 +9,7 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotConstants.OneEightyAngle;
 
 public class ReachOneEightyAngle extends Command {
   private double angle;
@@ -17,13 +18,18 @@ public class ReachOneEightyAngle extends Command {
     this.angle=angle;
   }
 
+  public ReachOneEightyAngle(OneEightyAngle angle) {
+    requires(Robot.oneEighty);
+    this.angle=angle.key;
+  }
+
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     if (this.angle>Robot.oneEighty.getAngle())
-      Robot.oneEighty.setOneEighty(0.2);
+      Robot.oneEighty.setOneEighty(0.25);
     else
-      Robot.oneEighty.setOneEighty(-0.2);
+      Robot.oneEighty.setOneEighty(-0.25);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -35,7 +41,7 @@ public class ReachOneEightyAngle extends Command {
   @Override
   protected boolean isFinished() {
     double currentAngle=Robot.oneEighty.getAngle();
-    return (currentAngle > angle-3) && (currentAngle < angle+3);
+    return (currentAngle > angle-2.5) && (currentAngle < angle+2.5);
   }
 
   // Called once after isFinished returns true
@@ -48,6 +54,6 @@ public class ReachOneEightyAngle extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.oneEighty.setOneEighty(0);
+    end();
   }
 }

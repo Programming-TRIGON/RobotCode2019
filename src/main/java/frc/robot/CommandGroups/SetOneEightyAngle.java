@@ -19,7 +19,7 @@ public class SetOneEightyAngle extends CommandGroup {
     addSequential(new StabilizeOneEightyAngle(angle));
   }
   public SetOneEightyAngle(OneEightyAngle angle) {
-    addSequential(new ReachOneEightyAngle(angle.key));
+    addSequential(new ReachOneEightyAngle(angle));
     addSequential(new StabilizeOneEightyAngle(angle));
   }
 }
