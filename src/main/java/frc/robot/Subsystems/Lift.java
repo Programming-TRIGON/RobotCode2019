@@ -28,12 +28,11 @@ public class Lift extends JoystickOverridableSubsystem {
 
   /** sets the speed of the motors of the lift to higher/lower it */
   public void setMotorSpeed(double speed) {
-    /* if(speed > 0 && isAtTop() || speed < 0 && isAtBottom())
+    if(speed > 0 && isAtTop() || speed < 0 && isAtBottom())
       rightMotor.set(ControlMode.PercentOutput, 0);
     else{
       rightMotor.set(ControlMode.PercentOutput, speed);
-    } */
-    rightMotor.set(ControlMode.PercentOutput, speed);
+    }
   }
 
   /** This function checks whether the lift has activated the top micro switch. */
