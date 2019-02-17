@@ -58,8 +58,6 @@ public class SetLiftHeight extends Command {
       pidController.setSetpoint(newSetpoint);
     if (newSetpoint <= RobotConstants.LiftHeight.kCargoFolderSafty.key)
       new SetCargoFolderState(Value.kForward).start();
-    if (Robot.lift.isAtBottom())
-      RobotComponents.Lift.ENCODER.reset();
   }
 
   @Override

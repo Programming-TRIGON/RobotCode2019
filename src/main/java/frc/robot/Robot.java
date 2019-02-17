@@ -10,6 +10,7 @@ import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
 import frc.robot.TestCommands.CargoHolderTest;
 import frc.robot.TestCommands.CargoRollerTest;
+import frc.robot.Vision.VisionPIDSource.*;
 import frc.robot.Autonomous.TestPID;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
@@ -25,7 +26,9 @@ import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.HatchHolder;
 import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
-
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -115,7 +118,7 @@ public class Robot extends TimedRobot {
     
         RobotComponents.DriveTrain.LEFT_ENCODER.setDistancePerPulse(RobotConstants.DRIVE_ENCODER_DPP);
         RobotComponents.DriveTrain.RIGHT_ENCODER.setDistancePerPulse(RobotConstants.DRIVE_ENCODER_DPP);
-        //RobotComponents.Lift.ENCODER.setDistancePerPulse(RobotConstants.LIFT_ENCODER_DPP);
+        // RobotComponents.Lift.ENCODER.setDistancePerPulse(RobotConstants.LIFT_ENCODER_DPP);
 
     Robot.driveTrain = new TankDrivetrain(
       (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
@@ -136,6 +139,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
     SmartDashboard.putData("Move Lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
     SmartDashboard.putBoolean("reset enc", false);
+    NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
+    NetworkTableEntry target = imageProcessingTable.getEntry("target");
+    target.setString(VisionTarget.kReflector.toString());
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
@@ -150,7 +156,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     Robot.dbc.update();
     SmartDashboard.putData("Scheduler", Scheduler.getInstance());
-    if (SmartDashboard.getBoolean("reset enc", false))
+    if (Robot.lift.isAtBottom()||SmartDashboard.getBoolean("reset enc", false))
     RobotComponents.Lift.ENCODER.reset();
   }
   
