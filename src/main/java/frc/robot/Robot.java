@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     comp = new Compressor(1);
     comp.stop();
-    
+
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
@@ -92,7 +92,7 @@ public class Robot extends TimedRobot {
     Robot.cargoCollector = new CargoCollector(RobotComponents.CargoCollector.COLECTOR_MOTOR,
         RobotComponents.CargoCollector.RIGHT_HOLDER, RobotComponents.CargoCollector.LEFT_HOLDER,
         RobotComponents.CargoCollector.SWITCH);
-    
+
     /*
      * creates the SS corgo fold that extends and retracts the whole SS of the cargo
      * collector with it
@@ -106,22 +106,20 @@ public class Robot extends TimedRobot {
     RobotComponents.DriveTrain.REAR_LEFT_M.setInverted(false);
 
     RobotComponents.DriveTrain.REAR_RIGHT_M.setInverted(false);
-    RobotComponents.DriveTrain.FRONT_RIGHT_M.setInverted(false
-    );
-
+    RobotComponents.DriveTrain.FRONT_RIGHT_M.setInverted(false);
 
     RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower,
-        RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); 
+        RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID());
     RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower,
-        RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); 
-    
+        RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID());
+
     RobotComponents.DriveTrain.LEFT_ENCODER.setDistancePerPulse(RobotConstants.DRIVE_ENCODER_DPP);
     RobotComponents.DriveTrain.RIGHT_ENCODER.setDistancePerPulse(RobotConstants.DRIVE_ENCODER_DPP);
-    RobotComponents.Lift.ENCODER.setDistancePerPulse(RobotConstants.LIFT_ENCODER_DPP);
+    //RobotComponents.Lift.ENCODER.setDistancePerPulse(RobotConstants.LIFT_ENCODER_DPP);
 
     Robot.driveTrain = new TankDrivetrain(
-      (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
-      (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
+        (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
+        (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
 
     SmartDashboard.putData(new TestPID());
 
@@ -133,17 +131,17 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Cargo Folder Down", new SetCargoFolderState(Value.kReverse));
     SmartDashboard.putData("Hatch Eject Push", new SetHatchEject(Value.kForward));
     SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
-    SmartDashboard.putData("Drive", new DriveArcade(Robot.driveTrain, () -> -Robot.oi.operatorXbox.getY(), () -> -Robot.oi.operatorXbox.getX()));
+    SmartDashboard.putData("Drive",
+        new DriveArcade(Robot.driveTrain, () -> -Robot.oi.operatorXbox.getY(), () -> -Robot.oi.operatorXbox.getX()));
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
     SmartDashboard.putData("Move Lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
-    
+    SmartDashboard.putBoolean("reset enc", false);
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
     dbc.addNumber("180 pot", Robot.oneEighty::getAngle);
     dbc.addNumber("lift enc", Robot.lift::getHeight);
-    
-    
+
     addTests();
 
   }
@@ -152,8 +150,10 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     Robot.dbc.update();
     SmartDashboard.putData("Scheduler", Scheduler.getInstance());
+    if (SmartDashboard.getBoolean("reset enc", false))
+      RobotComponents.Lift.ENCODER.reset();
   }
-  
+
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
@@ -191,13 +191,14 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
   }
+
   @Override
   public void testPeriodic() {
     Scheduler.getInstance().run();
     SmartDashboard.putData("selected test command", this.testsChooser.getSelected());
   }
 
-  private void addTests(){
+  private void addTests() {
     testsChooser.addDefault("Hatch Unlock Default", new SetHatchLock(Value.kReverse));
 
     testsChooser.addOption("Cargo Roller", new CargoRollerTest());

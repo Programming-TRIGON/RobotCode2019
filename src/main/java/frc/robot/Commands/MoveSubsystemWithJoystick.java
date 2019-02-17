@@ -8,7 +8,6 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Subsystems.JoystickOverridableSubsystem;
 
@@ -37,7 +36,7 @@ public class MoveSubsystemWithJoystick extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    this.subsystem.move(this.joystick.getY());
+    this.subsystem.move(0.8*this.joystick.getY());
   }
 
   // Make this return true when this Command no longer needs to run execute()

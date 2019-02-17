@@ -3,7 +3,6 @@ package frc.robot.Subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 
@@ -24,17 +23,16 @@ public class Lift extends JoystickOverridableSubsystem {
     this.bottomSwitch = bottomSwitch;
     this.encoder = encoder;
     this.leftMotor.set(ControlMode.Follower, rightMotor.getDeviceID());
-    // this.leftMotor.set(ControlMode.PercentOutput, 0);
     this.leftMotor.setInverted(true);
   }
 
   /** sets the speed of the motors of the lift to higher/lower it */
   public void setMotorSpeed(double speed) {
-    /*if(speed > 0 && isAtTop() || speed < 0 && isAtBottom())
+    /* if(speed > 0 && isAtTop() || speed < 0 && isAtBottom())
       rightMotor.set(ControlMode.PercentOutput, 0);
     else{
       rightMotor.set(ControlMode.PercentOutput, speed);
-    }*/
+    } */
     rightMotor.set(ControlMode.PercentOutput, speed);
   }
 
@@ -50,19 +48,17 @@ public class Lift extends JoystickOverridableSubsystem {
     return bottomSwitch.get();
   }
 
-  /** This function returns the curent state of the potentiometer. */
+  /** This function returns the curent state of the encoder. */
   public Encoder getEncoder() {
-    //TODO: convert ticks to meters
     return this.encoder;
   }
 
   public double getHeight(){
-    return this.encoder.get();
+    return this.encoder.getDistance();
   }
 
   @Override
   public void initDefaultCommand() {
-
   }
 
   @Override

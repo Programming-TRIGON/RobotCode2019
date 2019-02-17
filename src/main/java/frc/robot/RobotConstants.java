@@ -60,7 +60,7 @@ public class RobotConstants {
     public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET = 525;
 
     public static final double DRIVE_ENCODER_DPP = RobotDimensions.DRIVE_WHEEL_DIAMETER*Math.PI/360;
-    public static final double LIFT_ENCODER_DPP = RobotDimensions.LIFT_WHEEL_DIAMETER*Math.PI/360*45;
+    public static final double LIFT_ENCODER_DPP = RobotDimensions.LIFT_WHEEL_DIAMETER*Math.PI/(360*45);
 
     /** the angles of the oneEighty subsystem when performing a task */
     public static enum OneEightyAngle {
@@ -84,6 +84,7 @@ public class RobotConstants {
         kOneEightySafety(1),
         /** a height that is safe to fold cargo colleter */
         kCargoFolderSafty(1);
+
         public double key;
 
         LiftHeight(double height) {
