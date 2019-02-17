@@ -51,13 +51,14 @@ public class TestPID extends Command {
     RobotComponents.DriveTrain.LEFT_ENCODER.reset();
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
 
-    command = new DriveArcadeWithVision(Robot.driveTrain,
-     new VisionPIDSource(VisionTarget.kReflector, VisionDirectionType.x), Setpoint, Robot.oi::getYLeft, pidSettings, 2, false);
-    //  command = new SetOneEightyAngle(Setpoint.get(), pidSettings);
+    command = new DriveArcadeWithVision(Robot.driveTrain, VisionTarget.kReflector, Setpoint, Robot.oi::getYLeft,
+        pidSettings, 2, false);
+    // command = new SetOneEightyAngle(Setpoint.get(), pidSettings);
 
-
-    //command = new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER, RobotComponents.DriveTrain.RIGHT_ENCODER, 
-    //Setpoint.get(), pidSettings);
+    // command = new DriveTankWithPID(Robot.driveTrain,
+    // RobotComponents.DriveTrain.LEFT_ENCODER,
+    // RobotComponents.DriveTrain.RIGHT_ENCODER,
+    // Setpoint.get(), pidSettings);
     command.start();
   }
 
