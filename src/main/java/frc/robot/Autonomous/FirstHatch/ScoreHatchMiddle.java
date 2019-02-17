@@ -7,7 +7,6 @@
 
 package frc.robot.Autonomous.FirstHatch;
 
-import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTankWithPID;
 import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 
@@ -17,12 +16,14 @@ import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.CommandGroups.CollectHatchFromFeeder;
 import frc.robot.CommandGroups.EjectHatch;
+import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Vision.VisionPIDSource;
 import frc.robot.Vision.VisionPIDSource.VisionDirectionType;
 import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 /**
- * Add your docs here.
+ * scores the first hatch in the middle rocket then goes to ht efeeder for
+ * getting the second hatch.
  */
 public class ScoreHatchMiddle extends CommandGroup {
   final double FIRST_DISTANCE = 4.25 - RobotConstants.robotLength;
@@ -55,8 +56,8 @@ public class ScoreHatchMiddle extends CommandGroup {
 
     // Use vision to deliver the hatch
     addSequential(
-        new DriveArcadeWithPID(Robot.driveTrain, new VisionPIDSource(VisionTarget.kReflector, VisionDirectionType.x), 0,
-            Robot.oi.getYLeft(), RobotConstants.RobotPIDSettings.REFLECTOR_TRACK_SETTINGS, 2000, false),
+        new DriveArcadeWithVision(Robot.driveTrain, new VisionPIDSource(VisionTarget.kReflector, VisionDirectionType.x), 0,
+            Robot.oi.getYLeft(), RobotConstants.RobotPIDSettings.REFLECTOR_TRACK_SETTINGS, 2, false),
         TARGET_TRACK_TIME);
 
     addSequential(new EjectHatch());
@@ -74,7 +75,7 @@ public class ScoreHatchMiddle extends CommandGroup {
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
         TURN_TO_FEEDER - 180 * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
-    //collects the hatch from the feeder
+    // collects the hatch from the feeder
     addSequential(new CollectHatchFromFeeder());
   }
 }

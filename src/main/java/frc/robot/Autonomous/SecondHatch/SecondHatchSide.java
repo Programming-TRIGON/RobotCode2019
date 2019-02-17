@@ -7,7 +7,6 @@
 
 package frc.robot.Autonomous.SecondHatch;
 
-import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTankWithPID;
 import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 
@@ -16,12 +15,16 @@ import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.CommandGroups.ScoreHatch;
+import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Vision.VisionPIDSource;
 import frc.robot.Vision.VisionPIDSource.VisionDirectionType;
 import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 public class SecondHatchSide extends CommandGroup {
-
+  /**
+   * continues the autonomous from the feeder and puts the second hatch in the
+   * in one of the three  side rockets.
+   */
   enum CargoShipHatch {
     kFirstHatch(6.9 - RobotConstants.robotLength), kSecondHatch(7.45 - RobotConstants.robotLength),
     kThirdHatch(8 - RobotConstants.robotLength);
@@ -33,9 +36,7 @@ public class SecondHatchSide extends CommandGroup {
     }
   }
 
-  /**
-   * Add your docs here.
-   */
+  //boolean is left mirrors the course of robot dependding on its side in the field.
   public SecondHatchSide(CargoShipHatch driveDistance, boolean isLeft) {
     final double start_feederDistance = 2.32;
     final double angle = Math.atan(start_feederDistance / driveDistance.key);
@@ -57,9 +58,9 @@ public class SecondHatchSide extends CommandGroup {
         TURN_TO_HATCH * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
    // Use vision to deliver the hatch
-   addSequential(new DriveArcadeWithPID(Robot.driveTrain, 
+   addSequential(new DriveArcadeWithVision(Robot.driveTrain, 
    new VisionPIDSource(VisionTarget.kReflector, VisionDirectionType.x), 0, Robot.oi.getYLeft(), 
-   RobotConstants.RobotPIDSettings.REFLECTOR_TRACK_SETTINGS, 2000, false), TARGET_TRACK_TIME);
+   RobotConstants.RobotPIDSettings.REFLECTOR_TRACK_SETTINGS, 2, false), TARGET_TRACK_TIME);
 
   //  scores the hatch
   addSequential(new ScoreHatch(RobotConstants.LiftHeight.kRocketMiddleHatch));

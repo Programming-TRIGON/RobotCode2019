@@ -7,7 +7,6 @@
 
 package frc.robot.Autonomous.SecondHatch;
 
-import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTankWithPID;
 import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 
@@ -16,6 +15,7 @@ import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.CommandGroups.ScoreHatch;
+import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Vision.VisionPIDSource;
 import frc.robot.Vision.VisionPIDSource.VisionDirectionType;
 import frc.robot.Vision.VisionPIDSource.VisionTarget;
@@ -46,9 +46,10 @@ public class SecondHatchMiddle extends CommandGroup {
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, TURN_TO_ROCKET - 180,
         RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
+    //delivers the hatch using vision
     addSequential(
-        new DriveArcadeWithPID(Robot.driveTrain, new VisionPIDSource(VisionTarget.kReflector, VisionDirectionType.x), 0,
-            Robot.oi.getYLeft(), RobotConstants.RobotPIDSettings.REFLECTOR_TRACK_SETTINGS, 2000, false),
+        new DriveArcadeWithVision(Robot.driveTrain, new VisionPIDSource(VisionTarget.kReflector, VisionDirectionType.x), 0,
+            Robot.oi.getYLeft(), RobotConstants.RobotPIDSettings.REFLECTOR_TRACK_SETTINGS, 2, false),
         TARGET_TRACK_TIME);
 
     // score the hatch.
