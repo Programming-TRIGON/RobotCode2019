@@ -11,7 +11,9 @@ import frc.robot.Subsystems.OneEighty;
 import frc.robot.TestCommands.CargoHolderTest;
 import frc.robot.TestCommands.CargoRollerTest;
 import frc.robot.Vision.VisionPIDSource.*;
+
 import frc.robot.Autonomous.TestPID;
+import frc.robot.CommandGroups.EjectHatch;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
 import frc.robot.Commands.SetCargoFolderState;
@@ -60,13 +62,17 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     comp = new Compressor(1);
-    comp.stop();
+    comp.start();
     
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     SmartDashboard.putData("Test Commands", testsChooser);
-  
+
+    NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
+    NetworkTableEntry target = imageProcessingTable.getEntry("target");
+    target.setString(VisionPIDSource.VisionTarget.kReflector.toString());
+    
     Robot.oi = new OI();
 
     Robot.dbc = new DashBoardController();
@@ -139,9 +145,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
     SmartDashboard.putData("Move Lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
     SmartDashboard.putBoolean("reset enc", false);
-    NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
-    NetworkTableEntry target = imageProcessingTable.getEntry("target");
-    target.setString(VisionTarget.kReflector.toString());
+    SmartDashboard.putData("eject hatch", new EjectHatch());
+    SmartDashboard.putData("Move Lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
+
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);

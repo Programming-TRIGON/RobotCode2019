@@ -6,7 +6,6 @@ import frc.robot.Vision.VisionPIDSource;
 
 public class VisionPIDController extends PIDController{
     //overrides the pidInput to be VisionPIDSource type
-    VisionPIDSource m_pidInput;
 
     public VisionPIDController(double Kp, double Ki, double Kd, VisionPIDSource source, PIDOutput output) {
         super(Kp, Ki, Kd, source, output, kDefaultPeriod);
@@ -28,7 +27,7 @@ public class VisionPIDController extends PIDController{
         //checks if the direction is found
         this.m_thisMutex.lock();
         try {
-            isUpdated = m_pidInput.isUpdated();
+            isUpdated = m_pidInput.pidGet()!=9999;
         } finally {
             this.m_thisMutex.unlock();
         }

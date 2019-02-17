@@ -14,7 +14,6 @@ public class Lift extends JoystickOverridableSubsystem {
 
   private Encoder encoder;
 
-
   public Lift(TalonSRX rightMotor, TalonSRX leftMotor, DigitalInput topwSwitch, DigitalInput bottomSwitch,
       Encoder encoder) {
     this.rightMotor = rightMotor;

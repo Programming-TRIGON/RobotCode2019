@@ -13,6 +13,7 @@ import com.spikes2212.dashboard.ConstantHandler;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTankWithPID;
+import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -20,13 +21,17 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
+import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Commands.SetOneEightyAngle;
+import frc.robot.Vision.VisionPIDSource;
+import frc.robot.Vision.VisionPIDSource.VisionDirectionType;
+import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 public class TestPID extends Command {
-  Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", -0.0001);
+  Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);
   Supplier<Double> KI = ConstantHandler.addConstantDouble("KI", 0);
-  Supplier<Double> KD = ConstantHandler.addConstantDouble("KD", 0.001);
-  Supplier<Double> tolerance = ConstantHandler.addConstantDouble("tolerance", 10);
+  Supplier<Double> KD = ConstantHandler.addConstantDouble("KD", 0.00);
+  Supplier<Double> tolerance = ConstantHandler.addConstantDouble("tolerance", 0.1);
   Supplier<Double> WAIT_TIME = ConstantHandler.addConstantDouble("WAIT_TIME", 1);
   Supplier<Double> Setpoint = ConstantHandler.addConstantDouble("Setpoint", 0);
 
@@ -46,12 +51,14 @@ public class TestPID extends Command {
     RobotComponents.DriveTrain.LEFT_ENCODER.reset();
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
 
-    command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, Setpoint, () -> 0.0, pidSettings, 360.0, false);
-    //  command = new SetOneEightyAngle(Setpoint.get(), pidSettings);
+    command = new DriveArcadeWithVision(Robot.driveTrain, VisionTarget.kReflector, Setpoint, Robot.oi::getYLeft,
+        pidSettings, false);
+    // command = new SetOneEightyAngle(Setpoint.get(), pidSettings);
 
-
-    //command = new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER, RobotComponents.DriveTrain.RIGHT_ENCODER, 
-    //Setpoint.get(), pidSettings);
+    // command = new DriveTankWithPID(Robot.driveTrain,
+    // RobotComponents.DriveTrain.LEFT_ENCODER,
+    // RobotComponents.DriveTrain.RIGHT_ENCODER,
+    // Setpoint.get(), pidSettings);
     command.start();
   }
 
@@ -71,7 +78,7 @@ public class TestPID extends Command {
   protected void end() {
   }
 
-  public void updatePID(){
+  public void updatePID() {
     this.pidSettings = new PIDSettings(KP.get(), KI.get(), KD.get(), tolerance.get(), WAIT_TIME.get());
     SmartDashboard.putString("PID setting", "" + KP.get() + KI.get() + KD.get() + tolerance.get() + WAIT_TIME.get());
   }
