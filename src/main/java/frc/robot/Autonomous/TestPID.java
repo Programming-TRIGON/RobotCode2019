@@ -13,6 +13,7 @@ import com.spikes2212.dashboard.ConstantHandler;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTankWithPID;
+import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.PIDController;
@@ -24,13 +25,17 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
+import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Commands.SetOneEightyAngle;
+import frc.robot.Vision.VisionPIDSource;
+import frc.robot.Vision.VisionPIDSource.VisionDirectionType;
+import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 public class TestPID extends Command {
-  Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", -0.0001);
+  Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);
   Supplier<Double> KI = ConstantHandler.addConstantDouble("KI", 0);
-  Supplier<Double> KD = ConstantHandler.addConstantDouble("KD", 0.001);
-  Supplier<Double> tolerance = ConstantHandler.addConstantDouble("tolerance", 10);
+  Supplier<Double> KD = ConstantHandler.addConstantDouble("KD", 0.00);
+  Supplier<Double> tolerance = ConstantHandler.addConstantDouble("tolerance", 0.1);
   Supplier<Double> WAIT_TIME = ConstantHandler.addConstantDouble("WAIT_TIME", 1);
   double movmentPidOutput;
   Supplier<Double> movmentSupplier = () -> movmentPidOutput; 
@@ -52,42 +57,17 @@ public class TestPID extends Command {
   protected void initialize() {
     updatePID();
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
-    RobotComponents.DriveTrain.LEFT_ENCODER.reset();
-    RobotComponents.DriveTrain.GYRO.reset();
-    // RobotComponents.DriveTrain.GYRO.reset();
-    // Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 
-    // () -> 90.0, () -> 0.0, pidSettings, 360.0, true);
-    // Command command = new SetOneEightyAngle(90, pidSettings);
-    //Command command = new DriveArcadeWithPID(Robot.driveTrain, );
-    this.movmentPidController = new PIDController(0.0025, 0, 0.004, new PIDSource(){
-    
-      @Override
-      public void setPIDSourceType(PIDSourceType pidSource) {        
-      }
-    
-      @Override
-      public double pidGet() {
-        return (RobotComponents.DriveTrain.LEFT_ENCODER.getDistance() + RobotComponents.DriveTrain.RIGHT_ENCODER.getDistance())/2;
-      }
-    
-      @Override
-      public PIDSourceType getPIDSourceType() {
-        return PIDSourceType.kDisplacement;
-      }
-    },
-        new PIDOutput(){
-          @Override
-          public void pidWrite(double output) {
-            movmentPidOutput = output;  
-          }
-        });
-    movmentPidController.setAbsoluteTolerance(5);
-    movmentPidController.setOutputRange(-1, 1);
-    movmentPidController.setSetpoint(350);
-    movmentPidController.enable();
-    
-    Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, Setpoint, this.movmentSupplier, pidSettings, 360, true);
-    Scheduler.getInstance().add(command);
+
+
+    command = new DriveArcadeWithVision(Robot.driveTrain, VisionTarget.kReflector, Setpoint, Robot.oi::getYLeft,
+        pidSettings, false);
+    // command = new SetOneEightyAngle(Setpoint.get(), pidSettings);
+
+    // command = new DriveTankWithPID(Robot.driveTrain,
+    // RobotComponents.DriveTrain.LEFT_ENCODER,
+    // RobotComponents.DriveTrain.RIGHT_ENCODER,
+    // Setpoint.get(), pidSettings);
+    command.start();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -111,6 +91,7 @@ public class TestPID extends Command {
 
 
   public void updatePID(){
+
     this.pidSettings = new PIDSettings(KP.get(), KI.get(), KD.get(), tolerance.get(), WAIT_TIME.get());
     SmartDashboard.putString("PID setting", "" + KP.get() + KI.get() + KD.get() + tolerance.get() + WAIT_TIME.get());
   }

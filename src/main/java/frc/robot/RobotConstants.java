@@ -37,7 +37,8 @@ public class RobotConstants {
          */
         public static final double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
 
-        public static final double WHEEL_DIAMETER = 15.24;
+        public static final double DRIVE_WHEEL_DIAMETER = 15.24;
+        public static final double LIFT_WHEEL_DIAMETER = 0.04;
     }
 
     /** constants for sensors on the robot */
@@ -64,12 +65,14 @@ public class RobotConstants {
     /**
      * The value at which the potentiometer will multiply the fraction it returns
      */
+
     public static final double ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER = -3600;
     // TODO change change offset
     /** the angle at which the potentiometer starts */
     public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET = 525;
 
-    public static final double ENCODER_DPP = RobotDimensions.WHEEL_DIAMETER*Math.PI/360;
+    public static final double DRIVE_ENCODER_DPP = RobotDimensions.DRIVE_WHEEL_DIAMETER*Math.PI/360;
+    public static final double LIFT_ENCODER_DPP = /* RobotDimensions.LIFT_WHEEL_DIAMETER*Math.PI/(360*45); */ 0.00009439527;
 
     /** the angles of the oneEighty subsystem when performing a task */
     public static enum OneEightyAngle {
@@ -93,6 +96,7 @@ public class RobotConstants {
         kOneEightySafety(1),
         /** a height that is safe to fold cargo colleter */
         kCargoFolderSafty(1);
+
         public double key;
 
         LiftHeight(double height) {

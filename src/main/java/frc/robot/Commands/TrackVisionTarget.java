@@ -10,6 +10,7 @@ package frc.robot.Commands;
 import java.util.function.Supplier;
 
 import com.spikes2212.dashboard.ConstantHandler;
+import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -36,50 +37,54 @@ public class TrackVisionTarget extends Command {
   private double rotation;
   private double distance;
   private double lastTimeNotOnTarget;
-
-  private final Supplier<Double> rotationKP = ConstantHandler.addConstantDouble("rotationKP", 0.4);
-  private final Supplier<Double> rotationKI = ConstantHandler.addConstantDouble("rotationKI", 0);
-  private final Supplier<Double> rotationKD = ConstantHandler.addConstantDouble("rotationKD", 0);
-  private final Supplier<Double> rotationTolerance = ConstantHandler.addConstantDouble("rotationTolerance", 0.1);
-  private final Supplier<Double> distanceKP = ConstantHandler.addConstantDouble("distanceKP", 0.4);
-  private final Supplier<Double> distanceKI = ConstantHandler.addConstantDouble("distanceKI", 0);
-  private final Supplier<Double> distanceKD = ConstantHandler.addConstantDouble("distanceKD", 0);
-  private final Supplier<Double> distanceTolerance = ConstantHandler.addConstantDouble("distanceTolerance", 0.1);
-  private final double ROTATION_SETPOINT = 0;
-  private final double DISTANCE_SETPOINT = 0;
-  private final double waitTime = 0.1;
-
-  public TrackVisionTarget(VisionPIDSource.VisionTarget target, XboxController xbox) {
+  private PIDSettings rotationSettings;
+  private PIDSettings distanceSettings;
+  private final double ROTATION_SETPOINT;
+  private final double DISTANCE_SETPOINT;
+/**
+ * 
+ * @param target target to follow
+ * @param xbox an xbox controller to control the drivetrain
+ * @param rotationSetpoint setpoint for the rotation PID
+ * @param rotationSettings PIDSettings for rotation PID. WaitTime is used from this settings.
+ * @param distanceSetpoint setpoint for the rotation PID
+ * @param distanceSettings PIDSettings for rotation PID. WaitTime isn't used.
+ */
+  public TrackVisionTarget(VisionPIDSource.VisionTarget target, XboxController xbox, double rotationSetpoint,
+  PIDSettings rotationSettings, double distanceSetpoint,PIDSettings distanceSettings) {
     this.target = target;
     this.xbox = xbox;
-
+    DISTANCE_SETPOINT = distanceSetpoint;
+    ROTATION_SETPOINT = rotationSetpoint;
+    this.rotationSettings = rotationSettings;
+    this.distanceSettings = distanceSettings;
     requires(Robot.driveTrain);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
-    NetworkTableEntry target = imageProcessingTable.getEntry("target");
-    target.setString(this.target.toString());
+    // NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
+    // NetworkTableEntry target = imageProcessingTable.getEntry("target");
+    // target.setString(this.target.toString());
     // pid sources for distance and rotation
     VisionPIDSource rotationPIDSource = new VisionPIDSource(this.target, VisionDirectionType.x);
     VisionPIDSource distancePIDSource = new VisionPIDSource(this.target, VisionDirectionType.y);
     // pid controller for the rotation
-    rotationPIDController = new VisionPIDController(this.rotationKP.get(), this.rotationKI.get(), this.rotationKD.get(),
+    rotationPIDController = new VisionPIDController(rotationSettings.getKP(), rotationSettings.getKI(), rotationSettings.getKD(),
         rotationPIDSource, (output) -> rotation = output);
-    rotationPIDController.setAbsoluteTolerance(this.rotationTolerance.get());
+    rotationPIDController.setAbsoluteTolerance(rotationSettings.getTolerance());
     rotationPIDController.setSetpoint(this.ROTATION_SETPOINT);
     rotationPIDController.setOutputRange(-1, 1);
     rotationPIDController.setInputRange(-1, 1);
     // pid controller for the distance
-    distancePIDController = new VisionPIDController(this.distanceKP.get(), this.distanceKI.get(), this.distanceKD.get(),
+    distancePIDController = new VisionPIDController(distanceSettings.getKP(), distanceSettings.getKI(), distanceSettings.getKD(),
         distancePIDSource, (output) -> distance = output);
-    distancePIDController.setAbsoluteTolerance(this.distanceTolerance.get());
+    distancePIDController.setAbsoluteTolerance(distanceSettings.getTolerance());
     distancePIDController.setSetpoint(this.DISTANCE_SETPOINT);
     distancePIDController.setOutputRange(-1, 1);
     distancePIDController.setInputRange(-1, 1);
-    //enables the controllers
+    // enables the controllers
     rotationPIDController.enable();
     distancePIDController.enable();
   }
@@ -102,7 +107,7 @@ public class TrackVisionTarget extends Command {
     // returns true if the robot reached his target
     if (this.distancePIDController.onTarget() && this.rotationPIDController.onTarget())
       lastTimeNotOnTarget = Timer.getFPGATimestamp();
-    return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= this.waitTime;
+    return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= rotationSettings.getWaitTime();
   }
 
   // Called once after isFinished returns true
