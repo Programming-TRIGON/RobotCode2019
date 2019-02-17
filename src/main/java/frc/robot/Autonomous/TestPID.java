@@ -17,7 +17,6 @@ import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
@@ -51,13 +50,15 @@ public class TestPID extends Command {
     RobotComponents.DriveTrain.LEFT_ENCODER.reset();
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
 
-    command = new DriveArcadeWithVision(Robot.driveTrain,
+    /*command = new DriveArcadeWithVision(Robot.driveTrain,
      new VisionPIDSource(VisionTarget.kReflector, VisionDirectionType.x), Setpoint, Robot.oi::getYLeft, pidSettings, 2, false);
     //  command = new SetOneEightyAngle(Setpoint.get(), pidSettings);
-
+    */
 
     //command = new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER, RobotComponents.DriveTrain.RIGHT_ENCODER, 
     //Setpoint.get(), pidSettings);
+
+    command = new SetOneEightyAngle(0, pidSettings);
     command.start();
   }
 
