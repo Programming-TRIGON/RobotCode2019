@@ -20,6 +20,7 @@ import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.Commands.SetOneEightyAngle;
+import frc.robot.Commands.SetOneEightyAngleNoPID;
 import frc.robot.Commands.setHatchCollectorState;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
@@ -141,8 +142,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Drive", new DriveArcade(Robot.driveTrain, () -> -Robot.oi.operatorXbox.getY(), () -> -Robot.oi.operatorXbox.getX()));
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
     SmartDashboard.putData("Eject hatch", new EjectHatch());
-    SmartDashboard.putData("Move Lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
+    SmartDashboard.putData("Move 180 With Joystick", new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox));    
     SmartDashboard.putData(new TestPID());
+    SmartDashboard.putData("0 angle", new SetOneEightyAngleNoPID(-2));
+    SmartDashboard.putData("90 angle", new SetOneEightyAngleNoPID(107));
+    SmartDashboard.putData("180 angle", new SetOneEightyAngleNoPID(208));
     
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
