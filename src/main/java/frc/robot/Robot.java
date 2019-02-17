@@ -4,7 +4,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
-
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -16,42 +18,23 @@ import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
-import frc.robot.TestCommands.CargoHolderTest;
-import frc.robot.TestCommands.CargoRollerTest;
 import frc.robot.Vision.VisionPIDSource;
-import frc.robot.Vision.VisionPIDSource.*;
-
 import frc.robot.Autonomous.TestPID;
 import frc.robot.CommandGroups.EjectHatch;
+import frc.robot.CommandGroups.SetOneEightyAngle;
 import frc.robot.Commands.CollectCargo;
-import frc.robot.Commands.MoveSubsystemWithJoystick;
-
 import frc.robot.Commands.DriveWithGyro;
-
+import frc.robot.Commands.MoveSubsystemWithJoystick;
+import frc.robot.Commands.ReachOneEightyAngle;
 import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
-import frc.robot.Commands.SetOneEightyAngle;
-import frc.robot.Commands.SetOneEightyAngleNoPID;
-import frc.robot.Commands.TestAuto;
 import frc.robot.Commands.setHatchCollectorState;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
 import frc.robot.Subsystems.HatchHolder;
-import frc.robot.Subsystems.Lift;
-import frc.robot.Subsystems.OneEighty;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
@@ -71,12 +54,12 @@ public class Robot extends TimedRobot {
   public static OI oi;
 
   final SendableChooser<Command> testsChooser = new SendableChooser<Command>();;
-  public static Compressor comp;
+  public static Compressor compressor;
 
   @Override
   public void robotInit() {
-    comp = new Compressor(1);
-    comp.start();
+    compressor = new Compressor(1);
+    compressor.stop();
     
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -147,6 +130,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putData(new TestPID());
 
+    // Open/Close solenoids
     SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
     SmartDashboard.putData("Hatch Unlock", new SetHatchLock(Value.kReverse));
     SmartDashboard.putData("Hatch Collector Up", new setHatchCollectorState(Value.kForward));
@@ -155,34 +139,42 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
     SmartDashboard.putData("Hatch Eject Push", new SetHatchEject(Value.kForward));
     SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
+
+
     SmartDashboard.putData("Drive",
     new DriveArcade(Robot.driveTrain, () -> -Robot.oi.operatorXbox.getY(), () -> -Robot.oi.operatorXbox.getX()));
+
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
+
     SmartDashboard.putData("Eject hatch", new EjectHatch());
     SmartDashboard.putData("Move 180 With Joystick", new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox));    
+
     SmartDashboard.putData(new TestPID());
-    SmartDashboard.putData("0 angle", new SetOneEightyAngleNoPID(-2));
-    SmartDashboard.putData("90 angle", new SetOneEightyAngleNoPID(107));
-    SmartDashboard.putData("180 angle", new SetOneEightyAngleNoPID(208));
+
+    // Control 180 without PID control
+    SmartDashboard.putData("0 angle", new ReachOneEightyAngle(-2));
+    SmartDashboard.putData("90 angle", new ReachOneEightyAngle(107));
+    SmartDashboard.putData("180 angle", new ReachOneEightyAngle(208));
     
+    // Auto command tests
     SmartDashboard.putData("drive 3 meters",new DriveWithGyro(300));
 
+    // Robot data to be periodically published to SmartDashboard
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
-    dbc.addNumber("180 pot", Robot.oneEighty::getAngle);
-    dbc.addNumber("lift enc", Robot.lift::getHeight);
+    dbc.addNumber("180 potentiometer", Robot.oneEighty::getAngle);
+    dbc.addNumber("Lift encoder", Robot.lift::getHeight);
     
     addTests();
-
   }
 
   @Override
   public void robotPeriodic() {
     Robot.dbc.update();
     SmartDashboard.putData("Scheduler", Scheduler.getInstance());
-    if (Robot.lift.isAtBottom()||SmartDashboard.getBoolean("reset enc", false))
-    RobotComponents.Lift.ENCODER.reset();
+    if (Robot.lift.isAtBottom() || SmartDashboard.getBoolean("reset enc", false))
+      RobotComponents.Lift.ENCODER.reset();
   }
   
   @Override

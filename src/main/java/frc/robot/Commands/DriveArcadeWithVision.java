@@ -39,9 +39,11 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
 
   @Override
   protected void initialize() {
+    // Set target in the Network Table
     NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
     NetworkTableEntry target = imageProcessingTable.getEntry("target");
     target.setString(((VisionPIDSource) PIDSource).getTarget().toString());
+
     this.rotationController = new VisionPIDController(PIDSettings.getKP(), PIDSettings.getKI(), PIDSettings.getKD(),
         (VisionPIDSource) PIDSource, (rotate) -> {
           if (rotate != 9999) {
@@ -49,12 +51,16 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
             lastTimeFound = Timer.getFPGATimestamp();
           }
         });
+
     rotationController.setAbsoluteTolerance(PIDSettings.getTolerance());
     rotationController.setSetpoint(setpointSupplier.get());
     rotationController.setOutputRange(-1, 1);
     rotationController.setInputRange(-inputRange / 2, inputRange / 2);
     rotationController.setContinuous(continuous);
+
+    // Stop the tracking if the target is not found for a given amount of time
     this.isFinishedSupplier = () -> Timer.getFPGATimestamp() - lastTimeFound >= this.PIDSettings.getWaitTime()||isTimedOut();
+
     rotationController.enable();
 
   }
