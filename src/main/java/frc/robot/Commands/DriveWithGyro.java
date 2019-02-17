@@ -16,10 +16,15 @@ import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 
+/*
+This command uses the DriveArcadeWithPID to control the robot's distance based on the encoders as well as another PIDController to control the robot's heading
+*/
+
 public class DriveWithGyro extends Command {
   private double movementPidOutput, distance, lastTimeNotOnTarget;
   private Supplier<Double> movementSupplier = () -> movementPidOutput; 
   private PIDController movementPidController;
+  private Command DriveCommand;
   public DriveWithGyro(double distance) {
     this.distance=distance;
   }
@@ -39,10 +44,10 @@ public class DriveWithGyro extends Command {
     movementPidController.setSetpoint(this.distance);
     movementPidController.enable();
 
-    Command command = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 
+    DriveCommand = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 
     () -> RobotComponents.DriveTrain.GYRO.getAngle(), 
     this.movementSupplier, RobotConstants.RobotPIDSettings.GYRO_DRIVE_SETTINGS, 360, true);
-    command.start();
+    DriveCommand.start();
   }
 
   @Override
@@ -60,6 +65,7 @@ public class DriveWithGyro extends Command {
   protected void end() {
     this.movementPidController.disable();
     this.movementPidController.close();
+    DriveCommand.close();
   }
 
   @Override
