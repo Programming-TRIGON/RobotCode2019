@@ -54,8 +54,7 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
     rotationController.setOutputRange(-1, 1);
     rotationController.setInputRange(-inputRange / 2, inputRange / 2);
     rotationController.setContinuous(continuous);
-    this.isFinishedSupplier = () -> Timer.getFPGATimestamp() - lastTimeFound >= this.PIDSettings.getWaitTime();
-    ;
+    this.isFinishedSupplier = () -> Timer.getFPGATimestamp() - lastTimeFound >= this.PIDSettings.getWaitTime()||isTimedOut();
     rotationController.enable();
 
   }
