@@ -31,17 +31,11 @@ public class SetOneEightyAngle extends Command {
   public SetOneEightyAngle(RobotConstants.OneEightyAngle angle) {
     this.angle = angle.key;
     requires(Robot.oneEighty);
+    this.pidSettings = RobotConstants.RobotPIDSettings.ONE_EIGHTY_SET_ANGLE_SETTINGS;
   }
 
   @Override
-  protected void initialize() {
-    /*this.pidController = new PIDController(RobotConstants.RobotPIDSettings.ONE_EIGHTY_SET_ANGLE_SETTINGS.getKP(),
-    RobotConstants.RobotPIDSettings.ONE_EIGHTY_SET_ANGLE_SETTINGS.getKI(),
-    RobotConstants.RobotPIDSettings.ONE_EIGHTY_SET_ANGLE_SETTINGS.getKD(),
-    Robot.oneEighty.getPotentiometer(),
-    (output) -> Robot.oneEighty.setOneEighty(output));
-    */
-    
+  protected void initialize() {   
     this.pidController = new PIDController(pidSettings.getKP(),
     pidSettings.getKI(),
     pidSettings.getKD(),
