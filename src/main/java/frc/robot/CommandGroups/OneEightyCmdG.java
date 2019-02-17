@@ -9,10 +9,15 @@ package frc.robot.CommandGroups;
 
 import java.util.function.Supplier;
 
+import com.spikes2212.utils.PIDSettings;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
+import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.Commands.SetOneEightyAngle;
+import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;;
 
@@ -35,6 +40,7 @@ public class OneEightyCmdG extends CommandGroup {
       }
     };
     addSequential(new SetOneEightyAngle(angle));
-    addParallel(new SetLiftHeight(liftSetpointSupplier, true));
+    //TODO calibrate pid settings
+    addParallel(new SetLiftHeight(liftSetpointSupplier,new PIDSettings(0.2, 0, 0, 0.1, 0)));
   }
 }

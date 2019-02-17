@@ -10,7 +10,8 @@ import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
 import frc.robot.TestCommands.CargoHolderTest;
 import frc.robot.TestCommands.CargoRollerTest;
-import frc.robot.Vision.VisionPIDSource;
+import frc.robot.Vision.VisionPIDSource.*;
+
 import frc.robot.Autonomous.TestPID;
 import frc.robot.CommandGroups.EjectHatch;
 import frc.robot.Commands.CollectCargo;
@@ -67,9 +68,11 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     SmartDashboard.putData("Test Commands", testsChooser);
+
     NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
     NetworkTableEntry target = imageProcessingTable.getEntry("target");
     target.setString(VisionPIDSource.VisionTarget.kReflector.toString());
+    
     Robot.oi = new OI();
 
     Robot.dbc = new DashBoardController();
@@ -79,7 +82,7 @@ public class Robot extends TimedRobot {
 
     /** defining the subsystem lift that highers the cargo and hatch holders */
     Robot.lift = new Lift(RobotComponents.Lift.LIFT_RIGHT_M, RobotComponents.Lift.LIFT_LEFT_M,
-        RobotComponents.Lift.TOP_SWITCH, RobotComponents.Lift.BOTTOM_SWITCH, RobotComponents.Lift.POT);
+    RobotComponents.Lift.TOP_SWITCH, RobotComponents.Lift.BOTTOM_SWITCH, RobotComponents.Lift.ENCODER);
 
     /**
      * creates the new susbsystem with three solenoids, two that extends the whole
@@ -112,17 +115,16 @@ public class Robot extends TimedRobot {
     RobotComponents.DriveTrain.REAR_LEFT_M.setInverted(false);
 
     RobotComponents.DriveTrain.REAR_RIGHT_M.setInverted(false);
-    RobotComponents.DriveTrain.FRONT_RIGHT_M.setInverted(false
-    );
-
+    RobotComponents.DriveTrain.FRONT_RIGHT_M.setInverted(false);
 
     RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower,
         RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID()); 
     RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower,
         RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); 
     
-    RobotComponents.DriveTrain.LEFT_ENCODER.setDistancePerPulse(RobotConstants.ENCODER_DPP);
-    RobotComponents.DriveTrain.RIGHT_ENCODER.setDistancePerPulse(RobotConstants.ENCODER_DPP);
+        RobotComponents.DriveTrain.LEFT_ENCODER.setDistancePerPulse(RobotConstants.DRIVE_ENCODER_DPP);
+        RobotComponents.DriveTrain.RIGHT_ENCODER.setDistancePerPulse(RobotConstants.DRIVE_ENCODER_DPP);
+        // RobotComponents.Lift.ENCODER.setDistancePerPulse(RobotConstants.LIFT_ENCODER_DPP);
 
     Robot.driveTrain = new TankDrivetrain(
       (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
@@ -138,8 +140,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Cargo Folder Down", new SetCargoFolderState(Value.kReverse));
     SmartDashboard.putData("Hatch Eject Push", new SetHatchEject(Value.kForward));
     SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
-    SmartDashboard.putData("Drive", new DriveArcade(Robot.driveTrain, () -> -Robot.oi.operatorXbox.getY(), () -> -Robot.oi.operatorXbox.getX()));
+    SmartDashboard.putData("Drive",
+    new DriveArcade(Robot.driveTrain, () -> -Robot.oi.operatorXbox.getY(), () -> -Robot.oi.operatorXbox.getX()));
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
+    SmartDashboard.putData("Move Lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
+    SmartDashboard.putBoolean("reset enc", false);
     SmartDashboard.putData("eject hatch", new EjectHatch());
     SmartDashboard.putData("Move Lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
 
@@ -147,6 +152,7 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
     dbc.addNumber("180 pot", Robot.oneEighty::getAngle);
+    dbc.addNumber("lift enc", Robot.lift::getHeight);
     
     addTests();
 
@@ -156,6 +162,8 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     Robot.dbc.update();
     SmartDashboard.putData("Scheduler", Scheduler.getInstance());
+    if (Robot.lift.isAtBottom()||SmartDashboard.getBoolean("reset enc", false))
+    RobotComponents.Lift.ENCODER.reset();
   }
   
   @Override
@@ -195,13 +203,14 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
   }
+
   @Override
   public void testPeriodic() {
     Scheduler.getInstance().run();
     SmartDashboard.putData("selected test command", this.testsChooser.getSelected());
   }
 
-  private void addTests(){
+  private void addTests() {
     testsChooser.addDefault("Hatch Unlock Default", new SetHatchLock(Value.kReverse));
 
     testsChooser.addOption("Cargo Roller", new CargoRollerTest());
