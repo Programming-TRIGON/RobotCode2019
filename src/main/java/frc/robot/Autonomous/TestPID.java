@@ -56,15 +56,7 @@ public class TestPID extends Command {
   protected void initialize() {
     updatePID();
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
-
-    command = new DriveArcadeWithVision(Robot.driveTrain, VisionTarget.kReflector, Setpoint, Robot.oi::getYLeft,
-        pidSettings, false);
-    // command = new SetOneEightyAngle(Setpoint.get(), pidSettings);
-
-    // command = new DriveTankWithPID(Robot.driveTrain,
-    // RobotComponents.DriveTrain.LEFT_ENCODER,
-    // RobotComponents.DriveTrain.RIGHT_ENCODER,
-    // Setpoint.get(), pidSettings);
+    command = new SetOneEightyAngle(-2, pidSettings);
     command.start();
   }
 
