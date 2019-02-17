@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Commands.ReachOneEightyAngle;
 import frc.robot.Commands.StabilizeOneEightyAngle;
 import frc.robot.RobotConstants.OneEightyAngle;
-import frc.robot.RobotConstants.oneEighty;
 
 public class SetOneEightyAngle extends CommandGroup {
 

@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class setHatchCollectorState extends Command {
+public class SetHatchCollectorState extends Command {
   private Value state;
 
-  public setHatchCollectorState(Value state) {
+  public SetHatchCollectorState(Value state) {
     requires(Robot.hatchCollector);
     this.state = state;
     // Use requires() here to declare subsystem dependencies

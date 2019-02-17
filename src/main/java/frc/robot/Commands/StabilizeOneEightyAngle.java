@@ -26,12 +26,13 @@ public class StabilizeOneEightyAngle extends Command {
   public StabilizeOneEightyAngle(double angle) {
     requires(Robot.oneEighty);
     this.angle = angle;
+    this.pidSettings = RobotConstants.RobotPIDSettings.ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS;
   }
 
   public StabilizeOneEightyAngle(RobotConstants.OneEightyAngle angle) {
+    requires(Robot.oneEighty);    
     this.angle = angle.key;
-    requires(Robot.oneEighty);
-    this.pidSettings = RobotConstants.RobotPIDSettings.ONE_EIGHTY_SET_ANGLE_SETTINGS;
+    this.pidSettings = RobotConstants.RobotPIDSettings.ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS;
   }
 
   @Override
@@ -42,7 +43,6 @@ public class StabilizeOneEightyAngle extends Command {
     Robot.oneEighty.getPotentiometer(),
     (output) -> Robot.oneEighty.setOneEighty(output));
 
-    //pidController.setAbsoluteTolerance(RobotConstants.RobotPIDSettings.ONE_EIGHTY_SET_ANGLE_SETTINGS.getTolerance());
     pidController.setAbsoluteTolerance(pidSettings.getTolerance());
     pidController.setOutputRange(-1, 1);
     pidController.setSetpoint(angle);

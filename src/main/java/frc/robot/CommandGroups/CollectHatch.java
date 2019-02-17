@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.RobotConstants;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
-import frc.robot.Commands.setHatchCollectorState;
+import frc.robot.Commands.SetHatchCollectorState;
 /**
  * Add your docs here.
  */
@@ -27,9 +27,9 @@ public class CollectHatch extends CommandGroup {
 
         addParallel(new SetLiftHeight(RobotConstants.LiftHeight.kLiftBottom));
         addSequential(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));
-        addSequential(new setHatchCollectorState(SSDown));
+        addSequential(new SetHatchCollectorState(SSDown));
         addSequential(new WaitCommand(1));
-        addSequential(new setHatchCollectorState(SSUp));
+        addSequential(new SetHatchCollectorState(SSUp));
         addSequential(new SetHatchLock(lock));
     }
 }

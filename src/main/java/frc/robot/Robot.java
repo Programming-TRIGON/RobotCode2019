@@ -27,10 +27,10 @@ import frc.robot.Commands.DriveWithGyro;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
 import frc.robot.Commands.ReachOneEightyAngle;
 import frc.robot.Commands.SetCargoFolderState;
+import frc.robot.Commands.SetHatchCollectorState;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
-import frc.robot.Commands.setHatchCollectorState;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
@@ -133,8 +133,8 @@ public class Robot extends TimedRobot {
     // Open/Close solenoids
     SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
     SmartDashboard.putData("Hatch Unlock", new SetHatchLock(Value.kReverse));
-    SmartDashboard.putData("Hatch Collector Up", new setHatchCollectorState(Value.kForward));
-    SmartDashboard.putData("Hatch Collector Down", new setHatchCollectorState(Value.kReverse));
+    SmartDashboard.putData("Hatch Collector Up", new SetHatchCollectorState(Value.kForward));
+    SmartDashboard.putData("Hatch Collector Down", new SetHatchCollectorState(Value.kReverse));
     SmartDashboard.putData("Cargo folder Up", new SetCargoFolderState(Value.kForward));
     SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
     SmartDashboard.putData("Hatch Eject Push", new SetHatchEject(Value.kForward));
@@ -234,7 +234,7 @@ public class Robot extends TimedRobot {
     testsChooser.addOption("hatchLockOn", new SetHatchLock(Value.kForward));
     testsChooser.addOption("hatchLockOff", new SetHatchLock(Value.kReverse));
 
-    testsChooser.addOption("hatchCollectorOn", new setHatchCollectorState(Value.kForward));
-    testsChooser.addOption("hatchCollectorOff", new setHatchCollectorState(Value.kReverse));
+    testsChooser.addOption("hatchCollectorOn", new SetHatchCollectorState(Value.kForward));
+    testsChooser.addOption("hatchCollectorOff", new SetHatchCollectorState(Value.kReverse));
   }
 }
