@@ -24,17 +24,17 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
   protected double lastTimeFound = 0;
 
   public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource.VisionTarget target,
-      Supplier<Double> setpointSupplier, Supplier<Double> movementSupplier, PIDSettings PIDSettings, double inputRange,
+      Supplier<Double> setpointSupplier, Supplier<Double> movementSupplier, PIDSettings PIDSettings, 
       boolean continuous) {
     super(drivetrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), setpointSupplier,
-        movementSupplier, () -> false, PIDSettings, inputRange, continuous);
+        movementSupplier, () -> false, PIDSettings, 2, continuous);
   }
 
   public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource.VisionTarget target, double setpoint,
-      double movement, PIDSettings PIDSettings, double inputRange, boolean continuous) {
+      double movement, PIDSettings PIDSettings, boolean continuous) {
 
     super(drivetrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), () -> setpoint,
-        () -> movement, PIDSettings, inputRange, continuous);
+        () -> movement, PIDSettings, 2, continuous);
   }
 
   @Override
@@ -59,5 +59,4 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
     rotationController.enable();
 
   }
-
 }
