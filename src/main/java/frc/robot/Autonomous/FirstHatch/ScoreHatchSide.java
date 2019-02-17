@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
+import frc.robot.CommandGroups.CollectHatchFromFeeder;
 import frc.robot.CommandGroups.EjectHatch;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.LiftHeight;
@@ -25,7 +26,6 @@ import frc.robot.Vision.VisionPIDSource.VisionTarget;
 public class ScoreHatchSide extends CommandGroup {
   final double TURN_TO_TARGET = 90;
   final double TARGET_TRACK_TIME = 5;
-
   final double REVERSE_DIST = 0.5;
 
   enum CargoShipHatch {
@@ -39,6 +39,7 @@ public class ScoreHatchSide extends CommandGroup {
     }
   }
 
+  
   public ScoreHatchSide(CargoShipHatch driveDistance, boolean isLeft) {
     // Drive towards the Cargo Ship
     addSequential(new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER,
@@ -66,15 +67,17 @@ public class ScoreHatchSide extends CommandGroup {
     RobotComponents.DriveTrain.RIGHT_ENCODER, () -> REVERSE_DIST, () -> REVERSE_DIST, 
     RobotConstants.RobotPIDSettings.DRIVE_SETTINGS));
 
-    // turn to face the feeder 
-    double start_feederDistance = 1.5;
-    // angle to turn home depends on how far we drove, so 
-    // tan(angle to turn) = distance between starting point and feeder / distance driven
-  
-    double TURN_TO_FEEDER = Math.atan(start_feederDistance / driveDistance.key);
+        // turn to face the feeder 
+        double start_feederDistance = 2.32;
+        // angle to turn home depends on how far we drove, so 
+        // tan(angle to turn) = distance between starting point and feeder / distance driven
+      
+        double TURN_TO_FEEDER = Math.atan(start_feederDistance / driveDistance.key);
+
+
 
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 
-    TURN_TO_FEEDER * (isLeft ? 1:-1), 
+    (TURN_TO_FEEDER + 90) * (isLeft ? 1:-1), 
     RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     double distanceToFeeder = Math.sqrt(Math.pow(start_feederDistance, 2) +
@@ -89,7 +92,7 @@ public class ScoreHatchSide extends CommandGroup {
     -TURN_TO_FEEDER * (isLeft ? 1:-1), 
     RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
-
+    addSequential(new CollectHatchFromFeeder());
   }
 
 }
