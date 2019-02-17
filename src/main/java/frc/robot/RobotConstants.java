@@ -3,9 +3,12 @@ package frc.robot;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.spikes2212.utils.PIDSettings;
+
 /** a class used to store constants related to the robot */
 public class RobotConstants {
     // oneEighty constants
+    public static final double robotLength = 0.82;
     public static class oneEighty {
         // TODO set real height
         public static final double MINIMUM_HEIGHT = 1;
@@ -50,6 +53,15 @@ public class RobotConstants {
         public static final Double LIFT_POTENTOIMETER_OFFSET = RobotDimensions.DISTANCE_LIFT_MECHANISM_FROM_FLOOR;
     }
 
+    public static class RobotPIDSettings {
+        // (kP, kI, kD, Tolerance, WaitTime)
+        public static final PIDSettings DRIVE_SETTINGS = new PIDSettings(0.0025,0,0.004,5,0.5);
+        public static final PIDSettings TURN_SETTINGS = new PIDSettings(0.022,0.00009,0.0735,4,0.5);
+        public static final PIDSettings REFLECTOR_TRACK_SETTINGS = new PIDSettings(0,0,0,0,0); 
+        public static final PIDSettings GYRO_DRIVE_SETTINGS = new PIDSettings(0.05,0,0.3,0,0);
+
+    }
+    
     /**
      * The value at which the potentiometer will multiply the fraction it returns
      */
