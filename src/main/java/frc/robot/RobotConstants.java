@@ -4,16 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.spikes2212.utils.PIDSettings;
-
+public static final double Robot_Length = 0.974; // without bumpers 0.82
 /** a class used to store constants related to the robot */
 public class RobotConstants {
-    // oneEighty constants
-    public static final double robotLength = 0.974; // without bumpers 0.82
-
-    public static class oneEighty {
-        public static final double MINIMUM_HEIGHT = 1;
-    }
-
     /** The measurments of the robot */
     public static class RobotDimensions {
         public static final double ONE_EIGHTY_LENGTH = 42;
@@ -21,6 +14,7 @@ public class RobotConstants {
         public static final double LIFT_TUBE_DIAMETER = 0.04; // 3.447; //what is it moshe?!
         public static final double DISTANCE_LIFT_MECHANISM_FROM_FLOOR = 32.24;
 
+        public static final double ROBOT_LENGTH = 0.974; // without bumpers 0.82
         public static final double DRIVE_WHEEL_DIAMETER = 15.24;
     }
 
