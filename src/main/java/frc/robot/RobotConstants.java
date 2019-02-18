@@ -33,7 +33,7 @@ public class RobotConstants {
         // (kP, kI, kD, Tolerance, WaitTime)
         public static final PIDSettings DRIVE_SETTINGS = new PIDSettings(0.0025,0,0.004,5,0.5);
         public static final PIDSettings TURN_SETTINGS = new PIDSettings(0.022,0.00009,0.0735,4,0.5);
-        public static final PIDSettings GYRO_DRIVE_SETTINGS = new PIDSettings(0.075,0,0.35,0,0);
+        public static final PIDSettings GYRO_DRIVE_SETTINGS = new PIDSettings(0.05,0,0.3,0,0);
         public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.003,0.00025,0.01,0,0);
         public static final PIDSettings VISION_TURN_SETTINGS = new PIDSettings(0,0,0,0,0);
     }

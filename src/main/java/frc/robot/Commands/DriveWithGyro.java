@@ -8,9 +8,6 @@
 package frc.robot.Commands;
 
 import java.util.function.Supplier;
-
-import com.spikes2212.utils.PIDSettings;
-
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -28,19 +25,10 @@ public class DriveWithGyro extends Command {
   private PIDController movementPidController;
   private Command DriveCommand;
   private double currentSpeedFactor = 0.7;
-  private PIDSettings drivePidSettings;
-
 
   public DriveWithGyro(double distance) {
     setTimeout(TIMEOUT);
     this.distance = distance;
-    drivePidSettings = RobotConstants.RobotPIDSettings.DRIVE_SETTINGS;
-  }
-
-  public DriveWithGyro(double distance, PIDSettings pidSettings){
-    setTimeout(TIMEOUT);
-    this.distance = distance;
-    drivePidSettings = pidSettings;
   }
 
   @Override
@@ -48,28 +36,26 @@ public class DriveWithGyro extends Command {
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
     RobotComponents.DriveTrain.LEFT_ENCODER.reset();
 
-    this.movementPidController = new PIDController(drivePidSettings.getKP(),
-    drivePidSettings.getKI(), 
-    drivePidSettings.getKD(), 
-    new DistancePIDSource(), (output) -> {
-      if (currentSpeedFactor >= 1)
-        movementPidOutput = output;
-      else {
-        currentSpeedFactor += 0.05;
-        movementPidOutput = output * currentSpeedFactor;
-      }
-    });
-    
-    movementPidController.setAbsoluteTolerance(drivePidSettings.getTolerance());
+    this.movementPidController = new PIDController(RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKP(),
+        RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKI(), RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKD(),
+        new DistancePIDSource(), (output) -> {
+          if (currentSpeedFactor >= 1)
+            movementPidOutput = output;
+          else {
+            currentSpeedFactor += 0.05;
+            movementPidOutput = output * currentSpeedFactor;
+          }
+        });
+
+    movementPidController.setAbsoluteTolerance(5);
     movementPidController.setOutputRange(-1, 1);
     movementPidController.setSetpoint(this.distance);
 
-    double angleSetPoint = RobotComponents.DriveTrain.GYRO.getAngle();
-
-    DriveCommand = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 
-    () -> angleSetPoint, movementSupplier, RobotConstants.RobotPIDSettings.GYRO_DRIVE_SETTINGS, 360, true);
+    DriveCommand = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
+        () -> RobotComponents.DriveTrain.GYRO.getAngle(), this.movementSupplier,
+        RobotConstants.RobotPIDSettings.GYRO_DRIVE_SETTINGS, 360, true);
+    movementPidController.enable();
     DriveCommand.start();
-    movementPidController.enable();    
   }
 
   @Override
@@ -78,7 +64,7 @@ public class DriveWithGyro extends Command {
 
   @Override
   protected boolean isFinished() {
-    // if (!this.movementPidController.onTarget())
+    // if (this.movementPidController.onTarget())
     // lastTimeNotOnTarget = Timer.getFPGATimestamp();
     // return Timer.getFPGATimestamp() - lastTimeNotOnTarget >=
     // RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getWaitTime();

@@ -20,7 +20,7 @@ public class Turn extends OrientWithPID {
    * @param angle the setpoint which the Robot turns to (using PID).
    */
   public Turn(double angle) {
-    super(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, angle, RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360,
+    super(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, angle, RobotConstants.RobotPIDSettings.TURN_SETTINGS, 2,
         true);
   }
 }
