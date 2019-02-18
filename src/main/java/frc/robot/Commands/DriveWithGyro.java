@@ -19,12 +19,14 @@ import frc.robot.RobotConstants;
 This command uses the DriveArcadeWithPID to control the robot's distance based on the encoders as well as another PIDController to control the robot's heading
 */
 public class DriveWithGyro extends Command {
+  private final double TIMEOUT = 5;
   private double movementPidOutput, distance, lastTimeNotOnTarget;
   private Supplier<Double> movementSupplier = () -> movementPidOutput;
   private PIDController movementPidController;
   private Command DriveCommand;
 
   public DriveWithGyro(double distance) {
+    setTimeout(TIMEOUT);
     this.distance = distance;
   }
 
@@ -60,7 +62,7 @@ public class DriveWithGyro extends Command {
     // lastTimeNotOnTarget = Timer.getFPGATimestamp();
     // return Timer.getFPGATimestamp() - lastTimeNotOnTarget >=
     // RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getWaitTime();
-    return this.movementPidController.onTarget();
+    return this.movementPidController.onTarget()||isTimedOut();
   }
 
   @Override
