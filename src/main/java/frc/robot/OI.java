@@ -20,10 +20,19 @@ public class OI {
     public XboxController operatorXbox = new XboxController(0);  
     public XboxController driveXboxController = new XboxController(1);
     JoystickButton driverButtonY, driverButtonA;
+    JoystickButton operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB,
+    operatorButtonA, operatorButtonB;
     
     public OI(){
         this.driverButtonA = new JoystickButton(driveXboxController, 1);
         this.driverButtonY = new JoystickButton(driveXboxController, 4);
+
+        operatorButtonA = new JoystickButton(operatorXbox, 1);
+        operatorButtonB = new JoystickButton(operatorXbox, 2);
+        operatorButtonX = new JoystickButton(operatorXbox, 3);
+        operatorButtonY = new JoystickButton(operatorXbox, 4);
+        operatorButtonLB = new JoystickButton(operatorXbox, 5);
+        operatorButtonRB = new JoystickButton(operatorXbox, 6);
 
         driverButtonA.whenPressed(new SetDriveInverted(true));
         driverButtonY.whenPressed(new SetDriveInverted(false));
