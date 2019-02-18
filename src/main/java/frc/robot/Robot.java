@@ -22,6 +22,7 @@ import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
 import frc.robot.Vision.VisionPIDSource;
 import frc.robot.Autonomous.TestPID;
+import frc.robot.Autonomous.testAuto;
 import frc.robot.CommandGroups.EjectHatch;
 import frc.robot.CommandGroups.SetOneEightyAngle;
 import frc.robot.Commands.CollectCargo;
@@ -33,6 +34,7 @@ import frc.robot.Commands.SetHatchCollectorState;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
+import frc.robot.Commands.TestAuto;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
@@ -159,7 +161,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Set one eighty angel 180", new SetOneEightyAngle(208));
     
     // Auto command tests
-    SmartDashboard.putData("Drive 3 meters", new DriveWithGyro(300));
+    SmartDashboard.putData("Test auto", new testAuto());
     SmartDashboard.putData("Turn 90", new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 90.0, RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     // Robot data to be periodically published to SmartDashboard
