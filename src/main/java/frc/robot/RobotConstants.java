@@ -59,7 +59,7 @@ public class RobotConstants {
         public static final PIDSettings TURN_SETTINGS = new PIDSettings(0.022,0.00009,0.0735,4,0.5);
         public static final PIDSettings REFLECTOR_TRACK_SETTINGS = new PIDSettings(0,0,0,0,0); 
         public static final PIDSettings GYRO_DRIVE_SETTINGS = new PIDSettings(0.05,0,0.3,0,0);
-        public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.01,0,0,1,0);
+        public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.003,0.00025,0.01,0,0);
 
     }
     

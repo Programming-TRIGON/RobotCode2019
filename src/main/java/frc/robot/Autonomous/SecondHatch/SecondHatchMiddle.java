@@ -17,8 +17,6 @@ import frc.robot.RobotConstants;
 import frc.robot.CommandGroups.ScoreHatch;
 import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Vision.VisionPIDSource;
-import frc.robot.Vision.VisionPIDSource.VisionDirectionType;
-import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 public class SecondHatchMiddle extends CommandGroup {
   /**

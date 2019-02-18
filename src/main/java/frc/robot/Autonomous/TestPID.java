@@ -1,34 +1,15 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.Autonomous;
 
 import java.util.function.Supplier;
 
 import com.spikes2212.dashboard.ConstantHandler;
-import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
-import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTank;
-import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTankWithPID;
-import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 import frc.robot.RobotComponents;
-import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Commands.StabilizeOneEightyAngle;
-import frc.robot.Vision.VisionPIDSource;
-import frc.robot.Vision.VisionPIDSource.VisionDirectionType;
-import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 public class TestPID extends Command {
   Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);

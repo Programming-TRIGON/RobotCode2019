@@ -20,8 +20,6 @@ import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.Vision.VisionPIDSource;
-import frc.robot.Vision.VisionPIDSource.VisionDirectionType;
-import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 /**
  * scores the first hatch in the autonomous in the side of one of the three
@@ -32,7 +30,7 @@ public class ScoreHatchSide extends CommandGroup {
   final double TURN_TO_TARGET = 90;
   final double TARGET_TRACK_TIME = 5;
   final double REVERSE_DIST = 0.5;
-  final double start_feederDistance = 2.32;
+  final double START_FEEDER_DISTANCE = 2.32;
 
   enum CargoShipHatch {
     kFirstHatch(6.9 - RobotConstants.robotLength), kSecondHatch(7.45 - RobotConstants.robotLength),
@@ -77,12 +75,12 @@ public class ScoreHatchSide extends CommandGroup {
     // tan(angle to turn) = distance between starting point and feeder / distance
     // driven
 
-    final double TURN_TO_FEEDER = Math.atan(start_feederDistance / driveDistance.key);
+    final double TURN_TO_FEEDER = Math.atan(START_FEEDER_DISTANCE / driveDistance.key);
 
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
         (TURN_TO_FEEDER + 90) * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
-    final double distanceToFeeder = Math.sqrt(Math.pow(start_feederDistance, 2) + Math.pow(driveDistance.key, 2));
+    final double distanceToFeeder = Math.sqrt(Math.pow(START_FEEDER_DISTANCE, 2) + Math.pow(driveDistance.key, 2));
 
 
     addSequential(new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER,

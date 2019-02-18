@@ -18,8 +18,6 @@ import frc.robot.CommandGroups.CollectHatchFromFeeder;
 import frc.robot.CommandGroups.EjectHatch;
 import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Vision.VisionPIDSource;
-import frc.robot.Vision.VisionPIDSource.VisionDirectionType;
-import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 /**
  * scores the first hatch in the middle rocket then goes to ht efeeder for
@@ -50,7 +48,7 @@ public class ScoreHatchMiddle extends CommandGroup {
         RobotComponents.DriveTrain.RIGHT_ENCODER, () -> SECOND_DISTANCE, () -> SECOND_DISTANCE,
         RobotConstants.RobotPIDSettings.DRIVE_SETTINGS));
 
-    // face the cargo ship
+    // Face the cargo ship
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, -TURN_45 * (isLeft ? 1 : -1),
         RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
@@ -66,7 +64,7 @@ public class ScoreHatchMiddle extends CommandGroup {
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
         TURN_TO_FEEDER * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
-    // drive to feeder
+    // Drive to feeder
     addSequential(new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER,
         RobotComponents.DriveTrain.RIGHT_ENCODER, () -> DRIVE_TO_FEEDER,
         RobotConstants.RobotPIDSettings.DRIVE_SETTINGS));
@@ -75,7 +73,7 @@ public class ScoreHatchMiddle extends CommandGroup {
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
         TURN_TO_FEEDER - 180 * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
-    // collects the hatch from the feeder
+    // Collects the hatch from the feeder
     addSequential(new CollectHatchFromFeeder());
   }
 }

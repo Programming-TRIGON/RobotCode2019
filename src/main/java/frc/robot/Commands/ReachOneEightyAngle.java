@@ -27,9 +27,9 @@ public class ReachOneEightyAngle extends Command {
   @Override
   protected void initialize() {
     if (this.angle>Robot.oneEighty.getAngle())
-      Robot.oneEighty.setOneEighty(0.25);
+      Robot.oneEighty.setOneEighty(0.35);
     else
-      Robot.oneEighty.setOneEighty(-0.25);
+      Robot.oneEighty.setOneEighty(-0.35);
   }
 
   // Called repeatedly when this Command is scheduled to run

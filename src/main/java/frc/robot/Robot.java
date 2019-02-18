@@ -152,13 +152,13 @@ public class Robot extends TimedRobot {
 
     // 180 commands
     SmartDashboard.putData("Move 180 With Joystick", new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox));        
-    SmartDashboard.putData("Set one eighty angel 0", new SetOneEightyAngle(0));
-    SmartDashboard.putData("0 angle", new ReachOneEightyAngle(-2));
-    SmartDashboard.putData("90 angle", new ReachOneEightyAngle(107));
-    SmartDashboard.putData("180 angle", new ReachOneEightyAngle(208));
+    SmartDashboard.putData("Set one eighty angel 0", new SetOneEightyAngle(-8));
+    SmartDashboard.putData("Set one eighty angel 90", new SetOneEightyAngle(107));
+    SmartDashboard.putData("Set one eighty angel 180", new SetOneEightyAngle(208));
     
     // Auto command tests
-    SmartDashboard.putData("drive 3 meters", new DriveWithGyro(300));
+    SmartDashboard.putData("Drive 3 meters", new DriveWithGyro(300));
+    //SmartDashboard.putData("Turn 90", );
 
     // Robot data to be periodically published to SmartDashboard
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);

@@ -56,9 +56,10 @@ public class DriveWithGyro extends Command {
 
   @Override
   protected boolean isFinished() {
-    if (this.movementPidController.onTarget())
-      lastTimeNotOnTarget = Timer.getFPGATimestamp();
-    return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getWaitTime();
+    //if (this.movementPidController.onTarget())
+      //lastTimeNotOnTarget = Timer.getFPGATimestamp();
+    //return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getWaitTime();
+    return this.movementPidController.onTarget();
   }
 
   @Override

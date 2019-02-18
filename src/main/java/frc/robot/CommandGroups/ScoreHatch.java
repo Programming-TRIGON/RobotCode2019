@@ -7,21 +7,14 @@
 
 package frc.robot.CommandGroups;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.RobotConstants;
-import frc.robot.Commands.SetHatchEject;
-import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.LiftHeight;
 /**
  * Add your docs here.
  */
 public class ScoreHatch extends CommandGroup{
-    private Value unlockedValue = Value.kReverse;
-    private Value push = Value.kForward;
-    private Value retract = Value.kReverse;
     private LiftHeight height; 
 
     public ScoreHatch(LiftHeight height) {
