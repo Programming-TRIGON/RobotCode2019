@@ -9,6 +9,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.Commands.SetDriveInverted;
 
 /**
  * Add your docs here.
@@ -16,10 +18,17 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 public class OI {
     public XboxController operatorXbox = new XboxController(0);  
+    public XboxController driveXboxController = new XboxController(1);
+    JoystickButton driverButtonY, driverButtonA;
     
     public OI(){
+        this.driverButtonA = new JoystickButton(driveXboxController, 1);
+        this.driverButtonY = new JoystickButton(driveXboxController, 4);
 
+        driverButtonA.whenPressed(new SetDriveInverted(true));
+        driverButtonY.whenPressed(new SetDriveInverted(false));
     }   
+
     public double getYLeft(){
         return this.operatorXbox.getY(Hand.kLeft);
     }
