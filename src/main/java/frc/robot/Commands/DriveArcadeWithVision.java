@@ -20,11 +20,12 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Vision.VisionPIDController;
 import frc.robot.Vision.VisionPIDSource;
 
+/** Drives to a given target using vision */
 public class DriveArcadeWithVision extends DriveArcadeWithPID {
   protected double lastTimeFound = 0;
 
   public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource.VisionTarget target,
-      Supplier<Double> setpointSupplier, Supplier<Double> movementSupplier, PIDSettings PIDSettings, 
+      Supplier<Double> setpointSupplier, Supplier<Double> movementSupplier, PIDSettings PIDSettings,
       boolean continuous) {
     super(drivetrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), setpointSupplier,
         movementSupplier, () -> false, PIDSettings, 2, continuous);
@@ -59,7 +60,8 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
     rotationController.setContinuous(continuous);
 
     // Stop the tracking if the target is not found for a given amount of time
-    this.isFinishedSupplier = () -> Timer.getFPGATimestamp() - lastTimeFound >= this.PIDSettings.getWaitTime()||isTimedOut();
+    this.isFinishedSupplier = () -> Timer.getFPGATimestamp() - lastTimeFound >= this.PIDSettings.getWaitTime()
+        || isTimedOut();
 
     rotationController.enable();
 

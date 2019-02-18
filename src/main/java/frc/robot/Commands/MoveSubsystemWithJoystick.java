@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Subsystems.JoystickOverridableSubsystem;
 
+/** this command can use any subsystem with a joystick */
 public class MoveSubsystemWithJoystick extends Command {
   JoystickOverridableSubsystem subsystem;
   GenericHID joystick;
@@ -36,7 +37,7 @@ public class MoveSubsystemWithJoystick extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    this.subsystem.move(-0.8*this.joystick.getY());
+    this.subsystem.move(-0.8 * this.joystick.getY());
   }
 
   // Make this return true when this Command no longer needs to run execute()

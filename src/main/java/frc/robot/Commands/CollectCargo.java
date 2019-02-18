@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /** collects and holds the cargo */
-
 public class CollectCargo extends Command {
   double collectorPower;
   double holderPower;

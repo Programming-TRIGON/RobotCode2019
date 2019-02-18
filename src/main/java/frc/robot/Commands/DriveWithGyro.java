@@ -18,21 +18,21 @@ import frc.robot.RobotConstants;
 /*
 This command uses the DriveArcadeWithPID to control the robot's distance based on the encoders as well as another PIDController to control the robot's heading
 */
-
 public class DriveWithGyro extends Command {
   private double movementPidOutput, distance, lastTimeNotOnTarget;
-  private Supplier<Double> movementSupplier = () -> movementPidOutput; 
+  private Supplier<Double> movementSupplier = () -> movementPidOutput;
   private PIDController movementPidController;
   private Command DriveCommand;
+
   public DriveWithGyro(double distance) {
-    this.distance=distance;
+    this.distance = distance;
   }
 
   @Override
   protected void initialize() {
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
     RobotComponents.DriveTrain.LEFT_ENCODER.reset();
-    
+
     this.movementPidController = new PIDController(RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKP(),
     RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKI(), 
     RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKD(), 
@@ -55,9 +55,10 @@ public class DriveWithGyro extends Command {
 
   @Override
   protected boolean isFinished() {
-    //if (this.movementPidController.onTarget())
-      //lastTimeNotOnTarget = Timer.getFPGATimestamp();
-    //return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getWaitTime();
+    // if (this.movementPidController.onTarget())
+    // lastTimeNotOnTarget = Timer.getFPGATimestamp();
+    // return Timer.getFPGATimestamp() - lastTimeNotOnTarget >=
+    // RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getWaitTime();
     return this.movementPidController.onTarget();
   }
 
