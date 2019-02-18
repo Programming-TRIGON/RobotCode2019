@@ -122,9 +122,9 @@ public class Robot extends TimedRobot {
     RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower,
         RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); 
     
-        RobotComponents.DriveTrain.LEFT_ENCODER.setDistancePerPulse(RobotConstants.DRIVE_ENCODER_DPP);
-        RobotComponents.DriveTrain.RIGHT_ENCODER.setDistancePerPulse(RobotConstants.DRIVE_ENCODER_DPP);
-        // RobotComponents.Lift.ENCODER.setDistancePerPulse(RobotConstants.LIFT_ENCODER_DPP);
+        RobotComponents.DriveTrain.LEFT_ENCODER.setDistancePerPulse(RobotConstants.Sensors.DRIVE_ENCODER_DPP);
+        RobotComponents.DriveTrain.RIGHT_ENCODER.setDistancePerPulse(RobotConstants.Sensors.DRIVE_ENCODER_DPP);
+        RobotComponents.Lift.ENCODER.setDistancePerPulse(RobotConstants.Sensors.LIFT_ENCODER_DPP);
 
     Robot.driveTrain = new TankDrivetrain(
         (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),

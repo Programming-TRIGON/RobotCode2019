@@ -27,8 +27,8 @@ public class RobotComponents {
         public static final TalonSRX MOTOR = new TalonSRX(RobotMap.CAN.ONE_EIGHTY_MOTOR);
         public static final AnalogPotentiometer POT = new AnalogPotentiometer(
                 RobotMap.ANALOG_INPUT.ONE_EIGHTY_POTENTIOMETER,
-                RobotConstants.ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER,
-                RobotConstants.ONE_EIGHTY_POTENTIOMETER_OFFSET);
+                RobotConstants.Sensors.ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER,
+                RobotConstants.Sensors.ONE_EIGHTY_POTENTIOMETER_OFFSET);
         //public final static AnalogInput POT = new AnalogInput(1);
     }
 
