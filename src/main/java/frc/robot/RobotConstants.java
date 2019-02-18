@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.spikes2212.utils.PIDSettings;
-public static final double Robot_Length = 0.974; // without bumpers 0.82
+
 /** a class used to store constants related to the robot */
 public class RobotConstants {
     /** The measurments of the robot */

@@ -33,8 +33,8 @@ public class ScoreHatchSide extends CommandGroup {
   final double START_FEEDER_DISTANCE = 2.32;
 
   enum CargoShipHatch {
-    kFirstHatch(6.9 - RobotConstants.robotLength), kSecondHatch(7.45 - RobotConstants.robotLength),
-    kThirdHatch(8 - RobotConstants.robotLength);
+    kFirstHatch(6.9 - RobotConstants.RobotDimensions.ROBOT_LENGTH), kSecondHatch(7.45 - RobotConstants.RobotDimensions.ROBOT_LENGTH),
+    kThirdHatch(8 - RobotConstants.RobotDimensions.ROBOT_LENGTH);
 
     public double key;
 

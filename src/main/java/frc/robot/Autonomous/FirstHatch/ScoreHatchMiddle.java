@@ -24,7 +24,7 @@ import frc.robot.Vision.VisionPIDSource;
  * getting the second hatch.
  */
 public class ScoreHatchMiddle extends CommandGroup {
-  final double FIRST_DISTANCE = 4.25 - RobotConstants.robotLength;
+  final double FIRST_DISTANCE = 4.25 - RobotConstants.RobotDimensions.ROBOT_LENGTH;
   final double TURN_45 = 45;
   final double SECOND_DISTANCE = 1.6907;
   final double TARGET_TRACK_TIME = 5;
