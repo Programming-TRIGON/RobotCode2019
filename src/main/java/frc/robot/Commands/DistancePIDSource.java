@@ -14,7 +14,7 @@ import frc.robot.RobotComponents;
 /**
  * Add your docs here.
  */
-public class EncoderPIDSource implements PIDSource {
+public class DistancePIDSource implements PIDSource {
     
     @Override
     public void setPIDSourceType(PIDSourceType pidSource) {

@@ -7,7 +7,6 @@
 
 package frc.robot.Autonomous.SecondHatch;
 
-import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTankWithPID;
 import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -60,7 +59,7 @@ public class SecondHatchSide extends CommandGroup {
 
     // Use vision to deliver the hatch
     addSequential(new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
-        Robot.oi::getYLeft, RobotConstants.RobotPIDSettings.REFLECTOR_TRACK_SETTINGS, false), TARGET_TRACK_TIME);
+        Robot.oi::getYLeft, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, false), TARGET_TRACK_TIME);
 
     // scores the hatch
     addSequential(new ScoreHatch(RobotConstants.LiftHeight.kRocketMiddleHatch));

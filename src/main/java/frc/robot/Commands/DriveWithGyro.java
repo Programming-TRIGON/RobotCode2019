@@ -36,16 +36,16 @@ public class DriveWithGyro extends Command {
     this.movementPidController = new PIDController(RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKP(),
     RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKI(), 
     RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKD(), 
-    new EncoderPIDSource(), (output) -> movementPidOutput = output);
+    new DistancePIDSource(), (output) -> movementPidOutput = output);
     
     movementPidController.setAbsoluteTolerance(5);
     movementPidController.setOutputRange(-1, 1);
     movementPidController.setSetpoint(this.distance);
-    movementPidController.enable();
 
     DriveCommand = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 
     () -> RobotComponents.DriveTrain.GYRO.getAngle(), 
     this.movementSupplier, RobotConstants.RobotPIDSettings.GYRO_DRIVE_SETTINGS, 360, true);
+    movementPidController.enable();    
     DriveCommand.start();
   }
 

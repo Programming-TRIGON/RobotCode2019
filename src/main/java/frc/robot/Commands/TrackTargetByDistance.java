@@ -1,4 +1,3 @@
-
 package frc.robot.Commands;
 
 import java.util.function.Supplier;
@@ -15,6 +14,7 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Command;
 
 import frc.robot.Robot;
+import frc.robot.RobotConstants;
 import frc.robot.Vision.VisionPIDController;
 import frc.robot.Vision.VisionPIDSource;
 
@@ -25,27 +25,29 @@ import frc.robot.Vision.VisionPIDSource;
  * The driveTrain will also rotate using vision PID.
  */
 public class TrackTargetByDistance extends Command {
-  private double lastTimeNotOnTarget;
-  private final double waitTime = 0.1;
+  private final double waitTime = 0.1, SETPOINT = 0;
   private VisionPIDSource.VisionTarget target;
   private VisionPIDController rotationPIDController;
   private PIDController distancePIDController;
-  private double distanceSetpoint;
   private Supplier<Double> distanceSupplier;
-  private PIDSettings rotationSettings;
-  private PIDSettings distanceSettings;
-  private double rotation;
-  private double distance;
-  private final double SETPOINT = 0;
+  private PIDSettings rotationSettings, distanceSettings;
+  private double rotation, distance, distanceSetpoint, lastTimeNotOnTarget;
+
+  public TrackTargetByDistance(VisionPIDSource.VisionTarget target, double distance) {
+    requires(Robot.driveTrain);    
+    this.target = target;
+    this.distanceSetpoint = distance;
+    this.rotationSettings = RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS;
+    this.distanceSettings = RobotConstants.RobotPIDSettings.DRIVE_SETTINGS;
+  }
 
   public TrackTargetByDistance(VisionPIDSource.VisionTarget target, PIDSettings rotationSettings,
-      Supplier<Double> distanceSupplier, double setpoint, PIDSettings distanceSetting) {
+   PIDSettings distanceSetting, double distance) {
+    requires(Robot.driveTrain);    
+    this.target = target;
+    this.distanceSetpoint = distance;
     this.rotationSettings = rotationSettings;
     this.distanceSettings = distanceSetting;
-    this.target = target;
-    this.distanceSupplier = distanceSupplier;
-    this.distanceSetpoint = setpoint;
-    requires(Robot.driveTrain);
   }
 
   // Called just before this Command runs the first time
@@ -56,23 +58,6 @@ public class TrackTargetByDistance extends Command {
     target.setString(this.target.toString());
     // pid source for rotation
     VisionPIDSource rotationPIDSource = new VisionPIDSource(this.target, VisionPIDSource.VisionDirectionType.x);
-    // pid source for distance
-    PIDSource distancePIDSource = new PIDSource() {
-
-      @Override
-      public void setPIDSourceType(PIDSourceType pidSource) {
-      }
-
-      @Override
-      public double pidGet() {
-        return distanceSupplier.get();
-      }
-
-      @Override
-      public PIDSourceType getPIDSourceType() {
-        return PIDSourceType.kDisplacement;
-      }
-    };
     // pid controller for the x axis
     rotationPIDController = new VisionPIDController(rotationSettings.getKP(), rotationSettings.getKI(),
         rotationSettings.getKD(), rotationPIDSource, (output) -> rotation = output);
@@ -82,7 +67,7 @@ public class TrackTargetByDistance extends Command {
     rotationPIDController.setInputRange(-1, 1);
     // pid controller for the y axis
     distancePIDController = new PIDController(distanceSettings.getKP(), distanceSettings.getKI(), distanceSettings.getKD(),
-        distancePIDSource, (output) -> distance = output);
+        new DistancePIDSource(), (output) -> distance = output);
     distancePIDController.setAbsoluteTolerance(distanceSettings.getTolerance());
     distancePIDController.setSetpoint(this.distanceSetpoint);
     distancePIDController.setOutputRange(-1, 1);
