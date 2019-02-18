@@ -15,7 +15,8 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
  */
 
 public class OI {
-    public XboxController operatorXbox = new XboxController(0);  
+    public XboxController operatorXbox = new XboxController(0);
+    public XboxController driverXbox = new XboxController(1);  
     
     public OI(){
 

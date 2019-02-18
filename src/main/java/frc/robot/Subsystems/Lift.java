@@ -1,6 +1,7 @@
 package frc.robot.Subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -23,6 +24,8 @@ public class Lift extends JoystickOverridableSubsystem {
     this.encoder = encoder;
     this.rightMotor.setInverted(true);
     this.leftMotor.setInverted(true);
+    this.rightMotor.setNeutralMode(NeutralMode.Brake);
+    this.leftMotor.setNeutralMode(NeutralMode.Brake);
   }
 
   /** sets the speed of the motors of the lift to higher/lower it */

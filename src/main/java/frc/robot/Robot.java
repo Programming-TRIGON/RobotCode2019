@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
+import frc.robot.RobotConstants.PushCargoPower;
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
 import frc.robot.Vision.VisionPIDSource;
@@ -28,6 +29,7 @@ import frc.robot.CommandGroups.SetOneEightyAngle;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.DriveWithGyro;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
+import frc.robot.Commands.PushCargo;
 import frc.robot.Commands.ReachOneEightyAngle;
 import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.Commands.SetHatchCollectorState;
@@ -63,7 +65,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     compressor = new Compressor(1);
-    compressor.stop();
+    compressor.start();
     
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -85,6 +87,8 @@ public class Robot extends TimedRobot {
     Robot.lift = new Lift(RobotComponents.Lift.LIFT_RIGHT_M, RobotComponents.Lift.LIFT_LEFT_M,
 
     RobotComponents.Lift.TOP_SWITCH, RobotComponents.Lift.BOTTOM_SWITCH, RobotComponents.Lift.ENCODER);
+
+    RobotComponents.Lift.ENCODER.setDistancePerPulse(RobotConstants.Sensors.LIFT_ENCODER_DPP);
 
     /**
      * creates the new susbsystem with three solenoids, two that extends the whole
@@ -124,10 +128,9 @@ public class Robot extends TimedRobot {
     RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower,
         RobotComponents.DriveTrain.REAR_RIGHT_M.getDeviceID()); 
     
-        RobotComponents.DriveTrain.LEFT_ENCODER.setDistancePerPulse(RobotConstants.Sensors.DRIVE_ENCODER_DPP);
-        RobotComponents.DriveTrain.RIGHT_ENCODER.setDistancePerPulse(RobotConstants.Sensors.DRIVE_ENCODER_DPP);
-        RobotComponents.Lift.ENCODER.setDistancePerPulse(RobotConstants.Sensors.LIFT_ENCODER_DPP);
-
+    RobotComponents.DriveTrain.LEFT_ENCODER.setDistancePerPulse(RobotConstants.Sensors.DRIVE_ENCODER_DPP);
+    RobotComponents.DriveTrain.RIGHT_ENCODER.setDistancePerPulse(RobotConstants.Sensors.DRIVE_ENCODER_DPP);
+    
     Robot.driveTrain = new TankDrivetrain(
         (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
         (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
@@ -149,13 +152,14 @@ public class Robot extends TimedRobot {
     new DriveArcade(Robot.driveTrain, () -> -Robot.oi.operatorXbox.getY(), () -> -Robot.oi.operatorXbox.getX()));
 
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
+    SmartDashboard.putData("Push Cargo", new PushCargo(PushCargoPower.kTopRocket));
 
     SmartDashboard.putData("Eject hatch", new EjectHatch());
 
     SmartDashboard.putData(new TestPID());
 
     // 180 commands
-    SmartDashboard.putData("Move 180 With Joystick", new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox));        
+    SmartDashboard.putData("Move lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));        
     SmartDashboard.putData("Set one eighty angel 0", new SetOneEightyAngle(-8));
     SmartDashboard.putData("Set one eighty angel 90", new SetOneEightyAngle(107));
     SmartDashboard.putData("Set one eighty angel 180", new SetOneEightyAngle(208));

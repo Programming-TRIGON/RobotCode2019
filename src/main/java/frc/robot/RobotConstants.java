@@ -26,7 +26,7 @@ public class RobotConstants {
         public static final double DRIVE_ENCODER_DPP = RobotDimensions.DRIVE_WHEEL_DIAMETER * Math.PI / 360;
 
         static final double LIFT_ENCODER_TICKS_PER_REV = 0;
-        public static final double LIFT_ENCODER_DPP = 1; //RobotDimensions.LIFT_TUBE_DIAMETER * Math.PI / LIFT_ENCODER_TICKS_PER_REV
+        public static final double LIFT_ENCODER_DPP = 1/21000; //RobotDimensions.LIFT_TUBE_DIAMETER * Math.PI / LIFT_ENCODER_TICKS_PER_REV
     }
 
     public static class RobotPIDSettings {
@@ -72,7 +72,7 @@ public class RobotConstants {
     public static enum PushCargoPower {
         // TODO:set real values.
         /** the speed we want to push the cargo */
-        kCargoShip(1), kLowRocket(1), kMiddleRocket(1), kTopRocket(-1);
+        kCargoShip(-1), kLowRocket(-1), kMiddleRocket(-1), kTopRocket(-1);
         public double key;
 
         PushCargoPower(double power) {
