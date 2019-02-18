@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import frc.robot.RobotConstants;
 
 public class Lift extends JoystickOverridableSubsystem {
   /** Motors to raise/lower the lift */
@@ -59,7 +60,7 @@ public class Lift extends JoystickOverridableSubsystem {
   }
 
   public double getHeight(){
-    return this.encoder.getDistance();
+    return this.encoder.getDistance() + RobotConstants.Sensors.LIFT_ENCODER_OFFSET;
   }
 
   @Override

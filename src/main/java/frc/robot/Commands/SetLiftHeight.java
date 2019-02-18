@@ -26,10 +26,9 @@ public class SetLiftHeight extends Command {
     this.height = () -> d;
   }
 
-
-  public SetLiftHeight(Supplier<Double> setpointSupplier, PIDSettings pidSettings) {
+  public SetLiftHeight(double setpointSupplier, PIDSettings pidSettings) {
     requires(Robot.lift);
-    this.height = setpointSupplier;
+    this.height = () -> setpointSupplier;
     this.pidSettings = pidSettings;
   }
 
@@ -37,12 +36,12 @@ public class SetLiftHeight extends Command {
   protected void initialize() {
     this.pidOutput = new PIDOutput() {
       public void pidWrite(double output) {
-          Robot.lift.setMotorSpeed(output);
+        Robot.lift.setMotorSpeed(output);
       }
     };
-    pidController.setSetpoint(height.get());
     this.pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
         Robot.lift.getEncoder(), this.pidOutput);
+    pidController.setSetpoint(height.get());
     pidController.setAbsoluteTolerance(pidSettings.getTolerance());
     pidController.setOutputRange(-1, 1);
     pidController.enable();
@@ -50,10 +49,10 @@ public class SetLiftHeight extends Command {
 
   @Override
   protected void execute() {
-    double newSetpoint = height.get();
+    /*double newSetpoint = height.get();
     if (pidController.getSetpoint() != newSetpoint)
-      pidController.setSetpoint(newSetpoint);
-    if (newSetpoint <= RobotConstants.LiftHeight.kCargoFolderSafty.key)
+      pidController.setSetpoint(newSetpoint);*/
+    if (Robot.lift.getHeight() <= RobotConstants.LiftHeight.kCargoFolderSafty.key)
       new SetCargoFolderState(Value.kForward).start();
   }
 

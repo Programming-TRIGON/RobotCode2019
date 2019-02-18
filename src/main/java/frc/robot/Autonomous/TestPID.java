@@ -7,7 +7,9 @@ import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 import frc.robot.Commands.DriveWithGyro;
+import frc.robot.Commands.SetLiftHeight;
 
 public class TestPID extends Command {
   Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);
@@ -24,10 +26,9 @@ public class TestPID extends Command {
   }
 
   @Override
-
   protected void initialize() {
     updatePID();
-    testCommand = new DriveWithGyro(Setpoint.get(), pidSettings);
+    testCommand = new SetLiftHeight(Setpoint.get(), this.pidSettings);
     testCommand.start();
   }
 
@@ -37,11 +38,12 @@ public class TestPID extends Command {
 
   @Override
   protected boolean isFinished() {
-    return false;
+    return testCommand.isCompleted();
   }
 
   @Override
   protected void end() {
+    Robot.lift.setMotorSpeed(0);
   }
 
   public void updatePID(){
@@ -51,7 +53,7 @@ public class TestPID extends Command {
 
   @Override
   protected void interrupted() {
-    
+    end();
   }
 }
 

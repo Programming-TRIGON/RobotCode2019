@@ -146,7 +146,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
     SmartDashboard.putData("Hatch Eject Push", new SetHatchEject(Value.kForward));
     SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
-
+    SmartDashboard.putData(new SetLiftHeight(LiftHeight.kOneEightySafety));
 
     SmartDashboard.putData("Drive",
     new DriveArcade(Robot.driveTrain, () -> -Robot.oi.operatorXbox.getY(), () -> -Robot.oi.operatorXbox.getX()));
@@ -182,7 +182,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     Robot.dbc.update();
     SmartDashboard.putData("Scheduler", Scheduler.getInstance());
-    if (Robot.lift.isAtBottom() || SmartDashboard.getBoolean("reset enc", false))
+    if (Robot.lift.isAtBottom())
       RobotComponents.Lift.ENCODER.reset();
   }
   

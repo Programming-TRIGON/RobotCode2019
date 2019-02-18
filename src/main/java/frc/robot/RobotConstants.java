@@ -25,8 +25,8 @@ public class RobotConstants {
 
         public static final double DRIVE_ENCODER_DPP = RobotDimensions.DRIVE_WHEEL_DIAMETER * Math.PI / 360;
 
-        static final double LIFT_ENCODER_TICKS_PER_REV = 0;
-        public static final double LIFT_ENCODER_DPP = 1/21000; //RobotDimensions.LIFT_TUBE_DIAMETER * Math.PI / LIFT_ENCODER_TICKS_PER_REV
+        public static final double LIFT_ENCODER_DPP = 1/21000.0;
+        public static final double LIFT_ENCODER_OFFSET = 0.4;
     }
 
     public static class RobotPIDSettings {
@@ -55,7 +55,7 @@ public class RobotConstants {
     public static enum LiftHeight {
         // TODO:set real values.
         kRocketTopHatch(1), kRocketMiddleHatch(1), kRocketBottomHatch(1), kRocketTopCargo(1), kRocketBottomCargo(1),
-        kRocketMiddleCargo(1), kLiftBottom(1),
+        kRocketMiddleCargo(1), kLiftBottom(0.1),
         /** a height that is safe to use OneEighty */
         kOneEightySafety(1),
         /** a height that is safe to fold cargo colleter */

@@ -30,6 +30,6 @@ public class OneEightyCmdG extends CommandGroup {
     };
     addSequential(new SetOneEightyAngle(angle));
     //TODO calibrate pid settings
-    addParallel(new SetLiftHeight(liftSetpointSupplier,new PIDSettings(0.2, 0, 0, 0.1, 0)));
+    addParallel(new SetLiftHeight(liftSetpointSupplier.get(),new PIDSettings(0.2, 0, 0, 0.1, 0)));
   }
 }
