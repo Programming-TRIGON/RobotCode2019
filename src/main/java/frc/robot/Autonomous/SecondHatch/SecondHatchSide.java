@@ -17,15 +17,17 @@ import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.CommandGroups.ScoreHatch;
 import frc.robot.Commands.DriveArcadeWithVision;
+import frc.robot.Commands.DriveWithGyro;
 import frc.robot.Vision.VisionPIDSource;
 
 public class SecondHatchSide extends CommandGroup {
   /**
-   * continues the autonomous from the feeder and puts the second hatch in the
-   * in one of the three  side rockets.
+   * continues the autonomous from the feeder and puts the second hatch in the in
+   * one of the three side rockets.
    */
   enum CargoShipHatch {
-    kFirstHatch(6.9 - RobotConstants.RobotDimensions.ROBOT_LENGTH), kSecondHatch(7.45 - RobotConstants.RobotDimensions.ROBOT_LENGTH),
+    kFirstHatch(6.9 - RobotConstants.RobotDimensions.ROBOT_LENGTH),
+    kSecondHatch(7.45 - RobotConstants.RobotDimensions.ROBOT_LENGTH),
     kThirdHatch(8 - RobotConstants.RobotDimensions.ROBOT_LENGTH);
 
     public double key;
@@ -35,13 +37,14 @@ public class SecondHatchSide extends CommandGroup {
     }
   }
 
-  //boolean is left mirrors the course of robot dependding on its side in the field.
+  // boolean is left mirrors the course of robot dependding on its side in the
+  // field.
   public SecondHatchSide(CargoShipHatch driveDistance, boolean isLeft) {
-    final double start_feederDistance = 2.32;
-    final double angle = Math.atan(start_feederDistance / driveDistance.key);
+    final double RAMP_TO_FEEDER_DIST = 2.32;
+    final double angle = Math.atan(RAMP_TO_FEEDER_DIST / driveDistance.key);
     final double TURN_TO_HATCH = 90 + angle;
     final double TURN_TO_ROCKET = 180 - angle;
-    final double distanceToRocket = Math.sqrt(Math.pow(start_feederDistance, 2) + Math.pow(driveDistance.key, 2));
+    final double DISTANCE_TO_ROCKET = Math.sqrt(Math.pow(RAMP_TO_FEEDER_DIST, 2) + Math.pow(driveDistance.key, 2));
     final double TARGET_TRACK_TIME = 5;
 
     // turns to face the rocket for going to it from the feeder.
@@ -49,20 +52,18 @@ public class SecondHatchSide extends CommandGroup {
         TURN_TO_ROCKET * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     // drive to the rocket
-    addSequential(new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER,
-        RobotComponents.DriveTrain.RIGHT_ENCODER, distanceToRocket, RobotConstants.RobotPIDSettings.DRIVE_SETTINGS));
+    addSequential(new DriveWithGyro(DISTANCE_TO_ROCKET));
 
     // turns to face the rocket for putting the hatch pannel
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
         TURN_TO_HATCH * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
-   // Use vision to deliver the hatch
-   addSequential(new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
-   Robot.oi::getYLeft, RobotConstants.RobotPIDSettings.REFLECTOR_TRACK_SETTINGS, false),
-TARGET_TRACK_TIME);
+    // Use vision to deliver the hatch
+    addSequential(new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
+        Robot.oi::getYLeft, RobotConstants.RobotPIDSettings.REFLECTOR_TRACK_SETTINGS, false), TARGET_TRACK_TIME);
 
-  //  scores the hatch
-  addSequential(new ScoreHatch(RobotConstants.LiftHeight.kRocketMiddleHatch));
+    // scores the hatch
+    addSequential(new ScoreHatch(RobotConstants.LiftHeight.kRocketMiddleHatch));
   }
 
 }

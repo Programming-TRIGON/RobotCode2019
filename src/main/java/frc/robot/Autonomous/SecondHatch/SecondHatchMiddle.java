@@ -7,7 +7,6 @@
 
 package frc.robot.Autonomous.SecondHatch;
 
-import com.spikes2212.genericsubsystems.drivetrains.commands.DriveTankWithPID;
 import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -16,6 +15,7 @@ import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.CommandGroups.ScoreHatch;
 import frc.robot.Commands.DriveArcadeWithVision;
+import frc.robot.Commands.DriveWithGyro;
 import frc.robot.Vision.VisionPIDSource;
 
 public class SecondHatchMiddle extends CommandGroup {
@@ -36,9 +36,7 @@ public class SecondHatchMiddle extends CommandGroup {
         TURN_TO_ROCKET * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     // drive to the rocket.
-    addSequential(new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER,
-        RobotComponents.DriveTrain.RIGHT_ENCODER, () -> DRIVE_TO_FEEDER,
-        RobotConstants.RobotPIDSettings.DRIVE_SETTINGS));
+    addSequential(new DriveWithGyro(DRIVE_TO_FEEDER));
 
     // turn to put thhe hatch.
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, TURN_TO_ROCKET - 180,
