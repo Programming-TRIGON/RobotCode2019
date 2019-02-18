@@ -11,7 +11,7 @@ public class AllignOnWall extends DriveArcade {
    * Add your docs here.
    */
   double CURRENT_THRESHOLD = 0;
-
+  private final double TIMEOUT = 5;
   public AllignOnWall() {
     super(Robot.driveTrain, -0.5, 0);
   }
@@ -19,7 +19,7 @@ public class AllignOnWall extends DriveArcade {
   @Override
   protected boolean isFinished(){
     SmartDashboard.putNumber("Drivetrain current", getAverageCurrent());
-    return getAverageCurrent() >= CURRENT_THRESHOLD;
+    return getAverageCurrent() >= CURRENT_THRESHOLD||isTimedOut();
   }
 
   private double getAverageCurrent(){

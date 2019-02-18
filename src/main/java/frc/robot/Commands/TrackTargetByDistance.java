@@ -26,16 +26,16 @@ import frc.robot.Vision.VisionPIDSource.VisionTarget;
  * The driveTrain will also rotate using vision PID.
  */
 public class TrackTargetByDistance extends Command {
-  private final double waitTime = 0.1, SETPOINT = 0;
+  private final double SETPOINT = 0, TIMEOUT=5;
   private VisionPIDSource.VisionTarget target;
   private VisionPIDController rotationPIDController;
   private PIDController distancePIDController;
-  private Supplier<Double> distanceSupplier;
   private PIDSettings rotationSettings, distanceSettings;
   private double rotation, distance, distanceSetpoint, lastTimeNotOnTarget;
 
   public TrackTargetByDistance(VisionTarget target, double distance) {
     requires(Robot.driveTrain);
+    setTimeout(TIMEOUT);
     this.target = target;
     this.distanceSetpoint = distance;
     this.rotationSettings = RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS;
@@ -45,20 +45,11 @@ public class TrackTargetByDistance extends Command {
   public TrackTargetByDistance(VisionTarget target, PIDSettings rotationSettings, PIDSettings distanceSetting,
       double distance) {
     requires(Robot.driveTrain);
+    setTimeout(TIMEOUT);
     this.target = target;
     this.distanceSetpoint = distance;
     this.rotationSettings = rotationSettings;
     this.distanceSettings = distanceSetting;
-  }
-
-  public TrackTargetByDistance(VisionTarget target, PIDSettings rotationSettings, PIDSettings distanceSetting, double distance, double timeout){
-  this(target,rotationSettings,distanceSetting,distance);
-    setTimeout(timeout);
-  }
-
-  public TrackTargetByDistance(VisionTarget target, double distance, double timeout){
-    this(target,distance);
-    setTimeout(timeout);
   }
   // Called just before this Command runs the first time
   @Override
