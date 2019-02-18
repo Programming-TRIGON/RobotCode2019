@@ -17,6 +17,7 @@ import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.Vision.VisionPIDController;
 import frc.robot.Vision.VisionPIDSource;
+import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 /**
  * This command tracks the target in the constructor with both vision and
@@ -33,23 +34,32 @@ public class TrackTargetByDistance extends Command {
   private PIDSettings rotationSettings, distanceSettings;
   private double rotation, distance, distanceSetpoint, lastTimeNotOnTarget;
 
-  public TrackTargetByDistance(VisionPIDSource.VisionTarget target, double distance) {
-    requires(Robot.driveTrain);    
+  public TrackTargetByDistance(VisionTarget target, double distance) {
+    requires(Robot.driveTrain);
     this.target = target;
     this.distanceSetpoint = distance;
     this.rotationSettings = RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS;
     this.distanceSettings = RobotConstants.RobotPIDSettings.DRIVE_SETTINGS;
   }
 
-  public TrackTargetByDistance(VisionPIDSource.VisionTarget target, PIDSettings rotationSettings,
-   PIDSettings distanceSetting, double distance) {
-    requires(Robot.driveTrain);    
+  public TrackTargetByDistance(VisionTarget target, PIDSettings rotationSettings, PIDSettings distanceSetting,
+      double distance) {
+    requires(Robot.driveTrain);
     this.target = target;
     this.distanceSetpoint = distance;
     this.rotationSettings = rotationSettings;
     this.distanceSettings = distanceSetting;
   }
 
+  public TrackTargetByDistance(VisionTarget target, PIDSettings rotationSettings, PIDSettings distanceSetting, double distance, double timeout){
+  this(target,rotationSettings,distanceSetting,distance);
+    setTimeout(timeout);
+  }
+
+  public TrackTargetByDistance(VisionTarget target, double distance, double timeout){
+    this(target,distance);
+    setTimeout(timeout);
+  }
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
@@ -66,8 +76,8 @@ public class TrackTargetByDistance extends Command {
     rotationPIDController.setOutputRange(-1, 1);
     rotationPIDController.setInputRange(-1, 1);
     // pid controller for the y axis
-    distancePIDController = new PIDController(distanceSettings.getKP(), distanceSettings.getKI(), distanceSettings.getKD(),
-        new DistancePIDSource(), (output) -> distance = output);
+    distancePIDController = new PIDController(distanceSettings.getKP(), distanceSettings.getKI(),
+        distanceSettings.getKD(), new DistancePIDSource(), (output) -> distance = output);
     distancePIDController.setAbsoluteTolerance(distanceSettings.getTolerance());
     distancePIDController.setSetpoint(this.distanceSetpoint);
     distancePIDController.setOutputRange(-1, 1);
@@ -93,7 +103,7 @@ public class TrackTargetByDistance extends Command {
     // returns true if the robot reached his target
     if (this.distancePIDController.onTarget())
       lastTimeNotOnTarget = Timer.getFPGATimestamp();
-    return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= distanceSettings.getWaitTime();
+    return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= distanceSettings.getWaitTime()||isTimedOut();
   }
 
   // Called once after isFinished returns true
