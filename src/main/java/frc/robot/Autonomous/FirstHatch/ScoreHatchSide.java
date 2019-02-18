@@ -17,6 +17,7 @@ import frc.robot.RobotConstants;
 import frc.robot.CommandGroups.CollectHatchFromFeeder;
 import frc.robot.CommandGroups.EjectHatch;
 import frc.robot.Commands.DriveArcadeWithVision;
+import frc.robot.Commands.DriveWithGyro;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.Vision.VisionPIDSource;
@@ -45,9 +46,7 @@ public class ScoreHatchSide extends CommandGroup {
 
   public ScoreHatchSide(CargoShipHatch driveDistance, boolean isLeft) {
     // Drive towards the Cargo Ship
-    addSequential(new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER,
-        RobotComponents.DriveTrain.RIGHT_ENCODER, () -> driveDistance.key, () -> driveDistance.key,
-        RobotConstants.RobotPIDSettings.DRIVE_SETTINGS));
+    addSequential(new DriveWithGyro(driveDistance.key));
 
     // Turn towards the cargo ship
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
@@ -66,9 +65,7 @@ public class ScoreHatchSide extends CommandGroup {
 
     // Orient towards hatch feeder and go there for second hatch:
     // Reverse out of the cargo ship
-    addSequential(new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER,
-        RobotComponents.DriveTrain.RIGHT_ENCODER, () -> REVERSE_DIST, () -> REVERSE_DIST,
-        RobotConstants.RobotPIDSettings.DRIVE_SETTINGS));
+    addSequential(new DriveWithGyro(REVERSE_DIST));
 
     // turn to face the feeder
     // angle to turn home depends on how far we drove, so
@@ -83,9 +80,7 @@ public class ScoreHatchSide extends CommandGroup {
     final double distanceToFeeder = Math.sqrt(Math.pow(START_FEEDER_DISTANCE, 2) + Math.pow(driveDistance.key, 2));
 
 
-    addSequential(new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER,
-        RobotComponents.DriveTrain.RIGHT_ENCODER, () -> distanceToFeeder, () -> distanceToFeeder,
-        RobotConstants.RobotPIDSettings.DRIVE_SETTINGS));
+    addSequential(new DriveWithGyro(distanceToFeeder));
 
     // face feeder
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
