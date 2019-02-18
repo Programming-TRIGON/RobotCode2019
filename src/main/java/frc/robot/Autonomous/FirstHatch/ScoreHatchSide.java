@@ -49,7 +49,7 @@ public class ScoreHatchSide extends CommandGroup {
     // Use vision to deliver the hatch
     addSequential(
         new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
-            Robot.oi::getYLeft, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, false),
+            Robot.oi::getYLeft, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS),
         TARGET_TRACK_TIME);
 
     addSequential(new EjectHatch());
