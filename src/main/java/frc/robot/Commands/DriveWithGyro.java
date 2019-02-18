@@ -8,6 +8,9 @@
 package frc.robot.Commands;
 
 import java.util.function.Supplier;
+
+import com.spikes2212.utils.PIDSettings;
+
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -24,10 +27,18 @@ public class DriveWithGyro extends Command {
   private Supplier<Double> movementSupplier = () -> movementPidOutput;
   private PIDController movementPidController;
   private Command DriveCommand;
+  private PIDSettings drivePidSettings;
 
   public DriveWithGyro(double distance) {
     setTimeout(TIMEOUT);
     this.distance = distance;
+    drivePidSettings = RobotConstants.RobotPIDSettings.DRIVE_SETTINGS;
+  }
+
+  public DriveWithGyro(double distance, PIDSettings pidSettings){
+    setTimeout(TIMEOUT);
+    this.distance = distance;
+    drivePidSettings = pidSettings;
   }
 
   @Override
@@ -35,12 +46,12 @@ public class DriveWithGyro extends Command {
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
     RobotComponents.DriveTrain.LEFT_ENCODER.reset();
 
-    this.movementPidController = new PIDController(RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKP(),
-    RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKI(), 
-    RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getKD(), 
+    this.movementPidController = new PIDController(drivePidSettings.getKP(),
+    drivePidSettings.getKI(), 
+    drivePidSettings.getKD(), 
     new DistancePIDSource(), (output) -> movementPidOutput = output);
     
-    movementPidController.setAbsoluteTolerance(RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getTolerance());
+    movementPidController.setAbsoluteTolerance(drivePidSettings.getTolerance());
     movementPidController.setOutputRange(-1, 1);
     movementPidController.setSetpoint(this.distance);
 
@@ -58,10 +69,10 @@ public class DriveWithGyro extends Command {
 
   @Override
   protected boolean isFinished() {
-    // if (this.movementPidController.onTarget())
+    // if (!this.movementPidController.onTarget())
     // lastTimeNotOnTarget = Timer.getFPGATimestamp();
     // return Timer.getFPGATimestamp() - lastTimeNotOnTarget >=
-    // RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getWaitTime();
+    // DrivePidSettings.getWaitTime();
     return this.movementPidController.onTarget()||isTimedOut();
   }
 

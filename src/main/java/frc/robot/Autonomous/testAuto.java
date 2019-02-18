@@ -11,8 +11,10 @@ import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
+import frc.robot.RobotConstants;
 import frc.robot.Commands.DriveWithGyro;
 
 public class testAuto extends CommandGroup {
@@ -21,5 +23,7 @@ public class testAuto extends CommandGroup {
    */
   public testAuto() {
     addSequential(new DriveWithGyro(300));
+    addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 90, RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
   }
 }
+
