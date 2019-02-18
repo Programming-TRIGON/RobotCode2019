@@ -14,16 +14,17 @@ import frc.robot.RobotConstants;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.Commands.SetHatchCollectorState;
+
 /**
  * Add your docs here.
  */
 public class CollectHatch extends CommandGroup {
-    //TODO switch to the correct values for the go down and up
+    // TODO switch to the correct values for the go down and up
     private Value SSDown = Value.kForward;
     private Value lock = Value.kForward;
     private Value SSUp = Value.kForward;
 
-    public CollectHatch(){
+    public CollectHatch() {
 
         addParallel(new SetLiftHeight(RobotConstants.LiftHeight.kLiftBottom));
         addSequential(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));

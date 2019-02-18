@@ -17,6 +17,7 @@ import frc.robot.RobotConstants;
 import frc.robot.CommandGroups.CollectHatchFromFeeder;
 import frc.robot.CommandGroups.EjectHatch;
 import frc.robot.Commands.DriveArcadeWithVision;
+import frc.robot.Commands.DriveWithGyro;
 import frc.robot.Vision.VisionPIDSource;
 
 /**
@@ -34,19 +35,16 @@ public class ScoreHatchMiddle extends CommandGroup {
   final double TURN_TO_FEEDER = Math.atan(180 - (RAMP_TO_FEEDER / RAMP_TO_HATCH));
 
   public ScoreHatchMiddle(boolean isLeft) {
+
     // drive towards the cargo ship
-    addSequential(new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER,
-        RobotComponents.DriveTrain.RIGHT_ENCODER, () -> FIRST_DISTANCE, () -> FIRST_DISTANCE,
-        RobotConstants.RobotPIDSettings.DRIVE_SETTINGS));
+    addSequential(new DriveWithGyro(FIRST_DISTANCE));
 
     // turn to be in line with the rocket
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, TURN_45 * (isLeft ? 1 : -1),
         RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     // diagonal drive in the cargo ship's general direction
-    addSequential(new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER,
-        RobotComponents.DriveTrain.RIGHT_ENCODER, () -> SECOND_DISTANCE, () -> SECOND_DISTANCE,
-        RobotConstants.RobotPIDSettings.DRIVE_SETTINGS));
+    addSequential(new DriveWithGyro(SECOND_DISTANCE));
 
     // Face the cargo ship
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, -TURN_45 * (isLeft ? 1 : -1),
@@ -65,9 +63,7 @@ public class ScoreHatchMiddle extends CommandGroup {
         TURN_TO_FEEDER * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     // Drive to feeder
-    addSequential(new DriveTankWithPID(Robot.driveTrain, RobotComponents.DriveTrain.LEFT_ENCODER,
-        RobotComponents.DriveTrain.RIGHT_ENCODER, () -> DRIVE_TO_FEEDER,
-        RobotConstants.RobotPIDSettings.DRIVE_SETTINGS));
+    addSequential(new DriveWithGyro( DRIVE_TO_FEEDER));
 
     // Turn to face the feeder
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,

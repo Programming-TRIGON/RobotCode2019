@@ -9,6 +9,10 @@ package frc.robot.Commands;
 
 import java.util.function.Supplier;
 
+import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
+import com.spikes2212.utils.PIDSettings;
+
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -29,7 +33,15 @@ public class DriveWithGyro extends Command {
     this.distance=distance;
   }
 
-  @Override
+  public DriveWithGyro(TankDrivetrain driveTrain, Encoder leftEncoder, Encoder rightEncoder, Object object,
+		Object object2, PIDSettings driveSettings) {
+}
+
+public DriveWithGyro(TankDrivetrain driveTrain, Encoder leftEncoder, Encoder rightEncoder, Object object,
+		Object object2, PIDSettings driveSettings) {
+}
+
+@Override
   protected void initialize() {
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
     RobotComponents.DriveTrain.LEFT_ENCODER.reset();
