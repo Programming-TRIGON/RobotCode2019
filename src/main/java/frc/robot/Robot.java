@@ -4,6 +4,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
+import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -158,7 +160,7 @@ public class Robot extends TimedRobot {
     
     // Auto command tests
     SmartDashboard.putData("Drive 3 meters", new DriveWithGyro(300));
-    //SmartDashboard.putData("Turn 90", );
+    SmartDashboard.putData("Turn 90", new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 90.0, RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     // Robot data to be periodically published to SmartDashboard
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);

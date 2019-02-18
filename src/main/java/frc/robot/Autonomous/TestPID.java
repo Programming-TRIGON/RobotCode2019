@@ -8,7 +8,8 @@ import com.spikes2212.utils.PIDSettings;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.RobotComponents;
+import frc.robot.Robot;
+import frc.robot.Commands.ReachOneEightyAngle;
 import frc.robot.Commands.StabilizeOneEightyAngle;
 
 public class TestPID extends Command {
@@ -27,37 +28,33 @@ public class TestPID extends Command {
   Command command;
 
   public TestPID() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
   }
 
-  // Called just before this Command runs the first time
   @Override
 
   protected void initialize() {
     updatePID();
-    RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
-    command = new StabilizeOneEightyAngle(-2, pidSettings);
+    double angle=-2;
+    if(Robot.oneEighty.getAngle()<90)
+      angle=208;
+    command = new ReachOneEightyAngle(angle);
+    command.start();
+    command = new StabilizeOneEightyAngle(angle, pidSettings);
     command.start();
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
   }
 
-
-  // Called once after isFinished returns true
   @Override
   protected void end() {
   }
-
 
   public void updatePID(){
 
@@ -65,11 +62,9 @@ public class TestPID extends Command {
     SmartDashboard.putString("PID setting", "" + KP.get() + KI.get() + KD.get() + tolerance.get() + WAIT_TIME.get());
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-
+    
   }
 }
 
