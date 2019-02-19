@@ -1,16 +1,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.CommandGroups.CargoCollectCmdG;
 import frc.robot.CommandGroups.PrepareToScore;
 import frc.robot.CommandGroups.Push;
-import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.SetDriveInverted;
 import frc.robot.Commands.SwitchGamePiece;
-import frc.robot.RobotConstants.PrepareToScoreHeight;
 
 /**
  * Add your docs here.
@@ -21,8 +19,8 @@ public class OI {
     public XboxController driverXbox = new XboxController(1);
 
     Button driverButtonY, driverButtonA, driverButtonB, driverButtonX;
-    Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB,
-            operatorSwitchPiece;
+    Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB;
+    POVButton operatorSwitchPiece;
 
     public OI() {
         // driver buttons
@@ -41,8 +39,8 @@ public class OI {
         this.operatorButtonX = new JoystickButton(operatorXbox, 3);
         this.operatorButtonY = new JoystickButton(operatorXbox, 4);
         this.operatorButtonLB = new JoystickButton(operatorXbox, 5);
-        this.operatorSwitchPiece = new JoystickButton(operatorXbox, 6);
-        this.operatorButtonRB = new JoystickButton(operatorXbox, 7);
+        this.operatorButtonRB = new JoystickButton(operatorXbox, 6);
+        this.operatorSwitchPiece = new POVButton(operatorXbox, 90);
 
         this.operatorButtonA.whenPressed(new CargoCollectCmdG());
         this.operatorButtonB.whenPressed(new Push());
