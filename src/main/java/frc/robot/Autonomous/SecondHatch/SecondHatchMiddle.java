@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
-import frc.robot.CommandGroups.ScoreHatch;
 import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Commands.DriveWithGyro;
 import frc.robot.Vision.VisionPIDSource;
@@ -43,13 +42,12 @@ public class SecondHatchMiddle extends CommandGroup {
         RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     //delivers the hatch using vision
-    addSequential(
+    /*addSequential(
         new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
             Robot.oi::getYLeft, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, false),
-        TARGET_TRACK_TIME);
+        TARGET_TRACK_TIME);*/
     // score the hatch.
     // TODO: switch to the needed hatch height.
-    addSequential(new ScoreHatch(RobotConstants.LiftHeight.kRocketMiddleHatch));
 
   }
 }

@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
-import frc.robot.CommandGroups.ScoreHatch;
 import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Commands.DriveWithGyro;
 import frc.robot.Vision.VisionPIDSource;
@@ -58,11 +57,10 @@ public class SecondHatchSide extends CommandGroup {
         TURN_TO_HATCH * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     // Use vision to deliver the hatch
-    addSequential(new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
+    /*addSequential(new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
         Robot.oi::getYLeft, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, false), TARGET_TRACK_TIME);
-
+    */
     // scores the hatch
-    addSequential(new ScoreHatch(RobotConstants.LiftHeight.kRocketMiddleHatch));
   }
 
 }

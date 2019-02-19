@@ -55,12 +55,10 @@ public class RobotConstants {
     /** the height the lift should be in for certain tasks */
     public static enum LiftHeight {
         // TODO:set real values.
-        kRocketTopHatch(1), kRocketMiddleHatch(1), kRocketBottomHatch(1), kRocketTopCargo(1), kRocketBottomCargo(1),
-        kRocketMiddleCargo(1), kLiftBottom(1), kCargoShip(1),
-        /** a height that is safe to use OneEighty */
-        kOneEightySafety(1),
-        /** a height that is safe to fold cargo colleter */
-        kCargoFolderSafty(1);
+        kRocketTopHatch(1), kRocketMiddleHatch(1), kRocketTopCargo(1), kRocketBottomCargo(1),
+        kRocketMiddleCargo(1), kLiftBottomHatch(1), kCargoShip(1), kCargoCollection(1), kHatchCollection(1),
+        /** a height that is safe to spin the OneEighty */
+        kOneEightySafety(1);
 
         public double key;
 
@@ -73,5 +71,5 @@ public class RobotConstants {
         kLow, kMedium, kHigh, kCargoShip
     }
 
-    PrepareToScoreHeight[] heights = {PrepareToScoreHeight.kLow, PrepareToScoreHeight.kMedium, PrepareToScoreHeight.kHigh};
+    public static PrepareToScoreHeight[] heights = {PrepareToScoreHeight.kLow, PrepareToScoreHeight.kMedium, PrepareToScoreHeight.kHigh, PrepareToScoreHeight.kCargoShip};
 }

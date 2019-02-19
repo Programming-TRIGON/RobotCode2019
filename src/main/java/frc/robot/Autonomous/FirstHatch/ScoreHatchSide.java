@@ -44,14 +44,14 @@ public class ScoreHatchSide extends CommandGroup {
         TURN_TO_TARGET * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     // Prepare Robot to deliver hatch:
-    addSequential(new SetLiftHeight(LiftHeight.kRocketBottomHatch));
+    addSequential(new SetLiftHeight(LiftHeight.kLiftBottomHatch));
 
     // Use vision to deliver the hatch
-    addSequential(
+    /*addSequential(
         new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
             Robot.oi::getYLeft, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, false),
         TARGET_TRACK_TIME);
-
+    */
     addSequential(new EjectHatch());
 
     // Orient towards hatch feeder and go there for second hatch:
