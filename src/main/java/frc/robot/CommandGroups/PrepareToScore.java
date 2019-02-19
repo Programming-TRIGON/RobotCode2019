@@ -14,7 +14,7 @@ public class PrepareToScore extends CommandGroup {
    */
   public PrepareToScore(PrepareToScoreHeight height) {
     LiftHeight heightToSet = LiftHeight.kOneEightySafety;
-    OneEightyAngle angleToSet = OneEightyAngle.kFeeder;
+    OneEightyAngle angleToSet = OneEightyAngle.kStraight;
 
     // We need to know whether to angle the 180 forward or reverse
     if (!RobotStates.isDriveInverted()){
@@ -64,7 +64,7 @@ public class PrepareToScore extends CommandGroup {
 
   public PrepareToScore(boolean increaseHeight) {
     LiftHeight heightToSet = LiftHeight.kOneEightySafety;
-    OneEightyAngle angleToSet = OneEightyAngle.kFeeder;
+    OneEightyAngle angleToSet = OneEightyAngle.kStraight;
 
     // We need to know whether to angle the 180 forward or reverse
     if (!RobotStates.isDriveInverted()){

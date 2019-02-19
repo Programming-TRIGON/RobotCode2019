@@ -42,9 +42,9 @@ public class RobotConstants {
         // TODO: Set real angles.
         kStraight(0), // The cargo collector faces ahead in this angle.
         kBack(180), // The cargo collector faces back in this angle.
-        kFeeder(270), // This is the angle in order to collect the hatch from the feeder.
         kTopStraight(-1),
-        kTopBack(181);    
+        kTopBack(181),
+        kCargoCollection(1);    
         public double key;
 
         OneEightyAngle(double angle) {

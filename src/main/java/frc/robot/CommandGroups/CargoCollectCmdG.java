@@ -3,6 +3,7 @@ package frc.robot.CommandGroups;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.RobotConstants;
+import frc.robot.RobotStates;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.Commands.SetLiftHeight;
@@ -18,10 +19,12 @@ public class CargoCollectCmdG extends CommandGroup {
     /** starts by unfolding the cargo collecter */
     addSequential(new SetCargoFolderState(Value.kForward));
     /** turns to the required angle */
-    addSequential(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));
+    addSequential(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kCargoCollection));
     /** set lift height to bottom in order to collect cargo */
+    RobotStates.setHeightIndex(-1);
     addSequential(new SetLiftHeight(RobotConstants.LiftHeight.kCargoCollection));
     /** collects the cargo */
     addSequential(new CollectCargo(this.COLLECTOR_POWER, this.HOLDER_POWER));
+    addSequential(new SetLiftHeight(RobotConstants.LiftHeight.kOneEightySafety));
   }
 }

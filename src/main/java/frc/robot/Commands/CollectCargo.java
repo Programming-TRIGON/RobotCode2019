@@ -1,7 +1,9 @@
 package frc.robot.Commands;
 
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotStates;
 
 /** collects and holds the cargo */
 public class CollectCargo extends Command {
@@ -33,6 +35,7 @@ public class CollectCargo extends Command {
 
   @Override
   protected void end() {
+    RobotStates.setHasCargo(true);
     Robot.cargoCollector.setCollectorMotor(0);
     Robot.cargoCollector.setHolderMotors(0);
   }
