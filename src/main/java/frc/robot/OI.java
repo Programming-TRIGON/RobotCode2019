@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.CommandGroups.CargoCollectCmdG;
 import frc.robot.Commands.CollectCargo;
+import frc.robot.Commands.OneEightySwitchOverride;
 import frc.robot.Commands.SetDriveInverted;
 
 /**
@@ -15,7 +16,7 @@ import frc.robot.Commands.SetDriveInverted;
 public class OI {
     public XboxController operatorXbox = new XboxController(0);  
     public XboxController driverXbox = new XboxController(1);
-    Button driverButtonY, driverButtonA, driverButtonB, driverButtonX;
+    Button driverButtonY, driverButtonA, driverButtonB, driverButtonX, operatorButtonAxisLeft;
     Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB,
     operatorButtonA, operatorButtonB;
     
@@ -37,7 +38,9 @@ public class OI {
         this.operatorButtonY = new JoystickButton(operatorXbox, 4);
         this.operatorButtonLB = new JoystickButton(operatorXbox, 5);
         this.operatorButtonRB = new JoystickButton(operatorXbox, 6);
+        this.operatorButtonAxisLeft = new JoystickButton(operatorXbox, 9);
 
         this.operatorButtonA.whenPressed(new CargoCollectCmdG());
+        this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride());
     }   
 }

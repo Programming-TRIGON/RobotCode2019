@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
+import frc.robot.RobotStates;
 
 public class StabilizeOneEightyAngle extends Command {
   private PIDController pidController;
@@ -51,7 +52,7 @@ public class StabilizeOneEightyAngle extends Command {
 
   @Override
   protected boolean isFinished() {
-    return false;
+    return RobotStates.isOneEightyOverride();
   }
 
   @Override

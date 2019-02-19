@@ -18,6 +18,7 @@ public class RobotStates {
     static boolean hasCargo;
     static boolean driveInverted;
     static double heightIndex = 1;   
+    static boolean oneEightyOverride = true;
     
     public static void increaseHeight() {
         if(RobotStates.heightIndex<2)
@@ -88,4 +89,10 @@ public class RobotStates {
     public static void setDriveInverted(boolean driveInverted) {
         RobotStates.driveInverted = driveInverted;
     }
+    public static boolean isOneEightyOverride(){
+        return RobotStates.oneEightyOverride;
+    }
+    public static void setoneEightyOverride(){
+        RobotStates.oneEightyOverride = !RobotStates.oneEightyOverride;
+    }  
 }
