@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import frc.robot.Commands.SetLiftOverride;
 
 public class Lift extends JoystickOverridableSubsystem {
   /** Motors to raise/lower the lift */
@@ -27,12 +28,12 @@ public class Lift extends JoystickOverridableSubsystem {
 
   /** sets the speed of the motors of the lift to higher/lower it */
   public void setMotorSpeed(double speed) {
-    if(speed > 0 && isAtTop() || speed < 0 && isAtBottom()){
+    if (speed > 0 && isAtTop() || speed < 0 && isAtBottom()) {
       rightMotor.set(ControlMode.PercentOutput, 0);
       leftMotor.set(ControlMode.PercentOutput, 0);
     }
-      
-    else{
+
+    else {
       rightMotor.set(ControlMode.PercentOutput, speed);
       leftMotor.set(ControlMode.PercentOutput, speed);
     }
@@ -43,9 +44,10 @@ public class Lift extends JoystickOverridableSubsystem {
     return topSwitch.get();
   }
 
-  public void SetMotorSpeedNoSafety(double speed){
+  public void SetMotorSpeedNoSafety(double speed) {
     rightMotor.set(ControlMode.PercentOutput, speed);
-    leftMotor.set(ControlMode.PercentOutput, speed);  }
+    leftMotor.set(ControlMode.PercentOutput, speed);
+  }
 
   /**
    * This function checks whether the lift has activated the botton micro switch.
@@ -59,12 +61,13 @@ public class Lift extends JoystickOverridableSubsystem {
     return this.encoder;
   }
 
-  public double getHeight(){
+  public double getHeight() {
     return this.encoder.getDistance();
   }
 
   @Override
   public void initDefaultCommand() {
+    setDefaultCommand(new SetLiftOverride());
   }
 
   @Override
