@@ -8,26 +8,20 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.RobotConstants.LiftHeight;
+import frc.robot.RobotComponents.Lift;
 
-public class GamePiece extends Command {
-  boolean holdingCargo;
+public class ResetLift extends Command {
+  double LIFT_POWER = 0.5;
+  public ResetLift() {
 
-  public GamePiece() {
+      requires(Robot.lift);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    this.holdingCargo = Robot.cargoCollector.isHoldingBall();
-    if (holdingCargo) {
-      new SetLiftHeight(LiftHeight.kRocketMiddleCargo);
-    }
-    else {
-      new SetLiftHeight(LiftHeight.kRocketMiddleHatch);
-    }
+   Robot.lift.setMotorSpeed(LIFT_POWER);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -38,17 +32,20 @@ public class GamePiece extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Robot.lift.isAtBottom();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.lift.setMotorSpeed(0);
+
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

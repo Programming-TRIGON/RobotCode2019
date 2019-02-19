@@ -7,27 +7,33 @@
 
 package frc.robot.CommandGroups;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotStates;
 import frc.robot.Commands.PushCargo;
-import frc.robot.Commands.SetLiftHeight;
-import frc.robot.RobotConstants.LiftHeight;
-
-public class Push extends CommandGroup {
-  /**
-   * Pushes the right piece
+import frc.robot.Commands.ResetLift;
+import frc.robot.Commands.SetCargoFolderState;
+import frc.robot.Commands.SetHatchCollectorState;
+ /**
+   * retracts all systems. 
    */
-  public Push() {
-    if(RobotStates.getHeightIndex() == -1){
-      RobotStates.setHeightIndex(1);
-      if(RobotStates.isHasCargo())
-        addSequential(new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
-      else
-        addSequential(new SetLiftHeight(LiftHeight.kRocketMiddleHatch));
-    }
-    if(RobotStates.isHasCargo())
+public class DefenceMode extends CommandGroup {
+ 
+  Value retractFolder = Value.kReverse;
+  Value retractHatch = Value.kReverse;
+  public DefenceMode() {
+
+    if(RobotStates.isHasCargo()){
       addSequential(new PushCargo());
-    else
+    }
+    else{ 
       addSequential(new EjectHatch());
+    }
+    addSequential(new SetOneEightyAngle(OneEightyAngle.kStraight));
+    addSequential(new ResetLift());
+    addParallel(new SetCargoFolderState(retractFolder));
+    addSequential(new SetHatchCollectorState(retractHatch));
+
   }
 }

@@ -42,11 +42,11 @@ public class ScoreHatchMiddle extends CommandGroup {
                 RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
         // Use vision to deliver the hatch
-        addSequential(
+        /*addSequential(
                 new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
                         Robot.oi::getYLeft, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, false),
                 TARGET_TRACK_TIME);
-
+        */
         addSequential(new EjectHatch());
 
         // Turn to be able to drive to the feeder

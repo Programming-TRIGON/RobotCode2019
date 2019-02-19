@@ -2,18 +2,15 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotConstants.PushCargoPower;
 
 /** puts the cargo in the rocket */
 
 public class PushCargo extends Command {
-  double power;
   final double TIMEOUT = 1;
 
   /** accepts the power from an Enum */
-  public PushCargo(PushCargoPower power) {
+  public PushCargo() {
     requires(Robot.cargoCollector);
-    this.power = power.key;
   }
 
   @Override
@@ -24,7 +21,7 @@ public class PushCargo extends Command {
   @Override
   protected void execute() {
     /** ejects the cargo */
-    Robot.cargoCollector.setHolderMotors(power);
+    Robot.cargoCollector.setHolderMotors(1);
   }
 
   @Override

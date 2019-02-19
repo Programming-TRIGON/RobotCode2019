@@ -1,8 +1,5 @@
 package frc.robot;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.spikes2212.utils.PIDSettings;
 
 /** a class used to store constants related to the robot */
@@ -45,9 +42,9 @@ public class RobotConstants {
         // TODO: Set real angles.
         kStraight(0), // The cargo collector faces ahead in this angle.
         kBack(180), // The cargo collector faces back in this angle.
-        kFeeder(270), // This is the angle in order to collect the hatch from the feeder.
         kTopStraight(-1),
-        kTopBack(181);    
+        kTopBack(181),
+        kCargoCollection(1);    
         public double key;
 
         OneEightyAngle(double angle) {
@@ -56,14 +53,12 @@ public class RobotConstants {
     }
 
     /** the height the lift should be in for certain tasks */
-    public static enum LiftHeight {
+public static enum LiftHeight {
         // TODO:set real values.
-        kRocketTopHatch(1), kRocketMiddleHatch(1), kRocketBottomHatch(1), kRocketTopCargo(1), kRocketBottomCargo(1),
-        kRocketMiddleCargo(1), kLiftBottom(1), kCargoShip(1),
-        /** a height that is safe to use OneEighty */
-        kOneEightySafety(1),
-        /** a height that is safe to fold cargo colleter */
-        kCargoFolderSafty(1);
+        kRocketTopHatch(1), kRocketMiddleHatch(1), kRocketTopCargo(1), kRocketBottomCargo(1),
+        kRocketMiddleCargo(1), kLiftBottomHatch(1), kCargoShip(1), kCargoCollection(1), kHatchCollection(1),
+        /** a height that is safe to spin the OneEighty */
+        kOneEightySafety(1);
 
         public double key;
 
@@ -76,23 +71,5 @@ public class RobotConstants {
         kLow, kMedium, kHigh, kCargoShip
     }
 
-    // we might want to change the enum name...
-    public static enum PushCargoPower {
-        // TODO:set real values.
-        /** the speed we want to push the cargo */
-        kCargoShip(1), kLowRocket(1), kMiddleRocket(1), kTopRocket(-1);
-        public double key;
-
-        PushCargoPower(double power) {
-            this.key = power;
-        }
-    }
-
-    public static Map<LiftHeight, PushCargoPower> heightToCargoPower = new HashMap<LiftHeight, PushCargoPower>() {
-        {
-            put(LiftHeight.kRocketBottomCargo, PushCargoPower.kLowRocket);
-            put(LiftHeight.kRocketMiddleCargo, PushCargoPower.kMiddleRocket);
-            put(LiftHeight.kRocketTopCargo, PushCargoPower.kTopRocket);
-        }
-    };
+    public static PrepareToScoreHeight[] heights = {PrepareToScoreHeight.kLow, PrepareToScoreHeight.kMedium, PrepareToScoreHeight.kHigh, PrepareToScoreHeight.kCargoShip};
 }
