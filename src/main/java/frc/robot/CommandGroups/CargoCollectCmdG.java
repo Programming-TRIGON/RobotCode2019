@@ -7,6 +7,7 @@ import frc.robot.RobotStates;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.Commands.SetLiftHeight;
+import frc.robot.RobotConstants.OneEightyAngle;
 
 /** collects cargo from the floor */
 
@@ -19,12 +20,20 @@ public class CargoCollectCmdG extends CommandGroup {
     /** starts by unfolding the cargo collecter */
     addSequential(new SetCargoFolderState(Value.kForward));
     /** turns to the required angle */
-    addSequential(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kCargoCollection));
+    addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kCargoCollection));
     /** set lift height to bottom in order to collect cargo */
     RobotStates.setHeightIndex(-1);
-    addSequential(new SetLiftHeight(RobotConstants.LiftHeight.kCargoCollection));
+    addParallel(new SetLiftHeight(RobotConstants.LiftHeight.kCargoCollection));
     /** collects the cargo */
     addSequential(new CollectCargo(this.COLLECTOR_POWER, this.HOLDER_POWER));
-    addSequential(new SetLiftHeight(RobotConstants.LiftHeight.kOneEightySafety));
+    addParallel(new SetLiftHeight(RobotConstants.LiftHeight.kOneEightySafety));
+    OneEightyAngle angleToSet; 
+    if (!RobotStates.isDriveInverted()){
+      angleToSet = RobotStates.isHasCargo() ? OneEightyAngle.kStraight : OneEightyAngle.kBack; 
+    }
+    else {
+      angleToSet = RobotStates.isHasCargo() ? OneEightyAngle.kBack : OneEightyAngle.kStraight; 
+    }
+    addParallel(new SetOneEightyAngle(angleToSet));
   }
 }

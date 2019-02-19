@@ -34,6 +34,5 @@ public class DefenceMode extends CommandGroup {
     addSequential(new ResetLift());
     addParallel(new SetCargoFolderState(retractFolder));
     addSequential(new SetHatchCollectorState(retractHatch));
-
   }
 }
