@@ -16,7 +16,7 @@ public class CargoCollectCmdG extends CommandGroup {
   // TODO: real values.
   public CargoCollectCmdG() {
     /** starts by unfolding the cargo collecter */
-    addSequential(new SetCargoFolderState(Value.kReverse));
+    addSequential(new SetCargoFolderState(Value.kForward));
     /** turns to the required angle */
     addSequential(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));
     /** set lift height to bottom in order to collect cargo */

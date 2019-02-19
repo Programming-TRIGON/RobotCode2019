@@ -73,5 +73,5 @@ public class RobotConstants {
         kLow, kMedium, kHigh, kCargoShip
     }
 
-    public static PrepareToScoreHeight[] heights = {PrepareToScoreHeight.kLow, PrepareToScoreHeight.kMedium, PrepareToScoreHeight.kHigh};
+    public static PrepareToScoreHeight[] heights = {PrepareToScoreHeight.kLow, PrepareToScoreHeight.kMedium, PrepareToScoreHeight.kHigh, PrepareToScoreHeight.kCargoShip};
 }

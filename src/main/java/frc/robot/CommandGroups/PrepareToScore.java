@@ -51,6 +51,7 @@ public class PrepareToScore extends CommandGroup {
           heightToSet = LiftHeight.kRocketTopHatch;
         break;
       case kCargoShip:
+        RobotStates.setHeightIndex(3);
         if(RobotStates.isHasCargo())
           heightToSet = LiftHeight.kCargoShip;
         else
@@ -99,12 +100,6 @@ public class PrepareToScore extends CommandGroup {
         }
         else
           heightToSet = LiftHeight.kRocketTopHatch;
-        break;
-      case kCargoShip:
-        if(RobotStates.isHasCargo())
-          heightToSet = LiftHeight.kCargoShip;
-        else
-          heightToSet = LiftHeight.kRocketBottomHatch;
     }
     
     addSequential(new SetLiftHeight(heightToSet));

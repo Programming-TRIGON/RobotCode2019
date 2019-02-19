@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.CommandGroups.CargoCollectCmdG;
 import frc.robot.CommandGroups.PrepareToScore;
 import frc.robot.CommandGroups.Push;
@@ -45,5 +46,6 @@ public class OI {
         this.operatorButtonB.whenPressed(new Push());
         this.operatorButtonRB.whenPressed(new PrepareToScore(true));
         this.operatorButtonLB.whenPressed(new PrepareToScore(false));
+        this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip));
     }   
 }

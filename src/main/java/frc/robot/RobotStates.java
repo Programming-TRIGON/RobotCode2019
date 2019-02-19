@@ -8,7 +8,7 @@ public class RobotStates {
     static double oneEightySetpoint;
     static boolean hasCargo;
     static boolean driveInverted;
-    static int heightIndex = 1; // The values can be 0,1,2 for rocket - low, middle and high. And -1 for none of these hights     
+    static int heightIndex = 1; // The values can be 0,1,2 for the rocket - low, middle and high height. 3 for cargo ship height And -1 for none of these heights.     
     
     public static void increaseHeight() {
         if(RobotStates.heightIndex<2)
