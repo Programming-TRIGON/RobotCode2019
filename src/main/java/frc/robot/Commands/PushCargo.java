@@ -8,7 +8,7 @@ import frc.robot.RobotConstants.PushCargoPower;
 
 public class PushCargo extends Command {
   double power;
-  final double TIMEOUT = 1;
+  final double TIMEOUT = 2;
 
   /** accepts the power from an Enum */
   public PushCargo(PushCargoPower power) {
