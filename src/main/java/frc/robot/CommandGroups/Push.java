@@ -8,12 +8,17 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.RobotStates;
+import frc.robot.Commands.PushCargo;
 
 public class Push extends CommandGroup {
   /**
-   * Add your docs here.
+   * Pushes the right piece
    */
   public Push() {
-    
+    if(RobotStates.isHasCargo())
+      addSequential(new PushCargo());
+    else
+      addSequential(new EjectHatch());
   }
 }

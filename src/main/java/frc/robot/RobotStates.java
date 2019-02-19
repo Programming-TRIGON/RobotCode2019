@@ -17,6 +17,21 @@ public class RobotStates {
     static double oneEightySetpoint;
     static boolean hasCargo;
     static boolean driveInverted;
+    static double heightIndex = 1;   
+    
+    public static void increaseHeight() {
+        if(RobotStates.heightIndex<2)
+            RobotStates.heightIndex ++;
+    }
+
+    public static void decreaseHeight() {
+        if(RobotStates.heightIndex>0)
+            RobotStates.heightIndex --;
+    }
+
+    public static double getHeightIndex(){
+        return RobotStates.heightIndex;
+    }
 
     /**
      * @return the liftSetpoint
