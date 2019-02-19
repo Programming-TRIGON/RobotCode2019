@@ -3,8 +3,8 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.RobotStates;
 
-public class LiftSwitchOverrride extends Command {
-  public LiftSwitchOverrride() {
+public class LiftSwitchOverride extends Command {
+  public LiftSwitchOverride() {
   }
 
   @Override

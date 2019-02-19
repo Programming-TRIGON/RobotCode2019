@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.CommandGroups.CargoCollectCmdG;
 import frc.robot.CommandGroups.DefenceMode;
 import frc.robot.CommandGroups.CollectHatchFromFeeder;
-import frc.robot.Commands.LiftSwitchOverrride;
+import frc.robot.Commands.LiftSwitchOverride;
 import frc.robot.Commands.OneEightySwitchOverride;
 import frc.robot.CommandGroups.PrepareToScore;
 import frc.robot.CommandGroups.Push;
@@ -46,10 +46,10 @@ public class OI {
         this.operatorButtonAxisRight = new JoystickButton(operatorXbox, 10);
         this.operatorRightPOVButton = new POVButton(operatorXbox, 90);
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
+        this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride());
+        this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride());
         this.operatorStartButton = new JoystickButton(operatorXbox, 8);
 
-        this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverrride());
-        this.operatorStartButton.whenPressed(new DefenceMode());
         this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride());
         this.operatorButtonA.whenPressed(new CargoCollectCmdG());
         this.operatorButtonB.whenPressed(new Push());
@@ -61,6 +61,5 @@ public class OI {
         this.operatorStartButton.whenPressed(new DefenceMode());
         this.operatorRightPOVButton.whenPressed(new SwitchGamePiece(true));
         this.operatorLeftPOVButton.whenPressed(new SwitchGamePiece(false));
-
-        }
+    }
 }
