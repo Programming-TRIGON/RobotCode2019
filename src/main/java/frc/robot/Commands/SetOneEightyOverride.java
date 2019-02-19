@@ -2,12 +2,11 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.RobotStates;
 
 /**
- * This command lets the operator control the one eighty with a joysstick incase
+ * This command lets the operator control the one eighty with a joystick incase
  * the sensors break
  */
 public class SetOneEightyOverride extends Command {
@@ -21,7 +20,7 @@ public class SetOneEightyOverride extends Command {
 
   @Override
   protected void execute() {
-    Robot.oneEighty.moveOneEightyOverride(Robot.oi.operatorXbox.getX(Hand.kLeft));
+    Robot.oneEighty.moveOneEightyOverride(Robot.oi.operatorXbox.getY(Hand.kLeft));
   }
 
   @Override

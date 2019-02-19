@@ -1,19 +1,21 @@
 package frc.robot;
 
 /**
- * listeninng to the statse 
+ * listeninng to the statse
  */
 public class RobotStates {
-    static double  liftSetpoint;
-    static double  oneEightySetpoint;
+    static double liftSetpoint;
+    static double oneEightySetpoint;
     static boolean hasCargo;
     static boolean driveInverted;
     static boolean oneEightyOverride = true;
+    static boolean LiftOverride = true;
 
     static boolean liftOverride;
-    static int heightIndex = 1; // The values can be 0,1,2 for rocket - low, middle and high. And -1 for none of these hights     
-    
-  public static void increaseHeight() {
+    static int heightIndex = 1; // The values can be 0,1,2 for rocket - low, middle and high. And -1 for none of
+                                // these hights
+
+    public static void increaseHeight() {
         if (RobotStates.heightIndex < 2)
             RobotStates.heightIndex++;
     }
@@ -23,14 +25,14 @@ public class RobotStates {
             RobotStates.heightIndex--;
     }
 
-
-    public static int getHeightIndex(){
+    public static int getHeightIndex() {
         return RobotStates.heightIndex;
     }
 
-    public static void setHeightIndex(int index){ 
+    public static void setHeightIndex(int index) {
         RobotStates.heightIndex = index;
-    }   
+    }
+
     /**
      * @return the liftSetpoint
      */
@@ -93,5 +95,13 @@ public class RobotStates {
 
     public static void toggleOneEightyOverride() {
         RobotStates.oneEightyOverride = !RobotStates.oneEightyOverride;
+    }
+
+    public static boolean isLiftOverride() {
+        return RobotStates.LiftOverride;
+    }
+
+    public static void toggleLiftOverride() {
+        RobotStates.LiftOverride = !RobotStates.LiftOverride;
     }
 }

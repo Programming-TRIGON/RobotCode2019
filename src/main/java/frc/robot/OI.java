@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.CommandGroups.CargoCollectCmdG;
 import frc.robot.Commands.CollectCargo;
+import frc.robot.Commands.LiftSwitchOverrride;
 import frc.robot.Commands.OneEightySwitchOverride;
 import frc.robot.CommandGroups.PrepareToScore;
 import frc.robot.CommandGroups.Push;
@@ -13,17 +14,11 @@ import frc.robot.Commands.SetDriveInverted;
 import frc.robot.Commands.SwitchGamePiece;
 import frc.robot.RobotConstants.PrepareToScoreHeight;
 
-/**
- * Add your docs here.
- */
-
 public class OI {
     public XboxController operatorXbox = new XboxController(0);
     public XboxController driverXbox = new XboxController(1);
-    Button driverButtonY, driverButtonA, driverButtonB, driverButtonX, operatorButtonAxisLeft;
-    Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB,
-    operatorButtonA, operatorButtonB;
-  
+    Button driverButtonY, driverButtonA, driverButtonB, driverButtonX, operatorButtonAxisLeft, operatorButtonAxisRight;
+    Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB;
 
     Button defenseButton;
     POVButton operatorSwitchPiece;
@@ -47,9 +42,11 @@ public class OI {
         this.operatorButtonLB = new JoystickButton(operatorXbox, 5);
         this.operatorButtonRB = new JoystickButton(operatorXbox, 6);
         this.operatorButtonAxisLeft = new JoystickButton(operatorXbox, 9);
+        this.operatorButtonAxisRight = new JoystickButton(operatorXbox, 10);
 
         this.operatorButtonA.whenPressed(new CargoCollectCmdG());
         this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride());
+        this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverrride());
         this.defenseButton = new JoystickButton(operatorXbox, 8);
         this.operatorSwitchPiece = new POVButton(operatorXbox, 90);
 
@@ -59,5 +56,5 @@ public class OI {
         this.operatorButtonLB.whenPressed(new PrepareToScore(false));
         this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip));
         this.operatorSwitchPiece.whenPressed(new SwitchGamePiece());
-    }   
+    }
 }
