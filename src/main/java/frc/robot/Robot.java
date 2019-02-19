@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.util.function.Supplier;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
@@ -60,6 +62,7 @@ public class Robot extends TimedRobot {
   public static Compressor compressor;
 
   public static boolean driveInverted;
+  public static Supplier<Boolean> invertedSupplier = () -> driveInverted;  
 
   @Override
   public void robotInit() {
@@ -133,8 +136,9 @@ public class Robot extends TimedRobot {
         (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
         (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
 
+    
     Robot.driveTrain.setDefaultCommand(new DriveArcade(Robot.driveTrain,
-        () -> driveInverted ? -1 : 1 * Robot.oi.driveXboxController.getY(), Robot.oi.driveXboxController::getX));
+        () -> invertedSupplier.get() ? -1 * Robot.oi.driverXbox.getY() : 1 * Robot.oi.driverXbox.getY(), Robot.oi.driverXbox::getX));
 
     SmartDashboard.putData(new TestPID());
 
