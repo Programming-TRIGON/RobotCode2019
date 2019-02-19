@@ -1,15 +1,18 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.CommandGroups.CargoCollectCmdG;
+import frc.robot.CommandGroups.CollectHatchFromFeeder;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.OneEightySwitchOverride;
 import frc.robot.CommandGroups.PrepareToScore;
 import frc.robot.CommandGroups.Push;
 import frc.robot.Commands.SetDriveInverted;
+import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SwitchGamePiece;
 import frc.robot.RobotConstants.PrepareToScoreHeight;
 
@@ -21,7 +24,6 @@ public class OI {
     public XboxController operatorXbox = new XboxController(0);
     public XboxController driverXbox = new XboxController(1);
     Button driverButtonY, driverButtonA, driverButtonB, driverButtonX, operatorButtonAxisLeft;
-    
   
 
     Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, defenseButton;
@@ -47,13 +49,15 @@ public class OI {
         this.operatorButtonAxisLeft = new JoystickButton(operatorXbox, 9);
 
         this.operatorRightPOVButton = new POVButton(operatorXbox, 90);
-        this.operatorLeftPOVButton = new POVButton(operatorXbox, 180);
+        this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
         this.operatorButtonA.whenPressed(new CargoCollectCmdG());
         this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride());
         this.defenseButton = new JoystickButton(operatorXbox, 8);
 
         this.operatorButtonA.whenPressed(new CargoCollectCmdG());
         this.operatorButtonB.whenPressed(new Push());
+        this.operatorButtonY.whenPressed(new CollectHatchFromFeeder());
+        this.operatorButtonY.whenReleased(new SetHatchLock(Value.kForward));
         this.operatorButtonRB.whenPressed(new PrepareToScore(true));
         this.operatorButtonLB.whenPressed(new PrepareToScore(false));
         this.operatorRightPOVButton.whenPressed(new SwitchGamePiece(true));
