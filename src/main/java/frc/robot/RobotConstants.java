@@ -26,16 +26,18 @@ public class RobotConstants {
         public static final double DRIVE_ENCODER_DPP = RobotDimensions.DRIVE_WHEEL_DIAMETER * Math.PI / 360;
 
         static final double LIFT_ENCODER_TICKS_PER_REV = 0;
-        public static final double LIFT_ENCODER_DPP = 1; //RobotDimensions.LIFT_TUBE_DIAMETER * Math.PI / LIFT_ENCODER_TICKS_PER_REV
+        public static final double LIFT_ENCODER_DPP = 1; // RobotDimensions.LIFT_TUBE_DIAMETER * Math.PI /
+                                                         // LIFT_ENCODER_TICKS_PER_REV
     }
 
     public static class RobotPIDSettings {
         // (kP, kI, kD, Tolerance, WaitTime)
-        public static final PIDSettings DRIVE_SETTINGS = new PIDSettings(0.0025,0,0.004,5,0.5);
-        public static final PIDSettings TURN_SETTINGS = new PIDSettings(0.022,0.00009,0.0735,4,0.5);
-        public static final PIDSettings GYRO_DRIVE_SETTINGS = new PIDSettings(0.075,0,0.35,0,0);
-        public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.003,0.00025,0.01,0,0);
-        public static final PIDSettings VISION_TURN_SETTINGS = new PIDSettings(0,0,0,0,0);
+        public static final PIDSettings DRIVE_SETTINGS = new PIDSettings(0.0025, 0, 0.004, 5, 0.5);
+        public static final PIDSettings TURN_SETTINGS = new PIDSettings(0.022, 0.00009, 0.0735, 4, 0.5);
+        public static final PIDSettings GYRO_DRIVE_SETTINGS = new PIDSettings(0.075, 0, 0.35, 0, 0);
+        public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.003, 0.00025, 0.01, 0,
+                0);
+        public static final PIDSettings VISION_TURN_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
     }
 
     /** the angles of the oneEighty subsystem when performing a task */
