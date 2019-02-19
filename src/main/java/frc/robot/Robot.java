@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
   final SendableChooser<Command> testsChooser = new SendableChooser<Command>();;
   public static Compressor compressor;
 
-  public static boolean driveInverted;
+  public static boolean driveInverted, hasCargo;
   public static Supplier<Boolean> invertedSupplier = () -> driveInverted;  
 
   @Override
