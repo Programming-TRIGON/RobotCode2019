@@ -27,15 +27,15 @@ public class OI {
         this.driverButtonA = new JoystickButton(driveXboxController, 1);
         this.driverButtonY = new JoystickButton(driveXboxController, 4);
 
-        operatorButtonA = new JoystickButton(operatorXbox, 1);
-        operatorButtonB = new JoystickButton(operatorXbox, 2);
-        operatorButtonX = new JoystickButton(operatorXbox, 3);
-        operatorButtonY = new JoystickButton(operatorXbox, 4);
-        operatorButtonLB = new JoystickButton(operatorXbox, 5);
-        operatorButtonRB = new JoystickButton(operatorXbox, 6);
+        this.operatorButtonA = new JoystickButton(operatorXbox, 1);
+        this.operatorButtonB = new JoystickButton(operatorXbox, 2);
+        this.operatorButtonX = new JoystickButton(operatorXbox, 3);
+        this.operatorButtonY = new JoystickButton(operatorXbox, 4);
+        this.operatorButtonLB = new JoystickButton(operatorXbox, 5);
+        this.operatorButtonRB = new JoystickButton(operatorXbox, 6);
 
-        driverButtonA.whenPressed(new SetDriveInverted(true));
-        driverButtonY.whenPressed(new SetDriveInverted(false));
+        this.driverButtonA.whenPressed(new SetDriveInverted(true));
+        this.driverButtonY.whenPressed(new SetDriveInverted(false));
     }   
 
     public double getYLeft(){
