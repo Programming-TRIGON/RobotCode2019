@@ -22,17 +22,17 @@ public class GamePiece extends Command {
   @Override
   protected void initialize() {
     this.holdingCargo = Robot.cargoCollector.isHoldingBall();
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
     if (holdingCargo) {
       new SetLiftHeight(LiftHeight.kRocketMiddleCargo);
     }
     else {
       new SetLiftHeight(LiftHeight.kRocketMiddleHatch);
     }
+  }
+
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
   }
 
   // Make this return true when this Command no longer needs to run execute()
