@@ -45,7 +45,9 @@ public class RobotConstants {
         // TODO: Set real angles.
         kStraight(0), // The cargo collector faces ahead in this angle.
         kBack(180), // The cargo collector faces back in this angle.
-        kFeeder(270); // This is the angle in order to collect the hatch from the feeder.
+        kFeeder(270), // This is the angle in order to collect the hatch from the feeder.
+        kTopStraight(-1),
+        kTopBack(181);    
         public double key;
 
         OneEightyAngle(double angle) {
@@ -57,7 +59,7 @@ public class RobotConstants {
     public static enum LiftHeight {
         // TODO:set real values.
         kRocketTopHatch(1), kRocketMiddleHatch(1), kRocketBottomHatch(1), kRocketTopCargo(1), kRocketBottomCargo(1),
-        kRocketMiddleCargo(1), kLiftBottom(1),
+        kRocketMiddleCargo(1), kLiftBottom(1), kCargoShip(1),
         /** a height that is safe to use OneEighty */
         kOneEightySafety(1),
         /** a height that is safe to fold cargo colleter */
@@ -68,6 +70,10 @@ public class RobotConstants {
         LiftHeight(double height) {
             this.key = height;
         }
+    }
+
+    public static enum PrepareToScoreHeight {
+        kLow, kMedium, kHigh, kCargoShip
     }
 
     // we might want to change the enum name...

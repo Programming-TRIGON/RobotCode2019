@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
+import frc.robot.RobotStates;
 import frc.robot.RobotConstants.LiftHeight;
 
 public class SetLiftHeight extends Command {
@@ -51,6 +52,7 @@ public class SetLiftHeight extends Command {
   @Override
   protected void execute() {
     double newSetpoint = height.get();
+    RobotStates.setLiftSetpoint(newSetpoint);
     if (pidController.getSetpoint() != newSetpoint)
       pidController.setSetpoint(newSetpoint);
     if (newSetpoint <= RobotConstants.LiftHeight.kCargoFolderSafty.key)

@@ -13,64 +13,64 @@ import frc.robot.RobotConstants.LiftHeight;
  * Add your docs here.
  */
 public class RobotStates {
-    double liftSetpoint;
-    double oneEightySetpoint;
-    boolean hasCargo;
-    boolean driveInverted;
+    static double liftSetpoint;
+    static double oneEightySetpoint;
+    static boolean hasCargo;
+    static boolean driveInverted;
 
     /**
      * @return the liftSetpoint
      */
-    public double getLiftSetpoint() {
+    public static double getLiftSetpoint() {
         return liftSetpoint;
     }
 
     /**
      * @param liftSetpoint the liftSetpoint to set
      */
-    public void setLiftSetpoint(double liftSetpoint) {
-        this.liftSetpoint = liftSetpoint;
+    public static void setLiftSetpoint(double liftSetpoint) {
+        RobotStates.liftSetpoint = liftSetpoint;
     }
 
     /**
      * @return the oneEightySetpoint
      */
-    public double getOneEightySetpoint() {
+    public static double getOneEightySetpoint() {
         return oneEightySetpoint;
     }
 
     /**
      * @param oneEightySetpoint the oneEightySetpoint to set
      */
-    public void setOneEightySetpoint(double oneEightySetpoint) {
-        this.oneEightySetpoint = oneEightySetpoint;
+    public static void setOneEightySetpoint(double oneEightySetpoint) {
+        RobotStates.oneEightySetpoint = oneEightySetpoint;
     }
 
     /**
      * @return the hasCargo
      */
-    public boolean isHasCargo() {
+    public static boolean isHasCargo() {
         return hasCargo;
     }
 
     /**
      * @param hasCargo the hasCargo to set
      */
-    public void setHasCargo(boolean hasCargo) {
-        this.hasCargo = hasCargo;
+    public static void setHasCargo(boolean hasCargo) {
+        RobotStates.hasCargo = hasCargo;
     }
 
     /**
      * @return the driveInverted
      */
-    public boolean isDriveInverted() {
+    public static boolean isDriveInverted() {
         return driveInverted;
     }
 
     /**
      * @param driveInverted the driveInverted to set
      */
-    public void setDriveInverted(boolean driveInverted) {
-        this.driveInverted = driveInverted;
+    public static void setDriveInverted(boolean driveInverted) {
+        RobotStates.driveInverted = driveInverted;
     }
 }

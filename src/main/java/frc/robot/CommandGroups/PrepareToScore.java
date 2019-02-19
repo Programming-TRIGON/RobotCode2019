@@ -7,28 +7,62 @@
 
 package frc.robot.CommandGroups;
 
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.Robot;
+import frc.robot.RobotStates;
+import frc.robot.Commands.SetLiftHeight;
+import frc.robot.RobotConstants.LiftHeight;
+import frc.robot.RobotConstants.OneEightyAngle;
+import frc.robot.RobotConstants.PrepareToScoreHeight;
 
 public class PrepareToScore extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public PrepareToScore() {
-    // Add Commands here:
-    // e.g. addSequential(new Command1());
-    // addSequential(new Command2());
-    // these will run in order.
+  public PrepareToScore(PrepareToScoreHeight height) {
+    LiftHeight heightToSet = LiftHeight.kOneEightySafety;
+    OneEightyAngle angleToSet = OneEightyAngle.kFeeder;
 
-    // To run multiple commands at the same time,
-    // use addParallel()
-    // e.g. addParallel(new Command1());
-    // addSequential(new Command2());
-    // Command1 and Command2 will run in parallel.
+    // We need to know whether to angle the 180 forward or reverse
+    if (!RobotStates.isDriveInverted()){
+     angleToSet = RobotStates.isHasCargo() ? OneEightyAngle.kStraight : OneEightyAngle.kBack; 
+    }
+    else {
+      angleToSet = RobotStates.isHasCargo() ? OneEightyAngle.kBack : OneEightyAngle.kStraight; 
+    }
 
-    // A command group will require all of the subsystems that each member
-    // would require.
-    // e.g. if Command1 requires chassis, and Command2 requires arm,
-    // a CommandGroup containing them would require both the chassis and the
-    // arm.
+    // Choose which height should be set based on what the operator input and what game piece we have
+    switch (height){
+      case kLow:
+        if (RobotStates.isHasCargo())
+          heightToSet = LiftHeight.kRocketBottomCargo;
+        else 
+          heightToSet = LiftHeight.kRocketBottomHatch;
+        break;
+      case kMedium:
+        if (RobotStates.isHasCargo())
+          heightToSet = LiftHeight.kRocketMiddleCargo;
+        else 
+          heightToSet = LiftHeight.kRocketMiddleHatch;
+        break;
+      case kHigh:
+        if (RobotStates.isHasCargo()){
+          heightToSet = LiftHeight.kRocketTopCargo;
+          // The only time the 180 isn't straight is when it has to be angled up
+          angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kTopBack : OneEightyAngle.kTopStraight;
+        }
+        else
+          heightToSet = LiftHeight.kRocketTopHatch;
+        break;
+      case kCargoShip:
+        if(RobotStates.isHasCargo())
+          heightToSet = LiftHeight.kCargoShip;
+        else
+          heightToSet = LiftHeight.kRocketBottomHatch;
+    }
+    
+    addSequential(new SetLiftHeight(heightToSet));
+    addSequential(new SetOneEightyAngle(angleToSet));
   }
 }
