@@ -8,9 +8,7 @@ public class RobotStates {
     static double  oneEightySetpoint;
     static boolean hasCargo;
     static boolean driveInverted;
-<<<<<<< HEAD
     static boolean liftOverride;
-=======
     static int heightIndex = 1; // The values can be 0,1,2 for rocket - low, middle and high. And -1 for none of these hights     
     
     public static void increaseHeight() {
@@ -30,8 +28,6 @@ public class RobotStates {
     public static void setHeightIndex(int index){ 
         RobotStates.heightIndex = index;
     }
->>>>>>> d7d99e942cd110b7896ddc825ad2fbc0d2c222ea
-
     /**
      * @return the liftSetpoint
      */
