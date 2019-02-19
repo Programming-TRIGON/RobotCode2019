@@ -35,6 +35,7 @@ import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
 import frc.robot.Subsystems.HatchHolder;
+import frc.robot.Subsystems.JoystickOverridableSubsystem;
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
 import frc.robot.Vision.VisionPIDSource;
@@ -56,7 +57,8 @@ public class Robot extends TimedRobot {
   public static DashBoardController dbc;
   public static OI oi;
 
-  final SendableChooser<Command> testsChooser = new SendableChooser<Command>();;
+  final SendableChooser<Command> testsChooser = new SendableChooser<Command>();
+  final SendableChooser<JoystickOverridableSubsystem> MoveWithJoystickChooser = new SendableChooser<JoystickOverridableSubsystem>();
   Command testCommand;
 
   public static Compressor compressor;
@@ -216,6 +218,7 @@ public class Robot extends TimedRobot {
 
     testCommand = testsChooser.getSelected();
     SmartDashboard.putData(testCommand);
+    SmartDashboard.putData("move selected subsystem", new MoveSubsystemWithJoystick(MoveWithJoystickChooser.getSelected(), oi.operatorXbox));
   }
 
   @Override
@@ -248,5 +251,10 @@ public class Robot extends TimedRobot {
 
     testsChooser.addOption("hatchCollectorOn", new SetHatchCollectorState(Value.kForward));
     testsChooser.addOption("hatchCollectorOff", new SetHatchCollectorState(Value.kReverse));
+
+    MoveWithJoystickChooser.addDefault("Cargo Collector", Robot.cargoCollector);
+    MoveWithJoystickChooser.addOption("Lift", Robot.lift);
+    MoveWithJoystickChooser.addOption("Cargo Holder", Robot.cargoCollector);
+    MoveWithJoystickChooser.addOption("One Eighty", Robot.oneEighty);
   }
 }
