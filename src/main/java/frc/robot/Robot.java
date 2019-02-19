@@ -144,37 +144,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putData(new TestPID());
 
-    // Open/Close solenoids
-    SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
-    SmartDashboard.putData("Hatch Unlock", new SetHatchLock(Value.kReverse));
-    SmartDashboard.putData("Hatch Collector Up", new SetHatchCollectorState(Value.kForward));
-    SmartDashboard.putData("Hatch Collector Down", new SetHatchCollectorState(Value.kReverse));
-    SmartDashboard.putData("Cargo folder Up", new SetCargoFolderState(Value.kForward));
-    SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
-    SmartDashboard.putData("Hatch Eject Push", new SetHatchEject(Value.kForward));
-    SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
-
-    SmartDashboard.putData("Drive",
-        new DriveArcade(Robot.driveTrain, () -> -Robot.oi.operatorXbox.getY(), () -> -Robot.oi.operatorXbox.getX()));
-
-    SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
-
-    SmartDashboard.putData("Eject hatch", new EjectHatch());
-
-    SmartDashboard.putData(new TestPID());
-
-    // 180 commands
-    SmartDashboard.putData("Move 180 With Joystick",
-        new MoveSubsystemWithJoystick(Robot.oneEighty, Robot.oi.operatorXbox));
-    SmartDashboard.putData("Set one eighty angel 0", new SetOneEightyAngle(-8));
-    SmartDashboard.putData("Set one eighty angel 90", new SetOneEightyAngle(107));
-    SmartDashboard.putData("Set one eighty angel 180", new SetOneEightyAngle(208));
-
-    // Auto command tests
-    SmartDashboard.putData("Test auto", new testAuto());
-    SmartDashboard.putData("Turn 90", new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 90.0,
-        RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
-
+    
     // Robot data to be periodically published to SmartDashboard
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
