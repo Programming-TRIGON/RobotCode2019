@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
   final SendableChooser<Command> testsChooser = new SendableChooser<Command>();;
   public static Compressor compressor;
 
-  public static boolean driveInverted, hasCargo;
+  public static boolean driveInverted, hasCargo = false;
   public static Supplier<Boolean> invertedSupplier = () -> driveInverted;  
 
   @Override
@@ -162,6 +162,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Scheduler", Scheduler.getInstance());
     if (Robot.lift.isAtBottom() || SmartDashboard.getBoolean("reset enc", false))
       RobotComponents.Lift.ENCODER.reset();
+    
+    if (Robot.cargoCollector.isHoldingBall())
+      hasCargo = true;
+    else
+      hasCargo = false; 
   }
 
   @Override
