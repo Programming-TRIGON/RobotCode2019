@@ -27,7 +27,7 @@ public class RobotStates {
 
     public static void setHeightIndex(int index){ 
         RobotStates.heightIndex = index;
-    }
+    }   
     /**
      * @return the liftSetpoint
      */

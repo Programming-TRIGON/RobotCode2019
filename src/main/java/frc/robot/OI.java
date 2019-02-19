@@ -19,7 +19,7 @@ public class OI {
     public XboxController driverXbox = new XboxController(1);
 
     Button driverButtonY, driverButtonA, driverButtonB, driverButtonX;
-    Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB;
+    Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, defenseButton;
     POVButton operatorSwitchPiece;
 
     public OI() {
@@ -40,6 +40,8 @@ public class OI {
         this.operatorButtonY = new JoystickButton(operatorXbox, 4);
         this.operatorButtonLB = new JoystickButton(operatorXbox, 5);
         this.operatorButtonRB = new JoystickButton(operatorXbox, 6);
+        this.defenseButton = new JoystickButton(operatorXbox, 8);
+
         this.operatorSwitchPiece = new POVButton(operatorXbox, 90);
 
         this.operatorButtonA.whenPressed(new CargoCollectCmdG());
