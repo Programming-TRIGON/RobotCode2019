@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.CommandGroups.CargoCollectCmdG;
 import frc.robot.CommandGroups.CollectHatchFromFeeder;
 import frc.robot.CommandGroups.DefenceMode;
-import frc.robot.Commands.LiftSwitchOverrride;
+import frc.robot.Commands.LiftSwitchOverride;
 import frc.robot.Commands.OneEightySwitchOverride;
 import frc.robot.CommandGroups.PrepareToScore;
 import frc.robot.CommandGroups.Push;
@@ -50,7 +50,7 @@ public class OI {
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
         this.operatorButtonA.whenPressed(new CargoCollectCmdG());
         this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride());
-        this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverrride());
+        this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride());
         this.operatorStartButton = new JoystickButton(operatorXbox, 8);
 
         this.operatorButtonA.whenPressed(new CargoCollectCmdG());
@@ -64,6 +64,6 @@ public class OI {
         this.operatorLeftPOVButton.whenPressed(new SwitchGamePiece(false));
 
         this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip));
-        }
+    }
 
 }
