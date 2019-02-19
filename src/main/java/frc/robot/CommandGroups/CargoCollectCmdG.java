@@ -10,8 +10,8 @@ import frc.robot.Commands.SetLiftHeight;
 /** collects caro from the floor */
 
 public class CargoCollectCmdG extends CommandGroup {
-  double COLLECTOR_POWER = 0.5;
-  double HOLDER_POWER = 0.7;
+  double COLLECTOR_POWER = 0.75;
+  double HOLDER_POWER = 0.6;
 
   // TODO: real values.
   public CargoCollectCmdG() {

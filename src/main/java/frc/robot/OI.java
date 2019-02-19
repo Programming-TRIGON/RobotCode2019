@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.Commands.SetDriveInverted;
 
@@ -12,14 +13,20 @@ import frc.robot.Commands.SetDriveInverted;
 public class OI {
     public XboxController operatorXbox = new XboxController(0);  
     public XboxController driverXbox = new XboxController(1);
-    JoystickButton driverButtonY, driverButtonA;
-    JoystickButton operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB,
+    Button driverButtonY, driverButtonA;
+    Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB,
     operatorButtonA, operatorButtonB;
     
     public OI(){
+        // driver buttons 
         this.driverButtonA = new JoystickButton(driverXbox, 1);
         this.driverButtonY = new JoystickButton(driverXbox, 4);
+        
+        
+        this.driverButtonA.whenPressed(new SetDriveInverted(true));
+        this.driverButtonY.whenPressed(new SetDriveInverted(false));
 
+        // operator buttons 
         this.operatorButtonA = new JoystickButton(operatorXbox, 1);
         this.operatorButtonB = new JoystickButton(operatorXbox, 2);
         this.operatorButtonX = new JoystickButton(operatorXbox, 3);
@@ -27,8 +34,7 @@ public class OI {
         this.operatorButtonLB = new JoystickButton(operatorXbox, 5);
         this.operatorButtonRB = new JoystickButton(operatorXbox, 6);
 
-        this.driverButtonA.whenPressed(new SetDriveInverted(true));
-        this.driverButtonY.whenPressed(new SetDriveInverted(false));
+        this.operatorButtonA.whenPressed(new CollectCargo(0.75, 0.6));
     }   
 
     public double getYLeft(){
