@@ -8,18 +8,21 @@ public class RobotStates {
     static double  oneEightySetpoint;
     static boolean hasCargo;
     static boolean driveInverted;
+    static boolean oneEightyOverride = true;
+
     static boolean liftOverride;
     static int heightIndex = 1; // The values can be 0,1,2 for rocket - low, middle and high. And -1 for none of these hights     
     
-    public static void increaseHeight() {
-        if(RobotStates.heightIndex<2)
-            RobotStates.heightIndex ++;
+  public static void increaseHeight() {
+        if (RobotStates.heightIndex < 2)
+            RobotStates.heightIndex++;
     }
 
     public static void decreaseHeight() {
-        if(RobotStates.heightIndex>0)
-            RobotStates.heightIndex --;
+        if (RobotStates.heightIndex > 0)
+            RobotStates.heightIndex--;
     }
+
 
     public static int getHeightIndex(){
         return RobotStates.heightIndex;
@@ -84,4 +87,11 @@ public class RobotStates {
         RobotStates.driveInverted = driveInverted;
     }
 
+    public static boolean isOneEightyOverride() {
+        return RobotStates.oneEightyOverride;
+    }
+
+    public static void toggleOneEightyOverride() {
+        RobotStates.oneEightyOverride = !RobotStates.oneEightyOverride;
+    }
 }

@@ -22,7 +22,7 @@ public class CollectHatchFromFeeder extends CommandGroup {
 
     public CollectHatchFromFeeder() {
         addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));
-        addSequential(new SetLiftHeight(RobotConstants.LiftHeight.kLiftBottom));
+        addSequential(new SetLiftHeight(RobotConstants.LiftHeight.kLiftBottomHatch));
         addSequential(new SetHatchLock(unlock));
     }
 }

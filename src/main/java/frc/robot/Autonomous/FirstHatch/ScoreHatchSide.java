@@ -44,7 +44,7 @@ public class ScoreHatchSide extends CommandGroup {
         TURN_TO_TARGET * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     // Prepare Robot to deliver hatch:
-    addSequential(new SetLiftHeight(LiftHeight.kRocketBottomHatch));
+    addSequential(new SetLiftHeight(LiftHeight.kLiftBottomHatch));
 
     // Use vision to deliver the hatch
     /*addSequential(
