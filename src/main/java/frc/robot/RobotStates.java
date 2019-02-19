@@ -7,16 +7,15 @@
 
 package frc.robot;
 
-import frc.robot.RobotConstants.LiftHeight;
-
 /**
  * Add your docs here.
  */
 public class RobotStates {
-    static double liftSetpoint;
-    static double oneEightySetpoint;
+    static double  liftSetpoint;
+    static double  oneEightySetpoint;
     static boolean hasCargo;
     static boolean driveInverted;
+    static boolean liftOverride;
 
     /**
      * @return the liftSetpoint
@@ -73,4 +72,5 @@ public class RobotStates {
     public static void setDriveInverted(boolean driveInverted) {
         RobotStates.driveInverted = driveInverted;
     }
+
 }

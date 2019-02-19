@@ -14,9 +14,10 @@ import frc.robot.Commands.SetDriveInverted;
 public class OI {
     public XboxController operatorXbox = new XboxController(0);  
     public XboxController driverXbox = new XboxController(1);
+    
     Button driverButtonY, driverButtonA, driverButtonB, driverButtonX;
     Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB,
-    operatorButtonA, operatorButtonB;
+    operatorButtonA, operatorButtonB, operatorSwitchPiece;
     
     public OI(){
         // driver buttons 
@@ -34,7 +35,9 @@ public class OI {
         this.operatorButtonX = new JoystickButton(operatorXbox, 3);
         this.operatorButtonY = new JoystickButton(operatorXbox, 4);
         this.operatorButtonLB = new JoystickButton(operatorXbox, 5);
-        this.operatorButtonRB = new JoystickButton(operatorXbox, 6);
+        this.operatorSwitchPiece = new JoystickButton(operatorXbox, 6);
+        this.operatorButtonRB = new JoystickButton(operatorXbox, 7);
+
 
         this.operatorButtonA.whenPressed(new CollectCargo(0.75, 0.6));
     }   
