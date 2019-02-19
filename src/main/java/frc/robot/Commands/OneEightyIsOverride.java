@@ -5,6 +5,10 @@ import frc.robot.Robot;
 import frc.robot.RobotStates;
 import frc.robot.CommandGroups.SetOneEightyAngle;
 
+/**
+ * This command checks which command should run. it should run when the operator
+ * overrides/ unoverrides the one eighty.
+ */
 public class OneEightyIsOverride extends Command {
   public OneEightyIsOverride() {
     requires(Robot.oneEighty);
