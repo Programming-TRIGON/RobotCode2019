@@ -9,8 +9,8 @@ import frc.robot.CommandGroups.SetOneEightyAngle;
  * This command checks which command should run. it should run when the operator
  * overrides/ unoverrides the one eighty.
  */
-public class OneEightyIsOverride extends Command {
-  public OneEightyIsOverride() {
+public class OneEightyOverrideCheck extends Command {
+  public OneEightyOverrideCheck() {
     requires(Robot.oneEighty);
   }
 
@@ -21,7 +21,7 @@ public class OneEightyIsOverride extends Command {
     }
     // TODO: change to driving change
     else {
-      new SetOneEightyAngle(RobotStates.getOneEightySetpoint());
+      new SetOneEightyAngle(RobotStates.getOneEightySetpoint()).start();
     }
   }
 

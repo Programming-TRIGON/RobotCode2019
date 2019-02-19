@@ -17,20 +17,20 @@ public class RobotStates {
     static double oneEightySetpoint;
     static boolean hasCargo;
     static boolean driveInverted;
-    static double heightIndex = 1;   
+    static double heightIndex = 1;
     static boolean oneEightyOverride = true;
-    
+
     public static void increaseHeight() {
-        if(RobotStates.heightIndex<2)
-            RobotStates.heightIndex ++;
+        if (RobotStates.heightIndex < 2)
+            RobotStates.heightIndex++;
     }
 
     public static void decreaseHeight() {
-        if(RobotStates.heightIndex>0)
-            RobotStates.heightIndex --;
+        if (RobotStates.heightIndex > 0)
+            RobotStates.heightIndex--;
     }
 
-    public static double getHeightIndex(){
+    public static double getHeightIndex() {
         return RobotStates.heightIndex;
     }
 
@@ -89,10 +89,12 @@ public class RobotStates {
     public static void setDriveInverted(boolean driveInverted) {
         RobotStates.driveInverted = driveInverted;
     }
-    public static boolean isOneEightyOverride(){
+
+    public static boolean isOneEightyOverride() {
         return RobotStates.oneEightyOverride;
     }
-    public static void setoneEightyOverride(){
+
+    public static void toggleOneEightyOverride() {
         RobotStates.oneEightyOverride = !RobotStates.oneEightyOverride;
-    }  
+    }
 }
