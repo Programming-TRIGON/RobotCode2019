@@ -1,8 +1,5 @@
 package frc.robot;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.spikes2212.utils.PIDSettings;
 
 /** a class used to store constants related to the robot */
@@ -76,23 +73,5 @@ public class RobotConstants {
         kLow, kMedium, kHigh, kCargoShip
     }
 
-    // we might want to change the enum name...
-    public static enum PushCargoPower {
-        // TODO:set real values.
-        /** the speed we want to push the cargo */
-        kCargoShip(1), kLowRocket(1), kMiddleRocket(1), kTopRocket(-1);
-        public double key;
-
-        PushCargoPower(double power) {
-            this.key = power;
-        }
-    }
-
-    public static Map<LiftHeight, PushCargoPower> heightToCargoPower = new HashMap<LiftHeight, PushCargoPower>() {
-        {
-            put(LiftHeight.kRocketBottomCargo, PushCargoPower.kLowRocket);
-            put(LiftHeight.kRocketMiddleCargo, PushCargoPower.kMiddleRocket);
-            put(LiftHeight.kRocketTopCargo, PushCargoPower.kTopRocket);
-        }
-    };
+    public static PrepareToScoreHeight[] heights = {PrepareToScoreHeight.kLow, PrepareToScoreHeight.kMedium, PrepareToScoreHeight.kHigh};
 }

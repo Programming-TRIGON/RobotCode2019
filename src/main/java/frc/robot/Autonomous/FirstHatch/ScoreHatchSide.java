@@ -47,11 +47,11 @@ public class ScoreHatchSide extends CommandGroup {
     addSequential(new SetLiftHeight(LiftHeight.kRocketBottomHatch));
 
     // Use vision to deliver the hatch
-    addSequential(
+    /*addSequential(
         new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
             Robot.oi::getYLeft, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, false),
         TARGET_TRACK_TIME);
-
+    */
     addSequential(new EjectHatch());
 
     // Orient towards hatch feeder and go there for second hatch:

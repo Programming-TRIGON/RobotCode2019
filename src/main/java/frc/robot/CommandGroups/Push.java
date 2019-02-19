@@ -8,22 +8,17 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.RobotConstants;
-import frc.robot.Commands.SetLiftHeight;
-import frc.robot.RobotConstants.LiftHeight;
-/**
- * Add your docs here.
- */
-public class ScoreHatch extends CommandGroup{
-    private LiftHeight height; 
+import frc.robot.RobotStates;
+import frc.robot.Commands.PushCargo;
 
-    public ScoreHatch(LiftHeight height) {
-        this.height = height;
-
-
-        addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));
-        addSequential(new SetLiftHeight(this.height));
-        addSequential(new EjectHatch());
-        addSequential(new SetLiftHeight(RobotConstants.LiftHeight.kLiftBottom));
-    }
+public class Push extends CommandGroup {
+  /**
+   * Pushes the right piece
+   */
+  public Push() {
+    if(RobotStates.isHasCargo())
+      addSequential(new PushCargo());
+    else
+      addSequential(new EjectHatch());
+  }
 }

@@ -1,21 +1,36 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 /**
- * Add your docs here.
+ * listeninng to the statse 
  */
 public class RobotStates {
     static double  liftSetpoint;
     static double  oneEightySetpoint;
     static boolean hasCargo;
     static boolean driveInverted;
+<<<<<<< HEAD
     static boolean liftOverride;
+=======
+    static int heightIndex = 1; // The values can be 0,1,2 for rocket - low, middle and high. And -1 for none of these hights     
+    
+    public static void increaseHeight() {
+        if(RobotStates.heightIndex<2)
+            RobotStates.heightIndex ++;
+    }
+
+    public static void decreaseHeight() {
+        if(RobotStates.heightIndex>0)
+            RobotStates.heightIndex --;
+    }
+
+    public static int getHeightIndex(){
+        return RobotStates.heightIndex;
+    }
+
+    public static void setHeightIndex(int index){ 
+        RobotStates.heightIndex = index;
+    }
+>>>>>>> d7d99e942cd110b7896ddc825ad2fbc0d2c222ea
 
     /**
      * @return the liftSetpoint
