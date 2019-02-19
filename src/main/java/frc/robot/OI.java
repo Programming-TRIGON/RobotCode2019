@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.CommandGroups.CargoCollectCmdG;
+import frc.robot.CommandGroups.CollectHatch;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.SetDriveInverted;
 
@@ -29,6 +30,7 @@ public class OI {
         //this.driverButtonB.whileHeld(new );
         this.driverButtonA.whenPressed(new SetDriveInverted(true));
         this.driverButtonY.whenPressed(new SetDriveInverted(false));
+        this.driverButtonX.whileHeld(new CollectHatch());
 
         // operator buttons 
         this.operatorButtonA = new JoystickButton(operatorXbox, 1);
