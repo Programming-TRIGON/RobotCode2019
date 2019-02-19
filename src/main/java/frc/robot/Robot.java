@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -138,7 +139,8 @@ public class Robot extends TimedRobot {
 
     
     Robot.driveTrain.setDefaultCommand(new DriveArcade(Robot.driveTrain, 
-      () -> invertedSupplier.get() ? -1 * Robot.oi.driverXbox.getY() : 1 * Robot.oi.driverXbox.getY(), Robot.oi.driverXbox::getX));
+      () -> invertedSupplier.get() ? -1 * Robot.oi.driverXbox.getY(Hand.kLeft) : 1 * Robot.oi.driverXbox.getY(Hand.kLeft), 
+      () -> Robot.oi.driverXbox.getX(Hand.kLeft)));
 
     SmartDashboard.putData(new TestPID());
 
