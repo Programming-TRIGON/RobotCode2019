@@ -25,9 +25,7 @@ public class OI {
   
 
     Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, defenseButton;
-    POVButton operatorHatch, operatorCargo;
-    POVButton operatorSwitchPiece;
-
+    POVButton operatorRightPOVButton, operatorLeftPOVButton;
     public OI() {
         // driver buttons
         this.driverButtonA = new JoystickButton(driverXbox, 1);
@@ -48,19 +46,18 @@ public class OI {
         this.operatorButtonRB = new JoystickButton(operatorXbox, 6);
         this.operatorButtonAxisLeft = new JoystickButton(operatorXbox, 9);
 
-        this.operatorHatch = new POVButton(operatorXbox, 90);
-        this.operatorCargo = new POVButton(operatorXbox, 180);
+        this.operatorRightPOVButton = new POVButton(operatorXbox, 90);
+        this.operatorLeftPOVButton = new POVButton(operatorXbox, 180);
         this.operatorButtonA.whenPressed(new CargoCollectCmdG());
         this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride());
         this.defenseButton = new JoystickButton(operatorXbox, 8);
-        this.operatorSwitchPiece = new POVButton(operatorXbox, 90);
 
         this.operatorButtonA.whenPressed(new CargoCollectCmdG());
         this.operatorButtonB.whenPressed(new Push());
         this.operatorButtonRB.whenPressed(new PrepareToScore(true));
         this.operatorButtonLB.whenPressed(new PrepareToScore(false));
-        this.operatorHatch.whenPressed(new SwitchGamePiece(true));
-        this.operatorCargo.whenPressed(new SwitchGamePiece(false));
+        this.operatorRightPOVButton.whenPressed(new SwitchGamePiece(true));
+        this.operatorLeftPOVButton.whenPressed(new SwitchGamePiece(false));
 
         this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip));
 
