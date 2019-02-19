@@ -32,6 +32,7 @@ public class MoveSubsystemWithJoystick extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    subsystem.setSafeControl(false);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -50,6 +51,7 @@ public class MoveSubsystemWithJoystick extends Command {
   @Override
   protected void end() {
     this.subsystem.move(0);
+    subsystem.setSafeControl(true);
   }
 
   // Called when another command which requires one or more of the same

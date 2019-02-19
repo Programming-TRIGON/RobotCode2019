@@ -16,6 +16,8 @@ public class Lift extends JoystickOverridableSubsystem {
 
   private Encoder encoder;
 
+  private boolean safeControl = true;
+
   public Lift(TalonSRX rightMotor, TalonSRX leftMotor, DigitalInput topwSwitch, DigitalInput bottomSwitch,
       Encoder encoder) {
     this.rightMotor = rightMotor;
@@ -31,12 +33,12 @@ public class Lift extends JoystickOverridableSubsystem {
 
   /** sets the speed of the motors of the lift to higher/lower it */
   public void setMotorSpeed(double speed) {
-    if(speed > 0 && isAtTop() || speed < 0 && isAtBottom()){
+    if (safeControl && (speed > 0 && isAtTop() || speed < 0 && isAtBottom())) {
       rightMotor.set(ControlMode.PercentOutput, 0);
       leftMotor.set(ControlMode.PercentOutput, 0);
     }
-      
-    else{
+
+    else {
       rightMotor.set(ControlMode.PercentOutput, speed);
       leftMotor.set(ControlMode.PercentOutput, speed);
     }
@@ -59,7 +61,7 @@ public class Lift extends JoystickOverridableSubsystem {
     return this.encoder;
   }
 
-  public double getHeight(){
+  public double getHeight() {
     return this.encoder.getDistance() + RobotConstants.Sensors.LIFT_ENCODER_OFFSET;
   }
 
@@ -70,5 +72,10 @@ public class Lift extends JoystickOverridableSubsystem {
   @Override
   public void move(double power) {
     setMotorSpeed(power);
+  }
+
+  @Override
+  public void setSafeControl(boolean isSafe) {
+    this.safeControl = isSafe;
   }
 }

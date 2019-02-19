@@ -47,4 +47,9 @@ public class OneEighty extends JoystickOverridableSubsystem {
   public void move(double power) {
     setOneEighty(power);
   }
+
+  @Override
+  public void setSafeControl(boolean isSafe) {
+
+  }
 }

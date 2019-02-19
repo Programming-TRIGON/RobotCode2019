@@ -60,4 +60,16 @@ public class CargoCollector extends JoystickOverridableSubsystem {
   public void move(double power) {
     setCollectorMotor(power);
   }
+
+  public void move(double power, boolean holder){
+    if (holder)
+      setHolderMotors(power);
+    else
+      setCollectorMotor(power);
+  }
+
+  @Override
+  public void setSafeControl(boolean isSafe) {
+    //should implement this eventually
+  }
 }

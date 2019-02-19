@@ -8,4 +8,5 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public abstract class JoystickOverridableSubsystem extends Subsystem{
     public abstract void move(double power);
+    public abstract void setSafeControl(boolean isSafe);
 }
