@@ -23,6 +23,7 @@ import frc.robot.Autonomous.TestPID;
 import frc.robot.Autonomous.testAuto;
 import frc.robot.CommandGroups.EjectHatch;
 import frc.robot.CommandGroups.SetOneEightyAngle;
+import frc.robot.CommandGroups.Tizer;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
 import frc.robot.Commands.PushCargo;
@@ -159,6 +160,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Eject hatch", new EjectHatch());
 
     SmartDashboard.putData(new TestPID());
+
+    SmartDashboard.putData(new Tizer());
 
     // 180 commands
     SmartDashboard.putData("Move lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
