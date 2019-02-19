@@ -18,7 +18,7 @@ public class PrepareToScore extends CommandGroup {
 
     // We need to know whether to angle the 180 forward or reverse
     if (!RobotStates.isDriveInverted()){
-     angleToSet = RobotStates.isHasCargo() ? OneEightyAngle.kStraight : OneEightyAngle.kBack; 
+      angleToSet = RobotStates.isHasCargo() ? OneEightyAngle.kStraight : OneEightyAngle.kBack; 
     }
     else {
       angleToSet = RobotStates.isHasCargo() ? OneEightyAngle.kBack : OneEightyAngle.kStraight; 
@@ -27,18 +27,21 @@ public class PrepareToScore extends CommandGroup {
     // Choose which height should be set based on what the operator input and what game piece we have
     switch (height){
       case kLow:
+        RobotStates.setHeightIndex(0);
         if (RobotStates.isHasCargo())
           heightToSet = LiftHeight.kRocketBottomCargo;
         else 
           heightToSet = LiftHeight.kRocketBottomHatch;
         break;
       case kMedium:
+        RobotStates.setHeightIndex(1);
         if (RobotStates.isHasCargo())
           heightToSet = LiftHeight.kRocketMiddleCargo;
         else 
           heightToSet = LiftHeight.kRocketMiddleHatch;
         break;
       case kHigh:
+        RobotStates.setHeightIndex(2);
         if (RobotStates.isHasCargo()){
           heightToSet = LiftHeight.kRocketTopCargo;
           // The only time the 180 isn't straight is when it has to be angled up
