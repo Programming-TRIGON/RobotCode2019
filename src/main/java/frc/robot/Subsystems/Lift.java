@@ -43,6 +43,10 @@ public class Lift extends JoystickOverridableSubsystem {
     return topSwitch.get();
   }
 
+  public void SetMotorSpeedNoSafety(double speed){
+    rightMotor.set(ControlMode.PercentOutput, speed);
+    leftMotor.set(ControlMode.PercentOutput, speed);  }
+
   /**
    * This function checks whether the lift has activated the botton micro switch.
    */
