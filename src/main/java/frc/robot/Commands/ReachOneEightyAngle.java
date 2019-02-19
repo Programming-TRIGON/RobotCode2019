@@ -9,6 +9,7 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotStates;
 import frc.robot.RobotConstants.OneEightyAngle;
 
 public class ReachOneEightyAngle extends Command {
@@ -42,7 +43,7 @@ public class ReachOneEightyAngle extends Command {
   @Override
   protected boolean isFinished() {
     double currentAngle = Robot.oneEighty.getAngle();
-    return (currentAngle > angle - 2.5) && (currentAngle < angle + 2.5);
+    return (currentAngle > angle - 2.5) && (currentAngle < angle + 2.5) || RobotStates.isOneEightyOverride();
   }
 
   // Called once after isFinished returns true
