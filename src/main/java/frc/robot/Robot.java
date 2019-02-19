@@ -60,6 +60,8 @@ public class Robot extends TimedRobot {
   public static OI oi;
 
   final SendableChooser<Command> testsChooser = new SendableChooser<Command>();;
+  Command testCommand;
+
   public static Compressor compressor;
 
   @Override
@@ -213,6 +215,9 @@ public class Robot extends TimedRobot {
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
     RobotComponents.DriveTrain.LEFT_ENCODER.reset();
     RobotComponents.DriveTrain.GYRO.calibrate();
+
+    testCommand = testsChooser.getSelected();
+    SmartDashboard.putData(testCommand);
   }
 
   @Override
