@@ -1,23 +1,14 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
-import frc.robot.RobotConstants.LiftHeight;
-
 /**
- * Add your docs here.
+ * listeninng to the statse 
  */
 public class RobotStates {
     static double liftSetpoint;
     static double oneEightySetpoint;
     static boolean hasCargo;
     static boolean driveInverted;
-    static double heightIndex = 1;   
+    static int heightIndex = 1;   
     
     public static void increaseHeight() {
         if(RobotStates.heightIndex<2)
@@ -29,8 +20,12 @@ public class RobotStates {
             RobotStates.heightIndex --;
     }
 
-    public static double getHeightIndex(){
+    public static int getHeightIndex(){
         return RobotStates.heightIndex;
+    }
+
+    public static void setHeightIndex(int index){ 
+        RobotStates.heightIndex = index;
     }
 
     /**

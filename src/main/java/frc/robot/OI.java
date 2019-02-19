@@ -5,8 +5,11 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.CommandGroups.CargoCollectCmdG;
+import frc.robot.CommandGroups.PrepareToScore;
+import frc.robot.CommandGroups.Push;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.SetDriveInverted;
+import frc.robot.RobotConstants.PrepareToScoreHeight;
 
 /**
  * Add your docs here.
@@ -39,5 +42,8 @@ public class OI {
         this.operatorButtonRB = new JoystickButton(operatorXbox, 6);
 
         this.operatorButtonA.whenPressed(new CargoCollectCmdG());
+        this.operatorButtonB.whenPressed(new Push());
+        this.operatorButtonRB.whenPressed(new PrepareToScore(true));
+        this.operatorButtonLB.whenPressed(new PrepareToScore(false));
     }   
 }
