@@ -42,7 +42,6 @@ public class OI {
         this.operatorButtonLB = new JoystickButton(operatorXbox, 5);
         this.operatorButtonRB = new JoystickButton(operatorXbox, 6);
         this.defenseButton = new JoystickButton(operatorXbox, 8);
-
         this.operatorSwitchPiece = new POVButton(operatorXbox, 90);
 
         this.operatorButtonA.whenPressed(new CargoCollectCmdG());
