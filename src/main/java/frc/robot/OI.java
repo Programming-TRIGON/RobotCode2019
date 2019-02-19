@@ -20,7 +20,7 @@ public class OI {
 
     Button driverButtonY, driverButtonA, driverButtonB, driverButtonX;
     Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, defenseButton;
-    POVButton operatorSwitchPiece;
+    POVButton operatorHatch, operatorCargo;
 
     public OI() {
         // driver buttons
@@ -42,12 +42,15 @@ public class OI {
         this.operatorButtonRB = new JoystickButton(operatorXbox, 6);
         this.defenseButton = new JoystickButton(operatorXbox, 8);
 
-        this.operatorSwitchPiece = new POVButton(operatorXbox, 90);
+        this.operatorHatch = new POVButton(operatorXbox, 90);
+        this.operatorCargo = new POVButton(operatorXbox, 180);
 
         this.operatorButtonA.whenPressed(new CargoCollectCmdG());
         this.operatorButtonB.whenPressed(new Push());
         this.operatorButtonRB.whenPressed(new PrepareToScore(true));
         this.operatorButtonLB.whenPressed(new PrepareToScore(false));
-        this.operatorSwitchPiece.whenPressed(new SwitchGamePiece());
+        this.operatorHatch.whenPressed(new SwitchGamePiece(true));
+        this.operatorCargo.whenPressed(new SwitchGamePiece(false));
+
     }   
 }

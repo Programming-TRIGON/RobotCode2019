@@ -17,18 +17,13 @@ import frc.robot.RobotStates;
 public class SwitchGamePiece extends InstantCommand {
   boolean hasCargo;
   
-  public SwitchGamePiece() {
-    this.hasCargo = RobotStates.isHasCargo();
+  public SwitchGamePiece(boolean hasCargo) {
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    if(hasCargo){
       RobotStates.setHasCargo(!hasCargo);
-    } else {
-      RobotStates.setHasCargo(hasCargo);
-    }
   }
 
 }
