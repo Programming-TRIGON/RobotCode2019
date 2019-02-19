@@ -9,6 +9,7 @@ import frc.robot.CommandGroups.PrepareToScore;
 import frc.robot.CommandGroups.Push;
 import frc.robot.Commands.SetDriveInverted;
 import frc.robot.Commands.SwitchGamePiece;
+import frc.robot.RobotConstants.PrepareToScoreHeight;
 
 /**
  * Add your docs here.
@@ -51,6 +52,8 @@ public class OI {
         this.operatorButtonLB.whenPressed(new PrepareToScore(false));
         this.operatorHatch.whenPressed(new SwitchGamePiece(true));
         this.operatorCargo.whenPressed(new SwitchGamePiece(false));
+
+        this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip));
 
     }   
 }

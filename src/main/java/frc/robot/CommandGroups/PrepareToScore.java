@@ -31,7 +31,7 @@ public class PrepareToScore extends CommandGroup {
         if (RobotStates.isHasCargo())
           heightToSet = LiftHeight.kRocketBottomCargo;
         else 
-          heightToSet = LiftHeight.kRocketBottomHatch;
+          heightToSet = LiftHeight.kLiftBottomHatch;
         break;
       case kMedium:
         RobotStates.setHeightIndex(1);
@@ -51,10 +51,11 @@ public class PrepareToScore extends CommandGroup {
           heightToSet = LiftHeight.kRocketTopHatch;
         break;
       case kCargoShip:
+        RobotStates.setHeightIndex(3);
         if(RobotStates.isHasCargo())
           heightToSet = LiftHeight.kCargoShip;
         else
-          heightToSet = LiftHeight.kRocketBottomHatch;
+          heightToSet = LiftHeight.kLiftBottomHatch;
     }
     
     addSequential(new SetLiftHeight(heightToSet));
@@ -83,7 +84,7 @@ public class PrepareToScore extends CommandGroup {
         if (RobotStates.isHasCargo())
           heightToSet = LiftHeight.kRocketBottomCargo;
         else 
-          heightToSet = LiftHeight.kRocketBottomHatch;
+          heightToSet = LiftHeight.kLiftBottomHatch;
         break;
       case kMedium:
         if (RobotStates.isHasCargo())
@@ -101,10 +102,10 @@ public class PrepareToScore extends CommandGroup {
           heightToSet = LiftHeight.kRocketTopHatch;
         break;
       case kCargoShip:
-        if(RobotStates.isHasCargo())
+        if (RobotStates.isHasCargo())
           heightToSet = LiftHeight.kCargoShip;
-        else
-          heightToSet = LiftHeight.kRocketBottomHatch;
+        else 
+          heightToSet = LiftHeight.kLiftBottomHatch;
     }
     
     addSequential(new SetLiftHeight(heightToSet));
