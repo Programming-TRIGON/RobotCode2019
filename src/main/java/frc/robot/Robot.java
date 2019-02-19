@@ -72,6 +72,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     SmartDashboard.putData("Test Commands", testsChooser);
+    SmartDashboard.putData("move ss chooser", MoveWithJoystickChooser);
 
     NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
     NetworkTableEntry target = imageProcessingTable.getEntry("target");
@@ -217,7 +218,7 @@ public class Robot extends TimedRobot {
     RobotComponents.DriveTrain.GYRO.calibrate();
 
     testCommand = testsChooser.getSelected();
-    SmartDashboard.putData(testCommand);
+    SmartDashboard.putData("Test Command", testCommand);
     SmartDashboard.putData("move selected subsystem", new MoveSubsystemWithJoystick(MoveWithJoystickChooser.getSelected(), oi.operatorXbox));
   }
 
