@@ -13,7 +13,6 @@ import frc.robot.CommandGroups.PrepareToScore;
 import frc.robot.CommandGroups.Push;
 import frc.robot.CommandGroups.SetOneEightyAngle;
 import frc.robot.Commands.CollectCargo;
-import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Commands.DriveWithGyro;
 import frc.robot.Commands.PushCargo;
 import frc.robot.Commands.ResetLift;
@@ -24,7 +23,6 @@ import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.Commands.TrackTargetByDistance;
-import frc.robot.Commands.TrackVisionTarget;
 import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 /**
@@ -33,12 +31,9 @@ import frc.robot.Vision.VisionPIDSource.VisionTarget;
 public class Tests {
     public static int i;
     public static double DrivingDistance;
-    String testList;
-    public static Command testCommand;
     public Tests(){
     Tests.i = 0;
     Tests.DrivingDistance = 300;
-
     }
     public static Command commands[] = new Command[]{
         new DriveWithGyro(Tests.DrivingDistance),
@@ -47,8 +42,9 @@ public class Tests {
         new DriveWithGyro(Tests.DrivingDistance),
         new SetDriveInverted(false),
         new DriveWithGyro(Tests.DrivingDistance),
-        new DriveArcadeWithVision(Robot.driveTrain, VisionTarget.kReflector, ()->0.0, ()->Robot.oi.driverXbox.getY(), RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, false),
-        new TrackVisionTarget(VisionTarget.kCargo, Robot.oi.driverXbox, 0.0, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, 0.0, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS),
+        //TODO: remove comment
+//        new DriveArcadeWithVision(Robot.driveTrain, VisionTarget.kReflector, ()->0.0, ()->Robot.oi.driverXbox.getY(), RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, false),
+//        new TrackVisionTarget(VisionTarget.kCargo, Robot.oi.driverXbox, 0.0, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, 0.0, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS),
         new TrackTargetByDistance(VisionTarget.kReflector,RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS , RobotConstants.RobotPIDSettings.DRIVE_SETTINGS, 1.0),
         new SetCargoFolderState(Value.kForward),
         new SetCargoFolderState(Value.kReverse),
@@ -69,11 +65,6 @@ public class Tests {
         new SetOneEightyAngle(OneEightyAngle.kStraight),
         new ResetLift(),
         new Push(),
-        new PrepareToScore(PrepareToScoreHeight.kCargoShip),
-
-    };
-    public static void pickCommand(Command command){
-        Tests.testCommand = command;
-    }
+        new PrepareToScore(PrepareToScoreHeight.kCargoShip),};
 }
 

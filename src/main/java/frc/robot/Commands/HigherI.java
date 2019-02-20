@@ -10,7 +10,6 @@ public class HigherI extends InstantCommand {
   @Override
   protected void initialize() {
     Tests.i++;
-    Tests.pickCommand(Tests.commands[Tests.i]);
   }
 
 }

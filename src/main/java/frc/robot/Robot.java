@@ -81,7 +81,7 @@ public class Robot extends TimedRobot {
     NetworkTableEntry target = imageProcessingTable.getEntry("target");
     target.setString(VisionPIDSource.VisionTarget.kReflector.toString());
 
-    Robot.oi = new OI();
+  
 
     Robot.dbc = new DashBoardController();
 
@@ -138,10 +138,12 @@ public class Robot extends TimedRobot {
     Robot.driveTrain = new TankDrivetrain(
         (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
         (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
+        Robot.oi = new OI();
+        //TODO:Remove comment
 
-    Robot.driveTrain.setDefaultCommand(
+/*    Robot.driveTrain.setDefaultCommand(
         new DriveArcade(Robot.driveTrain, () -> invertedSupplier.get() ? -1 * Robot.oi.driverXbox.getY(Hand.kLeft)
-            : 1 * Robot.oi.driverXbox.getY(Hand.kLeft), () -> Robot.oi.driverXbox.getX(Hand.kLeft)));
+            : 1 * Robot.oi.driverXbox.getY(Hand.kLeft), () -> Robot.oi.driverXbox.getX(Hand.kLeft))); */
 
     SmartDashboard.putData(new TestPID());
 
@@ -151,8 +153,7 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
     dbc.addNumber("180 potentiometer", Robot.oneEighty::getAngle);
     dbc.addNumber("Lift encoder", Robot.lift::getHeight);
-    SmartDashboard.putData("command", new HigherI());
-    SmartDashboard.putData("commands", Tests.testCommand);
+
     addTests();
   }
 
@@ -162,6 +163,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Scheduler", Scheduler.getInstance());
     if (Robot.lift.isAtBottom() || SmartDashboard.getBoolean("reset enc", false))
       RobotComponents.Lift.ENCODER.reset();
+    SmartDashboard.putData("HigherI", new HigherI());
+    SmartDashboard.putNumber("TestI", Tests.i);
+    SmartDashboard.putData("commands", Tests.commands[Tests.i]); 
   }
 
   @Override

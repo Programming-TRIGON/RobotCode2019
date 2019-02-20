@@ -19,20 +19,22 @@ import frc.robot.RobotConstants.PrepareToScoreHeight;
 
 public class OI {
     public XboxController operatorXbox = new XboxController(0);
-    public XboxController driverXbox = new XboxController(1);
+    //TODO:remove comments
+//    public XboxController driverXbox = new XboxController(1);
     Button driverButtonY, driverButtonA, driverButtonB, driverButtonX, operatorButtonAxisLeft;
     Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, operatorStartButton, operatorButtonAxisRight;
     POVButton operatorRightPOVButton, operatorLeftPOVButton; 
     public OI() {
+        //TODO:REMOVE COMMENTS
         // driver buttons
-        this.driverButtonA = new JoystickButton(driverXbox, 1);
+/*        this.driverButtonA = new JoystickButton(driverXbox, 1);
         this.driverButtonY = new JoystickButton(driverXbox, 4);
         this.driverButtonB = new JoystickButton(driverXbox, 2);
-        this.driverButtonX = new JoystickButton(driverXbox, 3);
+        this.driverButtonX = new JoystickButton(driverXbox, 3); 
 
         // this.driverButtonB.whileHeld(new );
         this.driverButtonA.whenPressed(new SetDriveInverted(true));
-        this.driverButtonY.whenPressed(new SetDriveInverted(false));
+        this.driverButtonY.whenPressed(new SetDriveInverted(false)); */
 
         // operator buttons
         this.operatorButtonA = new JoystickButton(operatorXbox, 1);
