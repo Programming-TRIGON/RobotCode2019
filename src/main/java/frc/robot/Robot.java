@@ -139,11 +139,10 @@ public class Robot extends TimedRobot {
         (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
         (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
         Robot.oi = new OI();
-        //TODO:Remove comment
 
-/*    Robot.driveTrain.setDefaultCommand(
+    Robot.driveTrain.setDefaultCommand(
         new DriveArcade(Robot.driveTrain, () -> invertedSupplier.get() ? -1 * Robot.oi.driverXbox.getY(Hand.kLeft)
-            : 1 * Robot.oi.driverXbox.getY(Hand.kLeft), () -> Robot.oi.driverXbox.getX(Hand.kLeft))); */
+            : 1 * Robot.oi.driverXbox.getY(Hand.kLeft), () -> Robot.oi.driverXbox.getX(Hand.kLeft))); 
 
     SmartDashboard.putData(new TestPID());
 

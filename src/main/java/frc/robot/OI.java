@@ -19,13 +19,11 @@ import frc.robot.RobotConstants.PrepareToScoreHeight;
 
 public class OI {
     public XboxController operatorXbox = new XboxController(0);
-    //TODO:remove comments
     public XboxController driverXbox = new XboxController(1);
     Button driverButtonY, driverButtonA, driverButtonB, driverButtonX, operatorButtonAxisLeft;
     Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, operatorStartButton, operatorButtonAxisRight;
     POVButton operatorRightPOVButton, operatorLeftPOVButton; 
     public OI() {
-        //TODO:REMOVE COMMENTS
         // driver buttons
         this.driverButtonA = new JoystickButton(driverXbox, 1);
         this.driverButtonY = new JoystickButton(driverXbox, 4);
