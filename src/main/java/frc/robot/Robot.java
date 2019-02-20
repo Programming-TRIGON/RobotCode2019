@@ -249,7 +249,7 @@ public class Robot extends TimedRobot {
 
   private void addTests() {
     testsChooser.addDefault("Hatch Unlock Default", new SetHatchLock(Value.kReverse));
-    testsChooser.addOption("cargoCollection", new CollectCargo(0.3, 0.3));
+    testsChooser.addOption("cargoCollection", new CollectCargo(0.8, 0.8));
 
     testsChooser.addOption("Lift", new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
     testsChooser.addOption("One Eighty", new SetOneEightyAngle(OneEightyAngle.kStraight));
