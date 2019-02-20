@@ -46,10 +46,9 @@ public class OI {
         this.operatorButtonAxisRight = new JoystickButton(operatorXbox, 10);
         this.operatorRightPOVButton = new POVButton(operatorXbox, 90);
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
-        this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride());
-        this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride());
         this.operatorStartButton = new JoystickButton(operatorXbox, 8);
 
+        this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride());
         this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride());
         this.operatorButtonA.whenPressed(new CargoCollectCmdG());
         this.operatorButtonB.whenPressed(new Push());
