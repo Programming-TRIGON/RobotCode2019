@@ -25,6 +25,8 @@ import frc.robot.CommandGroups.EjectHatch;
 import frc.robot.CommandGroups.SetOneEightyAngle;
 import frc.robot.CommandGroups.Tizer;
 import frc.robot.Commands.CollectCargo;
+import frc.robot.Commands.CompressorStart;
+import frc.robot.Commands.CompressorStop;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
 import frc.robot.Commands.PushCargo;
 import frc.robot.Commands.SetCargoFolderState;
@@ -68,6 +70,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     compressor = new Compressor(1);
     compressor.start();
+    System.out.println(compressor);
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -150,6 +153,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Hatch Eject Push", new SetHatchEject(Value.kForward));
     SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
     SmartDashboard.putData(new SetLiftHeight(LiftHeight.kOneEightySafety));
+    SmartDashboard.putData("Stop Compressor",new CompressorStop());
+    SmartDashboard.putData("Start Compressor",new CompressorStart());
+
 
     SmartDashboard.putData("Drive",
         new DriveArcade(Robot.driveTrain, () -> -Robot.oi.operatorXbox.getY(), () -> -Robot.oi.operatorXbox.getX()));
@@ -170,6 +176,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Set one eighty angel 180", new SetOneEightyAngle(208));
 
     // Auto command tests
+
     SmartDashboard.putData("Test auto", new testAuto());
     SmartDashboard.putData("Turn 90", new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 90.0,
         RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));

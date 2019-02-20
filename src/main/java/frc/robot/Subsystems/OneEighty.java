@@ -19,7 +19,7 @@ public class OneEighty extends JoystickOverridableSubsystem {
   public OneEighty(TalonSRX motor, AnalogPotentiometer potentiometer){
     this.motor = motor;
     this.potentiometer = potentiometer;
-    motor.setInverted(true);
+    motor.setInverted(false);
     motor.setNeutralMode(NeutralMode.Brake);
   } 
 

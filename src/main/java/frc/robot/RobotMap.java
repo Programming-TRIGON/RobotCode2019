@@ -24,17 +24,17 @@ public class RobotMap {
 
     // Solenoid ports connected to PCM0
     static class PCM0 {
-        public static final int HATCH_COLLECTOR_SOLENOID_FORWARD = 4;
-        public static final int HATCH_COLLECTOR_SOLENOID_REVERSE = 5;
+        public static final int HATCH_COLLECTOR_SOLENOID_FORWARD = 6;
+        public static final int HATCH_COLLECTOR_SOLENOID_REVERSE = 7;
 
-        public static final int HATCH_HOLDER_PVC_SOLENOID_FORWARD = 3;
-        public static final int HATCH_HOLDER_PVC_SOLENOID_REVERSE = 2;
+        public static final int HATCH_HOLDER_PVC_SOLENOID_FORWARD = 1;
+        public static final int HATCH_HOLDER_PVC_SOLENOID_REVERSE = 0;
 
-        public static final int HATCH_HOLDER_PUSH_SOLENOID_FORWARD = 1;
-        public static final int HATCH_HOLDER_PUSH_SOLENOID_REVERSE = 0;
+        public static final int HATCH_HOLDER_PUSH_SOLENOID_FORWARD = 5;
+        public static final int HATCH_HOLDER_PUSH_SOLENOID_REVERSE = 4;
 
-        public static final int CARGO_FOLDER_SOLENOID_FORWARD = 6; 
-        public static final int CARGO_FOLDER_SOLENOID_REVERSE = 7; 
+        public static final int CARGO_FOLDER_SOLENOID_FORWARD = 2; 
+        public static final int CARGO_FOLDER_SOLENOID_REVERSE = 3; 
     }
 
     // Robot components connected to roboRIO Digital Input Output ports
@@ -52,7 +52,7 @@ public class RobotMap {
 
     // Analog input device ports
     static class ANALOG_INPUT {
-        public static final int ONE_EIGHTY_POTENTIOMETER = 0;
+        public static final int ONE_EIGHTY_POTENTIOMETER = 1;
     }
 
 }

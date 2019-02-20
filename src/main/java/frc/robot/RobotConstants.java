@@ -21,7 +21,7 @@ public class RobotConstants {
     /** constants for sensors on the robot */
     public static class Sensors {
         public static final double ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER = -3600;
-        public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET = 525;
+        public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET =3340;
 
         public static final double DRIVE_ENCODER_DPP = RobotDimensions.DRIVE_WHEEL_DIAMETER * Math.PI / 360;
 
