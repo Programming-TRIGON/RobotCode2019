@@ -19,7 +19,7 @@ import frc.robot.RobotComponents;
 public class ArcDrive extends Command {
   private final double leftSpeed;
   private final double rightSpeed;
-  private final double axis = 1;
+  private final double axis = 0.553;
   private final double arcLength;
   private PIDController leftController;
   private PIDController rightController;
@@ -31,14 +31,17 @@ public class ArcDrive extends Command {
     leftEncoder = RobotComponents.DriveTrain.LEFT_ENCODER;
     rightEncoder = RobotComponents.DriveTrain.RIGHT_ENCODER;
     // calculations for speeds and time were done by Hilel Amiel and Eliya Fishman
-    if (isLeft) {
+    if (!isLeft) {
       leftSpeed = (radius + axis) * speed / (radius + axis / 2);
       rightSpeed = radius * speed / (radius + axis / 2);
     } else {
       leftSpeed = radius * speed / (radius + axis / 2);
       rightSpeed = (radius + axis) * speed / (radius + axis / 2);
     }
+    System.out.println("left speed - " + leftSpeed);
+    System.out.println("right speed - " + rightSpeed);
     arcLength = angle * 2 * Math.PI * radius / 360;
+    System.out.println("arcLength - " + arcLength*100);
     setTimeout(angle * 2 * Math.PI * radius / (360 * speed));
     requires(Robot.driveTrain);
     
@@ -48,12 +51,12 @@ public class ArcDrive extends Command {
   @Override
   protected void initialize() {
     //sets the encoder to return rate in pid and reset them.
-    leftEncoder.setPIDSourceType(PIDSourceType.kRate);
-    rightEncoder.setPIDSourceType(PIDSourceType.kRate);
+/*     leftEncoder.setPIDSourceType(PIDSourceType.kRate);
+    rightEncoder.setPIDSourceType(PIDSourceType.kRate); */
     leftEncoder.reset();
     rightEncoder.reset();
     //creates pidControllers for rate and enables them;
-    leftController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
+/*     leftController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
         leftEncoder, (output) -> Robot.driveTrain.setLeft(output));
     leftController.setAbsoluteTolerance(pidSettings.getTolerance());
     leftController.setSetpoint(leftSpeed);
@@ -62,12 +65,14 @@ public class ArcDrive extends Command {
     rightController.setAbsoluteTolerance(pidSettings.getTolerance());
     rightController.setSetpoint(rightSpeed);
     leftController.enable();
-    rightController.enable();
+    rightController.enable(); */
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.driveTrain.setLeft(leftSpeed);
+    Robot.driveTrain.setRight(rightSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -75,21 +80,21 @@ public class ArcDrive extends Command {
   protected boolean isFinished() {
     //checks if the drivetrain moved enough
     return leftEncoder.getDistance()
-        + rightEncoder.getDistance() / 2 >= arcLength + 2.5
+        + rightEncoder.getDistance() / 2 <= arcLength*100 + 10
         && leftEncoder.getDistance()
-            + rightEncoder.getDistance() / 2 <= arcLength - 2.5||isTimedOut();
+            + rightEncoder.getDistance() / 2 >= arcLength*100 - 10/* ||isTimedOut() */;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
     //Disables the controllers and return the encoders to the way they were before.
-    leftController.disable();
+   /*  leftController.disable();
     rightController.disable();
     leftController.close();
     rightController.close();
     leftEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
-    rightEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
+    rightEncoder.setPIDSourceType(PIDSourceType.kDisplacement); */
   }
 
   // Called when another command which requires one or more of the same
