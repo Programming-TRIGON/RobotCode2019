@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.CommandGroups.CargoCollectCmdG;
 import frc.robot.CommandGroups.DefenceMode;
 import frc.robot.CommandGroups.CollectHatchFromFeeder;
+import frc.robot.Commands.HigherI;
 import frc.robot.Commands.LiftSwitchOverride;
 import frc.robot.Commands.OneEightySwitchOverride;
 import frc.robot.CommandGroups.PrepareToScore;
@@ -23,7 +24,6 @@ public class OI {
     Button driverButtonY, driverButtonA, driverButtonB, driverButtonX, operatorButtonAxisLeft;
     Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, operatorStartButton, operatorButtonAxisRight;
     POVButton operatorRightPOVButton, operatorLeftPOVButton; 
-
     public OI() {
         // driver buttons
         this.driverButtonA = new JoystickButton(driverXbox, 1);
