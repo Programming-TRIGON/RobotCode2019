@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.CommandGroups.CargoCollectCmdG;
 import frc.robot.CommandGroups.DefenceMode;
 import frc.robot.CommandGroups.CollectHatchFromFeeder;
-import frc.robot.Commands.HigherI;
 import frc.robot.Commands.LiftSwitchOverride;
 import frc.robot.Commands.OneEightySwitchOverride;
 import frc.robot.CommandGroups.PrepareToScore;
