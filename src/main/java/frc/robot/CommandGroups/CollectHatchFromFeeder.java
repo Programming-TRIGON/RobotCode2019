@@ -19,6 +19,5 @@ public class CollectHatchFromFeeder extends CommandGroup {
         RobotStates.setHeightIndex(0);
         addParallel(new SetLiftHeight(LiftHeight.kLiftBottomHatch));
         addSequential(new SetHatchLock(Value.kReverse));
-        RobotStates.setHasCargo(false);
     }
 }

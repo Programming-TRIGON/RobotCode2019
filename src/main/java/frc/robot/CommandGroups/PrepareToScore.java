@@ -108,7 +108,7 @@ public class PrepareToScore extends CommandGroup {
           heightToSet = LiftHeight.kLiftBottomHatch;
     }
     
-    addSequential(new SetLiftHeight(heightToSet));
-    addSequential(new SetOneEightyAngle(angleToSet));
+    addParallel(new SetLiftHeight(heightToSet));
+    addParallel(new SetOneEightyAngle(angleToSet));
   }
 }
