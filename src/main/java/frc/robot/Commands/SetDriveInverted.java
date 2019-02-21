@@ -9,6 +9,7 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
+import frc.robot.RobotStates;
 
 /**
  * Add your docs here.
@@ -23,7 +24,7 @@ public class SetDriveInverted extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.driveInverted = state;
+    RobotStates.setDriveInverted(state);
   }
 
 }

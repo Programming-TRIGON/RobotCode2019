@@ -1,19 +1,16 @@
 package frc.robot;
 
 /**
- * listeninng to the statse
+ * listeninng to the statse of the robot
  */
 public class RobotStates {
     static double liftSetpoint;
     static double oneEightySetpoint;
-    static boolean hasCargo;
-    static boolean driveInverted;
-    static boolean oneEightyOverride = true;
-    static boolean LiftOverride = true;
-
-    static boolean liftOverride;
-    static int heightIndex = 1; // The values can be 0,1,2 for rocket - low, middle and high. And -1 for none of
-                                // these hights
+    static boolean hasCargo = false;
+    static boolean driveInverted = false;
+    static boolean oneEightyOverride = false;
+    static boolean LiftOverride = false;
+    static int heightIndex = -1; // The values can be 0,1,2 for rocket - low, middle and high. And -1 for none of these heights
 
     public static void increaseHeight() {
         if (RobotStates.heightIndex < 2)

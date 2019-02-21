@@ -63,13 +63,10 @@ public class Robot extends TimedRobot {
   final SendableChooser<Command> testsChooser = new SendableChooser<Command>();;
   public static Compressor compressor;
 
-  public static boolean driveInverted, hasCargo = false;
-  public static Supplier<Boolean> invertedSupplier = () -> driveInverted;
-
   @Override
   public void robotInit() {
     compressor = new Compressor(1);
-    compressor.stop();
+    compressor.start();
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -141,7 +138,7 @@ public class Robot extends TimedRobot {
         Robot.oi = new OI();
 
     Robot.driveTrain.setDefaultCommand(
-        new DriveArcade(Robot.driveTrain, () -> invertedSupplier.get() ? -1 * Robot.oi.driverXbox.getY(Hand.kLeft)
+        new DriveArcade(Robot.driveTrain, () -> RobotStates.isDriveInverted() ? -1 * Robot.oi.driverXbox.getY(Hand.kLeft)
             : 1 * Robot.oi.driverXbox.getY(Hand.kLeft), () -> Robot.oi.driverXbox.getX(Hand.kLeft))); 
 
     SmartDashboard.putData(new TestPID());

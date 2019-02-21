@@ -20,16 +20,17 @@ import frc.robot.RobotConstants.PrepareToScoreHeight;
 public class OI {
     public XboxController operatorXbox = new XboxController(0);
     public XboxController driverXbox = new XboxController(1);
-    Button driverButtonY, driverButtonA, driverButtonB, driverButtonX, operatorButtonAxisLeft;
-    Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, operatorStartButton, operatorButtonAxisRight;
+    Button driverButtonY, driverButtonA, driverButtonB, driverButtonX;
+    Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, operatorStartButton, operatorButtonAxisRight, operatorButtonAxisLeft;
     POVButton operatorRightPOVButton, operatorLeftPOVButton; 
     public OI() {
         // driver buttons
         this.driverButtonA = new JoystickButton(driverXbox, 1);
-        this.driverButtonY = new JoystickButton(driverXbox, 4);
         this.driverButtonB = new JoystickButton(driverXbox, 2);
         this.driverButtonX = new JoystickButton(driverXbox, 3); 
+        this.driverButtonY = new JoystickButton(driverXbox, 4);
 
+        // this.driverButtonX.whileHeld(new );
         // this.driverButtonB.whileHeld(new );
         this.driverButtonA.whenPressed(new SetDriveInverted(true));
         this.driverButtonY.whenPressed(new SetDriveInverted(false)); 
@@ -41,11 +42,11 @@ public class OI {
         this.operatorButtonY = new JoystickButton(operatorXbox, 4);
         this.operatorButtonLB = new JoystickButton(operatorXbox, 5);
         this.operatorButtonRB = new JoystickButton(operatorXbox, 6);
+        this.operatorStartButton = new JoystickButton(operatorXbox, 8);
         this.operatorButtonAxisLeft = new JoystickButton(operatorXbox, 9);
         this.operatorButtonAxisRight = new JoystickButton(operatorXbox, 10);
         this.operatorRightPOVButton = new POVButton(operatorXbox, 90);
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
-        this.operatorStartButton = new JoystickButton(operatorXbox, 8);
 
         this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride());
         this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride());

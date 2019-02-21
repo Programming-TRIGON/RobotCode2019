@@ -15,7 +15,6 @@ public class CargoCollectCmdG extends CommandGroup {
   double COLLECTOR_POWER = 0.75;
   double HOLDER_POWER = 0.6;
 
-  // TODO: real values.
   public CargoCollectCmdG() {
     /** starts by unfolding the cargo collecter */
     addSequential(new SetCargoFolderState(Value.kForward));
@@ -26,14 +25,8 @@ public class CargoCollectCmdG extends CommandGroup {
     addParallel(new SetLiftHeight(RobotConstants.LiftHeight.kCargoCollection));
     /** collects the cargo */
     addSequential(new CollectCargo(this.COLLECTOR_POWER, this.HOLDER_POWER));
+    /** prepare the lift and the 180 subsystems to score */
     addParallel(new SetLiftHeight(RobotConstants.LiftHeight.kOneEightySafety));
-    OneEightyAngle angleToSet; 
-    if (!RobotStates.isDriveInverted()){
-      angleToSet = RobotStates.isHasCargo() ? OneEightyAngle.kStraight : OneEightyAngle.kBack; 
-    }
-    else {
-      angleToSet = RobotStates.isHasCargo() ? OneEightyAngle.kBack : OneEightyAngle.kStraight; 
-    }
-    addParallel(new SetOneEightyAngle(angleToSet));
+    addParallel(new SetOneEightyAngle(OneEightyAngle.kStraight));
   }
 }
