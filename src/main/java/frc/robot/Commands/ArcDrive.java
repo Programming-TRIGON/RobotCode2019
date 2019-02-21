@@ -79,10 +79,10 @@ public class ArcDrive extends Command {
   @Override
   protected boolean isFinished() {
     //checks if the drivetrain moved enough
-    return leftEncoder.getDistance()
-        + rightEncoder.getDistance() / 2 <= arcLength*100 + 10
-        && leftEncoder.getDistance()
-            + rightEncoder.getDistance() / 2 >= arcLength*100 - 10/* ||isTimedOut() */;
+    return (leftEncoder.getDistance()
+        + rightEncoder.getDistance()) / 2 <= arcLength*100 + 10
+        && (leftEncoder.getDistance()
+            + rightEncoder.getDistance()) / 2 >= arcLength*100 - 10/* ||isTimedOut() */;
   }
 
   // Called once after isFinished returns true
@@ -95,6 +95,7 @@ public class ArcDrive extends Command {
     rightController.close();
     leftEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
     rightEncoder.setPIDSourceType(PIDSourceType.kDisplacement); */
+    Robot.driveTrain.tankDrive(0, 0);
   }
 
   // Called when another command which requires one or more of the same

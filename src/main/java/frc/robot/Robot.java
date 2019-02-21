@@ -161,7 +161,7 @@ public class Robot extends TimedRobot {
 
     // Auto command tests
     SmartDashboard.putData("drive 3 meters", new DriveWithGyro(300));
-    SmartDashboard.putData("drive arc", new ArcDrive(0.15, 20, 0.3, false, new PIDSettings(0.2, 0, 0, 1, 0)));
+    SmartDashboard.putData("drive arc", new ArcDrive(0.15, 90, 0.3, false, new PIDSettings(0.2, 0, 0, 1, 0)));
 
     // Robot data to be periodically published to SmartDashboard
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
