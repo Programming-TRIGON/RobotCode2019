@@ -28,7 +28,6 @@ public class SetOneEightyOverride extends Command {
     return !RobotStates.isOneEightyOverride();
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
     Robot.oneEighty.moveOneEightyOverride(0);

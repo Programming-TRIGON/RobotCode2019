@@ -29,9 +29,9 @@ public class ReachOneEightyAngle extends Command {
   @Override
   protected void initialize() {
     if (this.angle > Robot.oneEighty.getAngle())
-      Robot.oneEighty.setOneEighty(0.35);
+      Robot.oneEighty.setOneEighty(0.5);
     else
-      Robot.oneEighty.setOneEighty(-0.35);
+      Robot.oneEighty.setOneEighty(-0.5);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -43,7 +43,7 @@ public class ReachOneEightyAngle extends Command {
   @Override
   protected boolean isFinished() {
     double currentAngle = Robot.oneEighty.getAngle();
-    return (currentAngle > angle - 2.5) && (currentAngle < angle + 2.5) || RobotStates.isOneEightyOverride();
+    return ((currentAngle > angle - 1.5) && (currentAngle < angle + 1.5)) || RobotStates.isOneEightyOverride();
   }
 
   // Called once after isFinished returns true

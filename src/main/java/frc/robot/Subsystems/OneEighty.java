@@ -25,7 +25,7 @@ public class OneEighty extends JoystickOverridableSubsystem {
   }
 
   public void moveOneEightyOverride(double power) {
-    this.motor.set(ControlMode.PercentOutput, power);
+    this.motor.set(ControlMode.PercentOutput, 0.5*power);
   }
 
   /** turns the SS to where the driver wants it */
