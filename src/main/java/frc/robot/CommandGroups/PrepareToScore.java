@@ -10,7 +10,7 @@ import frc.robot.RobotConstants.PrepareToScoreHeight;
 
 public class PrepareToScore extends CommandGroup {
   /**
-   * Add your docs here.
+   * preapre the lift and 180 to score in different heights
    */
   public PrepareToScore(PrepareToScoreHeight height) {
     LiftHeight heightToSet = LiftHeight.kOneEightySafety;
@@ -58,8 +58,8 @@ public class PrepareToScore extends CommandGroup {
           heightToSet = LiftHeight.kLiftBottomHatch;
     }
     
-    addSequential(new SetLiftHeight(heightToSet));
-    addSequential(new SetOneEightyAngle(angleToSet));
+    addParallel(new SetLiftHeight(heightToSet));
+    addParallel(new SetOneEightyAngle(angleToSet));
   }
 
   public PrepareToScore(boolean increaseHeight) {
