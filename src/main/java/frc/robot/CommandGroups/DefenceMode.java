@@ -22,6 +22,7 @@ public class DefenceMode extends CommandGroup {
     else
       addSequential(new EjectHatch());
     addSequential(new ResetLift());
+    addSequential(new WaitCommand(0.3));
     addParallel(new SetCargoFolderState(Value.kReverse));
     addSequential(new SetHatchCollectorState(Value.kReverse));
   }

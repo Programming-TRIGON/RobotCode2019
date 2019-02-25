@@ -1,6 +1,7 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
 import frc.robot.Commands.SetLiftHeight;
@@ -59,6 +60,7 @@ public class PrepareToScore extends CommandGroup {
     }
     
     addParallel(new SetLiftHeight(heightToSet));
+    addSequential(new WaitCommand(0.3));
     addParallel(new SetOneEightyAngle(angleToSet));
   }
 
@@ -109,6 +111,7 @@ public class PrepareToScore extends CommandGroup {
     }
     
     addParallel(new SetLiftHeight(heightToSet));
+    addSequential(new WaitCommand(0.3));
     addParallel(new SetOneEightyAngle(angleToSet));
   }
 }
