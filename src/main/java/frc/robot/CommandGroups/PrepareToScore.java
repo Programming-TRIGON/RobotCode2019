@@ -1,16 +1,16 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
-import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotConstants.PrepareToScoreHeight;
 
 public class PrepareToScore extends CommandGroup {
   /**
-   * Add your docs here.
+   * preapre the lift and 180 to score in different heights
    */
   public PrepareToScore(PrepareToScoreHeight height) {
     LiftHeight heightToSet = LiftHeight.kOneEightySafety;
@@ -58,8 +58,9 @@ public class PrepareToScore extends CommandGroup {
           heightToSet = LiftHeight.kLiftBottomHatch;
     }
     
-    addSequential(new SetLiftHeight(heightToSet));
-    addSequential(new SetOneEightyAngle(angleToSet));
+    addParallel(new SetLiftHeight(heightToSet));
+    addSequential(new WaitCommand(0.3));
+    addParallel(new SetOneEightyAngle(angleToSet));
   }
 
   public PrepareToScore(boolean increaseHeight) {
@@ -108,7 +109,8 @@ public class PrepareToScore extends CommandGroup {
           heightToSet = LiftHeight.kLiftBottomHatch;
     }
     
-    addSequential(new SetLiftHeight(heightToSet));
-    addSequential(new SetOneEightyAngle(angleToSet));
+    addParallel(new SetLiftHeight(heightToSet));
+    addSequential(new WaitCommand(0.3));
+    addParallel(new SetOneEightyAngle(angleToSet));
   }
 }

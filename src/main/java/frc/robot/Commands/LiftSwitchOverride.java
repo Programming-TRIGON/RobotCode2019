@@ -1,17 +1,15 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import frc.robot.RobotStates;
 
-public class ResetLift extends Command {
-  double LIFT_POWER = 0.5;
-  public ResetLift() {
-    requires(Robot.lift);
+public class LiftSwitchOverride extends Command {
+  public LiftSwitchOverride() {
   }
 
   @Override
   protected void initialize() {
-   Robot.lift.setMotorSpeed(LIFT_POWER);
+    RobotStates.toggleLiftOverride();
   }
 
   @Override
@@ -20,17 +18,14 @@ public class ResetLift extends Command {
 
   @Override
   protected boolean isFinished() {
-    return Robot.lift.isAtBottom();
+    return true;
   }
 
   @Override
   protected void end() {
-    Robot.lift.setMotorSpeed(0);
-
   }
 
   @Override
   protected void interrupted() {
-    end();
   }
 }

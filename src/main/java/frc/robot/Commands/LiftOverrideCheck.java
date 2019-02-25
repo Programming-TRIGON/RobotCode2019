@@ -3,25 +3,24 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotStates;
-import frc.robot.CommandGroups.SetOneEightyAngle;
 
 /**
  * This command checks which command should run. it should run when the operator
- * overrides/ unoverrides the one eighty.
+ * overrides/ unoverrides the Lift.
  */
-public class OneEightyOverrideCheck extends Command {
-  public OneEightyOverrideCheck() {
-    requires(Robot.oneEighty);
+public class LiftOverrideCheck extends Command {
+  public LiftOverrideCheck() {
+    requires(Robot.lift);
   }
 
   @Override
   protected void initialize() {
-    if (RobotStates.isOneEightyOverride()) {
-      new SetOneEightyOverride().start();
+    if (RobotStates.isLiftOverride()) {
+      new SetLiftOverride().start();
     }
     // TODO: change to driving change
     else {
-      //new SetOneEightyAngle(RobotStates.getOneEightySetpoint()).start();
+      //new SetLiftHeight(RobotStates.getLiftSetpoint()).start();
     }
   }
 

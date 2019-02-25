@@ -1,7 +1,5 @@
 package frc.robot;
 
-import java.util.function.Supplier;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
@@ -16,6 +14,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotConstants.LiftHeight;
@@ -26,17 +25,17 @@ import frc.robot.Vision.VisionPIDSource;
 import frc.robot.Autonomous.TestPID;
 import frc.robot.Autonomous.testAuto;
 import frc.robot.CommandGroups.EjectHatch;
+import frc.robot.CommandGroups.SetLiftHeight;
 import frc.robot.CommandGroups.SetOneEightyAngle;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.DriveWithGyro;
+import frc.robot.Commands.HigherI;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
 import frc.robot.Commands.ReachOneEightyAngle;
 import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.Commands.SetHatchCollectorState;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
-import frc.robot.Commands.SetLiftHeight;
-import frc.robot.Commands.TestAuto;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
@@ -62,13 +61,10 @@ public class Robot extends TimedRobot {
   final SendableChooser<Command> testsChooser = new SendableChooser<Command>();;
   public static Compressor compressor;
 
-  public static boolean driveInverted, hasCargo = false;
-  public static Supplier<Boolean> invertedSupplier = () -> driveInverted;  
-
   @Override
   public void robotInit() {
     compressor = new Compressor(1);
-    compressor.stop();
+    compressor.start();
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -80,7 +76,7 @@ public class Robot extends TimedRobot {
     NetworkTableEntry target = imageProcessingTable.getEntry("target");
     target.setString(VisionPIDSource.VisionTarget.kReflectorForward.toString());
 
-    Robot.oi = new OI();
+  
 
     Robot.dbc = new DashBoardController();
 
@@ -137,21 +133,27 @@ public class Robot extends TimedRobot {
     Robot.driveTrain = new TankDrivetrain(
         (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
         (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
+        Robot.oi = new OI();
 
-    
-    Robot.driveTrain.setDefaultCommand(new DriveArcade(Robot.driveTrain, 
-      () -> invertedSupplier.get() ? -1 * Robot.oi.driverXbox.getY(Hand.kLeft) : 1 * Robot.oi.driverXbox.getY(Hand.kLeft), 
-      () -> Robot.oi.driverXbox.getX(Hand.kLeft)));
+    Robot.driveTrain.setDefaultCommand(
+        new DriveArcade(Robot.driveTrain, () -> RobotStates.isDriveInverted() ? 1 * Robot.oi.driverXbox.getY(Hand.kLeft)
+            : -1 * Robot.oi.driverXbox.getY(Hand.kLeft), () -> -Robot.oi.driverXbox.getX(Hand.kLeft))); 
 
     SmartDashboard.putData(new TestPID());
+    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, oi.driverXbox));
 
-    
     // Robot data to be periodically published to SmartDashboard
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
     dbc.addNumber("180 potentiometer", Robot.oneEighty::getAngle);
     dbc.addNumber("Lift encoder", Robot.lift::getHeight);
+    // Robot states to be periodically published to SmartDashboard
+    dbc.addNumber("Height index", RobotStates::getHeightIndex);    
+    dbc.addBoolean("One Eighty Override", RobotStates::isOneEightyOverride);
+    dbc.addBoolean("Lift Override", RobotStates::isLiftOverride);
+    dbc.addBoolean("Is Has Cargo", RobotStates::isHasCargo);
+    dbc.addBoolean("Inverted Drive", RobotStates::isDriveInverted);
 
     addTests();
   }
@@ -224,9 +226,5 @@ public class Robot extends TimedRobot {
     testsChooser.addOption("hatchCollectorOn", new SetHatchCollectorState(Value.kForward));
     testsChooser.addOption("hatchCollectorOff", new SetHatchCollectorState(Value.kReverse));
   }
-
-
-
-
 }
 

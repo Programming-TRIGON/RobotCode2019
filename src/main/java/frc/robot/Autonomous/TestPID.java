@@ -1,13 +1,12 @@
 package frc.robot.Autonomous;
 
 import java.util.function.Supplier;
-
 import com.spikes2212.dashboard.ConstantHandler;
 import com.spikes2212.utils.PIDSettings;
-
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Commands.DriveWithGyro;
+import frc.robot.CommandGroups.SetLiftHeight;
+import frc.robot.RobotConstants.LiftHeight;
 
 public class TestPID extends Command {
   Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);
@@ -27,7 +26,7 @@ public class TestPID extends Command {
 
   protected void initialize() {
     updatePID();
-    testCommand = new DriveWithGyro(Setpoint.get(), pidSettings);
+    testCommand = new SetLiftHeight(LiftHeight.kRocketMiddleCargo);
     testCommand.start();
   }
 
