@@ -21,7 +21,7 @@ public class OneEightyOverrideCheck extends Command {
     }
     // TODO: change to driving change
     else {
-      new SetOneEightyAngle(RobotStates.getOneEightySetpoint()).start();
+      //new SetOneEightyAngle(RobotStates.getOneEightySetpoint()).start();
     }
   }
 

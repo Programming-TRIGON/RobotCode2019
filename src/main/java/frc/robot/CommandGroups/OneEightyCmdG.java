@@ -7,7 +7,6 @@ import com.spikes2212.utils.PIDSettings;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
-import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;;
 
 public class OneEightyCmdG extends CommandGroup {
@@ -30,6 +29,6 @@ public class OneEightyCmdG extends CommandGroup {
     };
     addSequential(new SetOneEightyAngle(angle));
     //TODO calibrate pid settings
-    addParallel(new SetLiftHeight(liftSetpointSupplier,new PIDSettings(0.2, 0, 0, 0.1, 0)));
+    //addParallel(new SetLiftHeight(liftSetpointSupplier,new PIDSettings(0.2, 0, 0, 0.1, 0)));
   }
 }

@@ -4,8 +4,8 @@ package frc.robot;
  * listeninng to the statse of the robot
  */
 public class RobotStates {
-    static double liftSetpoint;
-    static double oneEightySetpoint;
+    //static double liftSetpoint;
+    //static double oneEightySetpoint;
     static boolean hasCargo = false;
     static boolean driveInverted = false;
     static boolean oneEightyOverride = false;
@@ -29,34 +29,34 @@ public class RobotStates {
     public static void setHeightIndex(int index) {
         RobotStates.heightIndex = index;
     }
-
+    
     /**
      * @return the liftSetpoint
      */
-    public static double getLiftSetpoint() {
+    /*public static double getLiftSetpoint() {
         return liftSetpoint;
     }
 
     /**
      * @param liftSetpoint the liftSetpoint to set
      */
-    public static void setLiftSetpoint(double liftSetpoint) {
+    /*public static void setLiftSetpoint(double liftSetpoint) {
         RobotStates.liftSetpoint = liftSetpoint;
     }
 
     /**
      * @return the oneEightySetpoint
      */
-    public static double getOneEightySetpoint() {
+    /*public static double getOneEightySetpoint() {
         return oneEightySetpoint;
     }
 
     /**
      * @param oneEightySetpoint the oneEightySetpoint to set
      */
-    public static void setOneEightySetpoint(double oneEightySetpoint) {
+    /*public static void setOneEightySetpoint(double oneEightySetpoint) {
         RobotStates.oneEightySetpoint = oneEightySetpoint;
-    }
+    }*/
 
     /**
      * @return the hasCargo

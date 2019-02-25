@@ -46,7 +46,6 @@ public class OneEighty extends JoystickOverridableSubsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new OneEightyOverrideCheck());
   }
 
   @Override

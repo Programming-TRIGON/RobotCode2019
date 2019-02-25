@@ -67,7 +67,6 @@ public class Lift extends JoystickOverridableSubsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new SetLiftOverride());
   }
 
   @Override

@@ -7,7 +7,6 @@ import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.SetCargoFolderState;
-import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 
 /** collects cargo from the floor */

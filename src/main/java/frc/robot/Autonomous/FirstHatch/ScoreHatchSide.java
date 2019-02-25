@@ -7,9 +7,9 @@ import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.CommandGroups.CollectHatchFromFeeder;
 import frc.robot.CommandGroups.EjectHatch;
+import frc.robot.CommandGroups.SetLiftHeight;
 import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Commands.DriveWithGyro;
-import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.Vision.VisionPIDSource;
 

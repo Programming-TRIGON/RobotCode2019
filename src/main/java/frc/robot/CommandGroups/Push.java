@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.RobotStates;
 import frc.robot.Commands.PushCargo;
-import frc.robot.Commands.SetLiftHeight;  
 import frc.robot.RobotConstants.LiftHeight;
 
 public class Push extends CommandGroup {

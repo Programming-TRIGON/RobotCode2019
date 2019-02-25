@@ -27,6 +27,7 @@ import frc.robot.Vision.VisionPIDSource;
 import frc.robot.Autonomous.TestPID;
 import frc.robot.Autonomous.testAuto;
 import frc.robot.CommandGroups.EjectHatch;
+import frc.robot.CommandGroups.SetLiftHeight;
 import frc.robot.CommandGroups.SetOneEightyAngle;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.DriveWithGyro;
@@ -37,7 +38,6 @@ import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.Commands.SetHatchCollectorState;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
-import frc.robot.Commands.SetLiftHeight;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
@@ -142,13 +142,19 @@ public class Robot extends TimedRobot {
             : 1 * Robot.oi.driverXbox.getY(Hand.kLeft), () -> Robot.oi.driverXbox.getX(Hand.kLeft))); 
 
     SmartDashboard.putData(new TestPID());
-
+    
     // Robot data to be periodically published to SmartDashboard
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
     dbc.addNumber("180 potentiometer", Robot.oneEighty::getAngle);
     dbc.addNumber("Lift encoder", Robot.lift::getHeight);
+    // Robot states to be periodically published to SmartDashboard
+    dbc.addNumber("Height index", RobotStates::getHeightIndex);    
+    dbc.addBoolean("Height index", RobotStates::isOneEightyOverride);
+    dbc.addBoolean("Height index", RobotStates::isLiftOverride);
+    dbc.addBoolean("Height index", RobotStates::isHasCargo);
+    dbc.addBoolean("Height index", RobotStates::isDriveInverted);
 
     addTests();
   }
@@ -224,9 +230,5 @@ public class Robot extends TimedRobot {
     testsChooser.addOption("hatchCollectorOn", new SetHatchCollectorState(Value.kForward));
     testsChooser.addOption("hatchCollectorOff", new SetHatchCollectorState(Value.kReverse));
   }
-
-
-
-
 }
 

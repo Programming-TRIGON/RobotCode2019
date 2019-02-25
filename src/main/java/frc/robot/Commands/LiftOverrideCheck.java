@@ -20,7 +20,7 @@ public class LiftOverrideCheck extends Command {
     }
     // TODO: change to driving change
     else {
-      new SetLiftHeight(RobotStates.getLiftSetpoint()).start();
+      //new SetLiftHeight(RobotStates.getLiftSetpoint()).start();
     }
   }
 

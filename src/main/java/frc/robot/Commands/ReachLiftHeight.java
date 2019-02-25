@@ -4,30 +4,28 @@ import java.util.function.Supplier;
 import com.spikes2212.utils.PIDSettings;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
 import frc.robot.RobotConstants.LiftHeight;
 
-public class SetLiftHeight extends Command {
+public class ReachLiftHeight extends Command {
   private Supplier<Double> height;
   private PIDController pidController;
   private PIDOutput pidOutput;
   private PIDSettings pidSettings;
 
   /** sets the height of the lift depending on the situation */
-  public SetLiftHeight(LiftHeight finishingHeight) {
+  public ReachLiftHeight(LiftHeight finishingHeight) {
     this(finishingHeight.key);
   }
 
-  public SetLiftHeight(double d) {
+  public ReachLiftHeight(double d) {
     requires(Robot.lift);
     this.height = () -> d;
   }
 
-  public SetLiftHeight(Supplier<Double> setpointSupplier, PIDSettings pidSettings) {
+  public ReachLiftHeight(Supplier<Double> setpointSupplier, PIDSettings pidSettings) {
     requires(Robot.lift);
     this.height = setpointSupplier;
     this.pidSettings = pidSettings;
@@ -50,12 +48,6 @@ public class SetLiftHeight extends Command {
 
   @Override
   protected void execute() {
-    double newSetpoint = height.get();
-    RobotStates.setLiftSetpoint(newSetpoint);
-    if (pidController.getSetpoint() != newSetpoint)
-      pidController.setSetpoint(newSetpoint);
-    if (newSetpoint <= RobotConstants.LiftHeight.kOneEightySafety.key)
-      new SetCargoFolderState(Value.kForward).start();
   }
 
   @Override
@@ -63,7 +55,6 @@ public class SetLiftHeight extends Command {
     return RobotStates.isLiftOverride();
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
     pidController.disable();
@@ -71,8 +62,6 @@ public class SetLiftHeight extends Command {
     Robot.lift.SetMotorSpeedNoSafety(0);
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
     end();
