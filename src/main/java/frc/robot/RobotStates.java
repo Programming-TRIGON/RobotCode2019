@@ -4,10 +4,8 @@ package frc.robot;
  * listeninng to the statse of the robot
  */
 public class RobotStates {
-    //static double liftSetpoint;
-    //static double oneEightySetpoint;
     static boolean hasCargo = false;
-    static boolean driveInverted = false;
+    static boolean driveInverted = true;
     static boolean oneEightyOverride = false;
     static boolean LiftOverride = false;
     static int heightIndex = -1; // The values can be 0,1,2 for rocket - low, middle and high. 3 for cargo ship height And -1 for none of these heights
@@ -29,34 +27,6 @@ public class RobotStates {
     public static void setHeightIndex(int index) {
         RobotStates.heightIndex = index;
     }
-    
-    /**
-     * @return the liftSetpoint
-     */
-    /*public static double getLiftSetpoint() {
-        return liftSetpoint;
-    }
-
-    /**
-     * @param liftSetpoint the liftSetpoint to set
-     */
-    /*public static void setLiftSetpoint(double liftSetpoint) {
-        RobotStates.liftSetpoint = liftSetpoint;
-    }
-
-    /**
-     * @return the oneEightySetpoint
-     */
-    /*public static double getOneEightySetpoint() {
-        return oneEightySetpoint;
-    }
-
-    /**
-     * @param oneEightySetpoint the oneEightySetpoint to set
-     */
-    /*public static void setOneEightySetpoint(double oneEightySetpoint) {
-        RobotStates.oneEightySetpoint = oneEightySetpoint;
-    }*/
 
     /**
      * @return the hasCargo

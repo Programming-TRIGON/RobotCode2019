@@ -26,7 +26,7 @@ public class TestPID extends Command {
 
   protected void initialize() {
     updatePID();
-    testCommand = new SetLiftHeight(LiftHeight.);
+    testCommand = new SetLiftHeight(LiftHeight.kRocketMiddleCargo);
     testCommand.start();
   }
 

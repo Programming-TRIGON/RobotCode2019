@@ -1,7 +1,5 @@
 package frc.robot;
 
-import java.util.function.Supplier;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
@@ -138,11 +136,12 @@ public class Robot extends TimedRobot {
         Robot.oi = new OI();
 
     Robot.driveTrain.setDefaultCommand(
-        new DriveArcade(Robot.driveTrain, () -> RobotStates.isDriveInverted() ? -1 * Robot.oi.driverXbox.getY(Hand.kLeft)
-            : 1 * Robot.oi.driverXbox.getY(Hand.kLeft), () -> Robot.oi.driverXbox.getX(Hand.kLeft))); 
+        new DriveArcade(Robot.driveTrain, () -> RobotStates.isDriveInverted() ? 1 * Robot.oi.driverXbox.getY(Hand.kLeft)
+            : -1 * Robot.oi.driverXbox.getY(Hand.kLeft), () -> -Robot.oi.driverXbox.getX(Hand.kLeft))); 
 
     SmartDashboard.putData(new TestPID());
-    
+    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, oi.driverXbox));
+
     // Robot data to be periodically published to SmartDashboard
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
@@ -151,10 +150,10 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Lift encoder", Robot.lift::getHeight);
     // Robot states to be periodically published to SmartDashboard
     dbc.addNumber("Height index", RobotStates::getHeightIndex);    
-    dbc.addBoolean("Height index", RobotStates::isOneEightyOverride);
-    dbc.addBoolean("Height index", RobotStates::isLiftOverride);
-    dbc.addBoolean("Height index", RobotStates::isHasCargo);
-    dbc.addBoolean("Height index", RobotStates::isDriveInverted);
+    dbc.addBoolean("One Eighty Override", RobotStates::isOneEightyOverride);
+    dbc.addBoolean("Lift Override", RobotStates::isLiftOverride);
+    dbc.addBoolean("Is Has Cargo", RobotStates::isHasCargo);
+    dbc.addBoolean("Inverted Drive", RobotStates::isDriveInverted);
 
     addTests();
   }
@@ -165,9 +164,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Scheduler", Scheduler.getInstance());
     if (Robot.lift.isAtBottom() || SmartDashboard.getBoolean("reset enc", false))
       RobotComponents.Lift.ENCODER.reset();
-    SmartDashboard.putData("HigherI", new HigherI());
-    SmartDashboard.putNumber("TestI", Tests.i);
-    SmartDashboard.putData("commands", Tests.commands[Tests.i]); 
   }
 
   @Override

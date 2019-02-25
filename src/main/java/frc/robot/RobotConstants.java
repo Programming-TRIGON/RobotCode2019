@@ -23,8 +23,7 @@ public class RobotConstants {
         public static final double DRIVE_ENCODER_DPP = RobotDimensions.DRIVE_WHEEL_DIAMETER * Math.PI / 360;
 
         static final double LIFT_ENCODER_TICKS_PER_REV = 0;
-        public static final double LIFT_ENCODER_DPP = 1; // RobotDimensions.LIFT_TUBE_DIAMETER * Math.PI /
-                                                         // LIFT_ENCODER_TICKS_PER_REV
+        public static final double LIFT_ENCODER_DPP = 1; 
     }
 
     public static class RobotPIDSettings {
