@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import frc.robot.Commands.OneEightyOverrideCheck;
 
 /**
  * the class that is on the lift and turns 180 degrees allowing the placement of
