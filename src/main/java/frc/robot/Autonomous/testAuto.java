@@ -22,8 +22,8 @@ public class testAuto extends CommandGroup {
    * insert distances for driving and turning for testing the autonomous
    */
   public testAuto() {
-    addSequential(new DriveWithGyro(300));
-    addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 90, RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
+    addSequential(new Turn(90), 2);
+    addSequential(new DriveWithGyro(15));
   }
 }
 

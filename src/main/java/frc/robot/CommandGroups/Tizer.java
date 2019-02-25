@@ -9,8 +9,11 @@ package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
+import frc.robot.Robot;
 import frc.robot.Autonomous.TestPID;
+import frc.robot.Autonomous.Turn;
 import frc.robot.Commands.CollectCargo;
+import frc.robot.Commands.DriveWithGyro;
 import frc.robot.Commands.PushCargo;
 import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.LiftHeight;
@@ -21,12 +24,18 @@ public class Tizer extends CommandGroup {
    * Add your docs here.
    */
   public Tizer() {
-    addSequential(new CollectCargo(0.9, 0.75));
+    addSequential(new DriveWithGyroCmd(300));
+    addSequential(new Turn(90));
+    //addSequential(new WaitCommand(1));
+    //addSequential(new DriveWithGyro(300));    
+    //addSequential(new Turn(90));
+
+    /*addSequential(new CollectCargo(0.9, 0.75));
     addParallel(new TestPID());
     addSequential(new WaitCommand(0.85));
     addParallel(new SetOneEightyAngle(232));
     addSequential(new WaitCommand(2));
-    addSequential(new PushCargo(PushCargoPower.kTopRocket));
+    addSequential(new PushCargo(PushCargoPower.kTopRocket));*/
     // addSequential(new Command2());
     // these will run in order.
 
