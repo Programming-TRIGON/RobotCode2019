@@ -5,7 +5,7 @@ package frc.robot;
  */
 public class RobotStates {
     static boolean hasCargo = false;
-    static boolean driveInverted = true;
+    static boolean driveInverted = false;
     static boolean oneEightyOverride = false;
     static boolean LiftOverride = false;
     static int heightIndex = -1; // The values can be 0,1,2 for rocket - low, middle and high. 3 for cargo ship height And -1 for none of these heights
