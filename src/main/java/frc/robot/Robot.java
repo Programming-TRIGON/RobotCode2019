@@ -21,6 +21,7 @@ import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
+import frc.robot.RobotStates;
 import frc.robot.Vision.VisionPIDSource;
 import frc.robot.Autonomous.TestPID;
 import frc.robot.Autonomous.testAuto;
@@ -141,7 +142,6 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putData(new TestPID());
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, oi.driverXbox));
-
     // Robot data to be periodically published to SmartDashboard                    
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
@@ -154,7 +154,6 @@ public class Robot extends TimedRobot {
     dbc.addBoolean("Lift Override", RobotStates::isLiftOverride);
     dbc.addBoolean("Is Has Cargo", RobotStates::isHasCargo);
     dbc.addBoolean("Inverted Drive", RobotStates::isDriveInverted);
-
     addTests();
   }
 
@@ -164,6 +163,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Scheduler", Scheduler.getInstance());
     if (Robot.lift.isAtBottom() || SmartDashboard.getBoolean("reset enc", false))
       RobotComponents.Lift.ENCODER.reset();
+      RobotStates.setLiftHeight(Robot.lift.getHeight());
   }
 
   @Override
