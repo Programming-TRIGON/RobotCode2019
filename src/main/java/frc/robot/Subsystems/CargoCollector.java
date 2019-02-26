@@ -41,7 +41,8 @@ public class CargoCollector extends JoystickOverridableSubsystem {
   }
 
   /** sets motor power of the holder */
-  public void setHolderMotors(double power) {
+  public void setHolderMotors
+  (double power) {
     this.rightHolder.set(ControlMode.PercentOutput, power);
   }
 

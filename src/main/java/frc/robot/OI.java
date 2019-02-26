@@ -8,6 +8,7 @@ import frc.robot.CommandGroups.AfterHatchFeederPreparation;
 import frc.robot.CommandGroups.CargoCollectCmdG;
 import frc.robot.CommandGroups.DefenceMode;
 import frc.robot.CommandGroups.CollectHatchFromFeeder;
+import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.LiftSwitchOverride;
 import frc.robot.Commands.OneEightySwitchOverride;
 import frc.robot.CommandGroups.PrepareToScore;
@@ -46,9 +47,10 @@ public class OI {
         this.operatorButtonAxisRight = new JoystickButton(operatorXbox, 10);
         this.operatorRightPOVButton = new POVButton(operatorXbox, 90);
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
-
-        this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride()); //issue!
-        this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride()); //checked
+        this.operatorButtonB.whenPressed(new Push());
+        this.operatorButtonA.whenPressed(new CollectCargo(0.85, 0.6));
+        //this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride()); //issue!
+        //this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride()); //checked
         //this.operatorButtonA.whenPressed(new CargoCollectCmdG()); //checked
         //this.operatorButtonB.whenPressed(new Push()); //checked
         //this.operatorButtonY.whenPressed(new CollectHatchFromFeeder()); //checked
@@ -57,7 +59,7 @@ public class OI {
         //this.operatorButtonLB.whenPressed(new PrepareToScore(false)); //checked
         //this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip)); //checked
         //this.operatorStartButton.whenPressed(new DefenceMode()); //checked
-        this.operatorRightPOVButton.whenPressed(new SetHasCargo(true)); //checked
-        this.operatorLeftPOVButton.whenPressed(new SetHasCargo(false)); //checked
+        //this.operatorRightPOVButton.whenPressed(new SetHasCargo(true)); //checked
+        //this.operatorLeftPOVButton.whenPressed(new SetHasCargo(false)); //checked
     }
 }

@@ -1,6 +1,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
@@ -9,11 +10,14 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -28,6 +32,7 @@ import frc.robot.Autonomous.testAuto;
 import frc.robot.CommandGroups.EjectHatch;
 import frc.robot.CommandGroups.SetLiftHeight;
 import frc.robot.CommandGroups.SetOneEightyAngle;
+import frc.robot.Commands.CheesyDrive;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.DriveWithGyro;
 import frc.robot.Commands.HigherI;
@@ -65,7 +70,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     compressor = new Compressor(1);
-    compressor.start();
+    compressor.stop();
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -122,6 +127,11 @@ public class Robot extends TimedRobot {
     RobotComponents.DriveTrain.REAR_RIGHT_M.setInverted(false);
     RobotComponents.DriveTrain.FRONT_RIGHT_M.setInverted(false);
 
+    RobotComponents.DriveTrain.FRONT_LEFT_M.setNeutralMode(NeutralMode.Coast);
+    RobotComponents.DriveTrain.REAR_LEFT_M.setNeutralMode(NeutralMode.Coast);
+    RobotComponents.DriveTrain.REAR_RIGHT_M.setNeutralMode(NeutralMode.Coast);
+    RobotComponents.DriveTrain.FRONT_RIGHT_M.setNeutralMode(NeutralMode.Coast);
+
     RobotComponents.DriveTrain.FRONT_LEFT_M.set(ControlMode.Follower,
         RobotComponents.DriveTrain.REAR_LEFT_M.getDeviceID());
     RobotComponents.DriveTrain.FRONT_RIGHT_M.set(ControlMode.Follower,
@@ -136,9 +146,11 @@ public class Robot extends TimedRobot {
         (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
         Robot.oi = new OI();
 
+    /*Robot.driveTrain.setDefaultCommand(
+        new DriveArcade(Robot.driveTrain, () -> RobotStates.isDriveInverted() ? 1 * Robot.oi.driverXbox.getY(Hand.kLeft)
+            : -1 * Robot.oi.driverXbox.getY(Hand.kLeft), () -> -Robot.oi.driverXbox.getX(Hand.kLeft))); */
     Robot.driveTrain.setDefaultCommand(
-        new DriveArcade(Robot.driveTrain, () -> RobotStates.isDriveInverted() ? 1 * Robot.oi.driverXbox.getY(Hand.kRight)
-            : -1 * Robot.oi.driverXbox.getY(Hand.kRight), () -> -Robot.oi.driverXbox.getX(Hand.kRight))); 
+      new CheesyDrive(Robot.oi.driverXbox));
 
     SmartDashboard.putData(new TestPID());
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, oi.driverXbox));

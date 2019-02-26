@@ -15,7 +15,9 @@ public class SetDriveInverted extends InstantCommand {
 
   @Override
   protected void initialize() {
-    RobotStates.setDriveInverted(state);
+    if(this.state)
+      RobotStates.toggleDriveInverted();  
+    //RobotStates.setDriveInverted(state);
   }
 
 }

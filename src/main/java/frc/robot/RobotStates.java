@@ -57,6 +57,10 @@ public class RobotStates {
         RobotStates.driveInverted = driveInverted;
     }
 
+    public static void toggleDriveInverted() {
+        RobotStates.driveInverted = !RobotStates.driveInverted;
+    }
+
     public static boolean isOneEightyOverride() {
         return RobotStates.oneEightyOverride;
     }
