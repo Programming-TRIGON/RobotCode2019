@@ -22,7 +22,6 @@ public class CargoCollectCmdG extends CommandGroup {
     addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kCargoCollection));
     addSequential(new WaitCommand(0.3));
     /** set lift height to bottom in order to collect cargo */
-    RobotStates.setHeightIndex(-1);
     addParallel(new SetLiftHeight(RobotConstants.LiftHeight.kCargoCollection));
     /** collects the cargo */
     addSequential(new CollectCargo(this.COLLECTOR_POWER, this.HOLDER_POWER));
