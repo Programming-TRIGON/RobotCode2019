@@ -10,6 +10,8 @@ package frc.robot.Commands;
 import java.util.function.Supplier;
 
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
+
+import frc.robot.Robot;
 import frc.robot.Commands.DriveArcadeWithPID;
 import com.spikes2212.utils.PIDSettings;
 
@@ -17,6 +19,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.Vision.VisionPIDController;
 import frc.robot.Vision.VisionPIDSource;
 
@@ -51,6 +54,8 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
             drivetrain.arcadeDrive(movementSupplier.get(), -rotate);
             lastTimeFound = Timer.getFPGATimestamp();
           }
+          else
+            drivetrain.arcadeDrive(Robot.oi.driverXbox.getX(Hand.kLeft),Robot.oi.driverXbox.getY(Hand.kLeft));
         });
 
     rotationController.setAbsoluteTolerance(PIDSettings.getTolerance());

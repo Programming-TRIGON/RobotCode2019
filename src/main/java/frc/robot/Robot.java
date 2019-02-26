@@ -74,7 +74,7 @@ public class Robot extends TimedRobot {
     // Set deafult vision target to reflector
     NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
     NetworkTableEntry target = imageProcessingTable.getEntry("target");
-    target.setString(VisionPIDSource.VisionTarget.kReflector.toString());
+    target.setString(VisionPIDSource.VisionTarget.kReflectorForward.toString());
 
   
 
