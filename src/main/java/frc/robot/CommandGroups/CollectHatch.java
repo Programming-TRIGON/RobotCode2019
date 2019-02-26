@@ -15,7 +15,6 @@ import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
 import frc.robot.Commands.SetHatchLock;
-import frc.robot.Commands.SetLiftHeight;
 import frc.robot.Commands.TrackVisionTarget;
 import frc.robot.Vision.VisionPIDSource.VisionTarget;
 import frc.robot.Commands.SetHatchCollectorState;

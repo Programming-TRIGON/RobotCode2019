@@ -1,17 +1,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.CommandGroups.AfterHatchFeederPreparation;
 import frc.robot.CommandGroups.CargoCollectCmdG;
-import frc.robot.CommandGroups.CollectHatch;
-import frc.robot.Commands.CollectCargo;
-import frc.robot.Commands.DriveArcadeWithVision;
-import frc.robot.Commands.SetDriveInverted;
-import frc.robot.Vision.VisionPIDSource.VisionTarget;
 import frc.robot.CommandGroups.DefenceMode;
 import frc.robot.CommandGroups.CollectHatchFromFeeder;
 import frc.robot.Commands.LiftSwitchOverride;
@@ -32,10 +26,10 @@ public class OI {
         // driver buttons
         this.driverButtonA = new JoystickButton(driverXbox, 1);
         this.driverButtonB = new JoystickButton(driverXbox, 2);
-        this.driverButtonX = new JoystickButton(driverXbox, 3);
+        this.driverButtonX = new JoystickButton(driverXbox, 3); 
         this.driverButtonY = new JoystickButton(driverXbox, 4);
 
-    // this.driverButtonX.whileHeld(new );
+        // this.driverButtonX.whileHeld(new );
         // this.driverButtonB.whileHeld(new );
         this.driverButtonA.whenPressed(new SetDriveInverted(true)); //checked
         this.driverButtonY.whenPressed(new SetDriveInverted(false)); //checked
