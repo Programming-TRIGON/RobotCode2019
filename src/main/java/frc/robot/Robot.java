@@ -165,6 +165,7 @@ public class Robot extends TimedRobot {
     if (Robot.lift.isAtBottom() || SmartDashboard.getBoolean("reset enc", false))
       RobotComponents.Lift.ENCODER.reset();
     RobotStates.setLiftHeight(Robot.lift.getHeight());
+    RobotStates.setHasCargo(Robot.cargoCollector.isHoldingBall());
   }
 
   @Override
