@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
+import frc.robot.RobotConstants.RobotPIDSettings;
 
 public class Turn extends OrientWithPID {
   /**
@@ -20,7 +21,7 @@ public class Turn extends OrientWithPID {
    * @param angle the setpoint which the Robot turns to (using PID).
    */
   public Turn(double angle) {
-    super(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, angle, RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360,
+    super(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, angle, RobotPIDSettings.TURN_SETTINGS, 360,
         true);
   }
 }

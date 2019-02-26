@@ -15,6 +15,7 @@ import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Commands.DriveWithGyro;
+import frc.robot.RobotConstants.RobotPIDSettings;
 import frc.robot.Vision.VisionPIDSource;
 
 public class SecondHatchMiddle extends CommandGroup {
@@ -32,19 +33,19 @@ public class SecondHatchMiddle extends CommandGroup {
 
     // turn.
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
-        TURN_TO_ROCKET * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
+        TURN_TO_ROCKET * (isLeft ? 1 : -1), RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     // drive to the rocket.
     addSequential(new DriveWithGyro(DRIVE_TO_FEEDER));
 
     // turn to put thhe hatch.
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, TURN_TO_ROCKET - 180,
-        RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
+        RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     //delivers the hatch using vision
     /*addSequential(
         new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
-            Robot.oi::getYLeft, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, false),
+            Robot.oi::getYLeft, RobotPIDSettings.VISION_TURN_SETTINGS, false),
         TARGET_TRACK_TIME);*/
     // score the hatch.
     // TODO: switch to the needed hatch height.

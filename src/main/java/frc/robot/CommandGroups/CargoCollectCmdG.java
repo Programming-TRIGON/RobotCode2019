@@ -20,15 +20,14 @@ public class CargoCollectCmdG extends CommandGroup {
     /** starts by unfolding the cargo collecter */
     addSequential(new SetCargoFolderState(Value.kForward));
     /** turns to the required angle */
-    addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kCargoCollection));
+    addParallel(new SetOneEightyAngle(OneEightyAngle.kCargoCollection));
     addSequential(new WaitCommand(0.3));
     /** set lift height to bottom in order to collect cargo */
-    RobotStates.setHeightIndex(-1);
     addParallel(new SetLiftHeight(LiftHeight.kCargoCollection));
     /** collects the cargo */
     addSequential(new CollectCargo(this.COLLECTOR_POWER, this.HOLDER_POWER));
     /** prepare the lift and the 180 subsystems to score */
-    addParallel(new SetLiftHeight(RobotConstants.LiftHeight.kOneEightySafety));
+    addParallel(new SetLiftHeight(LiftHeight.kOneEightySafety));
     addSequential(new WaitCommand(0.3));
     addParallel(new SetOneEightyAngle(OneEightyAngle.kStraight));
   }

@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
+import frc.robot.RobotConstants.RobotDimensions;
+import frc.robot.RobotConstants.RobotPIDSettings;
 import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Commands.DriveWithGyro;
 import frc.robot.Vision.VisionPIDSource;
@@ -24,9 +26,9 @@ public class SecondHatchSide extends CommandGroup {
    * one of the three side rockets.
    */
   enum CargoShipHatch {
-    kFirstHatch(6.9 - RobotConstants.RobotDimensions.ROBOT_LENGTH),
-    kSecondHatch(7.45 - RobotConstants.RobotDimensions.ROBOT_LENGTH),
-    kThirdHatch(8 - RobotConstants.RobotDimensions.ROBOT_LENGTH);
+    kFirstHatch(6.9 - RobotDimensions.ROBOT_LENGTH),
+    kSecondHatch(7.45 - RobotDimensions.ROBOT_LENGTH),
+    kThirdHatch(8 - RobotDimensions.ROBOT_LENGTH);
 
     public double key;
 
@@ -47,18 +49,18 @@ public class SecondHatchSide extends CommandGroup {
 
     // turns to face the rocket for going to it from the feeder.
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
-        TURN_TO_ROCKET * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
+        TURN_TO_ROCKET * (isLeft ? 1 : -1), RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     // drive to the rocket
     addSequential(new DriveWithGyro(DISTANCE_TO_ROCKET));
 
     // turns to face the rocket for putting the hatch pannel
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
-        TURN_TO_HATCH * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
+        TURN_TO_HATCH * (isLeft ? 1 : -1), RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     // Use vision to deliver the hatch
     /*addSequential(new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
-        Robot.oi::getYLeft, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, false), TARGET_TRACK_TIME);
+        Robot.oi::getYLeft, RobotPIDSettings.VISION_TURN_SETTINGS, false), TARGET_TRACK_TIME);
     */
     // scores the hatch
   }

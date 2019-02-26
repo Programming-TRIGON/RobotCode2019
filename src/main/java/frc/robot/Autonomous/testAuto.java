@@ -16,6 +16,7 @@ import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.Commands.DriveWithGyro;
+import frc.robot.RobotConstants.RobotPIDSettings;
 
 public class testAuto extends CommandGroup {
   /**
@@ -23,7 +24,7 @@ public class testAuto extends CommandGroup {
    */
   public testAuto() {
     addSequential(new DriveWithGyro(300));
-    addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 90, RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
+    addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 90, RobotPIDSettings.TURN_SETTINGS, 360, true));
   }
 }
 
