@@ -142,6 +142,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putData(new TestPID());
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, oi.driverXbox));
+    
     // Robot data to be periodically published to SmartDashboard                    
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
@@ -149,12 +150,12 @@ public class Robot extends TimedRobot {
     dbc.addNumber("180 potentiometer", Robot.oneEighty::getAngle);
     dbc.addNumber("Lift encoder", Robot.lift::getHeight);
     // Robot states to be periodically published to SmartDashboard
+    dbc.addNumber("Lift Height", RobotStates::getLiftHeight);    
     dbc.addNumber("Height index", RobotStates::getHeightIndex);    
     dbc.addBoolean("One Eighty Override", RobotStates::isOneEightyOverride);
     dbc.addBoolean("Lift Override", RobotStates::isLiftOverride);
     dbc.addBoolean("Is Has Cargo", RobotStates::isHasCargo);
     dbc.addBoolean("Inverted Drive", RobotStates::isDriveInverted);
-    addTests();
   }
 
   @Override
@@ -163,7 +164,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Scheduler", Scheduler.getInstance());
     if (Robot.lift.isAtBottom() || SmartDashboard.getBoolean("reset enc", false))
       RobotComponents.Lift.ENCODER.reset();
-      RobotStates.setLiftHeight(Robot.lift.getHeight());
+    RobotStates.setLiftHeight(Robot.lift.getHeight());
   }
 
   @Override
