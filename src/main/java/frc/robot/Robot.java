@@ -150,7 +150,7 @@ public class Robot extends TimedRobot {
     dbc.addNumber("180 potentiometer", Robot.oneEighty::getAngle);
     dbc.addNumber("Lift encoder", Robot.lift::getHeight);
     // Robot states to be periodically published to SmartDashboard
-    dbc.addNumber("Lift Height", RobotStates::getLiftHeight);    
+    dbc.addNumber("Lift Height", RobotStates::getLiftHeight);
     dbc.addNumber("Height index", RobotStates::getHeightIndex);    
     dbc.addBoolean("One Eighty Override", RobotStates::isOneEightyOverride);
     dbc.addBoolean("Lift Override", RobotStates::isLiftOverride);
