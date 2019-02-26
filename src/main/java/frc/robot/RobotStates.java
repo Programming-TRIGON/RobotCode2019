@@ -9,7 +9,7 @@ public class RobotStates {
     static boolean oneEightyOverride = false;
     static boolean LiftOverride = false;
     static int heightIndex = -1; // The values can be 0,1,2 for rocket - low, middle and high. 3 for cargo ship height And -1 for none of these heights
-
+    static double liftHeight;
     public static void increaseHeight() {
         if (RobotStates.heightIndex < 2)
             RobotStates.heightIndex++;
@@ -70,5 +70,11 @@ public class RobotStates {
 
     public static void toggleLiftOverride() {
         RobotStates.LiftOverride = !RobotStates.LiftOverride;
+    }
+    public static double getLiftHeight(){
+        return RobotStates.liftHeight;
+    }
+    public static void setLiftHeight(double liftHeight){
+        RobotStates.liftHeight = liftHeight;
     }
 }
