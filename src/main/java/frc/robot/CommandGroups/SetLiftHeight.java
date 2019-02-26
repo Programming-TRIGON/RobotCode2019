@@ -42,9 +42,7 @@ public class SetLiftHeight extends CommandGroup {
       RobotStates.setHeightIndex(3);
       break;
     }
-    addSequential(new ReachLiftHeight(height)); // this command will end when overraide lift state is true else it will
-                                                // do pid on the height given
-
+    addSequential(new ReachLiftHeight(height)); // this command will end when overraide lift state is true else it will do pid on the height given
     addSequential(new SetLiftOverride()); // this command will run when overraide lift state is true
   }
 }

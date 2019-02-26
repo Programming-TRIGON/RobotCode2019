@@ -3,8 +3,6 @@ package frc.robot.CommandGroups;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
-import frc.robot.RobotConstants;
-import frc.robot.RobotStates;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.RobotConstants.LiftHeight;
