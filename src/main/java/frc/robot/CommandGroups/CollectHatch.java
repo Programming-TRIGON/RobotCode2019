@@ -12,7 +12,7 @@ import frc.robot.Vision.VisionPIDSource.VisionTarget;
 import frc.robot.Commands.SetHatchCollectorState;
 
 /**
- * A command group for collecting hatch from the floor
+ * a command group for collecting hatch from the floor
  */
 public class CollectHatch extends CommandGroup {
 
