@@ -34,11 +34,11 @@ public class OI {
         this.driverButtonB = new JoystickButton(driverXbox, 2);
         this.driverButtonX = new JoystickButton(driverXbox, 3);
         this.driverButtonY = new JoystickButton(driverXbox, 4);
-        this.driverButtonB.whileHeld(new DriveArcadeWithVision(Robot.driveTrain, VisionTarget.kReflectorForward, () -> 0.0,
-                () -> driverXbox.getY(Hand.kLeft), RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, false));
-        this.driverButtonA.whenPressed(new SetDriveInverted(true));
-        this.driverButtonY.whenPressed(new SetDriveInverted(false));
-        this.driverButtonX.whileHeld(new CollectHatch());
+
+    // this.driverButtonX.whileHeld(new );
+        // this.driverButtonB.whileHeld(new );
+        this.driverButtonA.whenPressed(new SetDriveInverted(true)); //checked
+        this.driverButtonY.whenPressed(new SetDriveInverted(false)); //checked
 
         // operator buttons
         this.operatorButtonA = new JoystickButton(operatorXbox, 1);
@@ -55,14 +55,14 @@ public class OI {
 
         this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride()); //issue!
         this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride()); //checked
-        this.operatorButtonA.whenPressed(new CargoCollectCmdG()); //checked
-        this.operatorButtonB.whenPressed(new Push()); //checked
-        this.operatorButtonY.whenPressed(new CollectHatchFromFeeder()); //checked
-        this.operatorButtonY.whenReleased(new AfterHatchFeederPreparation()); //checked
-        this.operatorButtonRB.whenPressed(new PrepareToScore(true)); //checked 
-        this.operatorButtonLB.whenPressed(new PrepareToScore(false)); //checked
-        this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip)); //checked
-        this.operatorStartButton.whenPressed(new DefenceMode()); //checked
+        //this.operatorButtonA.whenPressed(new CargoCollectCmdG()); //checked
+        //this.operatorButtonB.whenPressed(new Push()); //checked
+        //this.operatorButtonY.whenPressed(new CollectHatchFromFeeder()); //checked
+        //this.operatorButtonY.whenReleased(new AfterHatchFeederPreparation()); //checked
+        //this.operatorButtonRB.whenPressed(new PrepareToScore(true)); //checked 
+        //this.operatorButtonLB.whenPressed(new PrepareToScore(false)); //checked
+        //this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip)); //checked
+        //this.operatorStartButton.whenPressed(new DefenceMode()); //checked
         this.operatorRightPOVButton.whenPressed(new SetHasCargo(true)); //checked
         this.operatorLeftPOVButton.whenPressed(new SetHasCargo(false)); //checked
     }

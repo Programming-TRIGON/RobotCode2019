@@ -142,7 +142,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(new TestPID());
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, oi.driverXbox));
 
-    // Robot data to be periodically published to SmartDashboard
+    // Robot data to be periodically published to SmartDashboard                    
     dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
