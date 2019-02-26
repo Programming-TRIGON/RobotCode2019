@@ -12,7 +12,6 @@ public class Push extends CommandGroup {
    */
   public Push() {
     if(RobotStates.getHeightIndex() == -1){
-      RobotStates.setHeightIndex(1);
       if(RobotStates.isHasCargo()){
         addSequential(new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
         addSequential(new WaitCommand(0.3));
