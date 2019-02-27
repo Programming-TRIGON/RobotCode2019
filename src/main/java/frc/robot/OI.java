@@ -48,18 +48,18 @@ public class OI {
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
         this.operatorButtonB.whenPressed(new Push());
         this.operatorButtonA.whenPressed(new CollectCargo(0.85, 0.6));
-        
-        //this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride()); //issue!
-        //this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride()); //checked
-        //this.operatorButtonA.whenPressed(new CargoCollectCmdG()); //checked
-        //this.operatorButtonY.whenPressed(new CollectHatchFromFeeder()); //checked
-        //this.operatorButtonY.whenReleased(new AfterHatchFeederPreparation()); //checked
-        //this.operatorButtonRB.whenPressed(new PrepareToScore(true)); //checked 
-        //this.operatorButtonLB.whenPressed(new PrepareToScore(false)); //checked
-        //this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip)); //checked
-        //this.operatorStartButton.whenPressed(new DefenceMode()); //checked
-        //this.operatorRightPOVButton.whenPressed(new SetHasCargo(true)); //checked
-        //this.operatorLeftPOVButton.whenPressed(new SetHasCargo(false)); //checked
+
+        this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride()); //issue!
+        this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride()); //checked
+        this.operatorButtonA.whenPressed(new CargoCollectCmdG()); //checked
+        this.operatorButtonY.whenPressed(new CollectHatchFromFeeder()); //checked
+        this.operatorButtonY.whenReleased(new AfterHatchFeederPreparation()); //checked
+        this.operatorButtonRB.whenPressed(new PrepareToScore(true)); //checked 
+        this.operatorButtonLB.whenPressed(new PrepareToScore(false)); //checked
+        this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip)); //checked
+        this.operatorStartButton.whenPressed(new DefenceMode()); //checked
+        this.operatorRightPOVButton.whenPressed(new SetHasCargo(true)); //checked
+        this.operatorLeftPOVButton.whenPressed(new SetHasCargo(false)); //checked
 
     }
 }

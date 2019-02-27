@@ -12,7 +12,7 @@ public class Push extends CommandGroup {
    * Pushes the right piece
    */
   public Push() {
-    /*if(RobotStates.getHeightIndex() == -1){
+    if(RobotStates.getHeightIndex() == -1){
       if(RobotStates.isHasCargo()){
         addSequential(new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
         addSequential(new WaitCommand(0.3));
@@ -21,7 +21,7 @@ public class Push extends CommandGroup {
         addSequential(new WaitCommand(0.3));
       }
     }
-    */
+    
     Robot.cargoCollector.setCollectorMotor(0);
     if(RobotStates.isHasCargo())
       addSequential(new PushCargo());
