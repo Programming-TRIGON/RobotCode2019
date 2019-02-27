@@ -19,7 +19,7 @@ public class ReachLiftHeight extends Command {
 
   /** sets the height of the lift depending on the situation */
   public ReachLiftHeight(LiftHeight finishingHeight) {
-    this(finishingHeight.key);
+    this.height = () -> finishingHeight.key;
   }
 
   public ReachLiftHeight(double d) {
@@ -40,10 +40,11 @@ public class ReachLiftHeight extends Command {
         Robot.lift.setMotorSpeed(output);
       }
     };
-    this.pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
+    this.pidController = new PIDController(7,0,0,
         Robot.lift.getEncoder(), this.pidOutput);
     pidController.setSetpoint(height.get());
-    pidController.setAbsoluteTolerance(pidSettings.getTolerance());
+    pidController.setAbsoluteTolerance(0);
+    pidController.setInputRange(-1, 1);
     pidController.setOutputRange(-1, 1);
     pidController.enable();
   }
@@ -67,7 +68,7 @@ public class ReachLiftHeight extends Command {
   protected void end() {
     pidController.disable();
     pidController.close();
-    Robot.lift.SetMotorSpeedNoSafety(0);
+    //Robot.lift.SetMotorSpeedNoSafety(0);
   }
 
   @Override

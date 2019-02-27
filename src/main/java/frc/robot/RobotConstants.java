@@ -58,12 +58,16 @@ public class RobotConstants {
 public static enum LiftHeight {
         // TODO:set real values.
 
-        kRocketTopHatch(1), kRocketMiddleHatch(1), kRocketBottomHatch(1), kRocketTopCargo(1), kRocketBottomCargo(1),
-        kRocketMiddleCargo(1), kLiftBottom(0.1),
-        /** a height that is safe to use OneEighty */
+        /** Hatch rocket heights */
+        kLiftBottomHatch(0.1851), kRocketTopHatch(1.461),  kRocketMiddleHatch(0.875),
+        /** Cargo rocket heights */
+        kRocketTopCargo(1), kRocketBottomCargo(1), kRocketMiddleCargo(1), 
+        /** A height that is safe to use OneEighty */
         kOneEightySafety(1),
-        /** a height that is safe to fold cargo colleter */
-        kCargoFolderSafty(1), kCargoCollection(1), kHatchCollection(1), kLiftBottomHatch(1), kCargoShip(1);
+        /** Collection heights */
+        kCargoCollection(1), kHatchCollection(1),
+        /** Cargo ship height */
+        kCargoShip(1);
 
         public double key;
 

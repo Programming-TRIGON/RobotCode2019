@@ -82,10 +82,6 @@ public class Robot extends TimedRobot {
     NetworkTableEntry target = imageProcessingTable.getEntry("target");
     target.setString(VisionPIDSource.VisionTarget.kReflectorForward.toString());
 
- 
-
-    Robot.oi = new OI();
-
     Robot.dbc = new DashBoardController();
 
     /** creates the SS htach collector that collects hatch pannels */
@@ -149,7 +145,8 @@ public class Robot extends TimedRobot {
     Robot.driveTrain = new TankDrivetrain(
         (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
         (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
-        Robot.oi = new OI();
+    
+    Robot.oi = new OI();
 
     /*Robot.driveTrain.setDefaultCommand(
         new DriveArcade(Robot.driveTrain, () -> RobotStates.isDriveInverted() ? 1 * Robot.oi.driverXbox.getY(Hand.kLeft)

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.CommandGroups.SetLiftHeight;
+import frc.robot.Commands.ReachLiftHeight;
 
 public class TestPID extends Command {
   Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);
@@ -28,8 +29,7 @@ public class TestPID extends Command {
   @Override
   protected void initialize() {
     updatePID();
-
-    testCommand = new SetLiftHeight(LiftHeight.kCargoShip);
+    testCommand = new ReachLiftHeight(LiftHeight.kLiftBottomHatch);
     testCommand.start();
   }
 
