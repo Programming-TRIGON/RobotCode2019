@@ -1,12 +1,15 @@
 package frc.robot.Autonomous;
 
 import java.util.function.Supplier;
+
 import com.spikes2212.dashboard.ConstantHandler;
 import com.spikes2212.utils.PIDSettings;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.CommandGroups.SetLiftHeight;
+import frc.robot.Robot;
 import frc.robot.RobotConstants.LiftHeight;
+import frc.robot.CommandGroups.SetLiftHeight;
 
 public class TestPID extends Command {
   Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);
@@ -23,10 +26,10 @@ public class TestPID extends Command {
   }
 
   @Override
-
   protected void initialize() {
     updatePID();
-    testCommand = new SetLiftHeight(LiftHeight.kRocketMiddleCargo);
+
+    testCommand = new SetLiftHeight(LiftHeight.kCargoShip);
     testCommand.start();
   }
 
@@ -36,11 +39,12 @@ public class TestPID extends Command {
 
   @Override
   protected boolean isFinished() {
-    return false;
+    return testCommand.isCompleted();
   }
 
   @Override
   protected void end() {
+    Robot.lift.setMotorSpeed(0);
   }
 
   public void updatePID(){
@@ -50,7 +54,7 @@ public class TestPID extends Command {
 
   @Override
   protected void interrupted() {
-    
+    end();
   }
 }
 

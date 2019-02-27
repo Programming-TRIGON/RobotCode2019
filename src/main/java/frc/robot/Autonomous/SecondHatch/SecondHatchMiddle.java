@@ -47,6 +47,7 @@ public class SecondHatchMiddle extends CommandGroup {
         new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
             Robot.oi::getYLeft, RobotPIDSettings.VISION_TURN_SETTINGS, false),
         TARGET_TRACK_TIME);*/
+
     // score the hatch.
     // TODO: switch to the needed hatch height.
 

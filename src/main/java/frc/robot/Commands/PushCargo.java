@@ -6,7 +6,8 @@ import frc.robot.Robot;
 /** puts the cargo in the rocket */
 
 public class PushCargo extends Command {
-  final double TIMEOUT = 1;
+  double power;
+  final double TIMEOUT = 2;
 
   /** accepts the power from an Enum */
   public PushCargo() {

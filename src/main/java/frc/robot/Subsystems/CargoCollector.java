@@ -29,6 +29,7 @@ public class CargoCollector extends JoystickOverridableSubsystem {
     this.microswitch = cargoSwitch;
 
     this.rightHolder.setInverted(false);
+    this.leftHolder.setInverted(true);
     this.leftHolder.set(ControlMode.Follower, this.rightHolder.getDeviceID());
     this.leftHolder.setNeutralMode(NeutralMode.Coast);
     this.rightHolder.setNeutralMode(NeutralMode.Coast);
@@ -59,5 +60,17 @@ public class CargoCollector extends JoystickOverridableSubsystem {
   @Override
   public void move(double power) {
     setCollectorMotor(power);
+  }
+
+  public void move(double power, boolean holder){
+    if (holder)
+      setHolderMotors(power);
+    else
+      setCollectorMotor(power);
+  }
+
+  @Override
+  public void setSafeControl(boolean isSafe) {
+    //should implement this eventually
   }
 }

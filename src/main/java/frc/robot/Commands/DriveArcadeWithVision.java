@@ -28,17 +28,16 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
   protected double lastTimeFound = 0;
 
   public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource.VisionTarget target,
-      Supplier<Double> setpointSupplier, Supplier<Double> movementSupplier, PIDSettings PIDSettings,
-      boolean continuous) {
+      Supplier<Double> setpointSupplier, Supplier<Double> movementSupplier, PIDSettings PIDSettings) {
     super(drivetrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), setpointSupplier,
-        movementSupplier, () -> false, PIDSettings, 2, continuous);
+        movementSupplier, () -> false, PIDSettings, 2, false);
   }
 
   public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource.VisionTarget target, double setpoint,
-      double movement, PIDSettings PIDSettings, boolean continuous) {
+      double movement, PIDSettings PIDSettings) {
 
     super(drivetrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), () -> setpoint,
-        () -> movement, PIDSettings, 2, continuous);
+        () -> movement, PIDSettings, 2, false);
   }
 
   @Override
