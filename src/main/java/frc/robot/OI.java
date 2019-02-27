@@ -10,6 +10,7 @@ import frc.robot.CommandGroups.DefenceMode;
 import frc.robot.CommandGroups.CollectHatchFromFeeder;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.LiftSwitchOverride;
+import frc.robot.Commands.OneEightyToggleOverride;
 import frc.robot.CommandGroups.PrepareToScore;
 import frc.robot.CommandGroups.Push;
 import frc.robot.Commands.SetDriveInverted;
@@ -50,7 +51,7 @@ public class OI {
         this.operatorButtonA.whenPressed(new CollectCargo(0.85, 0.6));
 
         this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride()); //issue!
-        this.operatorButtonAxisLeft.whenPressed(new OneEightySwitchOverride()); //checked
+        this.operatorButtonAxisLeft.whenPressed(new OneEightyToggleOverride()); //checked
         this.operatorButtonA.whenPressed(new CargoCollectCmdG()); //checked
         this.operatorButtonY.whenPressed(new CollectHatchFromFeeder()); //checked
         this.operatorButtonY.whenReleased(new AfterHatchFeederPreparation()); //checked
