@@ -3,8 +3,8 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.RobotStates;
 
-public class OneEightySwitchOverride extends Command {
-  public OneEightySwitchOverride() {
+public class OneEightyToggleOverride extends Command {
+  public OneEightyToggleOverride() {
   }
 
   @Override
