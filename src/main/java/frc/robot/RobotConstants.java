@@ -55,9 +55,7 @@ public class RobotConstants {
     }
 
     /** the height the lift should be in for certain tasks */
-public static enum LiftHeight {
-        // TODO:set real values.
-
+    public static enum LiftHeight {
         /** Hatch rocket heights */
         kLiftBottomHatch(0.1851), kRocketTopHatch(1.461),  kRocketMiddleHatch(0.875),
         /** Cargo rocket heights */
@@ -67,7 +65,9 @@ public static enum LiftHeight {
         /** Collection heights */
         kCargoCollection(1), kHatchCollection(1),
         /** Cargo ship height */
-        kCargoShip(1);
+        kCargoShip(1),
+        /** Cargo safty height */
+        kCargoSafty(1);
 
         public double key;
 
