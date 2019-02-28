@@ -29,30 +29,18 @@ public class RobotStates {
         RobotStates.heightIndex = index;
     }
 
-    /**
-     * @return the hasCargo
-     */
     public static boolean isHasCargo() {
         return hasCargo;
     }
 
-    /**
-     * @param hasCargo the hasCargo to set
-     */
     public static void setHasCargo(boolean hasCargo) {
         RobotStates.hasCargo = hasCargo;
     }
 
-    /**
-     * @return the driveInverted
-     */
     public static boolean isDriveInverted() {
         return driveInverted;
     }
 
-    /**
-     * @param driveInverted the driveInverted to set
-     */
     public static void setDriveInverted(boolean driveInverted) {
         RobotStates.driveInverted = driveInverted;
     }
@@ -76,9 +64,11 @@ public class RobotStates {
     public static void toggleLiftOverride() {
         RobotStates.LiftOverride = !RobotStates.LiftOverride;
     }
+    
     public static double getLiftHeight() {
         return RobotStates.liftHeight;
     }
+
     public static void setLiftHeight(double liftHeight) {
         RobotStates.liftHeight = liftHeight;
     }
