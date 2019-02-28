@@ -12,6 +12,7 @@ public class Lift extends JoystickOverridableSubsystem {
   private DigitalInput topSwitch, bottomSwitch;
   private Encoder encoder;
   private boolean safeControl = true;
+  double motorRamp = 0.25;
 
   public Lift(TalonSRX rightMotor, TalonSRX leftMotor, DigitalInput topwSwitch, DigitalInput bottomSwitch,
       Encoder encoder) {
@@ -24,6 +25,8 @@ public class Lift extends JoystickOverridableSubsystem {
     this.leftMotor.setInverted(false);
     this.rightMotor.setNeutralMode(NeutralMode.Brake);
     this.leftMotor.setNeutralMode(NeutralMode.Brake);
+    leftMotor.configOpenloopRamp(motorRamp);
+    rightMotor.configOpenloopRamp(motorRamp);
   }
 
   /** sets the speed of the motors of the lift to higher/lower it */
