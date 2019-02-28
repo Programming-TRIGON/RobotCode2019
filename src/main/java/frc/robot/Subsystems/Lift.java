@@ -31,7 +31,7 @@ public class Lift extends JoystickOverridableSubsystem {
 
   /** sets the speed of the motors of the lift to higher/lower it */
   public void setMotorSpeed(double speed) {
-    if (this.safeControl && ((speed > 0 && isAtTop()) || (speed < 0 && isAtBottom()))) {
+    if (((speed > 0 && isAtTop()) || (speed < 0 && isAtBottom()))) {
       rightMotor.set(ControlMode.PercentOutput, 0);
       leftMotor.set(ControlMode.PercentOutput, 0);
     } else {

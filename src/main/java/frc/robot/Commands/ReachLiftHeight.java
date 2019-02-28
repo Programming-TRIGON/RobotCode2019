@@ -28,17 +28,17 @@ public class ReachLiftHeight extends Command {
         Robot.lift.setMotorSpeed(output);
       }
     };
-    this.pidController = new PIDController(8,0,6,
+    this.pidController = new PIDController(5,0,15,
       Robot.lift.getEncoder(), this.pidOutput);
     pidController.setSetpoint(height.get());
     pidController.setAbsoluteTolerance(0);
-    pidController.setOutputRange(-1, 1);
+    pidController.setOutputRange(-0.5, 1);
     pidController.enable();
   }
 
   @Override
   protected void execute() {
-    if (!Robot.cargoFolder.isFold() && Robot.lift.getHeight() <= RobotConstants.LiftHeight.kCargoSafty.key)
+    if (!Robot.cargoFolder.isFold() && Robot.lift.getHeight() <= RobotConstants.LiftHeight.kCargoFolderSafty.key)
       Robot.cargoFolder.setFold(Value.kForward);
   }
 

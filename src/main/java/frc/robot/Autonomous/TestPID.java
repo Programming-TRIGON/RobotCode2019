@@ -9,8 +9,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotConstants.LiftHeight;
+import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.CommandGroups.SetLiftHeight;
+import frc.robot.CommandGroups.SetOneEightyAngle;
 import frc.robot.Commands.ReachLiftHeight;
+import frc.robot.RobotComponents.OneEighty;
 
 public class TestPID extends Command {
   Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);
@@ -29,7 +32,7 @@ public class TestPID extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new ReachLiftHeight(LiftHeight.kLiftBottomHatch);
+    testCommand = new SetOneEightyAngle(OneEightyAngle.kCargoCollection);
     testCommand.start();
   }
 

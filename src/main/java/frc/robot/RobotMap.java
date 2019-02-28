@@ -52,7 +52,7 @@ public class RobotMap {
 
     // Analog input device ports
     static class ANALOG_INPUT {
-        public static final int ONE_EIGHTY_POTENTIOMETER = 0;
+        public static final int ONE_EIGHTY_POTENTIOMETER = 3;
     }
 
 }

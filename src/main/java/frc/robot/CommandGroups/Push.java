@@ -18,7 +18,7 @@ public class Push extends CommandGroup {
         addSequential(new WaitCommand(0.3));
       }else{
         addSequential(new SetLiftHeight(LiftHeight.kRocketMiddleHatch));
-        addSequential(new WaitCommand(0.3));
+        addSequential(new WaitCommand(0.3));//add 180 here!!
       }
     }
     

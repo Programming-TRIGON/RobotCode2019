@@ -32,7 +32,7 @@ public class RobotConstants {
         public static final PIDSettings DRIVE_SETTINGS = new PIDSettings(0.0025, 0, 0.004, 5, 0.5);
         public static final PIDSettings TURN_SETTINGS = new PIDSettings(0.022, 0.00009, 0.0735, 4, 0.5);
         public static final PIDSettings GYRO_DRIVE_SETTINGS = new PIDSettings(0.075, 0, 0.35, 0, 0);
-        public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.003, 0.00025, 0.01, 0, 0);
+        public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.01, 0.00005, 0, 0, 0);
         public static final PIDSettings VISION_TURN_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
         public static final PIDSettings VISION_DISTANCE_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
 
@@ -42,11 +42,11 @@ public class RobotConstants {
     /** the angles of the oneEighty subsystem when performing a task */
     public static enum OneEightyAngle {
         // TODO: Set real angles.
-        kStraight(0), // The cargo collector faces ahead in this angle.
-        kBack(180), // The cargo collector faces back in this angle.
-        kTopStraight(-1),
-        kTopBack(181),
-        kCargoCollection(1);    
+        kStraight(-1), // The cargo collector faces ahead in this angle.
+        kBack(214), // The cargo collector faces back in this angle.
+        kTopStraight(-33),
+        kTopBack(246),
+        kCargoCollection(19);    
         public double key;
 
         OneEightyAngle(double angle) {
@@ -59,15 +59,15 @@ public class RobotConstants {
         /** Hatch rocket heights */
         kLiftBottomHatch(0.1851), kRocketTopHatch(1.461),  kRocketMiddleHatch(0.875),
         /** Cargo rocket heights */
-        kRocketTopCargo(1), kRocketBottomCargo(1), kRocketMiddleCargo(1), 
+        kRocketTopCargo(1.81), kRocketBottomCargo(0.8611), kRocketMiddleCargo(0.547), 
         /** A height that is safe to use OneEighty */
-        kOneEightySafety(1),
+        kOneEightySafety(0.4314), kOneEightyCargoSafety(0.7),
         /** Collection heights */
-        kCargoCollection(1), kHatchCollection(1),
+        kCargoCollection(0), kHatchCollection(1),
         /** Cargo ship height */
-        kCargoShip(1),
+        kCargoShip(1.1570),
         /** Cargo safty height */
-        kCargoSafty(0.3);
+        kCargoFolderSafty(0.7);
 
         public double key;
 

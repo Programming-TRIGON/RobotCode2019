@@ -29,7 +29,6 @@ public class RobotComponents {
                 RobotMap.ANALOG_INPUT.ONE_EIGHTY_POTENTIOMETER,
                 RobotConstants.Sensors.ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER,
                 RobotConstants.Sensors.ONE_EIGHTY_POTENTIOMETER_OFFSET);
-        //public final static AnalogInput POT = new AnalogInput(1);
     }
 
     public static class HatchHolder{

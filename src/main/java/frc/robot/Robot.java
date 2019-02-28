@@ -171,9 +171,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
     SmartDashboard.putData(new SetLiftHeight(LiftHeight.kOneEightySafety));
 
-    SmartDashboard.putData("Drive",
-        new DriveArcade(Robot.driveTrain, () -> -Robot.oi.operatorXbox.getY(), () -> -Robot.oi.operatorXbox.getX()));
-
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
     SmartDashboard.putData("Push Cargo", new PushCargo());
 

@@ -14,9 +14,12 @@ import frc.robot.Commands.OneEightyToggleOverride;
 import frc.robot.Commands.ReachLiftHeight;
 import frc.robot.CommandGroups.PrepareToScore;
 import frc.robot.CommandGroups.Push;
+import frc.robot.CommandGroups.SetOneEightyAngle;
 import frc.robot.Commands.SetDriveInverted;
 import frc.robot.Commands.SetHasCargo;
+import frc.robot.RobotComponents.OneEighty;
 import frc.robot.RobotConstants.LiftHeight;
+import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotConstants.PrepareToScoreHeight;
 
 public class OI {
@@ -34,10 +37,11 @@ public class OI {
 
         //this.driverButtonX.whileHeld(new );
         //this.driverButtonB.whileHeld(new );
-        //this.driverButtonA.whenPressed(new ToggleInvertedDrive()); //checked
-        this.driverButtonA.whenPressed(new ReachLiftHeight(LiftHeight.kLiftBottomHatch));
-        this.driverButtonB.whenPressed(new ReachLiftHeight(LiftHeight.kRocketMiddleHatch));
-        this.driverButtonY.whenPressed(new ReachLiftHeight(LiftHeight.kRocketTopHatch));
+        //this.driverButtonA.whenPressed(new ToggleInvertedDrive()); 
+        this.driverButtonA.whenPressed(new SetOneEightyAngle(OneEightyAngle.kStraight));
+        this.driverButtonB.whenPressed(new SetOneEightyAngle(OneEightyAngle.kTopStraight));
+        this.driverButtonY.whenPressed(new ReachLiftHeight(LiftHeight.kOneEightyCargoSafety));
+        this.driverButtonX.whenPressed(new Push());
 
         // operator buttons
         this.operatorButtonA = new JoystickButton(operatorXbox, 1);
@@ -51,20 +55,18 @@ public class OI {
         this.operatorButtonAxisRight = new JoystickButton(operatorXbox, 10);
         this.operatorRightPOVButton = new POVButton(operatorXbox, 90);
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
-        this.operatorButtonB.whenPressed(new Push());
-        this.operatorButtonA.whenPressed(new CollectCargo(0.85, 0.6));
 
-        /*this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride()); //issue!
-        this.operatorButtonAxisLeft.whenPressed(new OneEightyToggleOverride()); //checked
-        this.operatorButtonA.whenPressed(new CargoCollectCmdG()); //checked
-        this.operatorButtonY.whenPressed(new CollectHatchFromFeeder()); //checked
-        this.operatorButtonY.whenReleased(new AfterHatchFeederPreparation()); //checked
-        this.operatorButtonRB.whenPressed(new PrepareToScore(true)); //checked 
-        this.operatorButtonLB.whenPressed(new PrepareToScore(false)); //checked
-        this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip)); //checked
-        this.operatorStartButton.whenPressed(new DefenceMode()); //checked
-        this.operatorRightPOVButton.whenPressed(new SetHasCargo(true)); //checked
-        this.operatorLeftPOVButton.whenPressed(new SetHasCargo(false)); //checked */
+        /*this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride());
+        this.operatorButtonAxisLeft.whenPressed(new OneEightyToggleOverride());
+        this.operatorButtonA.whenPressed(new CargoCollectCmdG()); 
+        this.operatorButtonY.whenPressed(new CollectHatchFromFeeder()); 
+        this.operatorButtonY.whenReleased(new AfterHatchFeederPreparation()); 
+        this.operatorButtonRB.whenPressed(new PrepareToScore(true));  
+        this.operatorButtonLB.whenPressed(new PrepareToScore(false)); 
+        this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip)); 
+        this.operatorStartButton.whenPressed(new DefenceMode()); 
+        this.operatorRightPOVButton.whenPressed(new SetHasCargo(true)); 
+        this.operatorLeftPOVButton.whenPressed(new SetHasCargo(false));  */
 
     }
 }
