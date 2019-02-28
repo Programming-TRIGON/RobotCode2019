@@ -9,6 +9,7 @@ import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
 import frc.robot.RobotConstants.LiftHeight;
+import frc.robot.RobotConstants.RobotPIDSettings;
 
 public class ReachLiftHeight extends Command {
   private Supplier<Double> height;
@@ -28,10 +29,12 @@ public class ReachLiftHeight extends Command {
         Robot.lift.setMotorSpeed(output);
       }
     };
-    this.pidController = new PIDController(5,0,15,
+    this.pidController = new PIDController(RobotPIDSettings.LIFT_HEIGHT_SETTINGS.getKP(),
+      RobotPIDSettings.LIFT_HEIGHT_SETTINGS.getKI(),
+      RobotPIDSettings.LIFT_HEIGHT_SETTINGS.getKD(),
       Robot.lift.getEncoder(), this.pidOutput);
     pidController.setSetpoint(height.get());
-    pidController.setAbsoluteTolerance(0);
+    pidController.setAbsoluteTolerance(RobotPIDSettings.LIFT_HEIGHT_SETTINGS.getTolerance());
     pidController.setOutputRange(-0.5, 1);
     pidController.enable();
   }

@@ -16,11 +16,11 @@ public class SetLiftOverride extends Command {
 
   @Override
   protected void initialize() {
+    Robot.lift.setSafeControl(false);
   }
 
   @Override
   protected void execute() {
-    Robot.lift.setSafeControl(true);
     Robot.lift.setMotorSpeed(Robot.oi.operatorXbox.getY(Hand.kRight));
   }
 
@@ -32,7 +32,7 @@ public class SetLiftOverride extends Command {
   @Override
   protected void end() {
     Robot.lift.setMotorSpeed(0);
-    Robot.lift.setSafeControl(false);
+    Robot.lift.setSafeControl(true);
   }
 
   @Override

@@ -32,16 +32,15 @@ public class RobotConstants {
         public static final PIDSettings DRIVE_SETTINGS = new PIDSettings(0.0025, 0, 0.004, 5, 0.5);
         public static final PIDSettings TURN_SETTINGS = new PIDSettings(0.022, 0.00009, 0.0735, 4, 0.5);
         public static final PIDSettings GYRO_DRIVE_SETTINGS = new PIDSettings(0.075, 0, 0.35, 0, 0);
-        public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.0075, 0.00005, 0.00075, 2, 0);
+        public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.009, 0.00005, 0.00075, 2, 0);
         public static final PIDSettings VISION_TURN_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
         public static final PIDSettings VISION_DISTANCE_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
-
+        public static final PIDSettings LIFT_HEIGHT_SETTINGS = new PIDSettings(5,0,15,0,0);
     }
 
 
     /** the angles of the oneEighty subsystem when performing a task */
     public static enum OneEightyAngle {
-        // TODO: Set real angles.
         kStraight(40.5), // The cargo collector faces ahead in this angle.
         kBack(250), // The cargo collector faces back in this angle.
         kTopStraight(4),
@@ -78,17 +77,6 @@ public class RobotConstants {
 
     public static enum PrepareToScoreHeight {
         kLow, kMedium, kHigh, kCargoShip
-    }
-    // we might want to change the enum name...
-    public static enum PushCargoPower {
-        // TODO:set real values.
-        /** the speed we want to push the cargo */
-        kCargoShip(-1), kLowRocket(-1), kMiddleRocket(-1), kTopRocket(-1);
-        public double key;
-
-        PushCargoPower(double power) {
-            this.key = power;
-        }
     }
 
     public static PrepareToScoreHeight[] heights = {PrepareToScoreHeight.kLow, PrepareToScoreHeight.kMedium, 
