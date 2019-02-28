@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.RobotStates;
 
 /**
- * Changing the drive direction 
- */
+  * Sets the drive direction 
+  */
 public class SetDriveInverted extends InstantCommand {
   boolean state;
 
@@ -15,9 +15,6 @@ public class SetDriveInverted extends InstantCommand {
 
   @Override
   protected void initialize() {
-    if(this.state)
-      RobotStates.toggleDriveInverted();  
-    //RobotStates.setDriveInverted(state);
+    RobotStates.setDriveInverted(state);
   }
-
 }

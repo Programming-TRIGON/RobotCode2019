@@ -30,7 +30,7 @@ public class RobotStates {
     }
 
     public static boolean isHasCargo() {
-        return hasCargo;
+        return RobotStates.hasCargo;
     }
 
     public static void setHasCargo(boolean hasCargo) {
@@ -38,7 +38,7 @@ public class RobotStates {
     }
 
     public static boolean isDriveInverted() {
-        return driveInverted;
+        return RobotStates.driveInverted;
     }
 
     public static void setDriveInverted(boolean driveInverted) {
