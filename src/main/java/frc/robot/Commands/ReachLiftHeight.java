@@ -1,13 +1,10 @@
 package frc.robot.Commands;
 
 import java.util.function.Supplier;
-import com.spikes2212.utils.PIDSettings;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
 import frc.robot.RobotConstants.LiftHeight;
 
@@ -15,23 +12,11 @@ public class ReachLiftHeight extends Command {
   private Supplier<Double> height;
   private PIDController pidController;
   private PIDOutput pidOutput;
-  private PIDSettings pidSettings;
 
   /** sets the height of the lift depending on the situation */
   public ReachLiftHeight(LiftHeight finishingHeight) {
     requires(Robot.lift);
     this.height = () -> finishingHeight.key;
-  }
-
-  public ReachLiftHeight(double d) {
-    requires(Robot.lift);
-    this.height = () -> d;
-  }
-
-  public ReachLiftHeight(Supplier<Double> setpointSupplier, PIDSettings pidSettings) {
-    requires(Robot.lift);
-    this.height = setpointSupplier;
-    this.pidSettings = pidSettings;
   }
 
   @Override
@@ -42,10 +27,9 @@ public class ReachLiftHeight extends Command {
       }
     };
     this.pidController = new PIDController(9,0,6,
-        Robot.lift.getEncoder(), this.pidOutput);
+      Robot.lift.getEncoder(), this.pidOutput);
     pidController.setSetpoint(height.get());
     pidController.setAbsoluteTolerance(0);
-    pidController.setInputRange(-1, 1);
     pidController.setOutputRange(-1, 1);
     pidController.enable();
   }
@@ -69,7 +53,6 @@ public class ReachLiftHeight extends Command {
   protected void end() {
     pidController.disable();
     pidController.close();
-    //Robot.lift.SetMotorSpeedNoSafety(0);
   }
 
   @Override
