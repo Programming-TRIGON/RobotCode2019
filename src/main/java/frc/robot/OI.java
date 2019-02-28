@@ -32,10 +32,9 @@ public class OI {
         this.driverButtonX = new JoystickButton(driverXbox, 3); 
         this.driverButtonY = new JoystickButton(driverXbox, 4);
 
-        // this.driverButtonX.whileHeld(new );
-        // this.driverButtonB.whileHeld(new );
-        //this.driverButtonA.whenPressed(new SetDriveInverted(true)); //checked
-        //this.driverButtonY.whenPressed(new SetDriveInverted(false)); //checked
+        //this.driverButtonX.whileHeld(new );
+        //this.driverButtonB.whileHeld(new );
+        //this.driverButtonA.whenPressed(new ToggleInvertedDrive()); //checked
         this.driverButtonA.whenPressed(new ReachLiftHeight(LiftHeight.kLiftBottomHatch));
         this.driverButtonB.whenPressed(new ReachLiftHeight(LiftHeight.kRocketMiddleHatch));
         this.driverButtonY.whenPressed(new ReachLiftHeight(LiftHeight.kRocketTopHatch));

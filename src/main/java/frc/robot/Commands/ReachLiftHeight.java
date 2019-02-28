@@ -28,7 +28,7 @@ public class ReachLiftHeight extends Command {
         Robot.lift.setMotorSpeed(output);
       }
     };
-    this.pidController = new PIDController(9,0,6,
+    this.pidController = new PIDController(8,0,6,
       Robot.lift.getEncoder(), this.pidOutput);
     pidController.setSetpoint(height.get());
     pidController.setAbsoluteTolerance(0);

@@ -60,7 +60,6 @@ public class Lift extends JoystickOverridableSubsystem {
 
   @Override
   public void move(double power) {
-    setSafeControl(true);
     setMotorSpeed(power);
   }
 
