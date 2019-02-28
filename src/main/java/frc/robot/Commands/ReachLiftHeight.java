@@ -19,6 +19,7 @@ public class ReachLiftHeight extends Command {
 
   /** sets the height of the lift depending on the situation */
   public ReachLiftHeight(LiftHeight finishingHeight) {
+    requires(Robot.lift);
     this.height = () -> finishingHeight.key;
   }
 
@@ -40,7 +41,7 @@ public class ReachLiftHeight extends Command {
         Robot.lift.setMotorSpeed(output);
       }
     };
-    this.pidController = new PIDController(7,0,0,
+    this.pidController = new PIDController(9,0,6,
         Robot.lift.getEncoder(), this.pidOutput);
     pidController.setSetpoint(height.get());
     pidController.setAbsoluteTolerance(0);
@@ -55,8 +56,8 @@ public class ReachLiftHeight extends Command {
     if (pidController.getSetpoint() != newSetpoint)
       pidController.setSetpoint(newSetpoint);*/
       
-    if (Robot.lift.getHeight() <= RobotConstants.LiftHeight.kCargoFolderSafty.key)
-      new SetCargoFolderState(Value.kForward).start();
+    /*if (Robot.lift.getHeight() <= RobotConstants.LiftHeight.kCargoFolderSafty.key)
+      new SetCargoFolderState(Value.kForward).start();*/
   }
 
   @Override
