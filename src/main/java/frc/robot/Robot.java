@@ -206,6 +206,8 @@ public class Robot extends TimedRobot {
     dbc.addBoolean("Inverted Drive", RobotStates::isDriveInverted);
 
     addTests();
+    
+    RobotStates.setHeightIndex(-1);
   }
 
   @Override

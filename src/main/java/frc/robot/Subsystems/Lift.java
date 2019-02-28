@@ -58,7 +58,7 @@ public class Lift extends JoystickOverridableSubsystem {
   }
 
   public double getHeight() {
-    return this.encoder.getDistance() + RobotConstants.Sensors.LIFT_ENCODER_OFFSET;
+    return this.encoder.getDistance();
   }
 
   @Override

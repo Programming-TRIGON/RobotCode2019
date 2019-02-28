@@ -6,9 +6,7 @@ import frc.robot.Robot;
 /** puts the cargo in the rocket */
 
 public class PushCargo extends Command {
-  double power;
-  final double TIMEOUT = 2;
-
+  final double TIMEOUT = 1;
   /** accepts the power from an Enum */
   public PushCargo() {
     requires(Robot.cargoCollector);
@@ -17,12 +15,13 @@ public class PushCargo extends Command {
   @Override
   protected void initialize() {
     setTimeout(TIMEOUT);
+    /** ejects the cargo */
+    Robot.cargoCollector.setHolderMotors(1.5);
   }
 
   @Override
   protected void execute() {
-    /** ejects the cargo */
-    Robot.cargoCollector.setHolderMotors(1);
+    
   }
 
   @Override

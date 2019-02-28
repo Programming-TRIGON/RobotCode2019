@@ -16,6 +16,7 @@ public class SetOneEightyOverride extends Command {
 
   @Override
   protected void initialize() {
+    Robot.oneEighty.setSafeControl(false);
   }
 
   @Override

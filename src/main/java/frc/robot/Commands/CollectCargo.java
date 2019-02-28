@@ -24,7 +24,7 @@ public class CollectCargo extends Command {
   protected void execute() {
     /** sets the power of the holder and collector motors */
     Robot.cargoCollector.setCollectorMotor(collectorPower);
-    Robot.cargoCollector.setHolderMotors(holderPower);
+    Robot.cargoCollector.setHolderMotors(-holderPower);
   }
 
   @Override

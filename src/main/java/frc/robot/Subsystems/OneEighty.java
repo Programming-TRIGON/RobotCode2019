@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import frc.robot.Robot;
 import frc.robot.RobotStates;
 import frc.robot.RobotConstants.LiftHeight;
 
@@ -15,6 +16,7 @@ public class OneEighty extends JoystickOverridableSubsystem {
   /** declares the motor that turns the SS */
   private TalonSRX motor;
   private AnalogPotentiometer potentiometer;
+  private boolean isSafe = true;
   // This supplier checks if the S.S. is high enough to move.
 
   public OneEighty(TalonSRX motor, AnalogPotentiometer potentiometer) {
@@ -30,13 +32,15 @@ public class OneEighty extends JoystickOverridableSubsystem {
 
   /** turns the SS to where the driver wants it */
   public void setOneEighty(double power) {
-    if ((power > 0 && getAngle() >= 225)
-        || (power < 0 && getAngle() <= 0) || (RobotStates.getLiftHeight() <= LiftHeight.kOneEightySafety.key))
+    if (((power > 0 && getAngle() >= 246)
+        || (power < 0 && getAngle() <= -33) 
+        || (Robot.lift.getHeight() <= LiftHeight.kOneEightySafety.key))
+        && this.isSafe)
       this.motor.set(ControlMode.PercentOutput, 0);
     else
       this.motor.set(ControlMode.PercentOutput, power);
   }
-
+  
   public double getAngle() {
     return potentiometer.get();
   }
@@ -56,6 +60,6 @@ public class OneEighty extends JoystickOverridableSubsystem {
 
   @Override
   public void setSafeControl(boolean isSafe) {
-
+    this.isSafe = isSafe;
   }
 }

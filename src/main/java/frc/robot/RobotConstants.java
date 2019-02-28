@@ -32,7 +32,7 @@ public class RobotConstants {
         public static final PIDSettings DRIVE_SETTINGS = new PIDSettings(0.0025, 0, 0.004, 5, 0.5);
         public static final PIDSettings TURN_SETTINGS = new PIDSettings(0.022, 0.00009, 0.0735, 4, 0.5);
         public static final PIDSettings GYRO_DRIVE_SETTINGS = new PIDSettings(0.075, 0, 0.35, 0, 0);
-        public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.01, 0.00005, 0, 0, 0);
+        public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.0075, 0.00005, 0.00075, 2, 0);
         public static final PIDSettings VISION_TURN_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
         public static final PIDSettings VISION_DISTANCE_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
 
@@ -42,11 +42,11 @@ public class RobotConstants {
     /** the angles of the oneEighty subsystem when performing a task */
     public static enum OneEightyAngle {
         // TODO: Set real angles.
-        kStraight(-1), // The cargo collector faces ahead in this angle.
-        kBack(214), // The cargo collector faces back in this angle.
-        kTopStraight(-33),
-        kTopBack(246),
-        kCargoCollection(19);    
+        kStraight(40.5), // The cargo collector faces ahead in this angle.
+        kBack(250), // The cargo collector faces back in this angle.
+        kTopStraight(4),
+        kTopBack(278),
+        kCargoCollection(60);    
         public double key;
 
         OneEightyAngle(double angle) {
@@ -61,7 +61,7 @@ public class RobotConstants {
         /** Cargo rocket heights */
         kRocketTopCargo(1.81), kRocketBottomCargo(0.8611), kRocketMiddleCargo(0.547), 
         /** A height that is safe to use OneEighty */
-        kOneEightySafety(0.4314), kOneEightyCargoSafety(0.7),
+        kOneEightySafety(0.5314), kOneEightyCargoSafety(0.7),
         /** Collection heights */
         kCargoCollection(0), kHatchCollection(1),
         /** Cargo ship height */
