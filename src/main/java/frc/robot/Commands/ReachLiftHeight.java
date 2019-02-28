@@ -3,8 +3,11 @@ package frc.robot.Commands;
 import java.util.function.Supplier;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotComponents;
+import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
 import frc.robot.RobotConstants.LiftHeight;
 
@@ -36,12 +39,8 @@ public class ReachLiftHeight extends Command {
 
   @Override
   protected void execute() {
-    /*double newSetpoint = height.get();
-    if (pidController.getSetpoint() != newSetpoint)
-      pidController.setSetpoint(newSetpoint);*/
-      
-    /*if (Robot.lift.getHeight() <= RobotConstants.LiftHeight.kCargoFolderSafty.key)
-      new SetCargoFolderState(Value.kForward).start();*/
+    if (!Robot.cargoFolder.isFold() && Robot.lift.getHeight() <= RobotConstants.LiftHeight.kCargoSafty.key)
+      Robot.cargoFolder.setFold(Value.kForward);
   }
 
   @Override

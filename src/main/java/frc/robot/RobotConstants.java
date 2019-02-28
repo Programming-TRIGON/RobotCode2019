@@ -67,7 +67,7 @@ public class RobotConstants {
         /** Cargo ship height */
         kCargoShip(1),
         /** Cargo safty height */
-        kCargoSafty(1);
+        kCargoSafty(0.3);
 
         public double key;
 
