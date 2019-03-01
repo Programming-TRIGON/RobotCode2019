@@ -11,16 +11,8 @@ public class SetLiftHeight extends CommandGroup {
    * Set lift height with overraid option
    */
   public SetLiftHeight(LiftHeight height) {
+    //set height index acorrding to height 
     switch (height) {
-    case kCargoCollection:
-      RobotStates.setHeightIndex(-1);
-      break;
-    case kHatchCollection:
-      RobotStates.setHeightIndex(-1);
-      break;
-    case kOneEightySafety:
-      RobotStates.setHeightIndex(-1);
-      break;
     case kLiftBottomHatch:
       RobotStates.setHeightIndex(0);
       break;

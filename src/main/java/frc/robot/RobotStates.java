@@ -11,6 +11,7 @@ public class RobotStates {
     static boolean driveInverted = false;
     static boolean oneEightyOverride = false;
     static boolean LiftOverride = false;
+    static boolean isPushed = false;
     static int heightIndex = -1; // The values can be 0,1,2 for rocket - low, middle and high. 3 for cargo ship height And -1 for none of these heights
     static double liftHeight = 0;
 
@@ -82,5 +83,13 @@ public class RobotStates {
 
     public static OneEightyAngle getDesireOneEightyAngle(){
         return RobotStates.desireOneEightyAngle;
+    }
+
+    public static boolean isPushed(){
+        return RobotStates.isPushed;
+    }
+
+    public static void setIsPushed(boolean isPushed){
+        RobotStates.isPushed = isPushed;
     }
 }

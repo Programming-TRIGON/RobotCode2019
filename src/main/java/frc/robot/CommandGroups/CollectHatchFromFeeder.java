@@ -16,6 +16,10 @@ public class CollectHatchFromFeeder extends CommandGroup {
     public CollectHatchFromFeeder() {
         addSequential(new SetHatchLock(Value.kReverse));
         OneEightyAngle angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kBack : OneEightyAngle.kStraight; 
+        //this sequence checks if the 180 will try to move 180 dgree when he cant because the lift is to low.
+        //if the 180 wont do 180 degrees but rather do pid corrections its allowed and the will go to fider height,
+        //elses the lift will go up, the 180 will turn 180 degree and do pid corrections and then the lift will
+        //go down to fider hatch height. 
         if(angleToSet.equals(RobotStates.getDesireOneEightyAngle()))
             addParallel(new SetOneEightyAngle(angleToSet));
         else{

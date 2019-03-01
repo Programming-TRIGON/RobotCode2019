@@ -16,6 +16,7 @@ import frc.robot.Commands.PushCargo;
 import frc.robot.Commands.ReachLiftHeight;
 import frc.robot.CommandGroups.PrepareToScore;
 import frc.robot.CommandGroups.Push;
+import frc.robot.CommandGroups.PushWhenLiftMoved;
 import frc.robot.CommandGroups.SetLiftHeight;
 import frc.robot.CommandGroups.SetOneEightyAngle;
 import frc.robot.Commands.SetDriveInverted;
@@ -56,15 +57,22 @@ public class OI {
         this.operatorRightPOVButton = new POVButton(operatorXbox, 90);
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
 
+        
         this.operatorButtonA.whenPressed(new Push());
+        this.operatorButtonA.whenReleased(new PushWhenLiftMoved());
+
         this.operatorButtonY.whenPressed(new CollectHatchFromFeeder());
         this.operatorButtonY.whenReleased(new AfterHatchFeederPreparation());
+
         this.operatorButtonRB.whenPressed(new PrepareToScore(true));  
         this.operatorButtonLB.whenPressed(new PrepareToScore(false));
+
         this.operatorButtonAxisRight.whenPressed(new OneEightyToggleOverride());
         this.operatorButtonAxisLeft.whenPressed(new LiftSwitchOverride());
+
         this.operatorRightPOVButton.whileHeld(new SetHasCargo(true)); 
         this.operatorLeftPOVButton.whileHeld(new SetHasCargo(false));
+        
         this.operatorButtonX.whenPressed(new SetLiftHeight(LiftHeight.kLiftBottomHatch));
 
 

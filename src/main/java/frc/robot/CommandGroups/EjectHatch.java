@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Commands.SetHatchEject;
 import frc.robot.Commands.SetHatchLock;
 /**
- * Add your docs here.
+ * Cmd group to eject hatch
  */
 public class EjectHatch extends CommandGroup{
     
