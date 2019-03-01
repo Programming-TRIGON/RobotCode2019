@@ -58,29 +58,27 @@ public class OI {
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
 
         
-        this.operatorButtonA.whenPressed(new Push());
-        this.operatorButtonA.whenReleased(new PushWhenLiftMoved());
+        this.operatorButtonB.whenPressed(new Push());
+        this.operatorButtonB.whenReleased(new PushWhenLiftMoved());
 
         this.operatorButtonY.whenPressed(new CollectHatchFromFeeder());
         this.operatorButtonY.whenReleased(new AfterHatchFeederPreparation());
 
         this.operatorButtonRB.whenPressed(new PrepareToScore(true));  
         this.operatorButtonLB.whenPressed(new PrepareToScore(false));
+        this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip)); 
 
         this.operatorButtonAxisRight.whenPressed(new OneEightyToggleOverride());
         this.operatorButtonAxisLeft.whenPressed(new LiftSwitchOverride());
 
         this.operatorRightPOVButton.whileHeld(new SetHasCargo(true)); 
         this.operatorLeftPOVButton.whileHeld(new SetHasCargo(false));
+
+        this.operatorButtonA.whenPressed(new CargoCollectCmdG());
+        //that ensure that the cargo collector would stop spinning 
+        //if CargoCollectCmdG would interapted or the drivers wont catch cargo  
+        this.operatorButtonA.whenPressed(new CollectCargo(0,0));  
         
-        this.operatorButtonX.whenPressed(new SetLiftHeight(LiftHeight.kLiftBottomHatch));
-
-
-        //this.operatorButtonA.whenPressed(new CargoCollectCmdG());
-        //this.operatorButtonA.whenPressed(new CollectCargo(0,0)); 
-        //this.operatorButtonY.whenPressed(new CollectHatchFromFeeder()); 
-        //this.operatorButtonY.whenReleased(new AfterHatchFeederPreparation());  
-        //this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip)); 
-        //this.operatorStartButton.whenPressed(new DefenceMode());   
+        this.operatorStartButton.whenPressed(new DefenceMode());   
     }
 }

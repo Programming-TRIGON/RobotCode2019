@@ -1,8 +1,10 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.RobotStates;
 import frc.robot.Commands.PushCargo;
+import frc.robot.RobotConstants.LiftHeight;
 
 public class PushWhenLiftMoved extends CommandGroup {
   /**
@@ -18,5 +20,8 @@ public class PushWhenLiftMoved extends CommandGroup {
       else
         addSequential(new EjectHatch());
     }
+    addSequential(new WaitCommand(1));
+    //lift will go down to 180 safe height to spin 
+    addParallel(new SetLiftHeight(LiftHeight.kOneEightySafety));
   }
 }
