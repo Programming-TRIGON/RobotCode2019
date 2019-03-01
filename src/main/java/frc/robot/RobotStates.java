@@ -1,9 +1,12 @@
 package frc.robot;
 
+import frc.robot.RobotConstants.OneEightyAngle;
+
 /**
  * listeninng to the statse of the robot
  */
 public class RobotStates {
+    static OneEightyAngle desireOneEightyAngle;
     static boolean hasCargo = false;
     static boolean driveInverted = false;
     static boolean oneEightyOverride = false;
@@ -71,5 +74,13 @@ public class RobotStates {
 
     public static void setLiftHeight(double liftHeight) {
         RobotStates.liftHeight = liftHeight;
+    }
+
+    public static void setDesireOneEightyAngle(OneEightyAngle desireAngle){
+        RobotStates.desireOneEightyAngle = desireAngle;
+    }
+
+    public static OneEightyAngle getDesireOneEightyAngle(){
+        return RobotStates.desireOneEightyAngle;
     }
 }

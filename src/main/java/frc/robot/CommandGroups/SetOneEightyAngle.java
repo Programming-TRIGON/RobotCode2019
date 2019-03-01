@@ -15,6 +15,7 @@ public class SetOneEightyAngle extends CommandGroup {
     addSequential(new SetOneEightyOverride());
   }
   public SetOneEightyAngle(OneEightyAngle angle) {
+    RobotStates.setDesireOneEightyAngle(angle);
     addSequential(new ReachOneEightyAngle(angle));
     addSequential(new StabilizeOneEightyAngle(angle));
     addSequential(new SetOneEightyOverride());

@@ -15,13 +15,12 @@ public class AfterHatchFeederPreparation extends CommandGroup {
   public AfterHatchFeederPreparation() {
     RobotStates.setHasCargo(false);
     addSequential(new SetHatchLock(Value.kForward));
-    RobotStates.setDriveInverted(!RobotStates.isDriveInverted());
-    addSequential(new WaitCommand(0.3));
+    RobotStates.toggleDriveInverted();
+    addSequential(new WaitCommand(1));
     addParallel(new SetLiftHeight(LiftHeight.kOneEightySafety));
     addSequential(new WaitCommand(0.3));
     OneEightyAngle angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack;
     addParallel(new SetOneEightyAngle(angleToSet));
-    addSequential(new WaitCommand(0.3));
     addParallel(new SetLiftHeight(LiftHeight.kLiftBottomHatch));
   }
 }

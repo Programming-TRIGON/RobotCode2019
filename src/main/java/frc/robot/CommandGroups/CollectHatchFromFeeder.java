@@ -16,7 +16,15 @@ public class CollectHatchFromFeeder extends CommandGroup {
     public CollectHatchFromFeeder() {
         addSequential(new SetHatchLock(Value.kReverse));
         OneEightyAngle angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kBack : OneEightyAngle.kStraight; 
-        addParallel(new SetOneEightyAngle(angleToSet));
+        if(angleToSet.equals(RobotStates.getDesireOneEightyAngle()))
+            addParallel(new SetOneEightyAngle(angleToSet));
+        else{
+            if(!RobotStates.isOneEightyOverride()){
+            addParallel(new SetLiftHeight(LiftHeight.kOneEightySafety));
+            addSequential(new WaitCommand(0.5));
+            addParallel(new SetOneEightyAngle(angleToSet));
+            }
+        }
         addSequential(new WaitCommand(0.3));
         addParallel(new SetLiftHeight(LiftHeight.kLiftBottomHatch));
     }

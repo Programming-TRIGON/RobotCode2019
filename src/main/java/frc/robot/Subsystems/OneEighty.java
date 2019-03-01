@@ -34,7 +34,7 @@ public class OneEighty extends JoystickOverridableSubsystem {
   public void setOneEighty(double power) {
     if (((power > 0 && getAngle() >= 246)
         || (power < 0 && getAngle() <= -33) 
-        || (Robot.lift.getHeight() <= LiftHeight.kOneEightySafety.key))
+    )//|| (Robot.lift.getHeight() <= LiftHeight.kOneEightySafety.key))
         && this.isSafe)
       this.motor.set(ControlMode.PercentOutput, 0);
     else

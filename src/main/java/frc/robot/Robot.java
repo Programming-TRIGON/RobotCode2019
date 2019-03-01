@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
-import frc.robot.RobotConstants.PushCargoPower;
 import frc.robot.Autonomous.TestPID;
 import frc.robot.Autonomous.testAuto;
 import frc.robot.CommandGroups.EjectHatch;
@@ -68,7 +67,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     compressor = new Compressor(1);
-    compressor.stop();
+    compressor.start();
 
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
@@ -205,9 +204,7 @@ public class Robot extends TimedRobot {
     dbc.addBoolean("Is Has Cargo", RobotStates::isHasCargo);
     dbc.addBoolean("Inverted Drive", RobotStates::isDriveInverted);
 
-    addTests();
-    
-    RobotStates.setHeightIndex(-1);
+    addTests();    
   }
 
   @Override
@@ -244,9 +241,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
-    RobotComponents.DriveTrain.LEFT_ENCODER.reset();
-    RobotComponents.DriveTrain.GYRO.calibrate();
+    //RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
+    //RobotComponents.DriveTrain.LEFT_ENCODER.reset();
+    //RobotComponents.DriveTrain.GYRO.calibrate();
 
     testCommand = testsChooser.getSelected();
     SmartDashboard.putData("Test Command", testCommand);

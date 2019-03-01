@@ -17,5 +17,6 @@ public class SetHasCargo extends InstantCommand {
   @Override
   protected void initialize() {
       RobotStates.setHasCargo(this.hasCargo);
+      RobotStates.setHeightIndex(0);
   }
 }

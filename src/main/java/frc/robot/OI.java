@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.CommandGroups.AfterHatchFeederPreparation;
 import frc.robot.CommandGroups.CargoCollectCmdG;
 import frc.robot.CommandGroups.DefenceMode;
+import frc.robot.CommandGroups.EjectHatch;
 import frc.robot.CommandGroups.CollectHatchFromFeeder;
 import frc.robot.Commands.CollectCargo;
 import frc.robot.Commands.LiftSwitchOverride;
@@ -15,6 +16,7 @@ import frc.robot.Commands.PushCargo;
 import frc.robot.Commands.ReachLiftHeight;
 import frc.robot.CommandGroups.PrepareToScore;
 import frc.robot.CommandGroups.Push;
+import frc.robot.CommandGroups.SetLiftHeight;
 import frc.robot.CommandGroups.SetOneEightyAngle;
 import frc.robot.Commands.SetDriveInverted;
 import frc.robot.Commands.SetHasCargo;
@@ -54,16 +56,23 @@ public class OI {
         this.operatorRightPOVButton = new POVButton(operatorXbox, 90);
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
 
-        //this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride());
-        //this.operatorButtonAxisLeft.whenPressed(new OneEightyToggleOverride());
-        this.operatorButtonA.whenPressed(new CargoCollectCmdG()); 
+        this.operatorButtonA.whenPressed(new Push());
+        this.operatorButtonY.whenPressed(new CollectHatchFromFeeder());
+        this.operatorButtonY.whenReleased(new AfterHatchFeederPreparation());
+        this.operatorButtonRB.whenPressed(new PrepareToScore(true));  
+        this.operatorButtonLB.whenPressed(new PrepareToScore(false));
+        this.operatorButtonAxisRight.whenPressed(new OneEightyToggleOverride());
+        this.operatorButtonAxisLeft.whenPressed(new LiftSwitchOverride());
+        this.operatorRightPOVButton.whileHeld(new SetHasCargo(true)); 
+        this.operatorLeftPOVButton.whileHeld(new SetHasCargo(false));
+        this.operatorButtonX.whenPressed(new SetLiftHeight(LiftHeight.kLiftBottomHatch));
+
+
+        //this.operatorButtonA.whenPressed(new CargoCollectCmdG());
+        //this.operatorButtonA.whenPressed(new CollectCargo(0,0)); 
         //this.operatorButtonY.whenPressed(new CollectHatchFromFeeder()); 
-        //this.operatorButtonY.whenReleased(new AfterHatchFeederPreparation()); 
-        //this.operatorButtonRB.whenPressed(new PrepareToScore(true));  
-        //this.operatorButtonLB.whenPressed(new PrepareToScore(false)); 
+        //this.operatorButtonY.whenReleased(new AfterHatchFeederPreparation());  
         //this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip)); 
-        //this.operatorStartButton.whenPressed(new DefenceMode()); 
-        //this.operatorRightPOVButton.whenPressed(new SetHasCargo(true)); 
-        //this.operatorLeftPOVButton.whenPressed(new SetHasCargo(false));  
+        //this.operatorStartButton.whenPressed(new DefenceMode());   
     }
 }

@@ -6,6 +6,7 @@ import frc.robot.Robot;
 import frc.robot.RobotStates;
 import frc.robot.Commands.PushCargo;
 import frc.robot.RobotConstants.LiftHeight;
+import frc.robot.RobotConstants.OneEightyAngle;
 
 public class Push extends CommandGroup {
   /**
@@ -14,15 +15,15 @@ public class Push extends CommandGroup {
   public Push() {
     if(RobotStates.getHeightIndex() == -1){
       if(RobotStates.isHasCargo()){
-        addSequential(new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
-        addSequential(new WaitCommand(0.3));
+        addParallel(new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
+        addSequential(new WaitCommand(0.5));
+        addParallel(new SetOneEightyAngle(OneEightyAngle.kStraight));//acording to driving
       }else{
-        addSequential(new SetLiftHeight(LiftHeight.kRocketMiddleHatch));
-        addSequential(new WaitCommand(0.3));//add 180 here!!
+        addParallel(new SetLiftHeight(LiftHeight.kRocketMiddleHatch));
+        addSequential(new WaitCommand(0.5));
+        addParallel(new SetOneEightyAngle(OneEightyAngle.kStraight));
       }
     }
-    
-    Robot.cargoCollector.setCollectorMotor(0);
     if(RobotStates.isHasCargo())
       addSequential(new PushCargo());
     else
