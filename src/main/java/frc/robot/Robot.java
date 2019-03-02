@@ -149,7 +149,9 @@ public class Robot extends TimedRobot {
     Robot.oi = new OI();
 
     Robot.driveTrain.setDefaultCommand(
-        new DriveArcade(Robot.driveTrain, Robot::yArcadeDrive,Robot::xArcadeDrive)); 
+        new DriveArcade(Robot.driveTrain, () -> RobotStates.isDriveInverted() ? 1 * Robot.oi.driverXbox.getY(Hand.kLeft)
+        : -1 * Robot.oi.driverXbox.getY(Hand.kLeft), () -> -Robot.oi.driverXbox.getX(Hand.kLeft)));
+
     //Robot.driveTrain.setDefaultCommand(
       //new CheesyDrive(Robot.oi.driverXbox));
 
@@ -206,15 +208,7 @@ public class Robot extends TimedRobot {
 
     addTests();    
   }
-
-  public static double yArcadeDrive(){
-    return RobotStates.isDriveInverted() ? 1 * Robot.oi.driverXbox.getY(Hand.kLeft)
-    : -1 * Robot.oi.driverXbox.getY(Hand.kLeft);
-  }
-  public static double xArcadeDrive(){
-    return  -Robot.oi.driverXbox.getX(Hand.kLeft);
-  }
-
+  
   @Override
   public void robotPeriodic() {
     Robot.dbc.update();
