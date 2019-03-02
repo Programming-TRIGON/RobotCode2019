@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -147,11 +148,10 @@ public class Robot extends TimedRobot {
     
     Robot.oi = new OI();
 
-    /*Robot.driveTrain.setDefaultCommand(
-        new DriveArcade(Robot.driveTrain, () -> RobotStates.isDriveInverted() ? 1 * Robot.oi.driverXbox.getY(Hand.kLeft)
-            : -1 * Robot.oi.driverXbox.getY(Hand.kLeft), () -> -Robot.oi.driverXbox.getX(Hand.kLeft))); */
     Robot.driveTrain.setDefaultCommand(
-      new CheesyDrive(Robot.oi.driverXbox));
+        new DriveArcade(Robot.driveTrain, Robot::yArcadeDrive,Robot::xArcadeDrive)); 
+    //Robot.driveTrain.setDefaultCommand(
+      //new CheesyDrive(Robot.oi.driverXbox));
 
     SmartDashboard.putData(new TestPID());
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, oi.driverXbox));
@@ -205,6 +205,14 @@ public class Robot extends TimedRobot {
     dbc.addBoolean("Inverted Drive", RobotStates::isDriveInverted);
 
     addTests();    
+  }
+
+  public static double yArcadeDrive(){
+    return RobotStates.isDriveInverted() ? 1 * Robot.oi.driverXbox.getY(Hand.kLeft)
+    : -1 * Robot.oi.driverXbox.getY(Hand.kLeft);
+  }
+  public static double xArcadeDrive(){
+    return  -Robot.oi.driverXbox.getX(Hand.kLeft);
   }
 
   @Override
