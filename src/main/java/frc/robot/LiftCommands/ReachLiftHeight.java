@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
 import frc.robot.RobotConstants.LiftHeight;
@@ -24,6 +25,7 @@ public class ReachLiftHeight extends Command {
   public ReachLiftHeight(LiftHeight finishingHeight) {
     requires(Robot.lift);
     this.height = () -> finishingHeight.key;
+    this.pidSettings = RobotConstants.RobotPIDSettings.LIFT_HEIGHT_SETTINGS;
   }
 
   public ReachLiftHeight(LiftHeight finishingHeight, PIDSettings pidSettings) {
