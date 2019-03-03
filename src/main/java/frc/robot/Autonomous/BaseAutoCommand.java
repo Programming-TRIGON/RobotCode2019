@@ -1,10 +1,9 @@
 package frc.robot.Autonomous;
 
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
-import frc.robot.CommandGroups.CollectHatchFromFeeder;
+import frc.robot.OICommands.CollectHatchFromFeeder;
 
 public abstract class BaseAutoCommand extends CommandGroup {
   /**
