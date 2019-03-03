@@ -205,7 +205,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     Robot.dbc.update();
     SmartDashboard.putData("Scheduler", Scheduler.getInstance());
-    if (Robot.lift.isAtBottom())
+    if(Robot.lift.isAtBottom())
       RobotComponents.Lift.ENCODER.reset();
     RobotStates.setLiftHeight(Robot.lift.getHeight());
     RobotStates.setHasCargo(Robot.cargoCollector.isHoldingBall());
@@ -238,9 +238,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    testCommand = testsChooser.getSelected();
+    /*testCommand = testsChooser.getSelected();
     SmartDashboard.putData("Test Command", testCommand);
-    SmartDashboard.putData("move selected subsystem", new MoveSubsystemWithJoystick(MoveWithJoystickChooser.getSelected(), oi.operatorXbox));
+    SmartDashboard.putData("move selected subsystem", new MoveSubsystemWithJoystick(MoveWithJoystickChooser.getSelected(), oi.operatorXbox));*/
   }
 
   @Override
@@ -259,11 +259,11 @@ public class Robot extends TimedRobot {
   }
 
   private void addTests() {
-    testsChooser.addDefault("Hatch Unlock Default", new SetHatchLock(Value.kReverse));
+    /*testsChooser.addDefault("Hatch Unlock Default", new SetHatchLock(Value.kReverse));
     testsChooser.addOption("cargoCollection", new CollectCargo(0.8, 0.8));
 
-    //testsChooser.addOption("Lift", new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
-    testsChooser.addOption("One Eighty", new SetOneEightyAngle(OneEightyAngle.kStraight));
+    testsChooser.addOption("Lift", new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
+    testsChooser.addOption("One Eighty", new SetOneEightyAngle(OneEightyAngle.kStraight)); //make index go 1!!!
 
     testsChooser.addOption("hatchEjectOn", new SetHatchEject(Value.kForward));
     testsChooser.addOption("hatchEjectOff", new SetHatchEject(Value.kReverse));
@@ -277,7 +277,7 @@ public class Robot extends TimedRobot {
     MoveWithJoystickChooser.addDefault("Cargo Collector", Robot.cargoCollector);
     MoveWithJoystickChooser.addOption("Lift", Robot.lift);
     MoveWithJoystickChooser.addOption("Cargo Holder", Robot.cargoCollector);
-    MoveWithJoystickChooser.addOption("One Eighty", Robot.oneEighty);
+    MoveWithJoystickChooser.addOption("One Eighty", Robot.oneEighty);*/
   }
 }
 
