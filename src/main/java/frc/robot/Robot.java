@@ -42,6 +42,7 @@ import frc.robot.Subsystems.JoystickOverridableSubsystem;
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
 import frc.robot.Vision.VisionPIDSource;
+import frc.robot.DrivingCommands.Turn;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
@@ -183,7 +184,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Eject hatch", new EjectHatch());
 
     SmartDashboard.putData(new TestPID());
-
+    SmartDashboard.putData(new Turn(0));
 
     // 180 commands
     SmartDashboard.putData("Move lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
@@ -203,6 +204,7 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
     dbc.addNumber("180 potentiometer", Robot.oneEighty::getAngle);
     dbc.addNumber("Lift encoder", Robot.lift::getHeight);
+//    dbc.addNumber("new gyro", RobotComponents.DriveTrain.newGyro::getAngle);
 
     // Robot states to be periodically published to SmartDashboard
     dbc.addNumber("Lift Height", RobotStates::getLiftHeight);
