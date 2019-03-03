@@ -2,7 +2,9 @@ package frc.robot;
 
 import java.util.function.Supplier;
 
+import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -14,8 +16,8 @@ import edu.wpi.first.wpilibj.Encoder;
 public class RobotComponents {
     public static class CargoCollector {
         public static final TalonSRX COLECTOR_MOTOR = new TalonSRX(RobotMap.CAN.CARGO_COLLECTOR_MOTOR);
-        public static final TalonSRX RIGHT_HOLDER = new TalonSRX(RobotMap.CAN.CARGO_COLLECTOR_HOLDER_RIGHT_MOTOR);
-        public static final TalonSRX LEFT_HOLDER = new TalonSRX(RobotMap.CAN.CARGO_COLLECTOR_HOLDER_LEFT_MOTOR);
+        public static final BaseMotorController RIGHT_HOLDER = new VictorSPX(RobotMap.CAN.CARGO_COLLECTOR_HOLDER_RIGHT_MOTOR);
+        public static final BaseMotorController LEFT_HOLDER = new VictorSPX(RobotMap.CAN.CARGO_COLLECTOR_HOLDER_LEFT_MOTOR);
         public static final DigitalInput SWITCH = new DigitalInput(RobotMap.DIO.CARGO_COLLECTOR_SWITCH);
     }
 

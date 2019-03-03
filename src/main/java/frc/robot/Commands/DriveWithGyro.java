@@ -9,6 +9,7 @@ package frc.robot.Commands;
 
 import java.util.function.Supplier;
 
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
 import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.PIDController;
@@ -27,7 +28,7 @@ public class DriveWithGyro extends Command {
   private Supplier<Double> movementSupplier = () -> movementPidOutput;
   private PIDController movementPidController;
   private Command DriveCommand;
-  private double currentSpeedFactor = 0.7;
+  private double currentSpeedFactor = 0.2;
   private PIDSettings drivePidSettings;
 
 
@@ -38,8 +39,7 @@ public class DriveWithGyro extends Command {
   }
 
   public DriveWithGyro(double distance, PIDSettings pidSettings){
-    setTimeout(TIMEOUT);
-    this.distance = distance;
+    this(distance);
     drivePidSettings = pidSettings;
   }
 
@@ -62,14 +62,14 @@ public class DriveWithGyro extends Command {
     
     movementPidController.setAbsoluteTolerance(drivePidSettings.getTolerance());
     movementPidController.setOutputRange(-1, 1);
-    movementPidController.setSetpoint(this.distance);
+    movementPidController.setSetpoint(distance);
 
     double angleSetPoint = RobotComponents.DriveTrain.GYRO.getAngle();
 
     DriveCommand = new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 
-    () -> angleSetPoint, movementSupplier, RobotConstants.RobotPIDSettings.GYRO_DRIVE_SETTINGS, 360, true);
+    () -> angleSetPoint, () -> 0.15, RobotConstants.RobotPIDSettings.GYRO_DRIVE_SETTINGS, 360, true);
+    movementPidController.enable();        
     DriveCommand.start();
-    movementPidController.enable();    
   }
 
   @Override
@@ -82,18 +82,20 @@ public class DriveWithGyro extends Command {
     // lastTimeNotOnTarget = Timer.getFPGATimestamp();
     // return Timer.getFPGATimestamp() - lastTimeNotOnTarget >=
     // RobotConstants.RobotPIDSettings.DRIVE_SETTINGS.getWaitTime();
-    return this.movementPidController.onTarget() || isTimedOut();
+    //return this.movementPidController.onTarget() || isTimedOut();
+    return RobotComponents.DriveTrain.LEFT_ENCODER.get() > 100;
   }
 
   @Override
   protected void end() {
     this.movementPidController.disable();
     this.movementPidController.close();
-    DriveCommand.close();
+    DriveCommand.cancel();
+    //DriveCommand.close();
   }
 
   @Override
   protected void interrupted() {
     end();
   }
-}
+} 

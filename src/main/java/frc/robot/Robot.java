@@ -27,6 +27,8 @@ import frc.robot.CommandGroups.SetLiftHeight;
 import frc.robot.CommandGroups.SetOneEightyAngle;
 import frc.robot.Commands.CheesyDrive;
 import frc.robot.Commands.CollectCargo;
+import frc.robot.Commands.CompressorStart;
+import frc.robot.Commands.CompressorStop;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
 import frc.robot.Commands.PushCargo;
 import frc.robot.Commands.SetCargoFolderState;
@@ -69,6 +71,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     compressor = new Compressor(1);
     compressor.start();
+    System.out.println(compressor);
 
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
@@ -171,6 +174,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Hatch Eject Push", new SetHatchEject(Value.kForward));
     SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
     SmartDashboard.putData(new SetLiftHeight(LiftHeight.kOneEightySafety));
+    SmartDashboard.putData("Stop Compressor",new CompressorStop());
+    SmartDashboard.putData("Start Compressor",new CompressorStart());
+
 
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
     SmartDashboard.putData("Push Cargo", new PushCargo());
@@ -187,6 +193,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Set one eighty angel 180", new SetOneEightyAngle(208));
 
     // Auto command tests
+
     SmartDashboard.putData("Test auto", new testAuto());
     SmartDashboard.putData("Turn 90", new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 90.0,
         RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
@@ -269,7 +276,7 @@ public class Robot extends TimedRobot {
 
   private void addTests() {
     testsChooser.addDefault("Hatch Unlock Default", new SetHatchLock(Value.kReverse));
-    testsChooser.addOption("cargoCollection", new CollectCargo(0.3, 0.3));
+    testsChooser.addOption("cargoCollection", new CollectCargo(0.8, 0.8));
 
     testsChooser.addOption("Lift", new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
     testsChooser.addOption("One Eighty", new SetOneEightyAngle(OneEightyAngle.kStraight));

@@ -2,6 +2,7 @@ package frc.robot.Subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 
@@ -18,10 +19,10 @@ public class CargoCollector extends JoystickOverridableSubsystem {
    * motors shoote cargo out of them.
    */
 
-  private TalonSRX leftHolder, rightHolder;
+  private BaseMotorController leftHolder, rightHolder;
   private DigitalInput microswitch;
 
-  public CargoCollector(TalonSRX collectorMotor, TalonSRX rightCargoHolder, TalonSRX leftCargoHolder,
+  public CargoCollector(TalonSRX collectorMotor, BaseMotorController rightCargoHolder, BaseMotorController leftCargoHolder,
       DigitalInput cargoSwitch) {
     this.collectorMotor = collectorMotor;
     this.leftHolder = leftCargoHolder;
@@ -48,7 +49,7 @@ public class CargoCollector extends JoystickOverridableSubsystem {
 
   /** This function returns true if the ball is being held */
   public boolean isHoldingBall() {
-    return this.microswitch.get();
+    return !this.microswitch.get();
   }
 
   @Override
@@ -59,6 +60,7 @@ public class CargoCollector extends JoystickOverridableSubsystem {
   @Override
   public void move(double power) {
     setCollectorMotor(power);
+    setHolderMotors(power);
   }
 
   public void move(double power, boolean holder){
