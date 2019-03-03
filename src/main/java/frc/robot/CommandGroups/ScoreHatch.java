@@ -9,7 +9,6 @@ package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.RobotConstants;
-import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.LiftHeight;
 /**
  * Add your docs here.
@@ -22,6 +21,6 @@ public class ScoreHatch extends CommandGroup{
         addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));
         addSequential(new SetLiftHeight(this.height));
         addSequential(new EjectHatch());
-        addSequential(new SetLiftHeight(RobotConstants.LiftHeight.kLiftBottom));
+        addSequential(new SetLiftHeight(RobotConstants.LiftHeight.kLiftBottomHatch));
     }
 }

@@ -7,10 +7,12 @@ import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.CommandGroups.CollectHatchFromFeeder;
 import frc.robot.CommandGroups.EjectHatch;
+import frc.robot.CommandGroups.SetLiftHeight;
 import frc.robot.Commands.DriveArcadeWithVision;
 import frc.robot.Commands.DriveWithGyro;
-import frc.robot.Commands.SetLiftHeight;
 import frc.robot.RobotConstants.LiftHeight;
+import frc.robot.RobotConstants.RobotDimensions;
+import frc.robot.RobotConstants.RobotPIDSettings;
 import frc.robot.Vision.VisionPIDSource;
 
 /**
@@ -25,8 +27,8 @@ public class ScoreHatchSide extends CommandGroup {
   final double START_FEEDER_DISTANCE = 2.32;
 
   enum CargoShipHatch {
-    kFirstHatch(6.9 - RobotConstants.RobotDimensions.ROBOT_LENGTH), kSecondHatch(7.45 - RobotConstants.RobotDimensions.ROBOT_LENGTH),
-    kThirdHatch(8 - RobotConstants.RobotDimensions.ROBOT_LENGTH);
+    kFirstHatch(6.9 - RobotDimensions.ROBOT_LENGTH), kSecondHatch(7.45 - RobotDimensions.ROBOT_LENGTH),
+    kThirdHatch(8 - RobotDimensions.ROBOT_LENGTH);
 
     public double key;
 
@@ -41,17 +43,21 @@ public class ScoreHatchSide extends CommandGroup {
 
     // Turn towards the cargo ship
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
-        TURN_TO_TARGET * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
+        TURN_TO_TARGET * (isLeft ? 1 : -1), RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     // Prepare Robot to deliver hatch:
-    addSequential(new SetLiftHeight(LiftHeight.kRocketBottomHatch));
+    addSequential(new SetLiftHeight(LiftHeight.kLiftBottomHatch));
 
     // Use vision to deliver the hatch
-    addSequential(
+    /*addSequential(
         new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
+<<<<<<< HEAD
+            Robot.oi::getYLeft, RobotPIDSettings.VISION_TURN_SETTINGS, false),
+=======
             Robot.oi::getYLeft, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS),
+>>>>>>> master
         TARGET_TRACK_TIME);
-
+    */
     addSequential(new EjectHatch());
 
     // Orient towards hatch feeder and go there for second hatch:
@@ -66,7 +72,7 @@ public class ScoreHatchSide extends CommandGroup {
     final double TURN_TO_FEEDER = Math.atan(START_FEEDER_DISTANCE / driveDistance.key);
 
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
-        (TURN_TO_FEEDER + 90) * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
+        (TURN_TO_FEEDER + 90) * (isLeft ? 1 : -1), RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     final double distanceToFeeder = Math.sqrt(Math.pow(START_FEEDER_DISTANCE, 2) + Math.pow(driveDistance.key, 2));
 
@@ -75,7 +81,7 @@ public class ScoreHatchSide extends CommandGroup {
 
     // face feeder
     addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
-        -TURN_TO_FEEDER * (isLeft ? 1 : -1), RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
+        -TURN_TO_FEEDER * (isLeft ? 1 : -1), RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     addSequential(new CollectHatchFromFeeder());
   }

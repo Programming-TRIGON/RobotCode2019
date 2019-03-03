@@ -1,8 +1,5 @@
 package frc.robot;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.spikes2212.utils.PIDSettings;
 
 /** a class used to store constants related to the robot */
@@ -24,26 +21,31 @@ public class RobotConstants {
         public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET =3340;
 
         public static final double DRIVE_ENCODER_DPP = RobotDimensions.DRIVE_WHEEL_DIAMETER * Math.PI / 360;
+
+
         public static final double LIFT_ENCODER_DPP = 1/21000.0;
         public static final double LIFT_ENCODER_OFFSET = 0.38;
     }
 
     public static class RobotPIDSettings {
         // (kP, kI, kD, Tolerance, WaitTime)
-        public static final PIDSettings DRIVE_SETTINGS = new PIDSettings(0.0025,0,0.004,5,0.5);
-        public static final PIDSettings TURN_SETTINGS = new PIDSettings(0.022,0.00009,0.0735,2,0.5);
-        public static final PIDSettings GYRO_DRIVE_SETTINGS = new PIDSettings(0.075,0,0.35,0,0);
-        public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.003,0.00025,0.01,0,0);
-        public static final PIDSettings VISION_TURN_SETTINGS = new PIDSettings(0,0,0,0,0);
-        public static final PIDSettings VISION_DISTANCE_SETTINGS = new PIDSettings(0,0,0,0,0);
+        public static final PIDSettings DRIVE_SETTINGS = new PIDSettings(0.0025, 0, 0.004, 5, 0.5);
+        public static final PIDSettings TURN_SETTINGS = new PIDSettings(0.022, 0.00009, 0.0735, 4, 0.5);
+        public static final PIDSettings GYRO_DRIVE_SETTINGS = new PIDSettings(0.075, 0, 0.35, 0, 0);
+        public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.009, 0.00005, 0.00075, 2, 0);
+        public static final PIDSettings VISION_TURN_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
+        public static final PIDSettings VISION_DISTANCE_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
+        public static final PIDSettings LIFT_HEIGHT_SETTINGS = new PIDSettings(5,0,15,0,0);
     }
+
 
     /** the angles of the oneEighty subsystem when performing a task */
     public static enum OneEightyAngle {
-        // TODO: Set real angles.
-        kStraight(0), // The cargo collector faces ahead in this angle.
-        kBack(180), // The cargo collector faces back in this angle.
-        kFeeder(270); // This is the angle in order to collect the hatch from the feeder.
+        kStraight(40.5), // The cargo collector faces ahead in this angle.
+        kBack(250), // The cargo collector faces back in this angle.
+        kTopStraight(4),
+        kTopBack(278),
+        kCargoCollection(60);    
         public double key;
 
         OneEightyAngle(double angle) {
@@ -53,13 +55,18 @@ public class RobotConstants {
 
     /** the height the lift should be in for certain tasks */
     public static enum LiftHeight {
-        // TODO:set real values.
-        kRocketTopHatch(1), kRocketMiddleHatch(1), kRocketBottomHatch(1), kRocketTopCargo(1), kRocketBottomCargo(1),
-        kRocketMiddleCargo(1), kLiftBottom(0.1),
-        /** a height that is safe to use OneEighty */
-        kOneEightySafety(1),
-        /** a height that is safe to fold cargo colleter */
-        kCargoFolderSafty(1);
+        /** Hatch rocket heights */
+        kLiftBottomHatch(0.1851), kRocketTopHatch(1.461),  kRocketMiddleHatch(0.875),
+        /** Cargo rocket heights */
+        kRocketTopCargo(1.81), kRocketBottomCargo(0.8611), kRocketMiddleCargo(0.547), 
+        /** A height that is safe to use OneEighty */
+        kOneEightySafety(0.5314), kOneEightyCargoSafety(0.7),
+        /** Collection heights */
+        kCargoCollection(0), kHatchCollection(1),
+        /** Cargo ship height */
+        kCargoShip(1.1570),
+        /** Cargo safty height */
+        kCargoFolderSafty(0.7);
 
         public double key;
 
@@ -68,23 +75,10 @@ public class RobotConstants {
         }
     }
 
-    // we might want to change the enum name...
-    public static enum PushCargoPower {
-        // TODO:set real values.
-        /** the speed we want to push the cargo */
-        kCargoShip(-1), kLowRocket(-1), kMiddleRocket(-1), kTopRocket(-1);
-        public double key;
-
-        PushCargoPower(double power) {
-            this.key = power;
-        }
+    public static enum PrepareToScoreHeight {
+        kLow, kMedium, kHigh, kCargoShip
     }
 
-    public static Map<LiftHeight, PushCargoPower> heightToCargoPower = new HashMap<LiftHeight, PushCargoPower>() {
-        {
-            put(LiftHeight.kRocketBottomCargo, PushCargoPower.kLowRocket);
-            put(LiftHeight.kRocketMiddleCargo, PushCargoPower.kMiddleRocket);
-            put(LiftHeight.kRocketTopCargo, PushCargoPower.kTopRocket);
-        }
-    };
+    public static PrepareToScoreHeight[] heights = {PrepareToScoreHeight.kLow, PrepareToScoreHeight.kMedium, 
+        PrepareToScoreHeight.kHigh, PrepareToScoreHeight.kCargoShip};
 }

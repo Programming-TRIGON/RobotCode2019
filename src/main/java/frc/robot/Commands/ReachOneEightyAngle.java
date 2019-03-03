@@ -1,18 +1,12 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotStates;
 import frc.robot.RobotConstants.OneEightyAngle;
 
 public class ReachOneEightyAngle extends Command {
-  private double angle;
+  private double angle, power;
 
   public ReachOneEightyAngle(double angle) {
     requires(Robot.oneEighty);
@@ -28,21 +22,22 @@ public class ReachOneEightyAngle extends Command {
   @Override
   protected void initialize() {
     if (this.angle > Robot.oneEighty.getAngle())
-      Robot.oneEighty.setOneEighty(0.35);
+      power = 0.5;
     else
-      Robot.oneEighty.setOneEighty(-0.35);
+    power = -0.5;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.oneEighty.setOneEighty(this.power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     double currentAngle = Robot.oneEighty.getAngle();
-    return (currentAngle > angle - 2.5) && (currentAngle < angle + 2.5);
+    return ((currentAngle > angle - 7) && (currentAngle < angle + 7)) || RobotStates.isOneEightyOverride();
   }
 
   // Called once after isFinished returns true

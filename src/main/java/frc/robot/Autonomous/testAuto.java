@@ -16,14 +16,16 @@ import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.Commands.DriveWithGyro;
+import frc.robot.RobotConstants.RobotPIDSettings;
 
 public class testAuto extends CommandGroup {
   /**
    * insert distances for driving and turning for testing the autonomous
    */
   public testAuto() {
-    addSequential(new Turn(90), 2);
-    addSequential(new DriveWithGyro(15));
+    addSequential(new DriveWithGyro(300));
+    addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 90, RobotPIDSettings.TURN_SETTINGS, 360, true));
+
   }
 }
 
