@@ -1,4 +1,4 @@
-package frc.robot.Commands;
+package frc.robot.HatchCollectorCommands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;

@@ -8,9 +8,8 @@ import com.spikes2212.utils.PIDSettings;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
-import frc.robot.RobotComponents.OneEighty;
+import frc.robot.OneEightyCommands.SetOneEightyAngle;
 
 public class TestPID extends Command {
   Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);

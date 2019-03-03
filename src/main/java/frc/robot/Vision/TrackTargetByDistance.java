@@ -1,6 +1,4 @@
-package frc.robot.Commands;
-
-import java.util.function.Supplier;
+package frc.robot.Vision;
 
 import com.spikes2212.utils.PIDSettings;
 
@@ -8,15 +6,11 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Command;
-
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
-import frc.robot.Vision.VisionPIDController;
-import frc.robot.Vision.VisionPIDSource;
+import frc.robot.Commands.DistancePIDSource;
 import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 /**
