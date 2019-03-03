@@ -1,11 +1,8 @@
 package frc.robot.OneEightyCommands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.RobotStates;
-import frc.robot.Commands.ReachOneEightyAngle;
-import frc.robot.Commands.SetOneEightyOverride;
-import frc.robot.Commands.StabilizeOneEightyAngle;
 import frc.robot.RobotConstants.OneEightyAngle;
+import frc.robot.RobotStates;
 
 public class SetOneEightyAngle extends CommandGroup {
 
