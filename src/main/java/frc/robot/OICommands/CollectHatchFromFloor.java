@@ -1,4 +1,4 @@
-package frc.robot.CommandGroups;
+package frc.robot.OICommands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -6,9 +6,11 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.LiftHeight;
-import frc.robot.Commands.SetHatchCollectorState;
-import frc.robot.Commands.SetHatchLock;
-import frc.robot.Commands.TrackVisionTarget;
+import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
+import frc.robot.HatchHolderCommands.SetHatchLock;
+import frc.robot.LiftCommands.SetLiftHeight;
+import frc.robot.OneEightyCommands.SetOneEightyAngle;
+import frc.robot.Vision.TrackVisionTarget;
 import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 /**

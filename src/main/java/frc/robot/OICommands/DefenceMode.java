@@ -1,14 +1,16 @@
-package frc.robot.CommandGroups;
+package frc.robot.OICommands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotStates;
-import frc.robot.Commands.PushCargo;
-import frc.robot.Commands.ResetLift;
-import frc.robot.Commands.SetCargoFolderState;
-import frc.robot.Commands.SetHatchCollectorState;
+import frc.robot.CargoCollectorCommands.PushCargo;
+import frc.robot.CargoFolderCommands.SetCargoFolderState;
+import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
+import frc.robot.HatchHolderCommands.EjectHatch;
+import frc.robot.LiftCommands.ResetLift;
+import frc.robot.OneEightyCommands.SetOneEightyAngle;
  /**
    * retracts all systems 
    */

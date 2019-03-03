@@ -1,12 +1,14 @@
-package frc.robot.CommandGroups;
+package frc.robot.OICommands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
-import frc.robot.Commands.CollectCargo;
-import frc.robot.Commands.SetCargoFolderState;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
+import frc.robot.CargoCollectorCommands.CollectCargo;
+import frc.robot.CargoFolderCommands.SetCargoFolderState;
+import frc.robot.LiftCommands.SetLiftHeight;
+import frc.robot.OneEightyCommands.SetOneEightyAngle;
 
 /** collects cargo from the floor */
 
