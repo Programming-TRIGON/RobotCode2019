@@ -1,10 +1,8 @@
-package frc.robot.CommandGroups;
+package frc.robot.HatchHolderCommands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
-import frc.robot.Commands.SetHatchEject;
-import frc.robot.Commands.SetHatchLock;
 /**
  * Cmd group to eject hatch
  */

@@ -14,9 +14,9 @@ import frc.robot.Vision.VisionPIDSource.VisionTarget;
 /**
  * a command group for collecting hatch from the floor
  */
-public class CollectHatch extends CommandGroup {
+public class CollectHatchFromFloor extends CommandGroup {
 
-    public CollectHatch() {
+    public CollectHatchFromFloor() {
         addParallel(new SetLiftHeight(LiftHeight.kHatchCollection));
         addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kBack));
         addSequential(new TrackVisionTarget(VisionTarget.kHatch, Robot.oi.driverXbox, 0.0,

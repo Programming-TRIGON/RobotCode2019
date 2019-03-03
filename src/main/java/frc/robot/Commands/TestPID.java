@@ -1,4 +1,4 @@
-package frc.robot.Autonomous;
+package frc.robot.Commands;
 
 import java.util.function.Supplier;
 
@@ -10,9 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
-import frc.robot.CommandGroups.SetLiftHeight;
-import frc.robot.CommandGroups.SetOneEightyAngle;
-import frc.robot.Commands.ReachLiftHeight;
 import frc.robot.RobotComponents.OneEighty;
 
 public class TestPID extends Command {

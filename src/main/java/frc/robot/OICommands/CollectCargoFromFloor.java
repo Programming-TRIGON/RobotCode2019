@@ -10,11 +10,11 @@ import frc.robot.RobotConstants.OneEightyAngle;
 
 /** collects cargo from the floor */
 
-public class CargoCollectCmdG extends CommandGroup {
+public class CollectCargoFromFloor extends CommandGroup {
   double COLLECTOR_POWER = 0.75;
   double HOLDER_POWER = 0.6;
 
-  public CargoCollectCmdG() {
+  public CollectCargoFromFloor() {
     /** starts by unfolding the cargo collecter */
     addSequential(new SetCargoFolderState(Value.kForward));
     /** turns to the required angle */

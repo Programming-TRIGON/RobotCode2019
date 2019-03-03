@@ -1,11 +1,4 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
-package frc.robot.CommandGroups;
+package frc.robot.DrivingCommands;
 
 import java.util.function.Supplier;
 
@@ -19,15 +12,15 @@ import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.Commands.DistancePIDSource;
 
-public class DriveWithGyroCmd extends CommandGroup {
+public class DriveWithGyro extends CommandGroup {
   /**
-   * Add your docs here.
+   * a drive command group for driving forward with gyro
    */
   double movementPidOutput = 0, lastTimeNotOnTarget, currentSpeedFactor = 0.2;;
   Supplier<Double> movementSupplier = () -> movementPidOutput;
   PIDController movementPidController;
   PIDSettings drivePidSettings;
-  public DriveWithGyroCmd(double distance) {
+  public DriveWithGyro(double distance) {
     drivePidSettings = RobotConstants.RobotPIDSettings.DRIVE_SETTINGS;
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
     RobotComponents.DriveTrain.LEFT_ENCODER.reset();

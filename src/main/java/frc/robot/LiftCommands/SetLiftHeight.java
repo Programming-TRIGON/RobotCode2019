@@ -1,9 +1,7 @@
-package frc.robot.CommandGroups;
+package frc.robot.LiftCommands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.RobotStates;
-import frc.robot.Commands.ReachLiftHeight;
-import frc.robot.Commands.SetLiftOverride;
 import frc.robot.RobotConstants.LiftHeight;
 
 public class SetLiftHeight extends CommandGroup {
