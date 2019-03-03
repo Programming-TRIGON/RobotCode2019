@@ -1,9 +1,11 @@
-package frc.robot.CommandGroups;
+package frc.robot.OICommands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
+import frc.robot.LiftCommands.SetLiftHeight;
+import frc.robot.OneEightyCommands.SetOneEightyAngle;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotConstants.PrepareToScoreHeight;
