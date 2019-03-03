@@ -1,4 +1,4 @@
-package frc.robot.Commands;
+package frc.robot.DrivingCommands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.RobotStates;
