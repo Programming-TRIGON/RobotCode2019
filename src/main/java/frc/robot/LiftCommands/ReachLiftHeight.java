@@ -1,4 +1,4 @@
-package frc.robot.Commands;
+package frc.robot.LiftCommands;
 
 import java.util.function.Supplier;
 import edu.wpi.first.wpilibj.PIDController;
