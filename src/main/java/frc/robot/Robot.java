@@ -167,6 +167,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Cargo folder Down", new SetCargoFolderState(Value.kReverse));
     SmartDashboard.putData("Hatch Eject Push", new SetHatchEject(Value.kForward));
     SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
+    SmartDashboard.putData("Eject hatch", new EjectHatch());    
+
     SmartDashboard.putData(new SetLiftHeight(LiftHeight.kOneEightySafety));
     SmartDashboard.putData("Stop Compressor",new CompressorStop());
     SmartDashboard.putData("Start Compressor",new CompressorStart());
@@ -175,15 +177,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
     SmartDashboard.putData("Push Cargo", new PushCargo());
 
-    SmartDashboard.putData("Eject hatch", new EjectHatch());
-
     SmartDashboard.putData(new TestPID());
 
-
-    // 180 commands
     SmartDashboard.putData("Move lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
+    
     SmartDashboard.putData("Set one eighty angel 0", new SetOneEightyAngle(-8));
-    SmartDashboard.putData("Set one eighty angel 90", new SetOneEightyAngle(107));
     SmartDashboard.putData("Set one eighty angel 180", new SetOneEightyAngle(208));
 
     // Auto command tests
