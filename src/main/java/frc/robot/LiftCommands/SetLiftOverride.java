@@ -1,4 +1,4 @@
-package frc.robot.Commands;
+package frc.robot.LiftCommands;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;

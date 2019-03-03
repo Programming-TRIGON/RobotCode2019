@@ -1,4 +1,4 @@
-package frc.robot.Commands;
+package frc.robot.CargoCollectorCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
