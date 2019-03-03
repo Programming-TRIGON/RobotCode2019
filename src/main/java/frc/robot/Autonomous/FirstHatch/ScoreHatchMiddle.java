@@ -5,12 +5,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
+import frc.robot.DrivingCommands.DriveWithGyro;
+import frc.robot.HatchHolderCommands.EjectHatch;
+import frc.robot.OICommands.CollectHatchFromFeeder;
 import frc.robot.RobotConstants.RobotDimensions;
 import frc.robot.RobotConstants.RobotPIDSettings;
-import frc.robot.CommandGroups.CollectHatchFromFeeder;
-import frc.robot.CommandGroups.EjectHatch;
-import frc.robot.Commands.DriveArcadeWithVision;
-import frc.robot.Commands.DriveWithGyro;
 import frc.robot.Vision.VisionPIDSource;
 
 
@@ -47,11 +46,8 @@ public class ScoreHatchMiddle extends CommandGroup {
         // Use vision to deliver the hatch
         /*addSequential(
                 new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
-<<<<<<< HEAD
-                        Robot.oi::getYLeft, RobotPIDSettings.VISION_TURN_SETTINGS, false),
-=======
+
                         Robot.oi::getYLeft, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS),
->>>>>>> master
                 TARGET_TRACK_TIME);
         */
         addSequential(new EjectHatch());
@@ -68,6 +64,6 @@ public class ScoreHatchMiddle extends CommandGroup {
                 TURN_TO_FEEDER - 180 * (isLeft ? 1 : -1), RobotPIDSettings.TURN_SETTINGS, 360, true));
 
         // Collects the hatch from the feeder
-        addSequential(new CollectHatchFromFeeder());
+        addSequential(new CollectHatchFromFeeder());//add after hatch feeder
     }
 }
