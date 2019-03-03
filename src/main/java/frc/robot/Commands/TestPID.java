@@ -8,6 +8,9 @@ import com.spikes2212.utils.PIDSettings;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.LiftCommands.ReachLiftHeight;
+import frc.robot.LiftCommands.SetLiftHeight;
+import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.OneEightyCommands.SetOneEightyAngle;
 
@@ -28,7 +31,7 @@ public class TestPID extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new SetOneEightyAngle(OneEightyAngle.kCargoCollection);
+    testCommand = new ReachLiftHeight(LiftHeight.kLiftBottomHatch, this.pidSettings);
     testCommand.start();
   }
 
