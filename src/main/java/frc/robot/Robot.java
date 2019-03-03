@@ -28,6 +28,7 @@ import frc.robot.Commands.CompressorStart;
 import frc.robot.Commands.CompressorStop;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
 import frc.robot.Commands.TestPID;
+import frc.robot.DrivingCommands.CheesyDrive;
 import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
 import frc.robot.HatchHolderCommands.EjectHatch;
 import frc.robot.HatchHolderCommands.SetHatchEject;
@@ -70,8 +71,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     compressor = new Compressor(1);
     compressor.start();
-    System.out.println(compressor);
-
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -151,11 +150,7 @@ public class Robot extends TimedRobot {
     Robot.oi = new OI();
 
     Robot.driveTrain.setDefaultCommand(
-        new DriveArcade(Robot.driveTrain, () -> RobotStates.isDriveInverted() ? 1 * Robot.oi.driverXbox.getY(Hand.kLeft)
-        : -1 * Robot.oi.driverXbox.getY(Hand.kLeft), () -> -Robot.oi.driverXbox.getX(Hand.kLeft)));
-
-    //Robot.driveTrain.setDefaultCommand(
-      //new CheesyDrive(Robot.oi.driverXbox));
+      new CheesyDrive(Robot.oi.driverXbox::getY, Robot.oi.driverXbox::getX));
 
     SmartDashboard.putData(new TestPID());
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, oi.driverXbox));

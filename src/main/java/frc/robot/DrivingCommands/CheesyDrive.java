@@ -1,11 +1,10 @@
 package frc.robot.DrivingCommands;
 
+import java.util.function.Supplier;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
@@ -13,11 +12,12 @@ import frc.robot.RobotComponents;
 import frc.robot.RobotStates;
 
 public class CheesyDrive extends Command {
-  XboxController driverXbox;
+  Supplier<Double> rotentionSupplier, speedSupplier;
   DifferentialDrive differentialDrive;  
-  public CheesyDrive(XboxController driverXbox) {
+  public CheesyDrive(Supplier<Double> speedSupplier, Supplier<Double> rotentionSupplier) {
     requires(Robot.driveTrain);
-    this.driverXbox=driverXbox;
+    this.rotentionSupplier = rotentionSupplier;
+    this.speedSupplier = speedSupplier;
   }
 
   // Called just before this Command runs the first time
@@ -107,9 +107,9 @@ public class CheesyDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double y =  Robot.oi.driverXbox.getY(Hand.kLeft);
+    double y =  speedSupplier.get();
     this.differentialDrive.curvatureDrive(RobotStates.isDriveInverted() ? 1 * y
-    : -1 * y, Robot.oi.driverXbox.getX(Hand.kLeft), Math.abs(y) <= 0.50);
+    : -1 * y, this.rotentionSupplier.get(), Math.abs(y) <= 0.50);
   }
 
   // Make this return true when this Command no longer needs to run execute()
