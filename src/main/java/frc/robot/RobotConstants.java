@@ -22,9 +22,7 @@ public class RobotConstants {
 
         public static final double DRIVE_ENCODER_DPP = RobotDimensions.DRIVE_WHEEL_DIAMETER * Math.PI / 360;
 
-
-        public static final double LIFT_ENCODER_DPP = 1/21000.0;
-        public static final double LIFT_ENCODER_OFFSET = 0.38;
+        public static final double LIFT_ENCODER_DPP = 1/21000.0; //OFFSET = 0.38;
     }
 
     public static class RobotPIDSettings {

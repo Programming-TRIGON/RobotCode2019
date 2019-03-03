@@ -151,13 +151,7 @@ public class Robot extends TimedRobot {
 
     Robot.driveTrain.setDefaultCommand(
       new CheesyDrive(Robot.oi.driverXbox::getY, Robot.oi.driverXbox::getX));
-
-    SmartDashboard.putData(new TestPID());
-    SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, oi.driverXbox));
     
-    // Robot data to be periodically published to SmartDashboard                    
-    SmartDashboard.putData(new TestPID());
-
     // Open/Close solenoids
     SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
     SmartDashboard.putData("Hatch Unlock", new SetHatchLock(Value.kReverse));
@@ -170,9 +164,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Eject hatch", new EjectHatch());    
 
     SmartDashboard.putData(new SetLiftHeight(LiftHeight.kOneEightySafety));
+    
     SmartDashboard.putData("Stop Compressor",new CompressorStop());
     SmartDashboard.putData("Start Compressor",new CompressorStart());
-
 
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
     SmartDashboard.putData("Push Cargo", new PushCargo());
@@ -185,7 +179,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Set one eighty angel 180", new SetOneEightyAngle(208));
 
     // Auto command tests
-
     SmartDashboard.putData("Test auto", new testAuto());
     SmartDashboard.putData("Turn 90", new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 90.0,
         RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
@@ -227,6 +220,9 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autoSelected = m_chooser.getSelected();
     System.out.println("Auto selected: " + m_autoSelected);
+    //RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
+    //RobotComponents.DriveTrain.LEFT_ENCODER.reset();
+    //RobotComponents.DriveTrain.GYRO.calibrate();
   }
 
   @Override
@@ -242,10 +238,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    //RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
-    //RobotComponents.DriveTrain.LEFT_ENCODER.reset();
-    //RobotComponents.DriveTrain.GYRO.calibrate();
-
     testCommand = testsChooser.getSelected();
     SmartDashboard.putData("Test Command", testCommand);
     SmartDashboard.putData("move selected subsystem", new MoveSubsystemWithJoystick(MoveWithJoystickChooser.getSelected(), oi.operatorXbox));
@@ -270,7 +262,7 @@ public class Robot extends TimedRobot {
     testsChooser.addDefault("Hatch Unlock Default", new SetHatchLock(Value.kReverse));
     testsChooser.addOption("cargoCollection", new CollectCargo(0.8, 0.8));
 
-    testsChooser.addOption("Lift", new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
+    //testsChooser.addOption("Lift", new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
     testsChooser.addOption("One Eighty", new SetOneEightyAngle(OneEightyAngle.kStraight));
 
     testsChooser.addOption("hatchEjectOn", new SetHatchEject(Value.kForward));

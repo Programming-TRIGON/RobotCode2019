@@ -41,14 +41,14 @@ public class Lift extends JoystickOverridableSubsystem {
 
   /** This function checks whether the lift has activated the top micro switch. */
   public boolean isAtTop() {
-    return topSwitch.get();
+    return !topSwitch.get();
   }
 
   /**
    * This function checks whether the lift has activated the botton micro switch.
    */
   public boolean isAtBottom() {
-    return bottomSwitch.get();
+    return !bottomSwitch.get();
   }
 
   /** This function returns the curent state of the encoder. */
