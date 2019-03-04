@@ -1,9 +1,11 @@
 package frc.robot.OICommands;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
+import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.LiftCommands.SetLiftHeight;
 import frc.robot.OneEightyCommands.SetOneEightyAngle;
 import frc.robot.RobotConstants.LiftHeight;
@@ -56,9 +58,11 @@ public class PrepareToScore extends CommandGroup {
           heightToSet = LiftHeight.kLiftBottomHatch;
     }
     
+    addSequential(new SetCargoFolderState(Value.kForward));
     addParallel(new SetLiftHeight(heightToSet));
     addSequential(new WaitCommand(0.3));
     addParallel(new SetOneEightyAngle(angleToSet));
+    addSequential(new SetCargoFolderState(Value.kReverse));
   }
 
   public PrepareToScore(boolean increaseHeight) {
@@ -107,8 +111,10 @@ public class PrepareToScore extends CommandGroup {
           heightToSet = LiftHeight.kLiftBottomHatch;
     }
     
+    addSequential(new SetCargoFolderState(Value.kForward));
     addParallel(new SetLiftHeight(heightToSet));
     addSequential(new WaitCommand(0.3));
     addParallel(new SetOneEightyAngle(angleToSet));
+    addSequential(new SetCargoFolderState(Value.kReverse));
   }
 }
