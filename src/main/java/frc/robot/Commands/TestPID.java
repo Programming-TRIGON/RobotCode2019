@@ -31,7 +31,7 @@ public class TestPID extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new ReachLiftHeight(LiftHeight.kCargoShip, this.pidSettings);
+    testCommand = new SetOneEightyAngle(OneEightyAngle.kStraight, this.pidSettings);
     testCommand.start();
   }
 
@@ -46,7 +46,7 @@ public class TestPID extends Command {
 
   @Override
   protected void end() {
-    Robot.lift.setMotorSpeed(0);
+    //Robot.lift.setMotorSpeed(0);
   }
 
   public void updatePID(){

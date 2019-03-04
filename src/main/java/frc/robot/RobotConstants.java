@@ -33,7 +33,7 @@ public class RobotConstants {
         public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.009, 0.00005, 0.00075, 2, 0);
         public static final PIDSettings VISION_TURN_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
         public static final PIDSettings VISION_DISTANCE_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
-        public static final PIDSettings LIFT_HEIGHT_SETTINGS = new PIDSettings(0.5,0,1,0,0);
+        public static final PIDSettings LIFT_HEIGHT_SETTINGS = new PIDSettings(4,0,5.5,0,0);
     }
 
 
@@ -56,7 +56,7 @@ public class RobotConstants {
         /** Hatch rocket heights */
         kLiftBottomHatch(0.10403571428571429), kLiftBottomHatchCargoSide(0.2), kRocketMiddleHatch(0.5161309523809524), kRocketTopHatch(0.8641190476190477),
         /** Cargo rocket heights */
-        kRocketTopCargo(0.8755238095238096), kRocketBottomCargo(0.25979761904761905), kRocketMiddleCargo(0.6644404761904762), 
+        kRocketTopCargo(0.8641190476190477), kRocketBottomCargo(0.25979761904761905), kRocketMiddleCargo(0.6644404761904762), 
         /** A height that is safe to use OneEighty */
         kOneEightySafety(0.2926190476190477), kOneEightyCargoSafety(0.2926190476190477), //kOneEightySafety not checked currently on cargo safety
         /** Collection heights */

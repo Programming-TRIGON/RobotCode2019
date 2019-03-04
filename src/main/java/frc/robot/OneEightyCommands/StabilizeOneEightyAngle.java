@@ -16,16 +16,10 @@ public class StabilizeOneEightyAngle extends Command {
   /**
    * @param angle the angle the SS seeks
    */
-  public StabilizeOneEightyAngle(double angle, PIDSettings pidSettings) {
+  public StabilizeOneEightyAngle(RobotConstants.OneEightyAngle angle, PIDSettings pidSettings) {
     requires(Robot.oneEighty);
-    this.angle = angle;
+    this.angle = angle.key;
     this.pidSettings = pidSettings;
-  }
-
-  public StabilizeOneEightyAngle(double angle) {
-    requires(Robot.oneEighty);
-    this.angle = angle;
-    this.pidSettings = RobotConstants.RobotPIDSettings.ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS;
   }
 
   public StabilizeOneEightyAngle(RobotConstants.OneEightyAngle angle) {

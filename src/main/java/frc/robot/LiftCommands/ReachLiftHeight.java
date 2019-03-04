@@ -53,8 +53,8 @@ public class ReachLiftHeight extends Command {
 
   @Override
   protected void execute() {
-    if (!Robot.cargoFolder.isFold() && Robot.lift.getHeight() <= RobotConstants.LiftHeight.kCargoFolderSafty.key)
-      Robot.cargoFolder.setFold(Value.kForward);
+    //if (!Robot.cargoFolder.isFold() && Robot.lift.getHeight() <= RobotConstants.LiftHeight.kCargoFolderSafty.key)
+      //Robot.cargoFolder.setFold(Value.kForward);
   }
 
   @Override

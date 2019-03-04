@@ -175,8 +175,8 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putData("Move lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
     
-    SmartDashboard.putData("Set one eighty angel 0", new SetOneEightyAngle(-8));
-    SmartDashboard.putData("Set one eighty angel 180", new SetOneEightyAngle(208));
+    //SmartDashboard.putData("Set one eighty angel 0", new SetOneEightyAngle(-8));
+    //SmartDashboard.putData("Set one eighty angel 180", new SetOneEightyAngle(208));
 
     // Auto command tests
     SmartDashboard.putData("Test auto", new testAuto());
