@@ -3,7 +3,6 @@ package frc.robot;
 import java.util.function.Supplier;
 
 import com.analog.adis16448.frc.ADIS16448_IMU;
-import com.analog.adis16448.frc.ADIS16448_IMU.Axis;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -60,7 +59,6 @@ public class RobotComponents {
         public static final TalonSRX FRONT_RIGHT_M = new TalonSRX(RobotMap.CAN.FRONT_RIGHT_MOTOR);
         public static final Encoder LEFT_ENCODER = new Encoder(RobotMap.DIO.DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DIO.DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_B); 
         public static final Encoder RIGHT_ENCODER = new Encoder(RobotMap.DIO.DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DIO.DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_B); 
-        //public static final ADXRS450_Gyro GYRO = new ADXRS450_Gyro();
         public static final ADIS16448_IMU GYRO = new ADIS16448_IMU();
         public static Supplier<Double> AverageDistance = () -> (DriveTrain.LEFT_ENCODER.getDistance() + DriveTrain.RIGHT_ENCODER.getDistance())/2;
     }    

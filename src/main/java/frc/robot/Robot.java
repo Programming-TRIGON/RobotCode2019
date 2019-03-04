@@ -43,7 +43,6 @@ import frc.robot.Subsystems.JoystickOverridableSubsystem;
 import frc.robot.Subsystems.Lift;
 import frc.robot.Subsystems.OneEighty;
 import frc.robot.Vision.VisionPIDSource;
-import frc.robot.DrivingCommands.Turn;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
