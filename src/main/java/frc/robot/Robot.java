@@ -206,7 +206,6 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
     dbc.addNumber("180 potentiometer", Robot.oneEighty::getAngle);
     dbc.addNumber("Lift encoder", Robot.lift::getHeight);
-//    dbc.addNumber("new gyro", RobotComponents.DriveTrain.newGyro::getAngle);
 
     // Robot states to be periodically published to SmartDashboard
     dbc.addNumber("Lift Height", RobotStates::getLiftHeight);
