@@ -1,10 +1,10 @@
 package frc.robot.Autonomous.FirstHatch;
 
-import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.DrivingCommands.DriveWithGyro;
+import frc.robot.DrivingCommands.Turn;
 import frc.robot.HatchHolderCommands.EjectHatch;
 import frc.robot.OICommands.CollectHatchFromFeeder;
 import frc.robot.RobotConstants.RobotDimensions;
@@ -31,15 +31,13 @@ public class ScoreHatchMiddle extends CommandGroup {
         addSequential(new DriveWithGyro(FIRST_DISTANCE));
 
         // turn to be in line with the rocket
-        addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, TURN_45 * (isLeft ? 1 : -1),
-                RobotPIDSettings.TURN_SETTINGS, 360, true));
+        addSequential(new Turn(TURN_45 * (isLeft ? 1 : -1)));
 
         // diagonal drive in the cargo ship's general direction
         addSequential(new DriveWithGyro(SECOND_DISTANCE));
 
         // Face the cargo ship
-        addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, -TURN_45 * (isLeft ? 1 : -1),
-                RobotPIDSettings.TURN_SETTINGS, 360, true));
+        addSequential(new Turn(-TURN_45 * (isLeft ? 1 : -1)));
 
         // Use vision to deliver the hatch
         /*addSequential(
@@ -51,15 +49,13 @@ public class ScoreHatchMiddle extends CommandGroup {
         addSequential(new EjectHatch());
 
         // Turn to be able to drive to the feeder
-        addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
-                TURN_TO_FEEDER * (isLeft ? 1 : -1), RobotPIDSettings.TURN_SETTINGS, 360, true));
+        addSequential(new Turn(TURN_TO_FEEDER * (isLeft ? 1 : -1)));
 
         // Drive to feeder
         addSequential(new DriveWithGyro(DRIVE_TO_FEEDER));
 
         // Turn to face the feeder
-        addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
-                TURN_TO_FEEDER - 180 * (isLeft ? 1 : -1), RobotPIDSettings.TURN_SETTINGS, 360, true));
+        addSequential(new Turn(TURN_TO_FEEDER - 180 * (isLeft ? 1 : -1)));
 
         // Collects the hatch from the feeder
         addSequential(new CollectHatchFromFeeder());//add after hatch feeder

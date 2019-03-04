@@ -158,6 +158,8 @@ public class Robot extends TimedRobot {
     //Robot.driveTrain.setDefaultCommand(
       //new CheesyDrive(Robot.oi.driverXbox));
 
+    RobotComponents.DriveTrain.GYRO.reset();
+
     SmartDashboard.putData(new TestPID());
     SmartDashboard.putData(new MoveSubsystemWithJoystick(Robot.lift, oi.driverXbox));
     
@@ -199,7 +201,7 @@ public class Robot extends TimedRobot {
         RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     // Robot data to be periodically published to SmartDashboard
-    dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
+    dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngleX);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
     dbc.addNumber("180 potentiometer", Robot.oneEighty::getAngle);

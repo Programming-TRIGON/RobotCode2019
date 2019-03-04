@@ -1,10 +1,10 @@
 package frc.robot.Autonomous.FirstHatch;
 
-import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.DrivingCommands.DriveWithGyro;
+import frc.robot.DrivingCommands.Turn;
 import frc.robot.HatchHolderCommands.EjectHatch;
 import frc.robot.LiftCommands.SetLiftHeight;
 import frc.robot.OICommands.CollectHatchFromFeeder;
@@ -39,8 +39,7 @@ public class ScoreHatchSide extends CommandGroup {
     addSequential(new DriveWithGyro(driveDistance.key));
 
     // Turn towards the cargo ship
-    addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
-        TURN_TO_TARGET * (isLeft ? 1 : -1), RobotPIDSettings.TURN_SETTINGS, 360, true));
+    addSequential(new Turn( TURN_TO_TARGET * (isLeft ? 1 : -1)));
 
     // Prepare Robot to deliver hatch:
     addSequential(new SetLiftHeight(LiftHeight.kLiftBottomHatch));
@@ -65,8 +64,7 @@ public class ScoreHatchSide extends CommandGroup {
 
     final double TURN_TO_FEEDER = Math.atan(START_FEEDER_DISTANCE / driveDistance.key);
 
-    addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
-        (TURN_TO_FEEDER + 90) * (isLeft ? 1 : -1), RobotPIDSettings.TURN_SETTINGS, 360, true));
+    addSequential(new Turn((TURN_TO_FEEDER + 90) * (isLeft ? 1 : -1)));
 
     final double distanceToFeeder = Math.sqrt(Math.pow(START_FEEDER_DISTANCE, 2) + Math.pow(driveDistance.key, 2));
 
@@ -74,8 +72,7 @@ public class ScoreHatchSide extends CommandGroup {
     addSequential(new DriveWithGyro(distanceToFeeder));
 
     // face feeder
-    addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
-        -TURN_TO_FEEDER * (isLeft ? 1 : -1), RobotPIDSettings.TURN_SETTINGS, 360, true));
+    addSequential(new Turn( -TURN_TO_FEEDER * (isLeft ? 1 : -1)));
 
     addSequential(new CollectHatchFromFeeder());
   }
