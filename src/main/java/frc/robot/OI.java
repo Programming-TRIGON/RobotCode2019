@@ -49,7 +49,7 @@ public class OI {
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
 
         
-        this.operatorButtonB.whenPressed(new Push());
+        /*this.operatorButtonB.whenPressed(new Push());
         this.operatorButtonB.whenReleased(new PushWhenLiftMoved());
 
         this.operatorButtonY.whenPressed(new CollectHatchFromFeeder());
@@ -70,6 +70,6 @@ public class OI {
         //if CargoCollectCmdG would interapted or the drivers wont catch cargo  
         this.operatorButtonA.whenPressed(new CollectCargo(0,0));  
         
-        this.operatorStartButton.whenPressed(new DefenceMode());   
+        this.operatorStartButton.whenPressed(new DefenceMode());*/   
     }
 }

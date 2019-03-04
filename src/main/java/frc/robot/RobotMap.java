@@ -24,14 +24,14 @@ public class RobotMap {
 
     // Solenoid ports connected to PCM0
     static class PCM0 {
-        public static final int HATCH_COLLECTOR_SOLENOID_FORWARD = 4;//4
-        public static final int HATCH_COLLECTOR_SOLENOID_REVERSE = 5;//5
+        public static final int HATCH_COLLECTOR_SOLENOID_FORWARD = 6;
+        public static final int HATCH_COLLECTOR_SOLENOID_REVERSE = 7;
 
         public static final int HATCH_HOLDER_PVC_SOLENOID_FORWARD = 1;
         public static final int HATCH_HOLDER_PVC_SOLENOID_REVERSE = 0;
 
-        public static final int HATCH_HOLDER_PUSH_SOLENOID_FORWARD = 1;//1
-        public static final int HATCH_HOLDER_PUSH_SOLENOID_REVERSE = 0;//0
+        public static final int HATCH_HOLDER_PUSH_SOLENOID_FORWARD = 5;
+        public static final int HATCH_HOLDER_PUSH_SOLENOID_REVERSE = 4;
 
         public static final int CARGO_FOLDER_SOLENOID_FORWARD = 2; 
         public static final int CARGO_FOLDER_SOLENOID_REVERSE = 3; 
@@ -40,10 +40,10 @@ public class RobotMap {
     // Robot components connected to roboRIO Digital Input Output ports
     static class DIO {
         public static final int LIFT_TOP_MICRO_SWITCH = 7;
-        public static final int LIFT_BOTTOM_MICRO_SWITCH = 8;
-        public final static int LIFT_ENCODER_CHANNEL_A = 5;
-        public final static int LIFT_ENCODER_CHANNEL_B = 6;
-        public static final int CARGO_COLLECTOR_SWITCH = 4;
+        public static final int LIFT_BOTTOM_MICRO_SWITCH = 4;
+        public final static int LIFT_ENCODER_CHANNEL_A = 9;
+        public final static int LIFT_ENCODER_CHANNEL_B = 8;
+        public static final int CARGO_COLLECTOR_SWITCH = 6;
         public final static int DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_A = 0;        
         public final static int DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_B = 1;
         public final static int DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_A = 3;
@@ -52,7 +52,7 @@ public class RobotMap {
 
     // Analog input device ports
     static class ANALOG_INPUT {
-        public static final int ONE_EIGHTY_POTENTIOMETER = 3;
+        public static final int ONE_EIGHTY_POTENTIOMETER = 1;
     }
 
 }
