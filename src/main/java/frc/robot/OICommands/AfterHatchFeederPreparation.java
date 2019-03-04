@@ -17,6 +17,10 @@ public class AfterHatchFeederPreparation extends CommandGroup {
    * preparing the robot to score hatchs after taking them from the feeder
    */
   public AfterHatchFeederPreparation() {
+  }
+
+  @Override
+  protected void initialize(){
     //pay attention to the sequence:
     RobotStates.setHasCargo(false);
     addSequential(new SetHatchLock(Value.kForward));
@@ -28,6 +32,5 @@ public class AfterHatchFeederPreparation extends CommandGroup {
     addSequential(new SetCargoFolderState(Value.kReverse));
     OneEightyAngle angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack;
     addParallel(new SetOneEightyAngle(angleToSet));
-    addParallel(new SetLiftHeight(LiftHeight.kLiftBottomHatch));
   }
 }

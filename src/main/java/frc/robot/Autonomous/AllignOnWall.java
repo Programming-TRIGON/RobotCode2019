@@ -1,14 +1,13 @@
 package frc.robot.Autonomous;
 
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 
 public class AllignOnWall extends DriveArcade {
   /**
-   * Add your docs here.
+ * the robot driving back until he get stack on a wall
    */
   double CURRENT_THRESHOLD = 0;
   private final double TIMEOUT = 5;

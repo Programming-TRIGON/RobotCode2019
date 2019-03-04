@@ -16,6 +16,10 @@ import frc.robot.OneEightyCommands.ReachOneEightyAngle;
 public class DefenceMode extends CommandGroup {
  
   public DefenceMode() {
+  }
+
+  @Override
+  protected void initialize(){
     addParallel(new SetCargoFolderState(Value.kForward));
     addSequential(new ReachOneEightyAngle(OneEightyAngle.kStraight));    
     if(RobotStates.isHasCargo())

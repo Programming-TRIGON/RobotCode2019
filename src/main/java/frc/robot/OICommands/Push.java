@@ -15,6 +15,10 @@ public class Push extends CommandGroup {
    * Pushes the right piece or gets the lift to the middle height
    */
   public Push() {
+  }
+  
+  @Override
+  protected void initialize(){
     //if the operator want to score in the middle rocket heights, 
     //the lift will go up to the middle heights if the last height was the height after collcecting game piece.
     //else (which mean we are in low, middle, high or cargo ship height) the right game piece will be ejected 

@@ -16,6 +16,10 @@ import frc.robot.OneEightyCommands.SetOneEightyAngle;
 public class CollectHatchFromFeeder extends CommandGroup {
 
     public CollectHatchFromFeeder() {
+    }
+
+    @Override
+    protected void initialize(){
         addSequential(new SetHatchLock(Value.kReverse));
         OneEightyAngle angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kBack : OneEightyAngle.kStraight; 
         //this sequence checks if the 180 will try to move 180 dgree when he cant because the lift is to low.
@@ -32,7 +36,5 @@ public class CollectHatchFromFeeder extends CommandGroup {
             addParallel(new SetOneEightyAngle(angleToSet));
             }
         }
-        addSequential(new WaitCommand(0.3));
-        addParallel(new SetLiftHeight(LiftHeight.kLiftBottomHatch));
     }
 }

@@ -238,9 +238,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    /*testCommand = testsChooser.getSelected();
+    testCommand = testsChooser.getSelected();
     SmartDashboard.putData("Test Command", testCommand);
-    SmartDashboard.putData("move selected subsystem", new MoveSubsystemWithJoystick(MoveWithJoystickChooser.getSelected(), oi.operatorXbox));*/
+    SmartDashboard.putData("move selected subsystem", new MoveSubsystemWithJoystick(MoveWithJoystickChooser.getSelected(), oi.operatorXbox));
   }
 
   @Override
@@ -259,7 +259,7 @@ public class Robot extends TimedRobot {
   }
 
   private void addTests() {
-    /*testsChooser.addDefault("Hatch Unlock Default", new SetHatchLock(Value.kReverse));
+    testsChooser.addDefault("Hatch Unlock Default", new SetHatchLock(Value.kReverse));
     testsChooser.addOption("cargoCollection", new CollectCargo(0.8, 0.8));
 
     testsChooser.addOption("Lift", new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
@@ -277,7 +277,7 @@ public class Robot extends TimedRobot {
     MoveWithJoystickChooser.addDefault("Cargo Collector", Robot.cargoCollector);
     MoveWithJoystickChooser.addOption("Lift", Robot.lift);
     MoveWithJoystickChooser.addOption("Cargo Holder", Robot.cargoCollector);
-    MoveWithJoystickChooser.addOption("One Eighty", Robot.oneEighty);*/
+    MoveWithJoystickChooser.addOption("One Eighty", Robot.oneEighty);
   }
 }
 

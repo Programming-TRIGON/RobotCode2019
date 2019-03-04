@@ -15,6 +15,10 @@ public class PushWhenLiftMoved extends CommandGroup {
    * "change his mind" if he dont want to score game piece in the middle heights right away
    */
   public PushWhenLiftMoved() {
+  }
+
+  @Override
+  protected void initialize(){
     if(!RobotStates.isPushed()){
       RobotStates.setIsPushed(true);
       if(RobotStates.isHasCargo())
