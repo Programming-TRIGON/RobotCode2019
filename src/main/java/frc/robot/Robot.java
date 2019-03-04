@@ -146,8 +146,8 @@ public class Robot extends TimedRobot {
     Robot.driveTrain = new TankDrivetrain(
         (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
         (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
-    
-    Robot.oi = new OI();
+    //lol
+    Robot.oi = new OI();  
 
     Robot.driveTrain.setDefaultCommand(
       new CheesyDrive(Robot.oi.driverXbox::getY, Robot.oi.driverXbox::getX));
