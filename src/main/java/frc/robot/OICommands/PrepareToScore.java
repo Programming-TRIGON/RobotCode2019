@@ -33,6 +33,9 @@ public class PrepareToScore extends CommandGroup {
     OneEightyAngle angleToSet = OneEightyAngle.kStraight;
     PrepareToScoreHeight prepareToScoreHeight;
 
+    if(RobotStates.getHeightIndex()==-1)
+      RobotStates.setHeightIndex(1);
+
     // We need to know whether to angle the 180 forward or reverse
     if (!RobotStates.isDriveInverted()){
       angleToSet = RobotStates.isHasCargo() ? OneEightyAngle.kStraight : OneEightyAngle.kBack; 
@@ -84,8 +87,8 @@ public class PrepareToScore extends CommandGroup {
           heightToSet = LiftHeight.kLiftBottomHatch;
     }
     
-    if(!heightToSet.equals(LiftHeight.kLiftBottomHatch))
-      addSequential(new SetCargoFolderState(Value.kReverse));
+    if(heightToSet.equals(LiftHeight.kLiftBottomHatch))
+      addSequential(new SetCargoFolderState(Value.kForward));
     addParallel(new SetLiftHeight(heightToSet));
     addSequential(new WaitCommand(0.3));
     addParallel(new SetOneEightyAngle(angleToSet));

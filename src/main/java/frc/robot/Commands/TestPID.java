@@ -31,7 +31,7 @@ public class TestPID extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new ReachLiftHeight(LiftHeight.kLiftBottomHatch, this.pidSettings);
+    testCommand = new ReachLiftHeight(LiftHeight.kCargoShip, this.pidSettings);
     testCommand.start();
   }
 

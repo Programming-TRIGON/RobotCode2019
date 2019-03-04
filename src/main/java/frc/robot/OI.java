@@ -4,12 +4,14 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
+import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.PrepareToScoreHeight;
 import frc.robot.CargoCollectorCommands.CollectCargo;
 import frc.robot.OICommands.CollectCargoFromFloor;
 import frc.robot.Commands.SetHasCargo;
 import frc.robot.DrivingCommands.ToggleDriveInverted;
 import frc.robot.LiftCommands.LiftSwitchOverride;
+import frc.robot.LiftCommands.ReachLiftHeight;
 import frc.robot.OICommands.AfterHatchFeederPreparation;
 import frc.robot.OICommands.CollectHatchFromFeeder;
 import frc.robot.OICommands.DefenceMode;
@@ -48,7 +50,11 @@ public class OI {
         this.operatorRightPOVButton = new POVButton(operatorXbox, 90);
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
 
-        
+        this.operatorButtonA.whenPressed(new ReachLiftHeight(LiftHeight.kLiftBottomHatch));
+        this.operatorButtonB.whenPressed(new ReachLiftHeight(LiftHeight.kRocketMiddleHatch));
+        this.operatorButtonY.whenPressed(new ReachLiftHeight(LiftHeight.kRocketTopHatch));
+        this.operatorButtonX.whenPressed(new ReachLiftHeight(LiftHeight.kLiftBottomHatchCargoSide));
+
         /*this.operatorButtonB.whenPressed(new Push());
         this.operatorButtonB.whenReleased(new PushWhenLiftMoved());
 
