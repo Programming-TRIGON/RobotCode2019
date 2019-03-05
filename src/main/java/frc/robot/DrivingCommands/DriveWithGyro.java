@@ -11,6 +11,7 @@ import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.Commands.DistancePIDSource;
+import frc.robot.Commands.GyroPIDSource;
 
 public class DriveWithGyro extends CommandGroup {
   /**
@@ -20,6 +21,7 @@ public class DriveWithGyro extends CommandGroup {
   Supplier<Double> movementSupplier = () -> movementPidOutput;
   PIDController movementPidController;
   PIDSettings drivePidSettings;
+  final static GyroPIDSource GYRO_PID_SOURCE = new GyroPIDSource(); 
   public DriveWithGyro(double distance) {
     drivePidSettings = RobotConstants.RobotPIDSettings.DRIVE_SETTINGS;
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
@@ -41,9 +43,9 @@ public class DriveWithGyro extends CommandGroup {
     movementPidController.setOutputRange(-1, 1);
     movementPidController.setSetpoint(distance);
 
-    double angleSetPoint = RobotComponents.DriveTrain.GYRO.getAngle();
+    double angleSetPoint = RobotComponents.DriveTrain.GYRO.getAngleX();
     
-    addSequential(new DriveArcadeWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 
+    addSequential(new DriveArcadeWithPID(Robot.driveTrain, GYRO_PID_SOURCE,
     () -> angleSetPoint, this.movementSupplier, () -> movementPidController.onTarget(), RobotConstants.RobotPIDSettings.GYRO_DRIVE_SETTINGS, 360, true));    
     this.movementPidController.enable();       
   }

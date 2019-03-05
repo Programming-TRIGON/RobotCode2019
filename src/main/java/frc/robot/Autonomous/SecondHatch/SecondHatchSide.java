@@ -1,12 +1,12 @@
 package frc.robot.Autonomous.SecondHatch;
 
-import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.DrivingCommands.DriveWithGyro;
+import frc.robot.DrivingCommands.Turn;
 import frc.robot.RobotConstants.RobotDimensions;
 import frc.robot.RobotConstants.RobotPIDSettings;
 
@@ -38,15 +38,13 @@ public class SecondHatchSide extends CommandGroup {
     final double TARGET_TRACK_TIME = 5;
 
     // turns to face the rocket for going to it from the feeder.
-    addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
-        TURN_TO_ROCKET * (isLeft ? 1 : -1), RobotPIDSettings.TURN_SETTINGS, 360, true));
+    addSequential(new Turn(TURN_TO_ROCKET * (isLeft ? 1 : -1)));
 
     // drive to the rocket
     addSequential(new DriveWithGyro(DISTANCE_TO_ROCKET));
 
     // turns to face the rocket for putting the hatch pannel
-    addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO,
-        TURN_TO_HATCH * (isLeft ? 1 : -1), RobotPIDSettings.TURN_SETTINGS, 360, true));
+    addSequential(new Turn(TURN_TO_HATCH * (isLeft ? 1 : -1)));
 
     // Use vision to deliver the hatch
     /*addSequential(new DriveArcadeWithVision(Robot.driveTrain, VisionPIDSource.VisionTarget.kReflector, () -> 0.0,
