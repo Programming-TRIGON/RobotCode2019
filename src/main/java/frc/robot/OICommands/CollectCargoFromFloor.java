@@ -17,6 +17,10 @@ public class CollectCargoFromFloor extends CommandGroup {
   double HOLDER_POWER = 0.6;
 
   public CollectCargoFromFloor() {
+  }
+
+  @Override
+  protected void initialize(){
     /** starts by unfolding the cargo collecter */
     addSequential(new SetCargoFolderState(Value.kForward));
     /** turns to the required angle */

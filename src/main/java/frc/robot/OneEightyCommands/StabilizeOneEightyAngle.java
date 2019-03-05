@@ -1,11 +1,8 @@
 package frc.robot.OneEightyCommands;
 
 import com.spikes2212.utils.PIDSettings;
-
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Command;
-
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
@@ -17,19 +14,12 @@ public class StabilizeOneEightyAngle extends Command {
   private PIDSettings pidSettings;
 
   /**
-   * 
    * @param angle the angle the SS seeks
    */
-  public StabilizeOneEightyAngle(double angle, PIDSettings pidSettings) {
+  public StabilizeOneEightyAngle(RobotConstants.OneEightyAngle angle, PIDSettings pidSettings) {
     requires(Robot.oneEighty);
-    this.angle = angle;
+    this.angle = angle.key;
     this.pidSettings = pidSettings;
-  }
-
-  public StabilizeOneEightyAngle(double angle) {
-    requires(Robot.oneEighty);
-    this.angle = angle;
-    this.pidSettings = RobotConstants.RobotPIDSettings.ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS;
   }
 
   public StabilizeOneEightyAngle(RobotConstants.OneEightyAngle angle) {

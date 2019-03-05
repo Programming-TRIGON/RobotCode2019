@@ -1,10 +1,12 @@
 package frc.robot.OICommands;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotStates;
 import frc.robot.CargoCollectorCommands.PushCargo;
+import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.HatchHolderCommands.EjectHatch;
 import frc.robot.LiftCommands.SetLiftHeight;
 
@@ -15,6 +17,10 @@ public class PushWhenLiftMoved extends CommandGroup {
    * "change his mind" if he dont want to score game piece in the middle heights right away
    */
   public PushWhenLiftMoved() {
+  }
+
+  @Override
+  protected void initialize(){
     if(!RobotStates.isPushed()){
       RobotStates.setIsPushed(true);
       if(RobotStates.isHasCargo())
@@ -25,5 +31,6 @@ public class PushWhenLiftMoved extends CommandGroup {
     addSequential(new WaitCommand(1));
     //lift will go down to 180 safe height to spin 
     addParallel(new SetLiftHeight(LiftHeight.kOneEightySafety));
+    addSequential(new SetCargoFolderState(Value.kReverse));
   }
 }

@@ -4,9 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
-import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
 import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -146,11 +144,11 @@ public class Robot extends TimedRobot {
     Robot.driveTrain = new TankDrivetrain(
         (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
         (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
-    
-    Robot.oi = new OI();
+    //lol
+    Robot.oi = new OI();  
 
     Robot.driveTrain.setDefaultCommand(
-      new CheesyDrive(Robot.oi.driverXbox::getY, Robot.oi.driverXbox::getX));
+      new CheesyDrive(()->Robot.oi.driverXbox.getY(Hand.kLeft), Robot.oi.driverXbox::getX));
     
     // Open/Close solenoids
     SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
@@ -174,8 +172,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(new TestPID());
     SmartDashboard.putData("Move lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
     
-    SmartDashboard.putData("Set one eighty angel 0", new SetOneEightyAngle(-8));
-    SmartDashboard.putData("Set one eighty angel 180", new SetOneEightyAngle(208));
+    //SmartDashboard.putData("Set one eighty angel 0", new SetOneEightyAngle(-8));
+    //SmartDashboard.putData("Set one eighty angel 180", new SetOneEightyAngle(208));
 
     // Auto command tests
     SmartDashboard.putData("Test auto", new testAuto());
@@ -237,9 +235,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    /*testCommand = testsChooser.getSelected();
+    testCommand = testsChooser.getSelected();
     SmartDashboard.putData("Test Command", testCommand);
-    SmartDashboard.putData("move selected subsystem", new MoveSubsystemWithJoystick(MoveWithJoystickChooser.getSelected(), oi.operatorXbox));*/
+    SmartDashboard.putData("move selected subsystem", new MoveSubsystemWithJoystick(MoveWithJoystickChooser.getSelected(), oi.operatorXbox));
   }
 
   @Override
@@ -258,7 +256,7 @@ public class Robot extends TimedRobot {
   }
 
   private void addTests() {
-    /*testsChooser.addDefault("Hatch Unlock Default", new SetHatchLock(Value.kReverse));
+    testsChooser.addDefault("Hatch Unlock Default", new SetHatchLock(Value.kReverse));
     testsChooser.addOption("cargoCollection", new CollectCargo(0.8, 0.8));
 
     testsChooser.addOption("Lift", new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
@@ -276,7 +274,7 @@ public class Robot extends TimedRobot {
     MoveWithJoystickChooser.addDefault("Cargo Collector", Robot.cargoCollector);
     MoveWithJoystickChooser.addOption("Lift", Robot.lift);
     MoveWithJoystickChooser.addOption("Cargo Holder", Robot.cargoCollector);
-    MoveWithJoystickChooser.addOption("One Eighty", Robot.oneEighty);*/
+    MoveWithJoystickChooser.addOption("One Eighty", Robot.oneEighty);
   }
 }
 

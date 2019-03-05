@@ -4,12 +4,15 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
+import frc.robot.RobotConstants.LiftHeight;
+import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotConstants.PrepareToScoreHeight;
 import frc.robot.CargoCollectorCommands.CollectCargo;
 import frc.robot.OICommands.CollectCargoFromFloor;
 import frc.robot.Commands.SetHasCargo;
 import frc.robot.DrivingCommands.ToggleDriveInverted;
 import frc.robot.LiftCommands.LiftSwitchOverride;
+import frc.robot.LiftCommands.ReachLiftHeight;
 import frc.robot.OICommands.AfterHatchFeederPreparation;
 import frc.robot.OICommands.CollectHatchFromFeeder;
 import frc.robot.OICommands.DefenceMode;
@@ -17,6 +20,7 @@ import frc.robot.OICommands.PrepareToScore;
 import frc.robot.OICommands.Push;
 import frc.robot.OICommands.PushWhenLiftMoved;
 import frc.robot.OneEightyCommands.OneEightyToggleOverride;
+import frc.robot.OneEightyCommands.SetOneEightyAngle;
 
 public class OI {
     public XboxController operatorXbox = new XboxController(0);
@@ -48,7 +52,16 @@ public class OI {
         this.operatorRightPOVButton = new POVButton(operatorXbox, 90);
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
 
-        
+        this.operatorButtonA.whenPressed(new SetOneEightyAngle(OneEightyAngle.kStraight));
+        this.operatorButtonB.whenPressed(new SetOneEightyAngle(OneEightyAngle.kBack));
+        this.operatorButtonY.whenPressed(new SetOneEightyAngle(OneEightyAngle.kTopStraight));
+        this.operatorButtonX.whenPressed(new SetOneEightyAngle(OneEightyAngle.kTopBack));
+        this.operatorButtonRB.whenPressed(new ReachLiftHeight(LiftHeight.kOneEightyCargoSafety));
+        this.operatorButtonLB.whenPressed(new ReachLiftHeight(LiftHeight.kCargoCollection));
+        this.operatorButtonAxisLeft.whenPressed(new ReachLiftHeight(LiftHeight.kOneEightyCargoSafety));
+        this.operatorButtonAxisRight.whenPressed(new ReachLiftHeight(LiftHeight.kCargoCollection));
+
+
         /*this.operatorButtonB.whenPressed(new Push());
         this.operatorButtonB.whenReleased(new PushWhenLiftMoved());
 
