@@ -4,9 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.spikes2212.dashboard.DashBoardController;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
-import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
 import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -150,7 +148,7 @@ public class Robot extends TimedRobot {
     Robot.oi = new OI();  
 
     Robot.driveTrain.setDefaultCommand(
-      new CheesyDrive(Robot.oi.driverXbox::getY, Robot.oi.driverXbox::getX));
+      new CheesyDrive(()->Robot.oi.driverXbox.getY(Hand.kLeft), Robot.oi.driverXbox::getX));
     
     // Open/Close solenoids
     SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
