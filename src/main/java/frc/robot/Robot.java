@@ -21,7 +21,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
+import frc.robot.Autonomous.ScoreCargoSide;
 import frc.robot.Autonomous.testAuto;
+import frc.robot.Autonomous.FirstHatch.ScoreHatchMiddle;
 import frc.robot.CargoCollectorCommands.CollectCargo;
 import frc.robot.CargoCollectorCommands.PushCargo;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
@@ -36,7 +38,9 @@ import frc.robot.HatchHolderCommands.EjectHatch;
 import frc.robot.HatchHolderCommands.SetHatchEject;
 import frc.robot.HatchHolderCommands.SetHatchLock;
 import frc.robot.LiftCommands.SetLiftHeight;
+import frc.robot.LiftCommands.SetLiftOverride;
 import frc.robot.OneEightyCommands.SetOneEightyAngle;
+import frc.robot.OneEightyCommands.SetOneEightyOverride;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
@@ -47,10 +51,11 @@ import frc.robot.Subsystems.OneEighty;
 import frc.robot.Vision.VisionPIDSource;
 
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
+  private static final String left = "Left";
+  private static final String right = "Right";
   private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  Command autoCommand;
+  private final SendableChooser<String> auto_chooser = new SendableChooser<>();
 
   public static HatchCollector hatchCollector;
   public static Lift lift;
@@ -74,9 +79,9 @@ public class Robot extends TimedRobot {
     compressor = new Compressor(1);
     compressor.start();
 
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
+    auto_chooser.setDefaultOption("Default Auto", left);
+    auto_chooser.addOption("My Auto", right);
+    SmartDashboard.putData("Auto choices", auto_chooser);
     SmartDashboard.putData("Test Commands", testsChooser);
     SmartDashboard.putData("move ss chooser", MoveWithJoystickChooser);
 
@@ -152,7 +157,7 @@ public class Robot extends TimedRobot {
     Robot.oi = new OI();  
 
     Robot.driveTrain.setDefaultCommand(
-      new CheesyDrive(()->Robot.oi.driverXbox.getY(Hand.kLeft), Robot.oi.driverXbox::getX));
+      new CheesyDrive(()->Robot.oi.driverXbox.getY(Hand.kLeft), ()->Robot.oi.driverXbox.getX(Hand.kLeft)));
     
     // Open/Close solenoids
     SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
@@ -196,8 +201,12 @@ public class Robot extends TimedRobot {
 
     addTests();
     
-    // CameraServer.getInstance().startAutomaticCapture();
+    //CameraServer.getInstance().startAutomaticCapture();
     SmartDashboard.putData(new ChangeCam());
+    RobotStates.oneEightyOverride=false;
+    RobotStates.LiftOverride=false;
+
+
   }
   
   @Override
@@ -217,26 +226,36 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
+    m_autoSelected = auto_chooser.getSelected();
     System.out.println("Auto selected: " + m_autoSelected);
-    //RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
-    //RobotComponents.DriveTrain.LEFT_ENCODER.reset();
-    //RobotComponents.DriveTrain.GYRO.calibrate();
+    RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
+    RobotComponents.DriveTrain.LEFT_ENCODER.reset();
+    RobotComponents.DriveTrain.GYRO.reset();
+
+    switch (m_autoSelected) {
+      case right:
+        this.autoCommand = new ScoreCargoSide(true);
+        break;
+      case left:
+      default:
+        break;
+      }
+    Scheduler.getInstance().add(autoCommand);
+
+    Scheduler.getInstance().add(new SetLiftOverride());
+    Scheduler.getInstance().add(new SetOneEightyOverride());
   }
 
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-    case kCustomAuto:
-      break;
-    case kDefaultAuto:
-    default:
-      break;
-    }
+    Scheduler.getInstance().run();
   }
 
   @Override
   public void teleopInit() {
+    if (autoCommand != null)
+      autoCommand.close();
+
     testCommand = testsChooser.getSelected();
     SmartDashboard.putData("Test Command", testCommand);
     SmartDashboard.putData("move selected subsystem", new MoveSubsystemWithJoystick(MoveWithJoystickChooser.getSelected(), oi.operatorXbox));

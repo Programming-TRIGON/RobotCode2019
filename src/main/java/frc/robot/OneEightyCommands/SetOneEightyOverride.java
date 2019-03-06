@@ -21,7 +21,7 @@ public class SetOneEightyOverride extends Command {
 
   @Override
   protected void execute() {
-    Robot.oneEighty.moveOneEightyOverride(-Robot.oi.operatorXbox.getY(Hand.kRight));
+    Robot.oneEighty.setOneEighty(Robot.oi.operatorXbox.getY(Hand.kRight));
   }
 
   @Override

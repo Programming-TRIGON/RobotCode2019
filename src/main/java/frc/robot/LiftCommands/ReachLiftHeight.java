@@ -12,6 +12,7 @@ import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
+import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.RobotPIDSettings;
 
@@ -36,6 +37,8 @@ public class ReachLiftHeight extends Command {
 
   @Override
   protected void initialize() {
+    Robot.cargoFolder.setFold(Value.kReverse);
+
     this.pidOutput = new PIDOutput() {
       public void pidWrite(double output) {
         Robot.lift.setMotorSpeed(output);
@@ -47,14 +50,15 @@ public class ReachLiftHeight extends Command {
       Robot.lift.getEncoder(), this.pidOutput);
     pidController.setSetpoint(height.get());
     pidController.setAbsoluteTolerance(this.pidSettings.getTolerance());
-    pidController.setOutputRange(-0.5, 1);
+    pidController.setOutputRange(-0.25, 1); // was 0.5,1
     pidController.enable();
   }
 
+  
   @Override
   protected void execute() {
-    //if (!Robot.cargoFolder.isFold() && Robot.lift.getHeight() <= RobotConstants.LiftHeight.kCargoFolderSafty.key)
-      //Robot.cargoFolder.setFold(Value.kForward);
+    // if (Robot.lift.getHeight() <= RobotConstants.LiftHeight.kCargoFolderSafty.key)
+    //   Robot.cargoFolder.setFold(Value.kForward);
   }
 
   @Override

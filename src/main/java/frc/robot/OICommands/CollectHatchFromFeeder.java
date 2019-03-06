@@ -16,10 +16,7 @@ import frc.robot.OneEightyCommands.SetOneEightyAngle;
 public class CollectHatchFromFeeder extends CommandGroup {
 
     public CollectHatchFromFeeder() {
-    }
-
-    @Override
-    protected void initialize(){
+ 
         addSequential(new SetHatchLock(Value.kReverse));
         addParallel(new SetOneEightyAngle(OneEightyAngle.kStraight));
         addSequential(new WaitCommand(0.5));

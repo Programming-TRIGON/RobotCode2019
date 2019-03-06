@@ -20,7 +20,7 @@ public class Lift extends JoystickOverridableSubsystem {
     this.topSwitch = topwSwitch;
     this.bottomSwitch = bottomSwitch;
     this.encoder = encoder;
-    this.rightMotor.setInverted(false);
+    this.rightMotor.setInverted(true);
     this.leftMotor.setInverted(false);
     this.rightMotor.setNeutralMode(NeutralMode.Brake);
     this.leftMotor.setNeutralMode(NeutralMode.Brake);

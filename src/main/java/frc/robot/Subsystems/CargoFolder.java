@@ -10,7 +10,7 @@ public class CargoFolder extends Subsystem {
 
   public CargoFolder(DoubleSolenoid solenoid) {
     this.Folder = solenoid;
-    setFold(Value.kReverse);
+    setFold(Value.kForward);
   }
 
   /** folds/unfolds the SS then turns the solenoid off for safety */

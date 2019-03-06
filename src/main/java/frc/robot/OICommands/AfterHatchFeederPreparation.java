@@ -17,11 +17,7 @@ public class AfterHatchFeederPreparation extends CommandGroup {
    * preparing the robot to score hatchs after taking them from the feeder
    */
   public AfterHatchFeederPreparation() {
-  }
 
-  @Override
-  protected void initialize(){
-    //pay attention to the sequence:
     addSequential(new SetHatchLock(Value.kForward));
     addSequential(new ToggleDriveInverted());
     addSequential(new WaitCommand(1));

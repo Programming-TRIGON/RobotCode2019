@@ -4,20 +4,29 @@ import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotStates;
+import frc.robot.OneEightyCommands.SetOneEightyAngle;
 
 /** collects and holds the cargo */
 public class CollectCargo extends Command {
   double collectorPower;
   double holderPower;
+  boolean switchStop;
 
-  public CollectCargo(double collectPower, double holderPower) {
+  public CollectCargo(double collectPower, double holderPower,boolean switchStop) {
     requires(Robot.cargoCollector);
     this.collectorPower = collectPower;
     this.holderPower = holderPower;
+    this.switchStop = switchStop;
   }
+  public CollectCargo(double collectPower, double holderPower) {
+    this(collectPower, holderPower, true);
+  }
+
+  
 
   @Override
   protected void initialize() {
+    
   }
 
   @Override
@@ -30,7 +39,7 @@ public class CollectCargo extends Command {
   @Override
   protected boolean isFinished() {
     /** a switch checks if the it's holding a ball */
-    return Robot.cargoCollector.isHoldingBall();
+    return Robot.cargoCollector.isHoldingBall() && switchStop;
   }
 
   @Override

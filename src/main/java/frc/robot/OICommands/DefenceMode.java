@@ -8,6 +8,7 @@ import frc.robot.CargoCollectorCommands.PushCargo;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
 import frc.robot.HatchHolderCommands.EjectHatch;
+import frc.robot.HatchHolderCommands.SetHatchLock;
 import frc.robot.LiftCommands.ResetLift;
 import frc.robot.OneEightyCommands.ReachOneEightyAngle;
  /**
@@ -16,11 +17,11 @@ import frc.robot.OneEightyCommands.ReachOneEightyAngle;
 public class DefenceMode extends CommandGroup {
  
   public DefenceMode() {
-  }
+    addSequential(new SetCargoFolderState(Value.kReverse));
+    addSequential(new SetHatchCollectorState(Value.kReverse));   
+    addSequential(new SetHatchLock(Value.kReverse));
 
-  @Override
-  protected void initialize(){
-    addParallel(new SetCargoFolderState(Value.kForward));
+    /*addParallel(new SetCargoFolderState(Value.kForward));
     addSequential(new ReachOneEightyAngle(OneEightyAngle.kStraight));    
     if(RobotStates.isHasCargo())
       addSequential(new PushCargo());
@@ -28,6 +29,6 @@ public class DefenceMode extends CommandGroup {
       addSequential(new EjectHatch());
     addSequential(new ResetLift(), 3);
     addParallel(new SetCargoFolderState(Value.kReverse));
-    addSequential(new SetHatchCollectorState(Value.kReverse));
+    addSequential(new SetHatchCollectorState(Value.kReverse));*/
   }
 }

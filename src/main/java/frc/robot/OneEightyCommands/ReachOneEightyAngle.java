@@ -37,7 +37,7 @@ public class ReachOneEightyAngle extends Command {
   @Override
   protected boolean isFinished() {
     double currentAngle = Robot.oneEighty.getAngle();
-    return ((currentAngle > angle - 7) && (currentAngle < angle + 7)) || RobotStates.isOneEightyOverride();
+    return ((currentAngle > angle - 7) && (currentAngle < angle + 7)); //|| RobotStates.isOneEightyOverride();
   }
 
   // Called once after isFinished returns true

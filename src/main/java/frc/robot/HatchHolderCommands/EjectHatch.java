@@ -16,7 +16,7 @@ public class EjectHatch extends CommandGroup{
         addSequential(new SetHatchLock(unlock));
         addSequential(new WaitCommand(0.05));
         addSequential(new SetHatchEject(extend));
-        addSequential(new WaitCommand(1));
+        addSequential(new WaitCommand(0.3));
         addSequential(new SetHatchEject(retract));
     }
 }

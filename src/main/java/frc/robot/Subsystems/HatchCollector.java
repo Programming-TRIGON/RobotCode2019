@@ -16,7 +16,7 @@ public class HatchCollector extends Subsystem {
   /** folds the SS down to catch the hatch */
   public HatchCollector(DoubleSolenoid solenoid) {
     this.solenoid = solenoid;
-    setSolenoid(Value.kReverse);
+    setSolenoid(Value.kForward);
   }
 
   /**

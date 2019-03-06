@@ -1,5 +1,7 @@
 package frc.robot.OneEightyCommands;
 
+import java.util.function.Supplier;
+
 import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -13,10 +15,15 @@ public class SetOneEightyAngle extends CommandGroup {
     addSequential(new StabilizeOneEightyAngle(angle, pIDSettings));
     addSequential(new SetOneEightyOverride());
   }
+
   public SetOneEightyAngle(OneEightyAngle angle) {
     addSequential(new SetOneEightyDesireAngle(angle));
     addSequential(new ReachOneEightyAngle(angle));
     addSequential(new StabilizeOneEightyAngle(angle));
     addSequential(new SetOneEightyOverride());
+  }
+
+  public SetOneEightyAngle(Supplier<OneEightyAngle> angleSupplier) {
+    this(angleSupplier.get());
   }
 }

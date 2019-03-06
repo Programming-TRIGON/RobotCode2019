@@ -7,6 +7,8 @@
 
 package frc.robot.OICommands;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -24,15 +26,12 @@ public class AfterHatchFloorPreparation extends CommandGroup {
    * prepare the robot after collecting hatch from the floor
    */
   public AfterHatchFloorPreparation() {
-  }
-
-  @Override
-  protected void initialize(){
     addSequential(new SetHatchCollectorState(Value.kReverse));
     addSequential(new SetHatchLock(Value.kForward));
     addParallel(new SetLiftHeight(LiftHeight.kOneEightyCargoSafety));
     addSequential(new WaitCommand(0.3));
-    OneEightyAngle angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack; 
+    Supplier<OneEightyAngle> angleToSet = ()-> RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack; 
+    
     addParallel(new SetOneEightyAngle(angleToSet));
     addSequential(new SetCargoFolderState(Value.kReverse));
   }

@@ -13,6 +13,7 @@ import frc.robot.LiftCommands.SetLiftHeight;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.OneEightyCommands.SetOneEightyAngle;
+import frc.robot.OneEightyCommands.StabilizeOneEightyAngle;
 
 public class TestPID extends Command {
   Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);
@@ -31,7 +32,7 @@ public class TestPID extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new SetOneEightyAngle(OneEightyAngle.kStraight, this.pidSettings);
+    testCommand = new StabilizeOneEightyAngle(OneEightyAngle.kStraight, this.pidSettings);
     testCommand.start();
   }
 

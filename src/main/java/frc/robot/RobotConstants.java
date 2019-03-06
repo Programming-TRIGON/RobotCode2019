@@ -58,13 +58,13 @@ public class RobotConstants {
     /** the height the lift should be in for certain tasks */
     public static enum LiftHeight {
         /** Hatch rocket heights */
-        kLiftBottomHatch(0.10403571428571429), kLiftBottomHatchCargoSide(0.2), kRocketMiddleHatch(0.5161309523809524), kRocketTopHatch(0.8641190476190477),
+        kLiftBottomHatch(0.2), kLiftBottomHatchCargoSide(0.2), kRocketMiddleHatch(0.5161309523809524), kRocketTopHatch(0.8641190476190477),
         /** Cargo rocket heights */
         kRocketTopCargo(0.8641190476190477), kRocketBottomCargo(0.25979761904761905), kRocketMiddleCargo(0.6644404761904762), 
         /** A height that is safe to use OneEighty */
         kOneEightySafety(0.2926190476190477), kOneEightyCargoSafety(0.2926190476190477), //kOneEightySafety not checked currently on cargo safety
         /** Collection heights */
-        kCargoCollection(0), kHatchCollection(0.07888095238095238),
+        kCargoCollection(0), kHatchCollection(0.12),
         /** Cargo ship height */
         kCargoShip(0.496452380952381),
         /** Cargo safty height */

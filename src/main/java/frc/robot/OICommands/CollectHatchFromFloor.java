@@ -19,19 +19,16 @@ import frc.robot.Vision.VisionPIDSource.VisionTarget;
 public class CollectHatchFromFloor extends CommandGroup {
 
     public CollectHatchFromFloor() {
-    }
-
-    @Override
-    protected void initialize(){
-      addSequential(new SetHatchCollectorState(Value.kForward));
-      addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));    
-      addSequential(new WaitCommand(0.3));    
-      addParallel(new SetLiftHeight(LiftHeight.kHatchCollection));
-      addSequential(new TrackVisionTarget(VisionTarget.kHatch, Robot.oi.driverXbox,
-        RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS,
-        RobotConstants.RobotPIDSettings.VISION_DISTANCE_SETTINGS));
       addSequential(new SetHatchCollectorState(Value.kReverse));
-      addSequential(new WaitCommand(0.2));
-      addSequential(new SetHatchLock(Value.kForward));
-  }
+      addSequential(new WaitCommand(0.7));
+      addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));    
+      addSequential(new WaitCommand(0.7));    
+      addParallel(new SetLiftHeight(LiftHeight.kHatchCollection));
+      // addSequential(new TrackVisionTarget(VisionTarget.kHatch, Robot.oi.driverXbox,
+      //   RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS,
+      //   RobotConstants.RobotPIDSettings.VISION_DISTANCE_SETTINGS));
+      // addSequential(new SetHatchCollectorState(Value.kReverse));
+      // addSequential(new WaitCommand(0.2));
+      // addSequential(new SetHatchLock(Value.kForward));
+    }
 }

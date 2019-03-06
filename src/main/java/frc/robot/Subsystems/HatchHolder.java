@@ -10,7 +10,7 @@ public class HatchHolder extends Subsystem {
    * the mechanism farword to chatch the hatch
    */
   private DoubleSolenoid hatchLocker, hatchEjector;
-  private Value lockState = Value.kReverse, ejectionState = Value.kReverse;
+  private Value lockState = Value.kForward, ejectionState = Value.kReverse;
 
   public HatchHolder(DoubleSolenoid pvcSolenoid, DoubleSolenoid pushSolenoid) {
     this.hatchLocker = pvcSolenoid;
