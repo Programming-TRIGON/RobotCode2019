@@ -27,10 +27,10 @@ public class AfterCargoFloorPreparation extends CommandGroup {
   public AfterCargoFloorPreparation() {
     addSequential(new CollectCargo(0,0));
     /** prepare the lift and the 180 subsystems to score */
-    addParallel(new SetLiftHeight(LiftHeight.kOneEightyCargoSafety));
+    /*addParallel(new SetLiftHeight(LiftHeight.kOneEightyCargoSafety));
     addSequential(new WaitCommand(0.3));
     Supplier<OneEightyAngle> angleToSet = ()-> RobotStates.isDriveInverted() ? OneEightyAngle.kBack : OneEightyAngle.kStraight; 
     addParallel(new SetOneEightyAngle(angleToSet));
-    addSequential(new SetCargoFolderState(Value.kForward));
+    addSequential(new SetCargoFolderState(Value.kForward));*/
   }
 }

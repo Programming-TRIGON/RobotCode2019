@@ -102,24 +102,24 @@ public class OI {
         this.driverButtonA.whenPressed(new ToggleDriveInverted()); 
 
         driverButtonB.whenPressed(new CollectHatchFromFloor());
-        driverButtonB.whenReleased(new SetHatchCollectorState(Value.kForward));
+        driverButtonB.whenReleased(new SetHatchCollectorState(Value.kForward));//should be cmdG?
 
         driverButtonY.whileHeld(new CollectCargo(-1, -1,false));
 
         //-------------------- OPERATOR --------------------------------------------
 
         this.operatorButtonRB.whenPressed(new ReachCargoShipHeight());
-        this.operatorButtonLB.whenPressed(new ReachLiftHeight(LiftHeight.kLiftBottomHatch));
+        this.operatorButtonLB.whenPressed(new ReachLiftHeight(LiftHeight.kLiftBottomHatch));//make cmdG like reachcargoshipheight
 
         this.operatorButtonA.whenPressed(new CollectCargoFromFloor());        
         this.operatorButtonA.whenReleased(new AfterCargoFloorPreparation());
         
-        this.operatorButtonX.whileHeld(new CollectCargo(0, 0));
+        //this.operatorButtonX.whileHeld(new CollectCargo(0, 0));// use hatch feeder cmdG
 
-        this.operatorButtonY.whenPressed(new SetCargoFolderState(Value.kForward));
-        
-        operatorLeftPOVButton.whenPressed(new SetOneEightyAngle(OneEightyAngle.kBack));
-        operatorRightPOVButton.whenPressed(new SetOneEightyAngle(OneEightyAngle.kStraight));
+        this.operatorButtonY.whenPressed(new SetCargoFolderState(Value.kForward));//might change that btn
+
+        this.operatorLeftPOVButton.whenPressed(new SetOneEightyAngle(OneEightyAngle.kBack));
+        this.operatorRightPOVButton.whenPressed(new SetOneEightyAngle(OneEightyAngle.kStraight));
         
         this.operatorButtonB.whenPressed(new SetHatchLock(Value.kReverse));
         this.operatorButtonB.whenReleased(new SetHatchLock(Value.kForward));
