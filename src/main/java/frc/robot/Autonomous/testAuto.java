@@ -9,6 +9,7 @@ import frc.robot.RobotComponents;
 import frc.robot.DrivingCommands.DriveWithGyro;
 import frc.robot.LiftCommands.ReachLiftHeight;
 import frc.robot.RobotConstants.LiftHeight;
+import frc.robot.DrivingCommands.Turn;
 import frc.robot.RobotConstants.RobotPIDSettings;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
 
@@ -18,10 +19,11 @@ public class testAuto extends CommandGroup {
    */
   public testAuto() {
     addSequential(new DriveWithGyro(300));
-    addSequential(new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, 90, RobotPIDSettings.TURN_SETTINGS, 360, true));
+    addSequential(new Turn(90));
     addSequential(new SetCargoFolderState(Value.kForward));
     addSequential(new ReachLiftHeight(LiftHeight.kCargoShip));
     //addSequential(command);
+
   }
 }
 

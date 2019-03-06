@@ -152,7 +152,7 @@ public class Robot extends TimedRobot {
     Robot.oi = new OI();  
 
     Robot.driveTrain.setDefaultCommand(
-      new CheesyDrive(Robot.oi.driverXbox::getY, Robot.oi.driverXbox::getX));
+      new CheesyDrive(()->Robot.oi.driverXbox.getY(Hand.kLeft), Robot.oi.driverXbox::getX));
     
     // Open/Close solenoids
     SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
@@ -174,16 +174,13 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Push Cargo", new PushCargo());
 
     SmartDashboard.putData(new TestPID());
-
     SmartDashboard.putData("Move lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
     
     // Auto command tests
     SmartDashboard.putData("Test auto", new testAuto());
-    SmartDashboard.putData("Turn 90", new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 90.0,
-        RobotConstants.RobotPIDSettings.TURN_SETTINGS, 360, true));
 
     // Robot data to be periodically published to SmartDashboard
-    dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngle);
+    dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngleX);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
     dbc.addNumber("180 potentiometer", Robot.oneEighty::getAngle);
