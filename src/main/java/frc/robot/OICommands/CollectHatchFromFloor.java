@@ -23,14 +23,15 @@ public class CollectHatchFromFloor extends CommandGroup {
 
     @Override
     protected void initialize(){
-    addParallel(new SetLiftHeight(LiftHeight.kHatchCollection));
-    addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kBack));
-    addSequential(new TrackVisionTarget(VisionTarget.kHatch, Robot.oi.driverXbox, 0.0,
-        RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, 0.0,
+      addSequential(new SetHatchCollectorState(Value.kForward));
+      addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));    
+      addSequential(new WaitCommand(0.3));    
+      addParallel(new SetLiftHeight(LiftHeight.kHatchCollection));
+      addSequential(new TrackVisionTarget(VisionTarget.kHatch, Robot.oi.driverXbox,
+        RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS,
         RobotConstants.RobotPIDSettings.VISION_DISTANCE_SETTINGS));
-    addSequential(new SetHatchCollectorState(Value.kForward));
-    addSequential(new WaitCommand(1));
-    addSequential(new SetHatchCollectorState(Value.kReverse));
-    addSequential(new SetHatchLock(Value.kForward));
+      addSequential(new SetHatchCollectorState(Value.kReverse));
+      addSequential(new WaitCommand(0.2));
+      addSequential(new SetHatchLock(Value.kForward));
   }
 }

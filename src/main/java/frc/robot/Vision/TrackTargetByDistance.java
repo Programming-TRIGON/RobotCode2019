@@ -20,7 +20,7 @@ import frc.robot.Vision.VisionPIDSource.VisionTarget;
  * The driveTrain will also rotate using vision PID.
  */
 public class TrackTargetByDistance extends Command {
-  private final double SETPOINT = 0, TIMEOUT=5;
+  private final double VISION_SETPOINT, TIMEOUT = 5;
   private VisionPIDSource.VisionTarget target;
   private VisionPIDController rotationPIDController;
   private PIDController distancePIDController;
@@ -32,6 +32,17 @@ public class TrackTargetByDistance extends Command {
     setTimeout(TIMEOUT);
     this.target = target;
     this.distanceSetpoint = distance;
+    switch (target) {
+    case kReflectorForward:
+      VISION_SETPOINT = RobotConstants.Sensors.FORWARD_REFLECTOR_SETPOINT;
+      break;
+    case kReflectorBackward:
+      VISION_SETPOINT = RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+      break;
+    default:
+      VISION_SETPOINT = RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+      break;
+    }
     this.rotationSettings = RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS;
     this.distanceSettings = RobotConstants.RobotPIDSettings.DRIVE_SETTINGS;
   }
@@ -41,10 +52,22 @@ public class TrackTargetByDistance extends Command {
     requires(Robot.driveTrain);
     setTimeout(TIMEOUT);
     this.target = target;
+    switch (target) {
+    case kReflectorForward:
+      VISION_SETPOINT = RobotConstants.Sensors.FORWARD_REFLECTOR_SETPOINT;
+      break;
+    case kReflectorBackward:
+      VISION_SETPOINT = RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+      break;
+    default:
+      VISION_SETPOINT = RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+      break;
+    }
     this.distanceSetpoint = distance;
     this.rotationSettings = rotationSettings;
     this.distanceSettings = distanceSetting;
   }
+
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
@@ -57,7 +80,7 @@ public class TrackTargetByDistance extends Command {
     rotationPIDController = new VisionPIDController(rotationSettings.getKP(), rotationSettings.getKI(),
         rotationSettings.getKD(), rotationPIDSource, (output) -> rotation = output);
     rotationPIDController.setAbsoluteTolerance(rotationSettings.getTolerance());
-    rotationPIDController.setSetpoint(this.SETPOINT);
+    rotationPIDController.setSetpoint(this.VISION_SETPOINT);
     rotationPIDController.setOutputRange(-1, 1);
     rotationPIDController.setInputRange(-1, 1);
     // pid controller for the y axis
@@ -88,7 +111,7 @@ public class TrackTargetByDistance extends Command {
     // returns true if the robot reached his target
     if (this.distancePIDController.onTarget())
       lastTimeNotOnTarget = Timer.getFPGATimestamp();
-    return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= distanceSettings.getWaitTime()||isTimedOut();
+    return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= distanceSettings.getWaitTime() || isTimedOut();
   }
 
   // Called once after isFinished returns true

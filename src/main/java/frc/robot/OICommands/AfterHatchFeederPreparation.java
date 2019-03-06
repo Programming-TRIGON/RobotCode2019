@@ -22,7 +22,6 @@ public class AfterHatchFeederPreparation extends CommandGroup {
   @Override
   protected void initialize(){
     //pay attention to the sequence:
-    RobotStates.setHasCargo(false);
     addSequential(new SetHatchLock(Value.kForward));
     addSequential(new ToggleDriveInverted());
     addSequential(new WaitCommand(1));

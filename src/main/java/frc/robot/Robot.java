@@ -7,6 +7,7 @@ import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
 import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -24,6 +25,7 @@ import frc.robot.Autonomous.testAuto;
 import frc.robot.CargoCollectorCommands.CollectCargo;
 import frc.robot.CargoCollectorCommands.PushCargo;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
+import frc.robot.Commands.ChangeCam;
 import frc.robot.Commands.CompressorStart;
 import frc.robot.Commands.CompressorStop;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
@@ -175,9 +177,6 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putData("Move lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
     
-    //SmartDashboard.putData("Set one eighty angel 0", new SetOneEightyAngle(-8));
-    //SmartDashboard.putData("Set one eighty angel 180", new SetOneEightyAngle(208));
-
     // Auto command tests
     SmartDashboard.putData("Test auto", new testAuto());
     SmartDashboard.putData("Turn 90", new OrientWithPID(Robot.driveTrain, RobotComponents.DriveTrain.GYRO, () -> 90.0,
@@ -198,7 +197,10 @@ public class Robot extends TimedRobot {
     dbc.addBoolean("Is Has Cargo", RobotStates::isHasCargo);
     dbc.addBoolean("Inverted Drive", RobotStates::isDriveInverted);
 
-    addTests();    
+    addTests();
+    
+    // CameraServer.getInstance().startAutomaticCapture();
+    SmartDashboard.putData(new ChangeCam());
   }
   
   @Override

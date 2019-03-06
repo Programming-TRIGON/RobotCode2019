@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 import frc.robot.Robot;
+import frc.robot.RobotConstants;
 import frc.robot.Vision.VisionPIDController;
 import frc.robot.Vision.VisionPIDSource;
 import frc.robot.Vision.VisionPIDSource.VisionDirectionType;
@@ -30,21 +31,33 @@ public class TrackVisionTarget extends Command {
   private PIDSettings distanceSettings;
   private final double ROTATION_SETPOINT;
   private final double DISTANCE_SETPOINT;
-/**
- * 
- * @param target target to follow
- * @param xbox an xbox controller to control the drivetrain
- * @param rotationSetpoint setpoint for the rotation PID
- * @param rotationSettings PIDSettings for rotation PID. WaitTime is used from this settings.
- * @param distanceSetpoint setpoint for the rotation PID
- * @param distanceSettings PIDSettings for rotation PID. WaitTime isn't used.
- */
-  public TrackVisionTarget(VisionPIDSource.VisionTarget target, XboxController xbox, double rotationSetpoint,
-  PIDSettings rotationSettings, double distanceSetpoint,PIDSettings distanceSettings) {
+
+  /**
+   * 
+   * @param target           target to follow
+   * @param xbox             an xbox controller to control the drivetrain
+   * @param rotationSetpoint setpoint for the rotation PID
+   * @param rotationSettings PIDSettings for rotation PID. WaitTime is used from
+   *                         this settings.
+   * @param distanceSetpoint setpoint for the rotation PID
+   * @param distanceSettings PIDSettings for rotation PID. WaitTime isn't used.
+   */
+  public TrackVisionTarget(VisionPIDSource.VisionTarget target, XboxController xbox, PIDSettings rotationSettings,
+      PIDSettings distanceSettings) {
     this.target = target;
     this.xbox = xbox;
-    DISTANCE_SETPOINT = distanceSetpoint;
-    ROTATION_SETPOINT = rotationSetpoint;
+    switch (target) {
+    case kReflectorForward:
+      ROTATION_SETPOINT = RobotConstants.Sensors.FORWARD_REFLECTOR_SETPOINT;
+      break;
+    case kReflectorBackward:
+      ROTATION_SETPOINT = RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+      break;
+    default:
+      ROTATION_SETPOINT = RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+      break;
+    }
+    DISTANCE_SETPOINT = RobotConstants.Sensors.VISION_DISTANCE_SETPOINT;
     this.rotationSettings = rotationSettings;
     this.distanceSettings = distanceSettings;
     requires(Robot.driveTrain);
@@ -53,22 +66,23 @@ public class TrackVisionTarget extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    // NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
+    // NetworkTable imageProcessingTable =
+    // NetworkTableInstance.getDefault().getTable("ImageProcessing");
     // NetworkTableEntry target = imageProcessingTable.getEntry("target");
     // target.setString(this.target.toString());
     // pid sources for distance and rotation
     VisionPIDSource rotationPIDSource = new VisionPIDSource(this.target, VisionDirectionType.x);
     VisionPIDSource distancePIDSource = new VisionPIDSource(this.target, VisionDirectionType.y);
     // pid controller for the rotation
-    rotationPIDController = new VisionPIDController(rotationSettings.getKP(), rotationSettings.getKI(), rotationSettings.getKD(),
-        rotationPIDSource, (output) -> rotation = output);
+    rotationPIDController = new VisionPIDController(rotationSettings.getKP(), rotationSettings.getKI(),
+        rotationSettings.getKD(), rotationPIDSource, (output) -> rotation = output);
     rotationPIDController.setAbsoluteTolerance(rotationSettings.getTolerance());
     rotationPIDController.setSetpoint(this.ROTATION_SETPOINT);
     rotationPIDController.setOutputRange(-1, 1);
     rotationPIDController.setInputRange(-1, 1);
     // pid controller for the distance
-    distancePIDController = new VisionPIDController(distanceSettings.getKP(), distanceSettings.getKI(), distanceSettings.getKD(),
-        distancePIDSource, (output) -> distance = output);
+    distancePIDController = new VisionPIDController(distanceSettings.getKP(), distanceSettings.getKI(),
+        distanceSettings.getKD(), distancePIDSource, (output) -> distance = output);
     distancePIDController.setAbsoluteTolerance(distanceSettings.getTolerance());
     distancePIDController.setSetpoint(this.DISTANCE_SETPOINT);
     distancePIDController.setOutputRange(-1, 1);

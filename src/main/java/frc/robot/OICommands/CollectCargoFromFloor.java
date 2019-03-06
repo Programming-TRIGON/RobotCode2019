@@ -30,8 +30,5 @@ public class CollectCargoFromFloor extends CommandGroup {
     addParallel(new SetLiftHeight(LiftHeight.kCargoCollection));
     /** collects the cargo */
     addSequential(new CollectCargo(this.COLLECTOR_POWER, this.HOLDER_POWER));
-    /** prepare the lift and the 180 subsystems to score */
-    addParallel(new SetLiftHeight(LiftHeight.kOneEightyCargoSafety));
-    addParallel(new SetOneEightyAngle(OneEightyAngle.kStraight));
   }
 }

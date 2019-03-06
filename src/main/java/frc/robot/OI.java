@@ -1,5 +1,8 @@
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -28,6 +31,11 @@ public class OI {
     Button driverButtonY, driverButtonA, driverButtonB, driverButtonX;
     Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, operatorStartButton, operatorButtonAxisRight, operatorButtonAxisLeft;
     POVButton operatorRightPOVButton, operatorLeftPOVButton; 
+
+    UsbCamera cam0, cam1;
+    UsbCamera[] cams = new UsbCamera[2];
+    int currentCam = 0;
+
     public OI() {
         // driver buttons
         this.driverButtonA = new JoystickButton(driverXbox, 1);
@@ -52,12 +60,18 @@ public class OI {
         this.operatorRightPOVButton = new POVButton(operatorXbox, 90);
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
 
+        cam0 = CameraServer.getInstance().startAutomaticCapture(0);
+        cam1 = CameraServer.getInstance().startAutomaticCapture(1);
+        cams[0] = cam0;
+        cams[1] = cam1;
+
+
         this.operatorButtonA.whenPressed(new SetOneEightyAngle(OneEightyAngle.kStraight));
         this.operatorButtonB.whenPressed(new SetOneEightyAngle(OneEightyAngle.kBack));
         this.operatorButtonY.whenPressed(new SetOneEightyAngle(OneEightyAngle.kTopStraight));
         this.operatorButtonX.whenPressed(new SetOneEightyAngle(OneEightyAngle.kTopBack));
-        this.operatorButtonRB.whenPressed(new ReachLiftHeight(LiftHeight.kOneEightyCargoSafety));
-        this.operatorButtonLB.whenPressed(new ReachLiftHeight(LiftHeight.kCargoCollection));
+        this.operatorButtonRB.whenPressed(new SetOneEightyAngle(OneEightyAngle.kCargoCollection));
+        //this.operatorButtonLB.whenPressed(new SetOneEightyAngle(OneEightyAngle.k));
         this.operatorButtonAxisLeft.whenPressed(new ReachLiftHeight(LiftHeight.kOneEightyCargoSafety));
         this.operatorButtonAxisRight.whenPressed(new ReachLiftHeight(LiftHeight.kCargoCollection));
 
@@ -79,10 +93,20 @@ public class OI {
         this.operatorLeftPOVButton.whileHeld(new SetHasCargo(false));
 
         this.operatorButtonA.whenPressed(new CollectCargoFromFloor());
-        //that ensure that the cargo collector would stop spinning 
-        //if CargoCollectCmdG would interapted or the drivers wont catch cargo  
-        this.operatorButtonA.whenPressed(new CollectCargo(0,0));  
+        this.operatorButtonA.whenPressed(new AfterCargoFloorPreparation());  
         
         this.operatorStartButton.whenPressed(new DefenceMode());*/   
     }
+
+	public void changeCam(int cam) {
+        NetworkTableInstance.getDefault().getTable("").getEntry("cameraSelection")
+        .setValue(cams[cam].getName());
+        currentCam = cam;
+	}
+
+	public void tooggleCam() {
+        NetworkTableInstance.getDefault().getTable("").getEntry("cameraSelection")
+        .setValue(cams[1-currentCam].getName());
+        currentCam = 1 - currentCam;
+	}
 }

@@ -18,23 +18,40 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
+import frc.robot.RobotConstants;
 import frc.robot.DrivingCommands.DriveArcadeWithPID;
 
 /** Drives to a given target using vision */
 public class DriveArcadeWithVision extends DriveArcadeWithPID {
   protected double lastTimeFound = 0;
 
-  public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource.VisionTarget target,
-      Supplier<Double> setpointSupplier, Supplier<Double> movementSupplier, PIDSettings PIDSettings) {
-    super(drivetrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), setpointSupplier,
-        movementSupplier, () -> false, PIDSettings, 2, false);
+
+  public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource.VisionTarget target, double movement,
+      PIDSettings PIDSettings) {
+
+    super(drivetrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), () -> {
+      switch (target) {
+      case kReflectorForward:
+        return (Double)RobotConstants.Sensors.FORWARD_REFLECTOR_SETPOINT;
+      case kReflectorBackward:
+        return (Double)RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+      default:
+        return (Double)RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+      }
+    }, () -> movement, PIDSettings, 2, false);
   }
+  public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource.VisionTarget target, Supplier<Double> movementSupplier,PIDSettings PIDSettings){
+    super(drivetrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), () -> {
+      switch (target) {
+      case kReflectorForward:
+        return (Double)RobotConstants.Sensors.FORWARD_REFLECTOR_SETPOINT;
+      case kReflectorBackward:
+        return (Double)RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+      default:
+        return (Double)RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+      }
+    }, movementSupplier, PIDSettings, 2, false);
 
-  public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource.VisionTarget target, double setpoint,
-      double movement, PIDSettings PIDSettings) {
-
-    super(drivetrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), () -> setpoint,
-        () -> movement, PIDSettings, 2, false);
   }
 
   @Override
@@ -49,9 +66,8 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
           if (rotate != 9999) {
             drivetrain.arcadeDrive(movementSupplier.get(), -rotate);
             lastTimeFound = Timer.getFPGATimestamp();
-          }
-          else
-            drivetrain.arcadeDrive(Robot.oi.driverXbox.getX(Hand.kLeft),Robot.oi.driverXbox.getY(Hand.kLeft));
+          } else
+            drivetrain.arcadeDrive(Robot.oi.driverXbox.getX(Hand.kLeft), Robot.oi.driverXbox.getY(Hand.kLeft));
         });
 
     rotationController.setAbsoluteTolerance(PIDSettings.getTolerance());

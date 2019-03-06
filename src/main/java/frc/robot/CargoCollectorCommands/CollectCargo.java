@@ -35,7 +35,6 @@ public class CollectCargo extends Command {
 
   @Override
   protected void end() {
-    RobotStates.setHasCargo(true);
     Robot.cargoCollector.setCollectorMotor(0);
     Robot.cargoCollector.setHolderMotors(0);
   }
