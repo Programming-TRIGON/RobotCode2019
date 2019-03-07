@@ -17,20 +17,21 @@ public class PushWhenLiftMoved extends CommandGroup {
    * "change his mind" if he dont want to score game piece in the middle heights right away
    */
   public PushWhenLiftMoved() {
+
+      if(RobotStates.isHasCargo())
+        addSequential(new PushCargo());
+      else
+        addSequential(new EjectHatch());
+    addSequential(new WaitCommand(1));
+    //lift will go down to 180 safe height to spin 
+    addParallel(new SetLiftHeight(LiftHeight.kOneEightySafety));
+    addSequential(new SetCargoFolderState(Value.kReverse));
   }
 
   @Override
   protected void initialize(){
     if(!RobotStates.isPushed()){
       RobotStates.setIsPushed(true);
-      if(RobotStates.isHasCargo())
-        addSequential(new PushCargo());
-      else
-        addSequential(new EjectHatch());
     }
-    addSequential(new WaitCommand(1));
-    //lift will go down to 180 safe height to spin 
-    addParallel(new SetLiftHeight(LiftHeight.kOneEightySafety));
-    addSequential(new SetCargoFolderState(Value.kReverse));
   }
 }

@@ -205,17 +205,22 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(new ChangeCam());
     RobotStates.oneEightyOverride=false;
     RobotStates.LiftOverride=false;    
+
+    Scheduler.getInstance().add(new SetHatchLock(Value.kReverse));
   }
   
   @Override
   public void robotPeriodic() {
     Robot.dbc.update();
-    SmartDashboard.putData("Scheduler", Scheduler.getInstance());
     if(Robot.lift.isAtBottom())
       RobotComponents.Lift.ENCODER.reset();
     RobotStates.setLiftHeight(Robot.lift.getHeight());
     RobotStates.setHasCargo(Robot.cargoCollector.isHoldingBall());
+    SmartDashboard.putNumber("lift motor 1 current (A)", RobotComponents.Lift.LIFT_LEFT_M.getOutputCurrent());
+    SmartDashboard.putNumber("lift motor 2 current (A)", RobotComponents.Lift.LIFT_RIGHT_M.getOutputCurrent());
+
   }
+
 
   @Override
   public void disabledPeriodic() {
@@ -224,6 +229,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    Scheduler.getInstance().add(new SetHatchLock(Value.kForward));
     m_autoSelected = auto_chooser.getSelected();
     System.out.println("Auto selected: " + m_autoSelected);
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
@@ -240,8 +246,8 @@ public class Robot extends TimedRobot {
       }
     Scheduler.getInstance().add(autoCommand);
 
-    Scheduler.getInstance().add(new SetLiftOverride());
-    Scheduler.getInstance().add(new SetOneEightyOverride());
+    // Scheduler.getInstance().add(new SetLiftOverride());
+    // Scheduler.getInstance().add(new SetOneEightyOverride());
   }
 
   @Override
@@ -262,6 +268,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    SmartDashboard.putData("Scheduler", Scheduler.getInstance());
   }
 
   @Override

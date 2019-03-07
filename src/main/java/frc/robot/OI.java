@@ -23,6 +23,7 @@ import frc.robot.HatchHolderCommands.EjectHatch;
 import frc.robot.HatchHolderCommands.SetHatchLock;
 import frc.robot.LiftCommands.LiftSwitchOverride;
 import frc.robot.LiftCommands.ReachLiftHeight;
+import frc.robot.LiftCommands.ResetLift;
 import frc.robot.LiftCommands.SetLiftOverride;
 import frc.robot.OICommands.AfterCargoFloorPreparation;
 import frc.robot.OICommands.AfterHatchFeederPreparation;
@@ -46,6 +47,8 @@ public class OI {
     UsbCamera cam0, cam1;
     UsbCamera[] cams = new UsbCamera[2];
     int currentCam = 0;
+    private POVButton operatorBottomPOVButton;
+    private POVButton operatorTopPOVButton;
 
     public OI() {
         // driver buttons
@@ -68,6 +71,8 @@ public class OI {
         this.operatorButtonAxisRight = new JoystickButton(operatorXbox, 10);
         this.operatorRightPOVButton = new POVButton(operatorXbox, 90);
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
+        this.operatorTopPOVButton = new POVButton(operatorXbox, 0);
+        this.operatorBottomPOVButton = new POVButton(operatorXbox, 180);
 
         cam0 = CameraServer.getInstance().startAutomaticCapture(0);
         cam1 = CameraServer.getInstance().startAutomaticCapture(1);
@@ -109,22 +114,27 @@ public class OI {
         //-------------------- OPERATOR --------------------------------------------
 
         this.operatorButtonRB.whenPressed(new ReachCargoShipHeight());
-        this.operatorButtonLB.whenPressed(new ReachLiftHeight(LiftHeight.kLiftBottomHatch));//make cmdG like reachcargoshipheight
+        this.operatorButtonLB.whenPressed(new CollectHatchFromFeeder());//make cmdG like reachcargoshipheight
 
         this.operatorButtonA.whenPressed(new CollectCargoFromFloor());        
         this.operatorButtonA.whenReleased(new AfterCargoFloorPreparation());
         
-        //this.operatorButtonX.whileHeld(new CollectCargo(0, 0));// use hatch feeder cmdG
+        this.operatorButtonX.whenPressed(new CollectHatchFromFeeder());
+        this.operatorButtonX.whenPressed(new AfterHatchFeederPreparation());
 
         this.operatorButtonY.whenPressed(new SetCargoFolderState(Value.kForward));//might change that btn
 
         this.operatorLeftPOVButton.whenPressed(new SetOneEightyAngle(OneEightyAngle.kBack));
         this.operatorRightPOVButton.whenPressed(new SetOneEightyAngle(OneEightyAngle.kStraight));
+
+        operatorTopPOVButton.whenPressed(new ReachLiftHeight(LiftHeight.kRocketMiddleHatch));
+        operatorBottomPOVButton.whenPressed(new ReachLiftHeight(LiftHeight.kLiftBottomHatch));
+
         
         this.operatorButtonB.whenPressed(new SetHatchLock(Value.kReverse));
         this.operatorButtonB.whenReleased(new SetHatchLock(Value.kForward));
 
-        operatorStartButton.whenPressed(new DefenceMode());
+        operatorStartButton.whenPressed(new ResetLift());
 
         //this.operatorButtonAxisRight.whenPressed(new SetOneEightyOverride());
         //this.operatorButtonAxisLeft.whenPressed(new SetLiftOverride());

@@ -1,18 +1,26 @@
 package frc.robot.Commands;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.RobotStates;
 import frc.robot.RobotConstants.LiftHeight;
 
 public class SetHeightIndex extends Command {
   LiftHeight height;
+  Supplier<LiftHeight> heightSupplier;
   public SetHeightIndex(LiftHeight height) {
     this.height = height;
+  }
+  public SetHeightIndex(Supplier<LiftHeight> height) {
+    this.heightSupplier = height;
   }
 
   @Override
   protected void initialize() {
     //set height index acorrding to height 
+    if(heightSupplier!=null)
+      height = heightSupplier.get();
     switch (height) {
       case kLiftBottomHatch:
         RobotStates.setHeightIndex(0);

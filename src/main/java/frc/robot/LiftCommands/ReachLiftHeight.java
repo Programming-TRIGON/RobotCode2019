@@ -2,6 +2,8 @@ package frc.robot.LiftCommands;
 
 import java.util.function.Supplier;
 
+import javax.swing.Timer;
+
 import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.PIDController;
@@ -17,22 +19,29 @@ import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.RobotPIDSettings;
 
 public class ReachLiftHeight extends Command {
-  private Supplier<Double> height;
+  private Supplier<LiftHeight> height;
   private PIDController pidController;
   private PIDOutput pidOutput;
   private PIDSettings pidSettings;
 
+  private double lastTimeNotOn = 0;
+
   /** sets the height of the lift depending on the situation */
   public ReachLiftHeight(LiftHeight finishingHeight) {
     requires(Robot.lift);
-    this.height = () -> finishingHeight.key;
+    this.height = () -> finishingHeight;
     this.pidSettings = RobotConstants.RobotPIDSettings.LIFT_HEIGHT_SETTINGS;
   }
 
   public ReachLiftHeight(LiftHeight finishingHeight, PIDSettings pidSettings) {
     requires(Robot.lift);
-    this.height = () -> finishingHeight.key;
+    this.height = () -> finishingHeight;
     this.pidSettings = pidSettings;
+  }
+  public ReachLiftHeight(Supplier<LiftHeight> finishingHeight) {
+    requires(Robot.lift);
+    this.height =  finishingHeight;
+    this.pidSettings = RobotConstants.RobotPIDSettings.LIFT_HEIGHT_SETTINGS;
   }
 
   @Override
@@ -48,9 +57,9 @@ public class ReachLiftHeight extends Command {
       this.pidSettings.getKI(),
       this.pidSettings.getKD(),
       Robot.lift.getEncoder(), this.pidOutput);
-    pidController.setSetpoint(height.get());
+    pidController.setSetpoint(height.get().key);
     pidController.setAbsoluteTolerance(this.pidSettings.getTolerance());
-    pidController.setOutputRange(-0.25, 1); // was 0.5,1
+    pidController.setOutputRange(-0.5, 1); // was 0.5,1
     pidController.enable();
   }
 
@@ -63,6 +72,12 @@ public class ReachLiftHeight extends Command {
 
   @Override
   protected boolean isFinished() {
+    // if(!this.pidController.onTarget())
+    // {   
+    //    this.lastTimeNotOn = edu.wpi.first.wpilibj.Timer.getFPGATimestamp();
+    // }
+    // if((edu.wpi.first.wpilibj.Timer.getFPGATimestamp() - this.lastTimeNotOn ) >= this.pidSettings.getWaitTime())
+    //     return false; ///Aahahahahahahahahahahahaha
     return RobotStates.isLiftOverride();
   }
 

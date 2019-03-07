@@ -12,17 +12,20 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.LiftCommands.ReachLiftHeight;
+import frc.robot.OneEightyCommands.SetOneEightyAngle;
 import frc.robot.RobotConstants.LiftHeight;
+import frc.robot.RobotConstants.OneEightyAngle;
 
 public class ReachCargoShipHeight extends CommandGroup {
   /**
-   * Add your docs here.
+   * this shit cmdG made in distric #1
    */
   public ReachCargoShipHeight() {
     addSequential(new SetCargoFolderState(Value.kReverse));
-    addSequential(new WaitCommand(0.2));
+    addSequential(new WaitCommand(0.4));
     addParallel(new ReachLiftHeight(LiftHeight.kRocketMiddleCargo));
-    addSequential(new WaitCommand(0.8));
+    addParallel(new SetOneEightyAngle(OneEightyAngle.kCargoShip));
+    addSequential(new WaitCommand(0.45));
     addSequential(new SetCargoFolderState(Value.kForward));
   }
 }

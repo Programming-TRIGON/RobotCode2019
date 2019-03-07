@@ -18,20 +18,29 @@ public class PrepareToScore extends CommandGroup {
    */
   PrepareToScoreHeight height;
   boolean increaseHeight;
+  LiftHeight heightToSet = LiftHeight.kOneEightySafety;
+  OneEightyAngle angleToSet = OneEightyAngle.kStraight;
+  PrepareToScoreHeight prepareToScoreHeight;
 
   public PrepareToScore(PrepareToScoreHeight height) {
     this.height = height;
+  addSequential(new SetCargoFolderState(Value.kForward, ()->heightToSet.equals(LiftHeight.kLiftBottomHatch)));
+  addParallel(new SetLiftHeight(()->heightToSet));
+  addSequential(new WaitCommand(0.3));
+  addParallel(new SetOneEightyAngle(()->angleToSet));
   }
 
   public PrepareToScore(boolean increaseHeight) {
     this.increaseHeight = increaseHeight;
+    
+    addSequential(new SetCargoFolderState(Value.kForward, ()->heightToSet.equals(LiftHeight.kLiftBottomHatch)));
+  addParallel(new SetLiftHeight(()->heightToSet));
+  addSequential(new WaitCommand(0.3));
+  addParallel(new SetOneEightyAngle(()->angleToSet));
   }
 
   @Override
   protected void initialize(){
-    LiftHeight heightToSet = LiftHeight.kOneEightySafety;
-    OneEightyAngle angleToSet = OneEightyAngle.kStraight;
-    PrepareToScoreHeight prepareToScoreHeight;
 
     if(RobotStates.getHeightIndex()==-1)
       RobotStates.setHeightIndex(1);
@@ -85,12 +94,6 @@ public class PrepareToScore extends CommandGroup {
           heightToSet = LiftHeight.kCargoShip;
         else 
           heightToSet = LiftHeight.kLiftBottomHatch;
-    }
-    
-    if(heightToSet.equals(LiftHeight.kLiftBottomHatch))
-      addSequential(new SetCargoFolderState(Value.kForward));
-    addParallel(new SetLiftHeight(heightToSet));
-    addSequential(new WaitCommand(0.3));
-    addParallel(new SetOneEightyAngle(angleToSet));
+    } 
   }
 }

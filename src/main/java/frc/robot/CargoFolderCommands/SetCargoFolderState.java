@@ -1,5 +1,7 @@
 package frc.robot.CargoFolderCommands;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -8,15 +10,22 @@ import frc.robot.Robot;
 
 public class SetCargoFolderState extends Command {
   private Value folderState;
+  private Supplier<Boolean> run;
 
   public SetCargoFolderState(Value folderState) {
     requires(Robot.cargoFolder);
     this.folderState = folderState;
   }
+  public SetCargoFolderState(Value folderState,Supplier<Boolean> run) {
+    requires(Robot.cargoFolder);
+    this.folderState = folderState;
+    this.run = run;
+  }
 
   @Override
   protected void initialize() {
     // Folds/unfolds based on the fold parameter.
+    if(run==null||run.get()==false);
     Robot.cargoFolder.setFold(this.folderState);
   }
 

@@ -24,6 +24,9 @@ public class SetOneEightyAngle extends CommandGroup {
   }
 
   public SetOneEightyAngle(Supplier<OneEightyAngle> angleSupplier) {
-    this(angleSupplier.get());
+    addSequential(new SetOneEightyDesireAngle(angleSupplier));
+    addSequential(new ReachOneEightyAngle(angleSupplier));
+    addSequential(new StabilizeOneEightyAngle(angleSupplier));
+    addSequential(new SetOneEightyOverride());
   }
 }

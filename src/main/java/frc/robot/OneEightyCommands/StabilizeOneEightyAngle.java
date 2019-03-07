@@ -1,5 +1,7 @@
 package frc.robot.OneEightyCommands;
 
+import java.util.function.Supplier;
+
 import com.spikes2212.utils.PIDSettings;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
@@ -12,7 +14,7 @@ public class StabilizeOneEightyAngle extends Command {
   private PIDController pidController;
   private double angle;
   private PIDSettings pidSettings;
-
+  private Supplier<OneEightyAngle> angleSupplier;
   /**
    * @param angle the angle the SS seeks
    */
@@ -25,6 +27,11 @@ public class StabilizeOneEightyAngle extends Command {
   public StabilizeOneEightyAngle(RobotConstants.OneEightyAngle angle) {
     requires(Robot.oneEighty);
     this.angle = angle.key;
+    this.pidSettings = RobotConstants.RobotPIDSettings.ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS;
+  }
+  public StabilizeOneEightyAngle(Supplier<OneEightyAngle> angle) {
+    requires(Robot.oneEighty);
+    this.angleSupplier = angle;
     this.pidSettings = RobotConstants.RobotPIDSettings.ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS;
   }
 
@@ -52,6 +59,7 @@ public class StabilizeOneEightyAngle extends Command {
     pidController.close();
     Robot.oneEighty.setSafeControl(true);
     Robot.oneEighty.move(0);
+    System.out.println("one eighty interapted!");
   }
 
   @Override

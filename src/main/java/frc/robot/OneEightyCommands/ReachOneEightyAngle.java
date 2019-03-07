@@ -1,5 +1,7 @@
 package frc.robot.OneEightyCommands;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotStates;
@@ -7,10 +9,14 @@ import frc.robot.RobotConstants.OneEightyAngle;
 
 public class ReachOneEightyAngle extends Command {
   private double angle, power;
+  private Supplier<OneEightyAngle> angleSupplier;
 
   public ReachOneEightyAngle(double angle) {
     requires(Robot.oneEighty);
     this.angle = angle;
+  }
+  public ReachOneEightyAngle(Supplier<OneEightyAngle> desiredAngle) {
+    this.angleSupplier = desiredAngle;
   }
 
   public ReachOneEightyAngle(OneEightyAngle angle) {
@@ -21,6 +27,8 @@ public class ReachOneEightyAngle extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    if(this.angleSupplier!=null)
+      this.angle = angleSupplier.get().key;
     if (this.angle > Robot.oneEighty.getAngle())
       power = 0.5;
     else
