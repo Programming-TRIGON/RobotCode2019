@@ -204,9 +204,7 @@ public class Robot extends TimedRobot {
     //CameraServer.getInstance().startAutomaticCapture();
     SmartDashboard.putData(new ChangeCam());
     RobotStates.oneEightyOverride=false;
-    RobotStates.LiftOverride=false;
-
-
+    RobotStates.LiftOverride=false;    
   }
   
   @Override
