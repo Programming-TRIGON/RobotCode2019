@@ -198,6 +198,8 @@ public class Robot extends TimedRobot {
     
     // CameraServer.getInstance().startAutomaticCapture();
     SmartDashboard.putData(new ChangeCam());
+
+    
   }
   
   @Override
