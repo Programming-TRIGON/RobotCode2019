@@ -77,7 +77,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     compressor = new Compressor(1);
-    compressor.start();
+    compressor.stop();
 
     auto_chooser.setDefaultOption("Default Auto", left);
     auto_chooser.addOption("My Auto", right);

@@ -13,7 +13,7 @@ public class Lift extends JoystickOverridableSubsystem {
   private boolean safeControl = true;
   double motorRamp = 0.25;
 
-  final int peakCurrentLimit = 20, continuousCurrentLimit = 2;
+  final int peakCurrentLimit = 20, continuousCurrentLimit = 3;
 
   public Lift(TalonSRX rightMotor, TalonSRX leftMotor, DigitalInput topwSwitch, DigitalInput bottomSwitch,
       Encoder encoder) {
@@ -24,15 +24,16 @@ public class Lift extends JoystickOverridableSubsystem {
     this.encoder = encoder;
     this.rightMotor.setInverted(false);
     this.leftMotor.setInverted(false);
-    this.rightMotor.setNeutralMode(NeutralMode.Coast);
-    this.leftMotor.setNeutralMode(NeutralMode.Coast);
+    this.rightMotor.setNeutralMode(NeutralMode.Brake);
+    this.leftMotor.setNeutralMode(NeutralMode.Brake);
     leftMotor.configOpenloopRamp(motorRamp);
     rightMotor.configOpenloopRamp(motorRamp);
 
     leftMotor.configContinuousCurrentLimit(continuousCurrentLimit);
     rightMotor.configContinuousCurrentLimit(continuousCurrentLimit);
 
-    
+    rightMotor.configPeakCurrentDuration(2000);
+    leftMotor.configPeakCurrentDuration(2000);
 
     leftMotor.configPeakCurrentLimit(peakCurrentLimit);
     rightMotor.configPeakCurrentLimit(peakCurrentLimit);
