@@ -9,6 +9,7 @@ import frc.robot.CargoCollectorCommands.PushCargo;
 import frc.robot.HatchHolderCommands.EjectHatch;
 import frc.robot.LiftCommands.SetHeightIndex;
 import frc.robot.OneEightyCommands.OneEightyDefaultCommand;
+import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
 
 public class Push extends CommandGroup {
   /**
@@ -30,12 +31,12 @@ public class Push extends CommandGroup {
         addParallel(new SetHeightIndex(LiftHeight.kRocketMiddleCargo));
         addSequential(new WaitCommand(0.5));
         OneEightyAngle angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kBack : OneEightyAngle.kStraight; 
-        addParallel(new OneEightyDefaultCommand(angleToSet));
+        addParallel(new SetOneEightyDesireAngle(angleToSet));
       }else{
         addParallel(new SetHeightIndex(LiftHeight.kRocketMiddleHatch));
         addSequential(new WaitCommand(0.5));
         OneEightyAngle angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack;
-        addParallel(new OneEightyDefaultCommand(angleToSet));
+        addParallel(new SetOneEightyDesireAngle(angleToSet));
       }
     } else {
       RobotStates.setIsPushed(true); 

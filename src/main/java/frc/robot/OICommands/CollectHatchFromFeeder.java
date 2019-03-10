@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.LiftCommands.SetHeightIndex;
-import frc.robot.OneEightyCommands.OneEightyDefaultCommand;
+import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
 
 /**
  * Sets the 180 and lift to feeder height and direction and opens the hatch collector
@@ -12,7 +12,7 @@ import frc.robot.OneEightyCommands.OneEightyDefaultCommand;
 public class CollectHatchFromFeeder extends CommandGroup {
 
     public CollectHatchFromFeeder() {
-        addParallel(new OneEightyDefaultCommand(OneEightyAngle.kStraight));
+        addParallel(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));
         addSequential(new SetHeightIndex(LiftHeight.kLiftBottomHatch));
         
         /*addSequential(new SetHatchLock(Value.kReverse));

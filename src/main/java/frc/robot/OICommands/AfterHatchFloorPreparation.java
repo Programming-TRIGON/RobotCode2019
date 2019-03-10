@@ -17,7 +17,7 @@ import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
 import frc.robot.HatchHolderCommands.SetHatchLock;
 import frc.robot.LiftCommands.SetHeightIndex;
-import frc.robot.OneEightyCommands.OneEightyDefaultCommand;
+import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 
@@ -31,8 +31,7 @@ public class AfterHatchFloorPreparation extends CommandGroup {
     addParallel(new SetHeightIndex(LiftHeight.kOneEightyCargoSafety));
     addSequential(new WaitCommand(0.3));
     Supplier<OneEightyAngle> angleToSet = ()-> RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack; 
-    
-    addParallel(new OneEightyDefaultCommand(angleToSet));
+    addParallel(new SetOneEightyDesireAngle(angleToSet));
     addSequential(new SetCargoFolderState(Value.kReverse));
   }
 }
