@@ -13,18 +13,17 @@ import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
 /** collects cargo from the floor */
 
 public class CollectCargoFromFloor extends CommandGroup {
-  double COLLECTOR_POWER = 0.75;
+  double COLLECTOR_POWER = 0.8;
   double HOLDER_POWER = 0.6;
 
   public CollectCargoFromFloor() {
-
     /** starts by unfolding the cargo collecter */
     addSequential(new SetCargoFolderState(Value.kReverse));
     /** turns to the required angle */
-    addParallel(new SetOneEightyDesireAngle(OneEightyAngle.kCargoCollection));
+    addSequential(new SetOneEightyDesireAngle(OneEightyAngle.kCargoCollection));
     addSequential(new WaitCommand(0.3));
     /** set lift height to bottom in order to collect cargo */
-    addParallel(new SetHeightIndex(LiftHeight.kCargoCollection));
+    addSequential(new SetHeightIndex(LiftHeight.kCargoCollection));
     /** collects the cargo */
     addSequential(new CollectCargo(this.COLLECTOR_POWER, this.HOLDER_POWER));
   }

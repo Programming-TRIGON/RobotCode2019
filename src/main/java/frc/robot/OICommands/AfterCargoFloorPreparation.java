@@ -1,18 +1,8 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.OICommands;
-
-import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
-import frc.robot.RobotStates;
 import frc.robot.CargoCollectorCommands.CollectCargo;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.LiftCommands.SetHeightIndex;
@@ -27,10 +17,9 @@ public class AfterCargoFloorPreparation extends CommandGroup {
   public AfterCargoFloorPreparation() {
     addSequential(new CollectCargo(0,0,false), 0.05);
     /** prepare the lift and the 180 subsystems to score */
-    addParallel(new SetHeightIndex(LiftHeight.kOneEightyCargoSafety));
+    addSequential(new SetHeightIndex(LiftHeight.kOneEightyCargoSafety));
     addSequential(new WaitCommand(0.3));
-    Supplier<OneEightyAngle> angleToSet = ()-> RobotStates.isDriveInverted() ? OneEightyAngle.kBack : OneEightyAngle.kStraight; 
-    addParallel(new SetOneEightyDesireAngle(angleToSet));
+    addSequential(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));
     addSequential(new SetCargoFolderState(Value.kForward));
   }
 }

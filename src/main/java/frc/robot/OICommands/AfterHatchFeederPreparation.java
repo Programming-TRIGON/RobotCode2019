@@ -16,7 +16,7 @@ public class AfterHatchFeederPreparation extends CommandGroup {
    */
   public AfterHatchFeederPreparation() {
     addSequential(new SetHatchLock(Value.kForward));
-    addSequential(new WaitCommand(0.3));
+    addSequential(new WaitCommand(0.85));
     addSequential(new SetHeightIndex(LiftHeight.kOneEightySafety));
     addSequential(new WaitCommand(0.3));
     addParallel(new SetCargoFolderState(Value.kForward));
