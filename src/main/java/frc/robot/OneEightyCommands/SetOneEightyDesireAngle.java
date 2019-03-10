@@ -23,4 +23,5 @@ public class SetOneEightyDesireAngle extends InstantCommand {
   @Override
   protected void initialize() {
       RobotStates.setDesireOneEightyAngle(this.angleSupplier.get());
+  }
 }
