@@ -20,6 +20,7 @@ import frc.robot.HatchHolderCommands.EjectHatch;
 import frc.robot.HatchHolderCommands.SetHatchLock;
 import frc.robot.LiftCommands.ReachLiftHeight;
 import frc.robot.LiftCommands.ResetLift;
+import frc.robot.LiftCommands.SetHeightIndex;
 import frc.robot.OICommands.AfterCargoFloorPreparation;
 import frc.robot.OICommands.AfterHatchFeederPreparation;
 import frc.robot.OICommands.CollectCargoFromFloor;
@@ -117,8 +118,8 @@ public class OI {
         this.operatorLeftPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kBack));
         this.operatorRightPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));
 
-        operatorTopPOVButton.whenPressed(new ReachLiftHeight(LiftHeight.kRocketMiddleHatch));
-        operatorBottomPOVButton.whenPressed(new ReachLiftHeight(LiftHeight.kLiftBottomHatch));
+        operatorTopPOVButton.whenPressed(new SetHeightIndex(LiftHeight.kRocketMiddleHatch));
+        operatorBottomPOVButton.whenPressed(new SetHeightIndex(LiftHeight.kLiftBottomHatch));
 
         
         this.operatorButtonB.whenPressed(new SetHatchLock(Value.kReverse));
