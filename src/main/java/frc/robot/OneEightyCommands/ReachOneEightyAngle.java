@@ -4,7 +4,6 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotStates;
 import frc.robot.RobotConstants.OneEightyAngle;
 
 public class ReachOneEightyAngle extends Command {
@@ -23,7 +22,6 @@ public class ReachOneEightyAngle extends Command {
     this.angle = angle.key;
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     if (this.angle > Robot.oneEighty.getAngle())
@@ -32,27 +30,22 @@ public class ReachOneEightyAngle extends Command {
     power = -0.75;
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     Robot.oneEighty.setOneEighty(this.power);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     double currentAngle = Robot.oneEighty.getAngle();
     return ((currentAngle > angle - 7) && (currentAngle < angle + 7)); //|| RobotStates.isOneEightyOverride();
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
     Robot.oneEighty.setOneEighty(0);
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
     end();
