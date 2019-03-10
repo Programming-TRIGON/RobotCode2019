@@ -7,7 +7,7 @@ import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
 import frc.robot.LiftCommands.SetHeightIndex;
-import frc.robot.OneEightyCommands.SetOneEightyAngle;
+import frc.robot.OneEightyCommands.OneEightyDefaultCommand;
 
 /**
  * a command group for collecting hatch from the floor
@@ -17,7 +17,7 @@ public class CollectHatchFromFloor extends CommandGroup {
     public CollectHatchFromFloor() {
       addSequential(new SetHatchCollectorState(Value.kReverse));
       addSequential(new WaitCommand(0.7));
-      addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));    
+      addParallel(new OneEightyDefaultCommand(RobotConstants.OneEightyAngle.kStraight));    
       addSequential(new WaitCommand(0.7));    
       addParallel(new SetHeightIndex(LiftHeight.kHatchCollection));
       // addSequential(new TrackVisionTarget(VisionTarget.kHatch, Robot.oi.driverXbox,

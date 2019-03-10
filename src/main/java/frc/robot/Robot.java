@@ -39,7 +39,7 @@ import frc.robot.HatchHolderCommands.SetHatchEject;
 import frc.robot.HatchHolderCommands.SetHatchLock;
 import frc.robot.LiftCommands.LiftDefaultCommand;
 import frc.robot.LiftCommands.SetLiftOverride;
-import frc.robot.OneEightyCommands.SetOneEightyAngle;
+import frc.robot.OneEightyCommands.OneEightyDefaultCommand;
 import frc.robot.OneEightyCommands.SetOneEightyOverride;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.CargoFolder;
@@ -285,7 +285,7 @@ public class Robot extends TimedRobot {
     testsChooser.addOption("cargoCollection", new CollectCargo(0.8, 0.8));
 
     testsChooser.addOption("Lift", new LiftDefaultCommand(LiftHeight.kRocketMiddleCargo));
-    testsChooser.addOption("One Eighty", new SetOneEightyAngle(OneEightyAngle.kStraight)); //make index go 1!!!
+    testsChooser.addOption("One Eighty", new OneEightyDefaultCommand(OneEightyAngle.kStraight)); //make index go 1!!!
 
     testsChooser.addOption("hatchEjectOn", new SetHatchEject(Value.kForward));
     testsChooser.addOption("hatchEjectOff", new SetHatchEject(Value.kReverse));
