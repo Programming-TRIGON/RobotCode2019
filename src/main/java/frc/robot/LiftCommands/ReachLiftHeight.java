@@ -23,6 +23,7 @@ public class ReachLiftHeight extends Command {
   private PIDController pidController;
   private PIDOutput pidOutput;
   private PIDSettings pidSettings;
+  private double setpoint;
 
   private double lastTimeNotOn = 0;
 
@@ -57,7 +58,8 @@ public class ReachLiftHeight extends Command {
       this.pidSettings.getKI(),
       this.pidSettings.getKD(),
       Robot.lift.getEncoder(), this.pidOutput);
-    pidController.setSetpoint(height.get().key);
+    this.setpoint = height.get().key;
+    pidController.setSetpoint(setpoint);
     pidController.setAbsoluteTolerance(this.pidSettings.getTolerance());
     pidController.setOutputRange(-0.5, 1); // was 0.5,1
     pidController.enable();
@@ -68,6 +70,11 @@ public class ReachLiftHeight extends Command {
   protected void execute() {
     // if (Robot.lift.getHeight() <= RobotConstants.LiftHeight.kCargoFolderSafty.key)
     //   Robot.cargoFolder.setFold(Value.kForward);
+    double newSetpoint = height.get().key;
+    if(newSetpoint!= setpoint){
+      pidController.setSetpoint(newSetpoint);
+      setpoint = newSetpoint;
+    }
   }
 
   @Override
