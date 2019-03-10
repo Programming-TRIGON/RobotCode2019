@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
+import frc.robot.RobotConstants.PrepareToScoreHeight;
 import frc.robot.Vision.DriveArcadeWithVision;
 import frc.robot.Vision.VisionPIDSource.VisionTarget;
 import frc.robot.CargoCollectorCommands.CollectCargo;
@@ -25,15 +26,21 @@ import frc.robot.DrivingCommands.ToggleDriveInverted;
 import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
 import frc.robot.HatchHolderCommands.EjectHatch;
 import frc.robot.HatchHolderCommands.SetHatchLock;
+import frc.robot.LiftCommands.LiftSwitchOverride;
 import frc.robot.LiftCommands.ReachLiftHeight;
 import frc.robot.LiftCommands.ResetLift;
 import frc.robot.LiftCommands.SetHeightIndex;
+import frc.robot.LiftCommands.SetLiftOverride;
 import frc.robot.OICommands.AfterCargoFloorPreparation;
 import frc.robot.OICommands.AfterHatchFeederPreparation;
 import frc.robot.OICommands.CollectCargoFromFloor;
 import frc.robot.OICommands.CollectHatchFromFeeder;
 import frc.robot.OICommands.CollectHatchFromFloor;
+import frc.robot.OICommands.DefenceMode;
+import frc.robot.OICommands.PrepareToScore;
+import frc.robot.OneEightyCommands.OneEightyToggleOverride;
 import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
+import frc.robot.OneEightyCommands.SetOneEightyOverride;
 
 public class OI {
     public XboxController operatorXbox = new XboxController(0);
@@ -77,27 +84,34 @@ public class OI {
         cams[0] = cam0;
         cams[1] = cam1;
 
-        /*this.operatorButtonB.whenPressed(new Push());
-        this.operatorButtonB.whenReleased(new PushWhenLiftMoved());
+        //-------------------- DRIVER --------------------------------------------
+        driverButtonB.whenPressed(new DriveArcadeWithVision(Robot.driveTrain, VisionTarget.kReflectorForward, () -> this.driverXbox.getY(Hand.kLeft), 
+        RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS));
+        driverButtonB.whenReleased(new CancelCommand(() -> Robot.driveTrain.getCurrentCommand()));
 
+        this.driverButtonA.whenPressed(new ToggleDriveInverted()); 
+
+        //-------------------- OPERATOR --------------------------------------------
         this.operatorButtonY.whenPressed(new CollectHatchFromFeeder());
         this.operatorButtonY.whenReleased(new AfterHatchFeederPreparation());
 
         this.operatorButtonRB.whenPressed(new PrepareToScore(true));  
         this.operatorButtonLB.whenPressed(new PrepareToScore(false));
         this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip)); 
+        this.operatorButtonB.whenPressed(new PrepareToScore(PrepareToScoreHeight.kMedium));
 
         this.operatorButtonAxisRight.whenPressed(new OneEightyToggleOverride());
         this.operatorButtonAxisLeft.whenPressed(new LiftSwitchOverride());
 
-        this.operatorRightPOVButton.whileHeld(new SetHasCargo(true)); 
-        this.operatorLeftPOVButton.whileHeld(new SetHasCargo(false));
+        this.operatorLeftPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kBack));
+        this.operatorRightPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));
 
         this.operatorButtonA.whenPressed(new CollectCargoFromFloor());
         this.operatorButtonA.whenReleased(new AfterCargoFloorPreparation());  
         
-        this.operatorStartButton.whenPressed(new DefenceMode());*/
+        this.operatorStartButton.whenPressed(new DefenceMode());
         
+        /*
         //-------------------- DRIVER --------------------------------------------
         
         this.driverButtonLB.whenPressed(new EjectHatch());
@@ -138,8 +152,9 @@ public class OI {
 
         operatorStartButton.whenPressed(new ResetLift());
 
-        //this.operatorButtonAxisRight.whenPressed(new SetOneEightyOverride());
-        //this.operatorButtonAxisLeft.whenPressed(new SetLiftOverride());
+        this.operatorButtonAxisRight.whenPressed(new SetOneEightyOverride());
+        this.operatorButtonAxisLeft.whenPressed(new SetLiftOverride());
+        */
     }
 
 	public void changeCam(int cam) {
