@@ -1,18 +1,25 @@
 package frc.robot;
 
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
+
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
+import frc.robot.Vision.DriveArcadeWithVision;
+import frc.robot.Vision.VisionPIDSource.VisionTarget;
 import frc.robot.CargoCollectorCommands.CollectCargo;
 import frc.robot.CargoCollectorCommands.PushCargo;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
+import frc.robot.Commands.CancelCommand;
 import frc.robot.Commands.ReachCargoShipHeight;
 import frc.robot.DrivingCommands.ToggleDriveInverted;
 import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
@@ -97,11 +104,15 @@ public class OI {
         this.driverButtonRB.whenPressed(new PushCargo());
         this.driverButtonA.whenPressed(new ToggleDriveInverted()); 
 
-        driverButtonB.whenPressed(new CollectHatchFromFloor());
-        driverButtonB.whenReleased(new SetHatchCollectorState(Value.kForward));//should be cmdG?
+        // driverButtonB.whenPressed(new CollectHatchFromFloor());
+        // driverButtonB.whenReleased(new SetHatchCollectorState(Value.kForward));//should be cmdG?
 
         driverButtonY.whileHeld(new CollectCargo(-1, -1,false));
 
+        driverButtonB.whenPressed(new DriveArcadeWithVision(Robot.driveTrain, VisionTarget.kReflectorForward, () -> this.driverXbox.getY(Hand.kLeft), 
+        RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS));
+        driverButtonB.whenReleased(new CancelCommand(() -> Robot.driveTrain.getCurrentCommand()));
+        
         //-------------------- OPERATOR --------------------------------------------
 
         this.operatorButtonRB.whenPressed(new ReachCargoShipHeight());
