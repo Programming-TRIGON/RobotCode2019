@@ -192,7 +192,7 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Lift encoder", Robot.lift::getHeight);
 
     // Robot states to be periodically published to SmartDashboard
-    dbc.addNumber("Lift Height", RobotStates::getLiftHeight);
+    dbc.addNumber("Lift Height", ()->RobotStates.getLiftHeight().key);
     dbc.addNumber("Height index", RobotStates::getHeightIndex);    
     dbc.addBoolean("One Eighty Override", RobotStates::isOneEightyOverride);
     dbc.addBoolean("Lift Override", RobotStates::isLiftOverride);
@@ -214,7 +214,6 @@ public class Robot extends TimedRobot {
     Robot.dbc.update();
     if(Robot.lift.isAtBottom())
       RobotComponents.Lift.ENCODER.reset();
-    RobotStates.setLiftHeight(Robot.lift.getHeight());
     RobotStates.setHasCargo(Robot.cargoCollector.isHoldingBall());
     SmartDashboard.putNumber("lift motor 1 current (A)", RobotComponents.Lift.LIFT_LEFT_M.getOutputCurrent());
     SmartDashboard.putNumber("lift motor 2 current (A)", RobotComponents.Lift.LIFT_RIGHT_M.getOutputCurrent());
