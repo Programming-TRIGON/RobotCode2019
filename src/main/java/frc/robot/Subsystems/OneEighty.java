@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import frc.robot.RobotStates;
+import frc.robot.OneEightyCommands.OneEightyDefaultCommand;
 import frc.robot.RobotConstants.OneEightyAngle;
 
 /**
@@ -50,6 +52,7 @@ public class OneEighty extends JoystickOverridableSubsystem {
 
   @Override
   public void initDefaultCommand() {
+    setDefaultCommand(new OneEightyDefaultCommand(()->RobotStates.getDesireOneEightyAngle()));
   }
 
   @Override

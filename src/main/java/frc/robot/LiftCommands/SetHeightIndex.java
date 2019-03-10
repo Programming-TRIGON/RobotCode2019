@@ -1,4 +1,4 @@
-package frc.robot.Commands;
+package frc.robot.LiftCommands;
 
 import java.util.function.Supplier;
 
@@ -7,10 +7,9 @@ import frc.robot.RobotStates;
 import frc.robot.RobotConstants.LiftHeight;
 
 public class SetHeightIndex extends Command {
-  LiftHeight height;
   Supplier<LiftHeight> heightSupplier;
   public SetHeightIndex(LiftHeight height) {
-    this.height = height;
+    this.heightSupplier = () -> height;
   }
   public SetHeightIndex(Supplier<LiftHeight> height) {
     this.heightSupplier = height;
@@ -18,9 +17,9 @@ public class SetHeightIndex extends Command {
 
   @Override
   protected void initialize() {
+    RobotStates.setLiftHeight(heightSupplier.get());
     //set height index acorrding to height 
-    if(heightSupplier!=null)
-      height = heightSupplier.get();
+    LiftHeight height = heightSupplier.get();
     switch (height) {
       case kLiftBottomHatch:
         RobotStates.setHeightIndex(0);

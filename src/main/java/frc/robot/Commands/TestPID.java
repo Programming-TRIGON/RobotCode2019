@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.LiftCommands.ReachLiftHeight;
-import frc.robot.LiftCommands.SetLiftHeight;
+import frc.robot.LiftCommands.LiftDefaultCommand;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
-import frc.robot.OneEightyCommands.SetOneEightyAngle;
+import frc.robot.OneEightyCommands.OneEightyDefaultCommand;
 import frc.robot.OneEightyCommands.StabilizeOneEightyAngle;
 
 public class TestPID extends Command {

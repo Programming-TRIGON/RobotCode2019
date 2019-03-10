@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.Vision;
 
 import java.util.function.Supplier;
@@ -64,7 +57,7 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
     this.rotationController = new VisionPIDController(PIDSettings.getKP(), PIDSettings.getKI(), PIDSettings.getKD(),
         (VisionPIDSource) PIDSource, (rotate) -> {
           if (rotate != 9999) {
-            drivetrain.arcadeDrive(movementSupplier.get(), -rotate);
+            drivetrain.arcadeDrive(movementSupplier.get(), rotate);
             lastTimeFound = Timer.getFPGATimestamp();
           } else
             drivetrain.arcadeDrive(Robot.oi.driverXbox.getX(Hand.kLeft), Robot.oi.driverXbox.getY(Hand.kLeft));
@@ -77,8 +70,8 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
     rotationController.setContinuous(continuous);
 
     // Stop the tracking if the target is not found for a given amount of time
-    this.isFinishedSupplier = () -> Timer.getFPGATimestamp() - lastTimeFound >= this.PIDSettings.getWaitTime()
-        || isTimedOut();
+    // this.isFinishedSupplier = () -> Timer.getFPGATimestamp() - lastTimeFound >= this.PIDSettings.getWaitTime()
+    //     || isTimedOut();
 
     rotationController.enable();
 

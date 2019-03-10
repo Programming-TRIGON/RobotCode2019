@@ -37,10 +37,9 @@ import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
 import frc.robot.HatchHolderCommands.EjectHatch;
 import frc.robot.HatchHolderCommands.SetHatchEject;
 import frc.robot.HatchHolderCommands.SetHatchLock;
-import frc.robot.LiftCommands.SetLiftHeight;
-import frc.robot.LiftCommands.SetLiftOverride;
-import frc.robot.OneEightyCommands.SetOneEightyAngle;
-import frc.robot.OneEightyCommands.SetOneEightyOverride;
+import frc.robot.LiftCommands.LiftDefaultCommand;
+import frc.robot.LiftCommands.SetHeightIndex;
+import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.CargoFolder;
 import frc.robot.Subsystems.HatchCollector;
@@ -170,7 +169,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
     SmartDashboard.putData("Eject hatch", new EjectHatch());    
 
-    SmartDashboard.putData(new SetLiftHeight(LiftHeight.kOneEightySafety));
+    SmartDashboard.putData(new SetHeightIndex(LiftHeight.kOneEightySafety));
     
     SmartDashboard.putData("Stop Compressor",new CompressorStop());
     SmartDashboard.putData("Start Compressor",new CompressorStart());
@@ -192,7 +191,7 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Lift encoder", Robot.lift::getHeight);
 
     // Robot states to be periodically published to SmartDashboard
-    dbc.addNumber("Lift Height", RobotStates::getLiftHeight);
+    dbc.addString("Lift Height", ()->RobotStates.getLiftHeight().toString());
     dbc.addNumber("Height index", RobotStates::getHeightIndex);    
     dbc.addBoolean("One Eighty Override", RobotStates::isOneEightyOverride);
     dbc.addBoolean("Lift Override", RobotStates::isLiftOverride);
@@ -214,7 +213,6 @@ public class Robot extends TimedRobot {
     Robot.dbc.update();
     if(Robot.lift.isAtBottom())
       RobotComponents.Lift.ENCODER.reset();
-    RobotStates.setLiftHeight(Robot.lift.getHeight());
     RobotStates.setHasCargo(Robot.cargoCollector.isHoldingBall());
     SmartDashboard.putNumber("lift motor 1 current (A)", RobotComponents.Lift.LIFT_LEFT_M.getOutputCurrent());
     SmartDashboard.putNumber("lift motor 2 current (A)", RobotComponents.Lift.LIFT_RIGHT_M.getOutputCurrent());
@@ -238,7 +236,7 @@ public class Robot extends TimedRobot {
 
     switch (m_autoSelected) {
       case right:
-        this.autoCommand = new ScoreCargoSide(true);
+        //this.autoCommand = new ScoreCargoSide(true);
         break;
       case left:
       default:
@@ -285,8 +283,8 @@ public class Robot extends TimedRobot {
     testsChooser.addDefault("Hatch Unlock Default", new SetHatchLock(Value.kReverse));
     testsChooser.addOption("cargoCollection", new CollectCargo(0.8, 0.8));
 
-    testsChooser.addOption("Lift", new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
-    testsChooser.addOption("One Eighty", new SetOneEightyAngle(OneEightyAngle.kStraight)); //make index go 1!!!
+    testsChooser.addOption("Lift", new SetHeightIndex(LiftHeight.kRocketMiddleCargo));
+    testsChooser.addOption("One Eighty", new SetOneEightyDesireAngle(OneEightyAngle.kStraight)); 
 
     testsChooser.addOption("hatchEjectOn", new SetHatchEject(Value.kForward));
     testsChooser.addOption("hatchEjectOff", new SetHatchEject(Value.kReverse));

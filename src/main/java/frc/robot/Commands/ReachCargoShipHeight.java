@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.LiftCommands.ReachLiftHeight;
-import frc.robot.OneEightyCommands.SetOneEightyAngle;
+import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 
@@ -24,7 +24,7 @@ public class ReachCargoShipHeight extends CommandGroup {
     addSequential(new SetCargoFolderState(Value.kReverse));
     addSequential(new WaitCommand(0.4));
     addParallel(new ReachLiftHeight(LiftHeight.kRocketMiddleCargo));
-    addParallel(new SetOneEightyAngle(OneEightyAngle.kCargoShip));
+    addParallel(new SetOneEightyDesireAngle(OneEightyAngle.kCargoShip));
     addSequential(new WaitCommand(0.45));
     addSequential(new SetCargoFolderState(Value.kForward));
   }

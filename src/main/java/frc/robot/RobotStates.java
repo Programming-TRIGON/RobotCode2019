@@ -1,19 +1,20 @@
 package frc.robot;
 
+import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 
 /**
  * listeninng to the statse of the robot
  */
 public class RobotStates {
-    static OneEightyAngle desireOneEightyAngle;
+    static OneEightyAngle desireOneEightyAngle = OneEightyAngle.kStraight;
     static boolean hasCargo = false;
     static boolean driveInverted = false;
     static boolean oneEightyOverride = false;
     static boolean LiftOverride = false;
     static boolean isPushed = false;
     static int heightIndex = -1; // The values can be 0,1,2 for rocket - low, middle and high. 3 for cargo ship height And -1 for none of these heights
-    static double liftHeight = 0;
+    static LiftHeight liftHeight = LiftHeight.kCargoCollection;
 
     public static void increaseHeight() {
         if (RobotStates.heightIndex < 2)
@@ -69,11 +70,11 @@ public class RobotStates {
         RobotStates.LiftOverride = !RobotStates.LiftOverride;
     }
     
-    public static double getLiftHeight() {
+    public static LiftHeight getLiftHeight() {
         return RobotStates.liftHeight;
     }
 
-    public static void setLiftHeight(double liftHeight) {
+    public static void setLiftHeight(LiftHeight liftHeight) {
         RobotStates.liftHeight = liftHeight;
     }
 

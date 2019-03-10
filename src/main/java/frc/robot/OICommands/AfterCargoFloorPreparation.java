@@ -7,18 +7,8 @@
 
 package frc.robot.OICommands;
 
-import java.util.function.Supplier;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
-import frc.robot.RobotStates;
 import frc.robot.CargoCollectorCommands.CollectCargo;
-import frc.robot.CargoFolderCommands.SetCargoFolderState;
-import frc.robot.LiftCommands.SetLiftHeight;
-import frc.robot.OneEightyCommands.SetOneEightyAngle;
-import frc.robot.RobotConstants.LiftHeight;
-import frc.robot.RobotConstants.OneEightyAngle;
 
 public class AfterCargoFloorPreparation extends CommandGroup {
   /**

@@ -10,12 +10,10 @@ import frc.robot.RobotConstants.OneEightyAngle;
  * sets the robot states desired angle.
  */
 public class SetOneEightyDesireAngle extends InstantCommand {
-  OneEightyAngle desiredAngle;
   Supplier<OneEightyAngle> angleSupplier;
 
   public SetOneEightyDesireAngle(OneEightyAngle desiredAngle) {
-    super();
-    this.desiredAngle = desiredAngle;
+    this.angleSupplier = () -> desiredAngle;
   }
 
   public SetOneEightyDesireAngle(Supplier<OneEightyAngle> desiredAngle) {
@@ -24,10 +22,6 @@ public class SetOneEightyDesireAngle extends InstantCommand {
 
   @Override
   protected void initialize() {
-    if (this.angleSupplier != null)
       RobotStates.setDesireOneEightyAngle(this.angleSupplier.get());
-    else
-      RobotStates.setDesireOneEightyAngle(this.desiredAngle);
   }
-
 }

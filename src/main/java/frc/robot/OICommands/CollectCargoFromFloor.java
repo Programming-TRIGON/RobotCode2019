@@ -7,8 +7,8 @@ import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.CargoCollectorCommands.CollectCargo;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
-import frc.robot.LiftCommands.SetLiftHeight;
-import frc.robot.OneEightyCommands.SetOneEightyAngle;
+import frc.robot.LiftCommands.SetHeightIndex;
+import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
 
 /** collects cargo from the floor */
 
@@ -21,10 +21,10 @@ public class CollectCargoFromFloor extends CommandGroup {
     /** starts by unfolding the cargo collecter */
     addSequential(new SetCargoFolderState(Value.kReverse));
     /** turns to the required angle */
-    addParallel(new SetOneEightyAngle(OneEightyAngle.kCargoCollection));
+    addParallel(new SetOneEightyDesireAngle(OneEightyAngle.kCargoCollection));
     addSequential(new WaitCommand(0.3));
     /** set lift height to bottom in order to collect cargo */
-    addParallel(new SetLiftHeight(LiftHeight.kCargoCollection));
+    addParallel(new SetHeightIndex(LiftHeight.kCargoCollection));
     /** collects the cargo */
     addSequential(new CollectCargo(this.COLLECTOR_POWER, this.HOLDER_POWER));
   }

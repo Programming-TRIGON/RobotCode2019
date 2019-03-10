@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import frc.robot.RobotStates;
+import frc.robot.LiftCommands.LiftDefaultCommand;
 
 public class Lift extends JoystickOverridableSubsystem {
   private TalonSRX leftMotor, rightMotor;
@@ -86,6 +88,7 @@ public class Lift extends JoystickOverridableSubsystem {
   
   @Override
   public void initDefaultCommand() {
+    setDefaultCommand(new LiftDefaultCommand(RobotStates::getLiftHeight));
   }
 
 }

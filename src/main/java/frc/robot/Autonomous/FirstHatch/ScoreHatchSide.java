@@ -6,7 +6,7 @@ import frc.robot.RobotComponents;
 import frc.robot.DrivingCommands.DriveWithGyro;
 import frc.robot.DrivingCommands.Turn;
 import frc.robot.HatchHolderCommands.EjectHatch;
-import frc.robot.LiftCommands.SetLiftHeight;
+import frc.robot.LiftCommands.LiftDefaultCommand;
 import frc.robot.OICommands.CollectHatchFromFeeder;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.RobotDimensions;
@@ -42,7 +42,7 @@ public class ScoreHatchSide extends CommandGroup {
     addSequential(new Turn( TURN_TO_TARGET * (isLeft ? 1 : -1)));
 
     // Prepare Robot to deliver hatch:
-    addSequential(new SetLiftHeight(LiftHeight.kLiftBottomHatch));
+    addSequential(new LiftDefaultCommand(LiftHeight.kLiftBottomHatch));
 
     // Use vision to deliver the hatch
     /*addSequential(
