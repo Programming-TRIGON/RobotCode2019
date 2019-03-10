@@ -15,20 +15,22 @@ public class StabilizeOneEightyAngle extends Command {
   private double angle;
   private PIDSettings pidSettings;
   private Supplier<OneEightyAngle> angleSupplier;
+
   /**
    * @param angle the angle the SS seeks
    */
   public StabilizeOneEightyAngle(RobotConstants.OneEightyAngle angle, PIDSettings pidSettings) {
     requires(Robot.oneEighty);
-    this.angle = angle.key;
+    this.angleSupplier = () -> angle;
     this.pidSettings = pidSettings;
   }
 
   public StabilizeOneEightyAngle(RobotConstants.OneEightyAngle angle) {
     requires(Robot.oneEighty);
-    this.angle = angle.key;
+    this.angleSupplier = () -> angle;
     this.pidSettings = RobotConstants.RobotPIDSettings.ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS;
   }
+
   public StabilizeOneEightyAngle(Supplier<OneEightyAngle> angle) {
     requires(Robot.oneEighty);
     this.angleSupplier = angle;
@@ -37,10 +39,11 @@ public class StabilizeOneEightyAngle extends Command {
 
   @Override
   protected void initialize() {
-    if(this.angle == OneEightyAngle.kCargoCollection.key)
+    this.angle = angleSupplier.get().key;
+    if (this.angle == OneEightyAngle.kCargoCollection.key)
       Robot.oneEighty.setSafeControl(false);
     this.pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
-      Robot.oneEighty.getPotentiometer(), (output) -> Robot.oneEighty.setOneEighty(output));
+        Robot.oneEighty.getPotentiometer(), (output) -> Robot.oneEighty.setOneEighty(output));
 
     pidController.setAbsoluteTolerance(pidSettings.getTolerance());
     pidController.setOutputRange(-1, 1);
@@ -50,7 +53,7 @@ public class StabilizeOneEightyAngle extends Command {
 
   @Override
   protected boolean isFinished() {
-    return RobotStates.isOneEightyOverride();
+    return RobotStates.isOneEightyOverride()||angle!=angleSupplier.get().key;
   }
 
   @Override
