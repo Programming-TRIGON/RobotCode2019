@@ -3,7 +3,6 @@ package frc.robot.LiftCommands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.Commands.SetHeightIndex;
 import frc.robot.RobotConstants.LiftHeight;
 
 public class LiftDefaultCommand extends CommandGroup {

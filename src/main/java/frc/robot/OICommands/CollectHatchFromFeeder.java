@@ -1,15 +1,9 @@
 package frc.robot.OICommands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
-import frc.robot.Subsystems.CargoFolder;
-import frc.robot.RobotStates;
-import frc.robot.CargoFolderCommands.SetCargoFolderState;
-import frc.robot.HatchHolderCommands.SetHatchLock;
-import frc.robot.LiftCommands.LiftDefaultCommand;
+import frc.robot.LiftCommands.SetHeightIndex;
 import frc.robot.OneEightyCommands.SetOneEightyAngle;
 
 /**
@@ -19,7 +13,7 @@ public class CollectHatchFromFeeder extends CommandGroup {
 
     public CollectHatchFromFeeder() {
         addParallel(new SetOneEightyAngle(OneEightyAngle.kStraight));
-        addSequential(new LiftDefaultCommand(LiftHeight.kLiftBottomHatch));
+        addSequential(new SetHeightIndex(LiftHeight.kLiftBottomHatch));
         
         /*addSequential(new SetHatchLock(Value.kReverse));
         addSequential(new SetCargoFolderState(Value.kReverse));

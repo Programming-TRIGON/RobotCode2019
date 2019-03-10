@@ -7,7 +7,7 @@ import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotStates;
 import frc.robot.CargoCollectorCommands.PushCargo;
 import frc.robot.HatchHolderCommands.EjectHatch;
-import frc.robot.LiftCommands.LiftDefaultCommand;
+import frc.robot.LiftCommands.SetHeightIndex;
 import frc.robot.OneEightyCommands.SetOneEightyAngle;
 
 public class Push extends CommandGroup {
@@ -27,12 +27,12 @@ public class Push extends CommandGroup {
       //will know that the right game piece already pushed
       RobotStates.setIsPushed(false);
       if(RobotStates.isHasCargo()){
-        addParallel(new LiftDefaultCommand(LiftHeight.kRocketMiddleCargo));
+        addParallel(new SetHeightIndex(LiftHeight.kRocketMiddleCargo));
         addSequential(new WaitCommand(0.5));
         OneEightyAngle angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kBack : OneEightyAngle.kStraight; 
         addParallel(new SetOneEightyAngle(angleToSet));
       }else{
-        addParallel(new LiftDefaultCommand(LiftHeight.kRocketMiddleHatch));
+        addParallel(new SetHeightIndex(LiftHeight.kRocketMiddleHatch));
         addSequential(new WaitCommand(0.5));
         OneEightyAngle angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack;
         addParallel(new SetOneEightyAngle(angleToSet));

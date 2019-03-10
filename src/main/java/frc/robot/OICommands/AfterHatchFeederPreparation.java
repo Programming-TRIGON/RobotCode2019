@@ -2,15 +2,8 @@ package frc.robot.OICommands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
-import frc.robot.RobotConstants.LiftHeight;
-import frc.robot.RobotConstants.OneEightyAngle;
-import frc.robot.RobotStates;
-import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.DrivingCommands.ToggleDriveInverted;
 import frc.robot.HatchHolderCommands.SetHatchLock;
-import frc.robot.LiftCommands.LiftDefaultCommand;
-import frc.robot.OneEightyCommands.SetOneEightyAngle;
 
 public class AfterHatchFeederPreparation extends CommandGroup {
   /**

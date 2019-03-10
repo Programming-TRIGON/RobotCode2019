@@ -8,7 +8,7 @@ import frc.robot.RobotStates;
 import frc.robot.CargoCollectorCommands.PushCargo;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.HatchHolderCommands.EjectHatch;
-import frc.robot.LiftCommands.LiftDefaultCommand;
+import frc.robot.LiftCommands.SetHeightIndex;
 
 public class PushWhenLiftMoved extends CommandGroup {
   /**
@@ -24,7 +24,7 @@ public class PushWhenLiftMoved extends CommandGroup {
         addSequential(new EjectHatch());
     addSequential(new WaitCommand(1));
     //lift will go down to 180 safe height to spin 
-    addParallel(new LiftDefaultCommand(LiftHeight.kOneEightySafety));
+    addParallel(new SetHeightIndex(LiftHeight.kOneEightySafety));
     addSequential(new SetCargoFolderState(Value.kReverse));
   }
 
