@@ -1,9 +1,7 @@
 package frc.robot.DrivingCommands;
 
 import java.util.function.Supplier;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -13,7 +11,8 @@ import frc.robot.RobotStates;
 
 public class CheesyDrive extends Command {
   Supplier<Double> rotentionSupplier, speedSupplier;
-  DifferentialDrive differentialDrive;  
+  DifferentialDrive differentialDrive;
+  double sensetivity = 1.25;  
   public CheesyDrive(Supplier<Double> speedSupplier, Supplier<Double> rotentionSupplier) {
     requires(Robot.driveTrain);
     this.rotentionSupplier = rotentionSupplier;
@@ -104,29 +103,24 @@ public class CheesyDrive extends Command {
     this.differentialDrive = new DifferentialDrive(leftController, rightController);
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double y =  speedSupplier.get();
-    this.differentialDrive.curvatureDrive(RobotStates.isDriveInverted() ? 1 * y
-    : -1 * y, this.rotentionSupplier.get(), Math.abs(y) <= 0.50);
+    double y = speedSupplier.get();
+    this.differentialDrive.curvatureDrive(RobotStates.isDriveInverted() ? this.sensetivity * y
+    : -this.sensetivity * y, this.rotentionSupplier.get() * this.sensetivity, Math.abs(y) <= 0.50);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
     differentialDrive.stopMotor();
     differentialDrive.close();
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
     end();

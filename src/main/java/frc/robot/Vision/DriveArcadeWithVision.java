@@ -1,6 +1,5 @@
 package frc.robot.Vision;
 
-import java.util.function.Supplier;
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.utils.PIDSettings;
 import edu.wpi.first.networktables.NetworkTable;
