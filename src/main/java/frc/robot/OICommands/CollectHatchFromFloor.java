@@ -8,7 +8,7 @@ import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
 import frc.robot.HatchHolderCommands.SetHatchLock;
-import frc.robot.LiftCommands.SetLiftHeight;
+import frc.robot.LiftCommands.LiftDefaultCommand;
 import frc.robot.OneEightyCommands.SetOneEightyAngle;
 import frc.robot.Vision.TrackVisionTarget;
 import frc.robot.Vision.VisionPIDSource.VisionTarget;
@@ -23,7 +23,7 @@ public class CollectHatchFromFloor extends CommandGroup {
       addSequential(new WaitCommand(0.7));
       addParallel(new SetOneEightyAngle(RobotConstants.OneEightyAngle.kStraight));    
       addSequential(new WaitCommand(0.7));    
-      addParallel(new SetLiftHeight(LiftHeight.kHatchCollection));
+      addParallel(new LiftDefaultCommand(LiftHeight.kHatchCollection));
       // addSequential(new TrackVisionTarget(VisionTarget.kHatch, Robot.oi.driverXbox,
       //   RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS,
       //   RobotConstants.RobotPIDSettings.VISION_DISTANCE_SETTINGS));

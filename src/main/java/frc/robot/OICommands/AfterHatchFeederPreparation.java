@@ -9,7 +9,7 @@ import frc.robot.RobotStates;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.DrivingCommands.ToggleDriveInverted;
 import frc.robot.HatchHolderCommands.SetHatchLock;
-import frc.robot.LiftCommands.SetLiftHeight;
+import frc.robot.LiftCommands.LiftDefaultCommand;
 import frc.robot.OneEightyCommands.SetOneEightyAngle;
 
 public class AfterHatchFeederPreparation extends CommandGroup {

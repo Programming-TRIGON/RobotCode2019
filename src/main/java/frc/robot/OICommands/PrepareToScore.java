@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
-import frc.robot.LiftCommands.SetLiftHeight;
+import frc.robot.LiftCommands.LiftDefaultCommand;
 import frc.robot.OneEightyCommands.SetOneEightyAngle;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
@@ -25,7 +25,7 @@ public class PrepareToScore extends CommandGroup {
   public PrepareToScore(PrepareToScoreHeight height) {
     this.height = height;
   addSequential(new SetCargoFolderState(Value.kForward, ()->heightToSet.equals(LiftHeight.kLiftBottomHatch)));
-  addParallel(new SetLiftHeight(()->heightToSet));
+  addParallel(new LiftDefaultCommand(()->heightToSet));
   addSequential(new WaitCommand(0.3));
   addParallel(new SetOneEightyAngle(()->angleToSet));
   }
@@ -34,7 +34,7 @@ public class PrepareToScore extends CommandGroup {
     this.increaseHeight = increaseHeight;
     
     addSequential(new SetCargoFolderState(Value.kForward, ()->heightToSet.equals(LiftHeight.kLiftBottomHatch)));
-  addParallel(new SetLiftHeight(()->heightToSet));
+  addParallel(new LiftDefaultCommand(()->heightToSet));
   addSequential(new WaitCommand(0.3));
   addParallel(new SetOneEightyAngle(()->angleToSet));
   }

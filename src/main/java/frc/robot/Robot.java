@@ -37,7 +37,7 @@ import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
 import frc.robot.HatchHolderCommands.EjectHatch;
 import frc.robot.HatchHolderCommands.SetHatchEject;
 import frc.robot.HatchHolderCommands.SetHatchLock;
-import frc.robot.LiftCommands.SetLiftHeight;
+import frc.robot.LiftCommands.LiftDefaultCommand;
 import frc.robot.LiftCommands.SetLiftOverride;
 import frc.robot.OneEightyCommands.SetOneEightyAngle;
 import frc.robot.OneEightyCommands.SetOneEightyOverride;
@@ -170,7 +170,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Hatch Eject Pull", new SetHatchEject(Value.kReverse));
     SmartDashboard.putData("Eject hatch", new EjectHatch());    
 
-    SmartDashboard.putData(new SetLiftHeight(LiftHeight.kOneEightySafety));
+    SmartDashboard.putData(new LiftDefaultCommand(LiftHeight.kOneEightySafety));
     
     SmartDashboard.putData("Stop Compressor",new CompressorStop());
     SmartDashboard.putData("Start Compressor",new CompressorStart());
@@ -285,7 +285,7 @@ public class Robot extends TimedRobot {
     testsChooser.addDefault("Hatch Unlock Default", new SetHatchLock(Value.kReverse));
     testsChooser.addOption("cargoCollection", new CollectCargo(0.8, 0.8));
 
-    testsChooser.addOption("Lift", new SetLiftHeight(LiftHeight.kRocketMiddleCargo));
+    testsChooser.addOption("Lift", new LiftDefaultCommand(LiftHeight.kRocketMiddleCargo));
     testsChooser.addOption("One Eighty", new SetOneEightyAngle(OneEightyAngle.kStraight)); //make index go 1!!!
 
     testsChooser.addOption("hatchEjectOn", new SetHatchEject(Value.kForward));

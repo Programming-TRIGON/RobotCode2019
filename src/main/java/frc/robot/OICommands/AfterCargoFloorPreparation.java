@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.RobotStates;
 import frc.robot.CargoCollectorCommands.CollectCargo;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
-import frc.robot.LiftCommands.SetLiftHeight;
+import frc.robot.LiftCommands.LiftDefaultCommand;
 import frc.robot.OneEightyCommands.SetOneEightyAngle;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;

@@ -9,7 +9,7 @@ import frc.robot.Subsystems.CargoFolder;
 import frc.robot.RobotStates;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.HatchHolderCommands.SetHatchLock;
-import frc.robot.LiftCommands.SetLiftHeight;
+import frc.robot.LiftCommands.LiftDefaultCommand;
 import frc.robot.OneEightyCommands.SetOneEightyAngle;
 
 /**
@@ -19,7 +19,7 @@ public class CollectHatchFromFeeder extends CommandGroup {
 
     public CollectHatchFromFeeder() {
         addParallel(new SetOneEightyAngle(OneEightyAngle.kStraight));
-        addSequential(new SetLiftHeight(LiftHeight.kLiftBottomHatch));
+        addSequential(new LiftDefaultCommand(LiftHeight.kLiftBottomHatch));
         
         /*addSequential(new SetHatchLock(Value.kReverse));
         addSequential(new SetCargoFolderState(Value.kReverse));
