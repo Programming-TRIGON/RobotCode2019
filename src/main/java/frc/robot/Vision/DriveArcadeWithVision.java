@@ -1,10 +1,8 @@
 package frc.robot.Vision;
 
 import java.util.function.Supplier;
-
 import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
 import com.spikes2212.utils.PIDSettings;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -24,17 +22,15 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
 
     super(drivetrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), () -> {
       switch (target) {
-      case kReflectorForward:
-        return (Double)RobotConstants.Sensors.FORWARD_REFLECTOR_SETPOINT;
       case kReflectorBackward:
-        return (Double)RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+        return RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
       default:
-        return (Double)RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+        return RobotConstants.Sensors.FORWARD_REFLECTOR_SETPOINT;
       }
     }, () -> movement, PIDSettings, 2, false);
   }
-  public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource.VisionTarget target, Supplier<Double> movementSupplier,PIDSettings PIDSettings){
-    super(drivetrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), () -> {
+  public DriveArcadeWithVision(VisionPIDSource.VisionTarget target) {
+        super(Robot.driveTrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), () -> {
       switch (target) {
       case kReflectorForward:
         return (Double)RobotConstants.Sensors.FORWARD_REFLECTOR_SETPOINT;
@@ -43,9 +39,21 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
       default:
         return (Double)RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
       }
-    }, movementSupplier, PIDSettings, 2, false);
-
+    }, ()->Robot.oi.driverXbox.getY(Hand.kLeft), RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, 2, false);
   }
+  // public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource.VisionTarget target, Supplier<Double> movementSupplier,PIDSettings PIDSettings){
+  //   super(drivetrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), () -> {
+  //     switch (target) {
+  //     case kReflectorForward:
+  //       return (Double)RobotConstants.Sensors.FORWARD_REFLECTOR_SETPOINT;
+  //     case kReflectorBackward:
+  //       return (Double)RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+  //     default:
+  //       return (Double)RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+  //     }
+  //   }, movementSupplier, PIDSettings, 2, false);
+
+  //}
 
   @Override
   protected void initialize() {
@@ -74,6 +82,5 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
     //     || isTimedOut();
 
     rotationController.enable();
-
   }
 }

@@ -93,4 +93,16 @@ public class RobotStates {
     public static void setIsPushed(boolean isPushed){
         RobotStates.isPushed = isPushed;
     }
+
+    public static void toggleOneEightyDesiredAngle(){
+        if(RobotStates.desireOneEightyAngle.equals(OneEightyAngle.kStraight)){
+            RobotStates.desireOneEightyAngle = OneEightyAngle.kBack;
+        } else if(RobotStates.desireOneEightyAngle.equals(OneEightyAngle.kBack)){
+            RobotStates.desireOneEightyAngle = OneEightyAngle.kStraight;
+        } else if(RobotStates.desireOneEightyAngle.equals(OneEightyAngle.kTopStraight)) {
+            RobotStates.desireOneEightyAngle = OneEightyAngle.kTopBack;
+        } else {
+            RobotStates.desireOneEightyAngle = OneEightyAngle.kTopStraight;
+        }
+    }
 }

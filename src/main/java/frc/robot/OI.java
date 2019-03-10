@@ -12,9 +12,11 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotConstants.PrepareToScoreHeight;
+import frc.robot.Triggers.XboxTrigger;
 import frc.robot.Vision.DriveArcadeWithVision;
 import frc.robot.Vision.VisionPIDSource.VisionTarget;
 import frc.robot.CargoCollectorCommands.CollectCargo;
@@ -33,11 +35,13 @@ import frc.robot.LiftCommands.SetHeightIndex;
 import frc.robot.LiftCommands.SetLiftOverride;
 import frc.robot.OICommands.AfterCargoFloorPreparation;
 import frc.robot.OICommands.AfterHatchFeederPreparation;
+import frc.robot.OICommands.AfterPushPreperetion;
 import frc.robot.OICommands.CollectCargoFromFloor;
 import frc.robot.OICommands.CollectHatchFromFeeder;
 import frc.robot.OICommands.CollectHatchFromFloor;
 import frc.robot.OICommands.DefenceMode;
 import frc.robot.OICommands.PrepareToScore;
+import frc.robot.OICommands.Push;
 import frc.robot.OneEightyCommands.OneEightyToggleOverride;
 import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
 import frc.robot.OneEightyCommands.SetOneEightyOverride;
@@ -48,6 +52,7 @@ public class OI {
     Button driverButtonY, driverButtonA, driverButtonB, driverButtonX, driverButtonLB, driverButtonRB;
     Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, operatorStartButton, operatorButtonAxisRight, operatorButtonAxisLeft;
     POVButton operatorRightPOVButton, operatorLeftPOVButton; 
+    XboxTrigger LTrigger, RTrigger; 
 
     UsbCamera cam0, cam1;
     UsbCamera[] cams = new UsbCamera[2];
@@ -63,6 +68,8 @@ public class OI {
         this.driverButtonY = new JoystickButton(driverXbox, 4);
         this.driverButtonLB = new JoystickButton(driverXbox, 5);
         this.driverButtonRB = new JoystickButton(driverXbox, 6);
+        this.LTrigger = new XboxTrigger(this.driverXbox, Hand.kLeft); 
+        this.RTrigger = new XboxTrigger(this.driverXbox, Hand.kRight);
 
         // operator buttons
         this.operatorButtonA = new JoystickButton(operatorXbox, 1);
@@ -85,11 +92,16 @@ public class OI {
         cams[1] = cam1;
 
         //-------------------- DRIVER --------------------------------------------
-        driverButtonB.whenPressed(new DriveArcadeWithVision(Robot.driveTrain, VisionTarget.kReflectorForward, () -> this.driverXbox.getY(Hand.kLeft), 
+        this.driverButtonB.whenPressed(new DriveArcadeWithVision(Robot.driveTrain, VisionTarget.kReflectorForward, () -> this.driverXbox.getY(Hand.kLeft), 
         RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS));
         driverButtonB.whenReleased(new CancelCommand(() -> Robot.driveTrain.getCurrentCommand()));
 
-        this.driverButtonA.whenPressed(new ToggleDriveInverted()); 
+        this.driverButtonA.whenPressed(new ToggleDriveInverted());
+        
+        this.RTrigger.whenActive(new Push());
+        this.RTrigger.whenInactive(new AfterPushPreperetion());
+
+        this.LTrigger.whenActive(new InstantCommand(()->RobotStates.toggleOneEightyDesiredAngle()));
 
         //-------------------- OPERATOR --------------------------------------------
         this.operatorButtonY.whenPressed(new CollectHatchFromFeeder());

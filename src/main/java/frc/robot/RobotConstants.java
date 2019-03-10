@@ -48,7 +48,8 @@ public class RobotConstants {
         kTopStraight(-45),
         kTopBack(207),
         kCargoCollection(18),
-        kCargoShip(0);    
+        kCargoShipForward(7),
+        kCargoShipBack(168);     
         public double key;
 
         OneEightyAngle(double angle) {
