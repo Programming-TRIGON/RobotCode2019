@@ -15,8 +15,9 @@ public class SetCargoFolderState extends Command {
   public SetCargoFolderState(Value folderState) {
     requires(Robot.cargoFolder);
     this.folderState = folderState;
+    run = () -> true;
   }
-  public SetCargoFolderState(Value folderState,Supplier<Boolean> run) {
+  public SetCargoFolderState(Value folderState, Supplier<Boolean> run) {
     requires(Robot.cargoFolder);
     this.folderState = folderState;
     this.run = run;
@@ -25,8 +26,8 @@ public class SetCargoFolderState extends Command {
   @Override
   protected void initialize() {
     // Folds/unfolds based on the fold parameter.
-    if(run==null||run.get()==false);
-    Robot.cargoFolder.setFold(this.folderState);
+    if(run.get()==false);
+      Robot.cargoFolder.setFold(this.folderState);
   }
 
   @Override

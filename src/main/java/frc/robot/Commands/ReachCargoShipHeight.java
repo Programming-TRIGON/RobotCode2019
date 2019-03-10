@@ -24,7 +24,6 @@ public class ReachCargoShipHeight extends CommandGroup {
     addSequential(new SetCargoFolderState(Value.kReverse));
     addSequential(new WaitCommand(0.4));
     addParallel(new ReachLiftHeight(LiftHeight.kRocketMiddleCargo));
-    addParallel(new SetOneEightyDesireAngle(OneEightyAngle.kCargoShip));
     addSequential(new WaitCommand(0.45));
     addSequential(new SetCargoFolderState(Value.kForward));
   }

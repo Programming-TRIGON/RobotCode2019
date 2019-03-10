@@ -24,6 +24,7 @@ import frc.robot.CargoCollectorCommands.PushCargo;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.Commands.CancelCommand;
 import frc.robot.Commands.ReachCargoShipHeight;
+import frc.robot.Commands.ReflectorDrive;
 import frc.robot.DrivingCommands.ToggleDriveInverted;
 import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
 import frc.robot.HatchHolderCommands.EjectHatch;
@@ -92,16 +93,15 @@ public class OI {
         cams[1] = cam1;
 
         //-------------------- DRIVER --------------------------------------------
-        this.driverButtonB.whenPressed(new DriveArcadeWithVision(Robot.driveTrain, VisionTarget.kReflectorForward, () -> this.driverXbox.getY(Hand.kLeft), 
-        RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS));
-        driverButtonB.whenReleased(new CancelCommand(() -> Robot.driveTrain.getCurrentCommand()));
+        this.driverButtonB.whenPressed(new ReflectorDrive());
+        this.driverButtonB.whenReleased(new CancelCommand(() -> Robot.driveTrain.getCurrentCommand()));
 
         this.driverButtonA.whenPressed(new ToggleDriveInverted());
         
         this.RTrigger.whenActive(new Push());
         this.RTrigger.whenInactive(new AfterPushPreperetion());
 
-        this.LTrigger.whenActive(new InstantCommand(()->RobotStates.toggleOneEightyDesiredAngle()));
+        this.LTrigger.whenActive(new InstantCommand(() -> RobotStates.toggleOneEightyDesiredAngle()));
 
         //-------------------- OPERATOR --------------------------------------------
         this.operatorButtonY.whenPressed(new CollectHatchFromFeeder());

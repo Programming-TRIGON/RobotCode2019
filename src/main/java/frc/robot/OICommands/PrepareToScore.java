@@ -24,34 +24,32 @@ public class PrepareToScore extends CommandGroup {
 
   public PrepareToScore(PrepareToScoreHeight height) {
     this.height = height;
-  addSequential(new SetCargoFolderState(Value.kForward, ()->heightToSet.equals(LiftHeight.kLiftBottomHatch)));
-  addParallel(new SetHeightIndex(()->heightToSet));
-  addSequential(new WaitCommand(0.3));
-  addParallel(new SetOneEightyDesireAngle(()->angleToSet));
+    addSequential(new SetCargoFolderState(Value.kReverse, ()-> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
+    addParallel(new SetHeightIndex(()->heightToSet));
+    addSequential(new WaitCommand(0.3));
+    addParallel(new SetOneEightyDesireAngle(()->angleToSet));
   }
 
   public PrepareToScore(boolean increaseHeight) {
     this.increaseHeight = increaseHeight;
-    
-    addSequential(new SetCargoFolderState(Value.kForward, ()->heightToSet.equals(LiftHeight.kLiftBottomHatch)));
-  addParallel(new SetHeightIndex(()->heightToSet));
-  addSequential(new WaitCommand(0.3));
-  addParallel(new SetOneEightyDesireAngle(()->angleToSet));
+    addSequential(new SetCargoFolderState(Value.kReverse, ()->heightToSet.equals(LiftHeight.kLiftBottomHatch)));
+    addParallel(new SetHeightIndex(()->heightToSet));
+    addSequential(new WaitCommand(0.3));
+    addParallel(new SetOneEightyDesireAngle(()->angleToSet));
   }
 
   @Override
   protected void initialize(){
-
     if(RobotStates.getHeightIndex()==-1)
       RobotStates.setHeightIndex(1);
 
     // We need to know whether to angle the 180 forward or reverse
-    if (!RobotStates.isDriveInverted()){
-      angleToSet = RobotStates.isHasCargo() ? OneEightyAngle.kStraight : OneEightyAngle.kBack; 
-    }
-    else {
-      angleToSet = RobotStates.isHasCargo() ? OneEightyAngle.kBack : OneEightyAngle.kStraight; 
-    }
+    // if (!RobotStates.isDriveInverted()){
+    //   angleToSet = RobotStates.isHasCargo() ? OneEightyAngle.kStraight : OneEightyAngle.kBack; 
+    // }
+    // else {
+    //   angleToSet = RobotStates.isHasCargo() ? OneEightyAngle.kBack : OneEightyAngle.kStraight; 
+    // }
     
     if(this.height==null){
       if(this.increaseHeight)
@@ -90,9 +88,10 @@ public class PrepareToScore extends CommandGroup {
           heightToSet = LiftHeight.kRocketTopHatch;
         break;
       case kCargoShip:
-        if (RobotStates.isHasCargo())
+        if (RobotStates.isHasCargo()){
           heightToSet = LiftHeight.kCargoShip;
-        else 
+          angleToSet = OneEightyAngle.kCargoShipForward;
+        }else 
           heightToSet = LiftHeight.kLiftBottomHatch;
     } 
   }
