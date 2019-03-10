@@ -34,7 +34,7 @@ import frc.robot.OICommands.PrepareToScore;
 import frc.robot.OICommands.Push;
 import frc.robot.OICommands.PushWhenLiftMoved;
 import frc.robot.OneEightyCommands.OneEightyToggleOverride;
-import frc.robot.OneEightyCommands.SetOneEightyAngle;
+import frc.robot.OneEightyCommands.OneEightyDefaultCommand;
 import frc.robot.OneEightyCommands.SetOneEightyOverride;
 
 public class OI {
@@ -124,8 +124,8 @@ public class OI {
 
         this.operatorButtonY.whenPressed(new SetCargoFolderState(Value.kForward));//might change that btn
 
-        this.operatorLeftPOVButton.whenPressed(new SetOneEightyAngle(OneEightyAngle.kBack));
-        this.operatorRightPOVButton.whenPressed(new SetOneEightyAngle(OneEightyAngle.kStraight));
+        this.operatorLeftPOVButton.whenPressed(new OneEightyDefaultCommand(OneEightyAngle.kBack));
+        this.operatorRightPOVButton.whenPressed(new OneEightyDefaultCommand(OneEightyAngle.kStraight));
 
         operatorTopPOVButton.whenPressed(new ReachLiftHeight(LiftHeight.kRocketMiddleHatch));
         operatorBottomPOVButton.whenPressed(new ReachLiftHeight(LiftHeight.kLiftBottomHatch));
