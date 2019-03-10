@@ -9,14 +9,13 @@ import frc.robot.RobotConstants.OneEightyAngle;
 
 public class ReachOneEightyAngle extends Command {
   private double angle, power;
-  private Supplier<OneEightyAngle> angleSupplier;
 
   public ReachOneEightyAngle(double angle) {
     requires(Robot.oneEighty);
     this.angle = angle;
   }
   public ReachOneEightyAngle(Supplier<OneEightyAngle> desiredAngle) {
-    this.angleSupplier = desiredAngle;
+    this.angle = desiredAngle.get().key;
   }
 
   public ReachOneEightyAngle(OneEightyAngle angle) {
@@ -27,8 +26,6 @@ public class ReachOneEightyAngle extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if(this.angleSupplier!=null)
-      this.angle = angleSupplier.get().key;
     if (this.angle > Robot.oneEighty.getAngle())
       power = 0.5;
     else

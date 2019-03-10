@@ -7,7 +7,7 @@ import frc.robot.RobotConstants.OneEightyAngle;
  * listeninng to the statse of the robot
  */
 public class RobotStates {
-    static OneEightyAngle desireOneEightyAngle;
+    static OneEightyAngle desireOneEightyAngle = OneEightyAngle.kStraight;
     static boolean hasCargo = false;
     static boolean driveInverted = false;
     static boolean oneEightyOverride = false;
