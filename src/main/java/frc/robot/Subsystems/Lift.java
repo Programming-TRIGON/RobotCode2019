@@ -88,7 +88,7 @@ public class Lift extends JoystickOverridableSubsystem {
   
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new LiftDefaultCommand(RobotStates.getLiftHeight()));
+    setDefaultCommand(new LiftDefaultCommand(RobotStates::getLiftHeight));
   }
 
 }
