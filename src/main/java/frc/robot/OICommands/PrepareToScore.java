@@ -7,7 +7,6 @@ import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.LiftCommands.SetHeightIndex;
-import frc.robot.OneEightyCommands.OneEightyDefaultCommand;
 import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
@@ -37,7 +36,7 @@ public class PrepareToScore extends CommandGroup {
     addSequential(new SetCargoFolderState(Value.kForward, ()->heightToSet.equals(LiftHeight.kLiftBottomHatch)));
   addParallel(new SetHeightIndex(()->heightToSet));
   addSequential(new WaitCommand(0.3));
-  addParallel(new OneEightyDefaultCommand(()->angleToSet));
+  addParallel(new SetOneEightyDesireAngle(()->angleToSet));
   }
 
   @Override
