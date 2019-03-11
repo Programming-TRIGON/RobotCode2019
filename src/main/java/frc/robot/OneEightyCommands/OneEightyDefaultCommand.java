@@ -7,21 +7,21 @@ import frc.robot.RobotConstants.OneEightyAngle;
 
 public class OneEightyDefaultCommand extends CommandGroup {
 
-  public OneEightyDefaultCommand(OneEightyAngle angle, PIDSettings pIDSettings) {
-    addSequential(new ReachOneEightyAngle(angle));
-    addSequential(new StabilizeOneEightyAngle(angle, pIDSettings));
+  public OneEightyDefaultCommand(OneEightyAngle angle, PIDSettings pIDSettings, Supplier<Double> liftHeight) {
+    addSequential(new ReachOneEightyAngle(angle, liftHeight));
+    addSequential(new StabilizeOneEightyAngle(angle, pIDSettings, liftHeight));
     addSequential(new SetOneEightyOverride());
   }
 
-  public OneEightyDefaultCommand(OneEightyAngle angle) {
-    addSequential(new ReachOneEightyAngle(angle));
-    addSequential(new StabilizeOneEightyAngle(angle));
+  public OneEightyDefaultCommand(OneEightyAngle angle, Supplier<Double> liftHeight) {
+    addSequential(new ReachOneEightyAngle(angle, liftHeight));
+    addSequential(new StabilizeOneEightyAngle(angle, liftHeight));
     addSequential(new SetOneEightyOverride());
   }
 
-  public OneEightyDefaultCommand(Supplier<OneEightyAngle> angleSupplier) {
-    addSequential(new ReachOneEightyAngle(angleSupplier));
-    addSequential(new StabilizeOneEightyAngle(angleSupplier));
+  public OneEightyDefaultCommand(Supplier<OneEightyAngle> angleSupplier, Supplier<Double> liftHeight) {
+    addSequential(new ReachOneEightyAngle(angleSupplier, liftHeight));
+    addSequential(new StabilizeOneEightyAngle(angleSupplier, liftHeight));
     addSequential(new SetOneEightyOverride());
   }
 }

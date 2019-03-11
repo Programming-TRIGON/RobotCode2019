@@ -8,6 +8,7 @@ import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
 import frc.robot.HatchHolderCommands.SetHatchLock;
 import frc.robot.LiftCommands.ResetLift;
 import frc.robot.OneEightyCommands.ReachOneEightyAngle;
+import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
 import frc.robot.RobotConstants.OneEightyAngle;
  /**
    * retracts all systems for deffence 
@@ -16,7 +17,7 @@ public class DefenceMode extends CommandGroup {
  
   public DefenceMode() {
     addParallel(new SetCargoFolderState(Value.kReverse));
-    addSequential(new ReachOneEightyAngle(OneEightyAngle.kStraight));    
+    addSequential(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));    
     addSequential(new Push());
     addSequential(new WaitCommand(0.3));
     addSequential(new ResetLift(), 3);
