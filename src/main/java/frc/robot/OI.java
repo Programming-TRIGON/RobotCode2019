@@ -80,7 +80,7 @@ public class OI {
         this.RTrigger.whenActive(new Push());
         this.RTrigger.whenInactive(new AfterPushPreperetion());
 
-        this.LTrigger.whenActive(new InstantCommand(() -> RobotStates.toggleOneEightyDesiredAngle()));
+        this.LTrigger.whenActive(new InstantCommand(() -> RobotStates.toggleOneEightyDesiredAngle())); //make cmd group for button 180 turning
 
         //-------------------- OPERATOR --------------------------------------------
         this.operatorButtonY.whenPressed(new CollectHatchFromFeeder());

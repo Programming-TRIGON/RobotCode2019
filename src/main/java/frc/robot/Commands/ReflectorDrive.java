@@ -16,6 +16,6 @@ public class ReflectorDrive extends ConditionalCommand {
   protected boolean condition() {
     return RobotStates.getDesireOneEightyAngle() == OneEightyAngle.kTopBack ||
     RobotStates.getDesireOneEightyAngle() == OneEightyAngle.kTopBack ||
-    RobotStates.getDesireOneEightyAngle() == OneEightyAngle.kCargoShipBack;
+    RobotStates.getDesireOneEightyAngle() == OneEightyAngle.kCargoShipBack; //we might want to make it by the real one angle 
   }
 }

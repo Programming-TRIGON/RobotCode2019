@@ -60,7 +60,7 @@ public class StabilizeOneEightyAngle extends Command {
 
   @Override
   protected void execute() {
-    previousAngle = angle;
+    this.previousAngle = this.angle;
     if (liftHeight.get() >= LiftHeight.kOneEightySafety.key){
       this.angle = angleSupplier.get().key;
     }else{
@@ -71,7 +71,7 @@ public class StabilizeOneEightyAngle extends Command {
   @Override
   protected boolean isFinished() {
     return RobotStates.isOneEightyOverride() ||
-    angle != previousAngle;
+    this.angle != this.previousAngle;
   }
 
   @Override
