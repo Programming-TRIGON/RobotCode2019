@@ -6,6 +6,8 @@ import com.analog.adis16448.frc.ADIS16448_IMU;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -52,10 +54,10 @@ public class RobotComponents {
     }
     
     public static class DriveTrain{
-        public static final TalonSRX REAR_LEFT_M = new TalonSRX(RobotMap.CAN.REAR_LEFT_MOTOR);
-        public static final TalonSRX FRONT_LEFT_M = new TalonSRX(RobotMap.CAN.FRONT_LEFT_MOTOR);
-        public static final TalonSRX REAR_RIGHT_M = new TalonSRX(RobotMap.CAN.REAR_RIGHT_MOTOR);
-        public static final TalonSRX FRONT_RIGHT_M = new TalonSRX(RobotMap.CAN.FRONT_RIGHT_MOTOR);
+        public static final WPI_TalonSRX REAR_LEFT_M = new WPI_TalonSRX(RobotMap.CAN.REAR_LEFT_MOTOR);
+        public static final WPI_TalonSRX FRONT_LEFT_M = new WPI_TalonSRX(RobotMap.CAN.FRONT_LEFT_MOTOR);
+        public static final WPI_TalonSRX REAR_RIGHT_M = new WPI_TalonSRX(RobotMap.CAN.REAR_RIGHT_MOTOR);
+        public static final WPI_TalonSRX FRONT_RIGHT_M = new WPI_TalonSRX(RobotMap.CAN.FRONT_RIGHT_MOTOR);
         public static final Encoder LEFT_ENCODER = new Encoder(RobotMap.DIO.DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DIO.DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_B); 
         public static final Encoder RIGHT_ENCODER = new Encoder(RobotMap.DIO.DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DIO.DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_B); 
         public static final ADIS16448_IMU GYRO = new ADIS16448_IMU();
