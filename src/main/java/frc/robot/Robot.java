@@ -154,7 +154,9 @@ public class Robot extends TimedRobot {
 
     Robot.driveTrain.setDefaultCommand(
       new CheesyDrive(Robot.driveTrain, ()->Robot.oi.driverXbox.getY(Hand.kLeft), ()->Robot.oi.driverXbox.getX(Hand.kLeft)));
-    
+
+
+   
     // Open/Close solenoids
     SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
     SmartDashboard.putData("Hatch Unlock", new SetHatchLock(Value.kReverse));

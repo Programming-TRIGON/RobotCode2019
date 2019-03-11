@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.DrivingCommands.DriveArcadeWithPID;
+import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 /** Drives to a given target using vision */
 public class DriveArcadeWithVision extends DriveArcadeWithPID {
@@ -29,16 +30,7 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
     }, () -> movement, PIDSettings, 2, false);
   }
   public DriveArcadeWithVision(VisionPIDSource.VisionTarget target) {
-        super(Robot.driveTrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), () -> {
-      switch (target) {
-      case kReflectorForward:
-        return (Double)RobotConstants.Sensors.FORWARD_REFLECTOR_SETPOINT;
-      case kReflectorBackward:
-        return (Double)RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
-      default:
-        return (Double)RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
-      }
-    }, ()->Robot.oi.driverXbox.getY(Hand.kLeft), RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS, 2, false);
+      this(target, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS);
   }
   // public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource.VisionTarget target, Supplier<Double> movementSupplier,PIDSettings PIDSettings){
   //   super(drivetrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), () -> {
@@ -54,7 +46,19 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
 
   //}
 
-  @Override
+  public DriveArcadeWithVision(VisionTarget target, com.spikes2212.utils.PIDSettings pidSettings) {
+    super(Robot.driveTrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), () -> {
+      switch (target) {
+      case kReflectorForward:
+        return (Double)RobotConstants.Sensors.FORWARD_REFLECTOR_SETPOINT;
+      case kReflectorBackward:
+        return (Double)RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+      default:
+        return (Double)RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
+      }
+    }, ()->Robot.oi.driverXbox.getY(Hand.kLeft), pidSettings, 2, false);
+}
+@Override
   protected void initialize() {
     // Set target in the Network Table
     NetworkTable imageProcessingTable = NetworkTableInstance.getDefault().getTable("ImageProcessing");
@@ -64,7 +68,7 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
     this.rotationController = new VisionPIDController(PIDSettings.getKP(), PIDSettings.getKI(), PIDSettings.getKD(),
         (VisionPIDSource) PIDSource, (rotate) -> {
           if (rotate != 9999) {
-            drivetrain.arcadeDrive(movementSupplier.get(), rotate);
+            drivetrain.arcadeDrive(movementSupplier.get(), -rotate);
             lastTimeFound = Timer.getFPGATimestamp();
           } else
             drivetrain.arcadeDrive(Robot.oi.driverXbox.getY(Hand.kLeft), 0);
