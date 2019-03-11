@@ -96,11 +96,11 @@ public class Robot extends TimedRobot {
     target.setString(VisionPIDSource.VisionTarget.kReflectorForward.toString());
 
     this.a = new JoystickButton(Robot.oi.driverXbox, 8);
-    a.whenPressed(new InstantCommand(() -> {
+    a.whileHeld(new InstantCommand(() -> {
       Robot.oi.operatorXbox.setRumble(RumbleType.kLeftRumble, 1);
       Robot.oi.operatorXbox.setRumble(RumbleType.kRightRumble, 1);
     }));
-    
+
     Robot.dbc = new DashBoardController();
 
     /** creates the SS htach collector that collects hatch pannels */
