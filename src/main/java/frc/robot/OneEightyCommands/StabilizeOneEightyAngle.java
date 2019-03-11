@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
+import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 
 public class StabilizeOneEightyAngle extends Command {
@@ -15,33 +16,43 @@ public class StabilizeOneEightyAngle extends Command {
   private double angle;
   private PIDSettings pidSettings;
   private Supplier<OneEightyAngle> angleSupplier;
+  private Supplier<Double> liftHeight;
 
   /**
    * @param angle the angle the SS seeks
    */
-  public StabilizeOneEightyAngle(RobotConstants.OneEightyAngle angle, PIDSettings pidSettings) {
+  public StabilizeOneEightyAngle(RobotConstants.OneEightyAngle angle, PIDSettings pidSettings, Supplier<Double> liftHeight) {
     requires(Robot.oneEighty);
     this.angleSupplier = () -> angle;
     this.pidSettings = pidSettings;
+    this.liftHeight = liftHeight; 
   }
 
-  public StabilizeOneEightyAngle(RobotConstants.OneEightyAngle angle) {
+  public StabilizeOneEightyAngle(RobotConstants.OneEightyAngle angle, Supplier<Double> liftHeight) {
     requires(Robot.oneEighty);
     this.angleSupplier = () -> angle;
     this.pidSettings = RobotConstants.RobotPIDSettings.ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS;
+    this.liftHeight = liftHeight; 
   }
 
-  public StabilizeOneEightyAngle(Supplier<OneEightyAngle> angle) {
+  public StabilizeOneEightyAngle(Supplier<OneEightyAngle> angle, Supplier<Double> liftHeight) {
     requires(Robot.oneEighty);
     this.angleSupplier = angle;
     this.pidSettings = RobotConstants.RobotPIDSettings.ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS;
+    this.liftHeight = liftHeight; 
+
   }
 
   @Override
   protected void initialize() {
-    this.angle = angleSupplier.get().key;
-    if (this.angle == OneEightyAngle.kCargoCollection.key)
+    if (liftHeight.get() <= LiftHeight.kOneEightySafety.key){
+      this.angle = angleSupplier.get().key;
+    }else{
+      this.angle = Robot.oneEighty.getAngle();
+    }
+    if (this.angle == OneEightyAngle.kCargoCollection.key){ 
       Robot.oneEighty.setSafeControl(false);
+    }
     this.pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
         Robot.oneEighty.getPotentiometer(), (output) -> Robot.oneEighty.setOneEighty(output));
 
@@ -53,7 +64,8 @@ public class StabilizeOneEightyAngle extends Command {
 
   @Override
   protected boolean isFinished() {
-    return RobotStates.isOneEightyOverride()||angle!=angleSupplier.get().key;
+    return RobotStates.isOneEightyOverride() ||
+    angle != angleSupplier.get().key;
   }
 
   @Override
