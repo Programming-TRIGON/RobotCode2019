@@ -1,5 +1,7 @@
 package frc.robot.Subsystems;
 
+import java.util.function.Supplier;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -16,13 +18,15 @@ public class OneEighty extends JoystickOverridableSubsystem {
   private TalonSRX motor;
   private AnalogPotentiometer potentiometer;
   private boolean isSafe = true;
+  Supplier<Double> liftHeight;
   // This supplier checks if the S.S. is high enough to move.
 
-  public OneEighty(TalonSRX motor, AnalogPotentiometer potentiometer) {
+  public OneEighty(TalonSRX motor, AnalogPotentiometer potentiometer, Supplier<Double> liftHeight) {
     this.motor = motor;
     this.potentiometer = potentiometer;
     motor.setInverted(false);
     motor.setNeutralMode(NeutralMode.Brake);
+    this.liftHeight = liftHeight;
   }
 
   public void moveOneEightyOverride(double power) {
@@ -50,7 +54,7 @@ public class OneEighty extends JoystickOverridableSubsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new OneEightyDefaultCommand(()->RobotStates.getDesireOneEightyAngle()));
+    setDefaultCommand(new OneEightyDefaultCommand(()->RobotStates.getDesireOneEightyAngle(), liftHeight));
   }
 
   @Override
