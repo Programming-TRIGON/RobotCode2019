@@ -67,7 +67,7 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
             drivetrain.arcadeDrive(movementSupplier.get(), rotate);
             lastTimeFound = Timer.getFPGATimestamp();
           } else
-            drivetrain.arcadeDrive(0, Robot.oi.driverXbox.getY(Hand.kLeft));
+            drivetrain.arcadeDrive(Robot.oi.driverXbox.getY(Hand.kLeft), 0);
         });
 
     rotationController.setAbsoluteTolerance(PIDSettings.getTolerance());
