@@ -3,22 +3,17 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.spikes2212.dashboard.DashBoardController;
-import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
-import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcade;
-import com.spikes2212.genericsubsystems.drivetrains.commands.OrientWithPID;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -26,9 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
-import frc.robot.Autonomous.ScoreCargoSide;
 import frc.robot.Autonomous.testAuto;
-import frc.robot.Autonomous.FirstHatch.ScoreHatchMiddle;
 import frc.robot.CargoCollectorCommands.CollectCargo;
 import frc.robot.CargoCollectorCommands.PushCargo;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
@@ -42,11 +35,11 @@ import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
 import frc.robot.HatchHolderCommands.EjectHatch;
 import frc.robot.HatchHolderCommands.SetHatchEject;
 import frc.robot.HatchHolderCommands.SetHatchLock;
-import frc.robot.LiftCommands.LiftDefaultCommand;
 import frc.robot.LiftCommands.SetHeightIndex;
 import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
 import frc.robot.Subsystems.CargoCollector;
 import frc.robot.Subsystems.CargoFolder;
+import frc.robot.Subsystems.DifferentialTankDrivetrain;
 import frc.robot.Subsystems.HatchCollector;
 import frc.robot.Subsystems.HatchHolder;
 import frc.robot.Subsystems.JoystickOverridableSubsystem;
@@ -68,7 +61,7 @@ public class Robot extends TimedRobot {
   public static OneEighty oneEighty;
   public static CargoCollector cargoCollector;
   public static CargoFolder cargoFolder;
-  public static TankDrivetrain driveTrain;
+  public static DifferentialTankDrivetrain driveTrain;
 
   public static DashBoardController dbc;
   public static OI oi;
@@ -82,7 +75,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     compressor = new Compressor(1);
-    compressor.stop();
+    compressor.start();
 
     auto_chooser.setDefaultOption("Default Auto", left);
     auto_chooser.addOption("My Auto", right);

@@ -10,14 +10,15 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.DrivingCommands.DriveArcadeWithPID;
+import frc.robot.Subsystems.DifferentialTankDrivetrain;
 import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 /** Drives to a given target using vision */
 public class DriveArcadeWithVision extends DriveArcadeWithPID {
   protected double lastTimeFound = 0;
+  DifferentialTankDrivetrain drivetrain;
 
-
-  public DriveArcadeWithVision(TankDrivetrain drivetrain, VisionPIDSource.VisionTarget target, double movement,
+  public DriveArcadeWithVision(DifferentialTankDrivetrain drivetrain, VisionPIDSource.VisionTarget target, double movement,
       PIDSettings PIDSettings) {
 
     super(drivetrain, new VisionPIDSource(target, VisionPIDSource.VisionDirectionType.x), () -> {
@@ -28,6 +29,7 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
         return RobotConstants.Sensors.FORWARD_REFLECTOR_SETPOINT;
       }
     }, () -> movement, PIDSettings, 2, false);
+    this.drivetrain = drivetrain;
   }
   public DriveArcadeWithVision(VisionPIDSource.VisionTarget target) {
       this(target, RobotConstants.RobotPIDSettings.VISION_TURN_SETTINGS);
@@ -57,6 +59,7 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
         return (Double)RobotConstants.Sensors.BACKWARD_REFLECTOR_SETPOINT;
       }
     }, ()->Robot.oi.driverXbox.getY(Hand.kLeft), pidSettings, 2, false);
+    this.drivetrain = Robot.driveTrain;
 }
 @Override
   protected void initialize() {
@@ -68,7 +71,7 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
     this.rotationController = new VisionPIDController(PIDSettings.getKP(), PIDSettings.getKI(), PIDSettings.getKD(),
         (VisionPIDSource) PIDSource, (rotate) -> {
           if (rotate != 9999) {
-            drivetrain.arcadeDrive(movementSupplier.get(), -rotate);
+            drivetrain.arcadeDrive(movementSupplier.get(), -rotate, 0.1);
             lastTimeFound = Timer.getFPGATimestamp();
           } else
             drivetrain.arcadeDrive(Robot.oi.driverXbox.getY(Hand.kLeft), 0);
