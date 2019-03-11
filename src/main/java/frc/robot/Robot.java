@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -154,23 +155,20 @@ public class Robot extends TimedRobot {
 
     RobotComponents.Lift.ENCODER.setDistancePerPulse(RobotConstants.Sensors.LIFT_ENCODER_DPP);
 
-    Robot.driveTrain = new TankDrivetrain(
-        (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
-        (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
-    // lol
-    Robot.oi = new OI();
-    this.a = new JoystickButton(Robot.oi.driverXbox, 8);
-    a.whenPressed(new InstantCommand(() -> {
-      Robot.oi.operatorXbox.setRumble(RumbleType.kLeftRumble, 1);
-      Robot.oi.operatorXbox.setRumble(RumbleType.kRightRumble, 1);
-    }));
-    // Robot.driveTrain.setDefaultCommand(
-    // new CheesyDrive(()->Robot.oi.driverXbox.getY(Hand.kLeft),
-    // ()->Robot.oi.driverXbox.getX(Hand.kLeft)));
+    // Robot.driveTrain = new TankDrivetrain(
+    //     (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
+    //     (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
 
-    Robot.driveTrain.setDefaultCommand(new DriveArcade(Robot.driveTrain, () -> Robot.oi.driverXbox.getY(Hand.kLeft),
-        () -> Robot.oi.driverXbox.getX(Hand.kLeft)));
+    Robot.driveTrain = new DifferentialTankDrivetrain(RobotComponents.DriveTrain.REAR_LEFT_M, RobotComponents.DriveTrain.REAR_RIGHT_M);
 
+    //lol
+    Robot.oi = new OI();  
+
+    Robot.driveTrain.setDefaultCommand(
+      new CheesyDrive(Robot.driveTrain, ()->Robot.oi.driverXbox.getY(Hand.kLeft), ()->Robot.oi.driverXbox.getX(Hand.kLeft)));
+
+
+   
     // Open/Close solenoids
     SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
     SmartDashboard.putData("Hatch Unlock", new SetHatchLock(Value.kReverse));
