@@ -5,6 +5,7 @@ import frc.robot.RobotStates;
 
 public class LiftSwitchOverride extends Command {
   public LiftSwitchOverride() {
+    setRunWhenDisabled(true);
   }
 
   @Override

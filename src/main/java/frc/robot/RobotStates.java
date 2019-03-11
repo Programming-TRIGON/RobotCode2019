@@ -101,6 +101,10 @@ public class RobotStates {
             RobotStates.desireOneEightyAngle = OneEightyAngle.kStraight;
         } else if(RobotStates.desireOneEightyAngle.equals(OneEightyAngle.kTopStraight)) {
             RobotStates.desireOneEightyAngle = OneEightyAngle.kTopBack;
+        } else if(RobotStates.desireOneEightyAngle.equals(OneEightyAngle.kCargoShipForward)){
+            RobotStates.desireOneEightyAngle = OneEightyAngle.kCargoShipBack;
+        } else if(RobotStates.desireOneEightyAngle.equals(OneEightyAngle.kCargoShipBack)){
+            RobotStates.desireOneEightyAngle = OneEightyAngle.kCargoShipForward;
         } else {
             RobotStates.desireOneEightyAngle = OneEightyAngle.kTopStraight;
         }

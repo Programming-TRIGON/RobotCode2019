@@ -86,6 +86,7 @@ public class Lift extends JoystickOverridableSubsystem {
     this.safeControl = isSafe;
   }
   
+  
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new LiftDefaultCommand(RobotStates::getLiftHeight));

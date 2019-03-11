@@ -64,7 +64,7 @@ public class RobotConstants {
         /** Cargo rocket heights */
         kRocketTopCargo(0.8641190476190477), kRocketBottomCargo(0.25979761904761905), kRocketMiddleCargo(1.2), 
         /** A height that is safe to use OneEighty */
-        kOneEightySafety(0.2926190476190477), kOneEightyCargoSafety(0.2926190476190477), //kOneEightySafety not checked currently on cargo safety
+        kOneEightySafety(1), kOneEightyCargoSafety(1), //kOneEightySafety not checked currently on cargo safety
         /** Collection heights */
         kCargoCollection(0), kHatchCollection(0.12),
         /** Cargo ship height */

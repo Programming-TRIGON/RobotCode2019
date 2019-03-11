@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
+import frc.robot.Commands.RumbleXbox;
 import frc.robot.HatchHolderCommands.SetHatchLock;
 import frc.robot.LiftCommands.SetHeightIndex;
 import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
@@ -16,9 +17,10 @@ public class AfterHatchFeederPreparation extends CommandGroup {
    */
   public AfterHatchFeederPreparation() {
     addSequential(new SetHatchLock(Value.kForward));
+    addParallel(new RumbleXbox(false));
     addSequential(new WaitCommand(0.85));
     addSequential(new SetHeightIndex(LiftHeight.kOneEightySafety));
-    addSequential(new WaitCommand(0.3));
+    addSequential(new WaitCommand(0.5));
     addParallel(new SetCargoFolderState(Value.kForward));
     addSequential(new SetOneEightyDesireAngle(OneEightyAngle.kBack));
   }

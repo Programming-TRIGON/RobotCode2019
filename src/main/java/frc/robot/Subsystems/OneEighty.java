@@ -54,10 +54,10 @@ public class OneEighty extends JoystickOverridableSubsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new OneEightyDefaultCommand(()->RobotStates.getDesireOneEightyAngle(), liftHeight));
+    setDefaultCommand(new OneEightyDefaultCommand(()->RobotStates.getDesireOneEightyAngle(), () -> 10000.0));//liftHeight));
   }
 
-  @Override
+  @Override 
   public void move(double power) {
     setOneEighty(power);
   }

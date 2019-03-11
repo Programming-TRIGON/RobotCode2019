@@ -13,7 +13,7 @@ import frc.robot.RobotConstants.OneEightyAngle;
 
 public class StabilizeOneEightyAngle extends Command {
   private PIDController pidController;
-  private double angle;
+  private double angle, previousAngle;
   private PIDSettings pidSettings;
   private Supplier<OneEightyAngle> angleSupplier;
   private Supplier<Double> liftHeight;
@@ -45,11 +45,7 @@ public class StabilizeOneEightyAngle extends Command {
 
   @Override
   protected void initialize() {
-    if (liftHeight.get() <= LiftHeight.kOneEightySafety.key){
-      this.angle = angleSupplier.get().key;
-    }else{
-      this.angle = Robot.oneEighty.getAngle();
-    }
+    this.angle = angleSupplier.get().key;
     if (this.angle == OneEightyAngle.kCargoCollection.key){ 
       Robot.oneEighty.setSafeControl(false);
     }
@@ -63,9 +59,19 @@ public class StabilizeOneEightyAngle extends Command {
   }
 
   @Override
+  protected void execute() {
+    previousAngle = angle;
+    if (liftHeight.get() >= LiftHeight.kOneEightySafety.key){
+      this.angle = angleSupplier.get().key;
+    }else{
+      this.angle = Robot.oneEighty.getAngle();
+    }
+  }
+
+  @Override
   protected boolean isFinished() {
     return RobotStates.isOneEightyOverride() ||
-    angle != angleSupplier.get().key;
+    angle != previousAngle;
   }
 
   @Override

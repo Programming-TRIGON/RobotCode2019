@@ -26,7 +26,7 @@ public class PrepareToScore extends CommandGroup {
     this.height = height;
     addSequential(new SetCargoFolderState(Value.kReverse, ()-> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
     addSequential(new SetHeightIndex(()-> heightToSet));
-    addSequential(new WaitCommand(0.3));
+    addSequential(new WaitCommand(0.3));   
     addSequential(new SetOneEightyDesireAngle(()-> angleToSet));
   }
 
@@ -49,8 +49,7 @@ public class PrepareToScore extends CommandGroup {
       else 
         RobotStates.decreaseHeight();
       prepareToScoreHeight = RobotConstants.heights[RobotStates.getHeightIndex()];
-    }
-    else
+    }else 
       prepareToScoreHeight = this.height;
       
     // Choose which height should be set based on what the operator input and what game piece we have
@@ -76,15 +75,18 @@ public class PrepareToScore extends CommandGroup {
           // The only time the 180 isn't straight is when it has to be angled up
           angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kTopBack : OneEightyAngle.kTopStraight;
         }
-        else
+        else {
           heightToSet = LiftHeight.kRocketTopHatch;
+          angleToSet = OneEightyAngle.kStraight;
+        }
         break;
       case kCargoShip:
         if (RobotStates.isHasCargo()){
           heightToSet = LiftHeight.kCargoShip;
-          angleToSet = OneEightyAngle.kCargoShipForward;
+          angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kCargoShipBack : OneEightyAngle.kCargoShipForward;
         }else 
           heightToSet = LiftHeight.kLiftBottomHatch;
+        break;
     } 
   }
 }

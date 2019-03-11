@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
+import frc.robot.RobotStates;
 import frc.robot.DrivingCommands.DriveArcadeWithPID;
 import frc.robot.Subsystems.DifferentialTankDrivetrain;
 import frc.robot.Vision.VisionPIDSource.VisionTarget;
@@ -71,10 +72,10 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
     this.rotationController = new VisionPIDController(PIDSettings.getKP(), PIDSettings.getKI(), PIDSettings.getKD(),
         (VisionPIDSource) PIDSource, (rotate) -> {
           if (rotate != 9999) {
-            drivetrain.arcadeDrive(movementSupplier.get(), -rotate, 0.1);
+            drivetrain.arcadeDrive((RobotStates.isDriveInverted() ? 1:-1)*movementSupplier.get(), rotate, 0.1);
             lastTimeFound = Timer.getFPGATimestamp();
           } else
-            drivetrain.arcadeDrive(Robot.oi.driverXbox.getY(Hand.kLeft), 0);
+            drivetrain.arcadeDrive((RobotStates.isDriveInverted() ? 1:-1)*Robot.oi.driverXbox.getY(Hand.kLeft), 0);
         });
 
     rotationController.setAbsoluteTolerance(PIDSettings.getTolerance());

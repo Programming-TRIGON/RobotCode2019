@@ -7,8 +7,8 @@ public class RobotMap {
    static class CAN {
         public static final int PCM = 1;
 
-        public static final int LIFT_LEFT_MOTOR = 5; 
-        public static final int LIFT_RIGHT_MOTOR = 6;
+        public static final int LIFT_LEFT_MOTOR = 6; 
+        public static final int LIFT_RIGHT_MOTOR = 5;
 
         public static final int ONE_EIGHTY_MOTOR = 8;
 

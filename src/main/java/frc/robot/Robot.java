@@ -88,12 +88,6 @@ public class Robot extends TimedRobot {
     NetworkTableEntry target = imageProcessingTable.getEntry("target");
     target.setString(VisionPIDSource.VisionTarget.kReflectorForward.toString());
 
-    this.a = new JoystickButton(Robot.oi.driverXbox, 8);
-    a.whileHeld(new InstantCommand(() -> {
-      Robot.oi.operatorXbox.setRumble(RumbleType.kLeftRumble, 1);
-      Robot.oi.operatorXbox.setRumble(RumbleType.kRightRumble, 1);
-    }));
-
     Robot.dbc = new DashBoardController();
 
     /** creates the SS htach collector that collects hatch pannels */
@@ -158,10 +152,16 @@ public class Robot extends TimedRobot {
     //     (Double speed) -> RobotComponents.DriveTrain.REAR_LEFT_M.set(ControlMode.PercentOutput, speed),
     //     (Double speed) -> RobotComponents.DriveTrain.REAR_RIGHT_M.set(ControlMode.PercentOutput, -speed));
 
-    Robot.driveTrain = new DifferentialTankDrivetrain(RobotComponents.DriveTrain.REAR_LEFT_M, RobotComponents.DriveTrain.REAR_RIGHT_M);
-
+    Robot.driveTrain = new DifferentialTankDrivetrain(RobotComponents.DriveTrain.REAR_LEFT_M, RobotComponents.DriveTrain.REAR_RIGHT_M);  
+    
     //lol
-    Robot.oi = new OI();  
+    Robot.oi = new OI();
+    
+    this.a = new JoystickButton(Robot.oi.driverXbox, 8);
+    a.whileHeld(new InstantCommand(() -> {
+      Robot.oi.operatorXbox.setRumble(RumbleType.kLeftRumble, 1);
+      Robot.oi.operatorXbox.setRumble(RumbleType.kRightRumble, 1);
+    }));
 
     Robot.driveTrain.setDefaultCommand(
       new CheesyDrive(Robot.driveTrain, ()->Robot.oi.driverXbox.getY(Hand.kLeft), ()->Robot.oi.driverXbox.getX(Hand.kLeft)));
@@ -201,6 +201,7 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Lift encoder", Robot.lift::getHeight);
 
     // Robot states to be periodically published to SmartDashboard
+    dbc.addString("One Eighty angle", () -> RobotStates.getDesireOneEightyAngle().toString());
     dbc.addString("Lift Height", () -> RobotStates.getLiftHeight().toString());
     dbc.addNumber("Height index", RobotStates::getHeightIndex);
     dbc.addBoolean("One Eighty Override", RobotStates::isOneEightyOverride);
@@ -224,8 +225,8 @@ public class Robot extends TimedRobot {
     if (Robot.lift.isAtBottom())
       RobotComponents.Lift.ENCODER.reset();
     RobotStates.setHasCargo(Robot.cargoCollector.isHoldingBall());
-    SmartDashboard.putNumber("lift motor 1 current (A)", RobotComponents.Lift.LIFT_LEFT_M.getOutputCurrent());
-    SmartDashboard.putNumber("lift motor 2 current (A)", RobotComponents.Lift.LIFT_RIGHT_M.getOutputCurrent());
+    SmartDashboard.putNumber("lift left motor current (A)", RobotComponents.Lift.LIFT_LEFT_M.getOutputCurrent());
+    SmartDashboard.putNumber("lift right motor current (A)", RobotComponents.Lift.LIFT_RIGHT_M.getOutputCurrent());
 
   }
 
@@ -234,9 +235,14 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
   }
 
+  public void disabledInit() {
+    RobotStates.setLiftHeight(LiftHeight.kCargoCollection);
+  }
+
   @Override
   public void autonomousInit() {
     Scheduler.getInstance().add(new SetHatchLock(Value.kForward));
+
     m_autoSelected = auto_chooser.getSelected();
     System.out.println("Auto selected: " + m_autoSelected);
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
@@ -252,9 +258,6 @@ public class Robot extends TimedRobot {
       break;
     }
     Scheduler.getInstance().add(autoCommand);
-
-    // Scheduler.getInstance().add(new SetLiftOverride());
-    // Scheduler.getInstance().add(new SetOneEightyOverride());
   }
 
   @Override
@@ -266,6 +269,9 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     if (autoCommand != null)
       autoCommand.close();
+
+    Scheduler.getInstance().add(new SetHatchEject(Value.kForward));
+    Scheduler.getInstance().add(new SetHatchLock(Value.kReverse));
 
     testCommand = testsChooser.getSelected();
     SmartDashboard.putData("Test Command", testCommand);
