@@ -7,13 +7,8 @@ import com.spikes2212.utils.PIDSettings;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
-import frc.robot.LiftCommands.ReachLiftHeight;
-import frc.robot.LiftCommands.LiftDefaultCommand;
-import frc.robot.RobotConstants.LiftHeight;
-import frc.robot.RobotConstants.OneEightyAngle;
-import frc.robot.OneEightyCommands.OneEightyDefaultCommand;
-import frc.robot.OneEightyCommands.StabilizeOneEightyAngle;
+import frc.robot.Vision.DriveArcadeWithVision;
+import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 public class TestPID extends Command {
   Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);
@@ -32,7 +27,7 @@ public class TestPID extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new StabilizeOneEightyAngle(OneEightyAngle.kStraight, this.pidSettings);
+    testCommand = new DriveArcadeWithVision(VisionTarget.kReflectorForward, this.pidSettings);
     testCommand.start();
   }
 

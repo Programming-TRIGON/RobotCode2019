@@ -8,7 +8,8 @@ import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 public class ReflectorDrive extends ConditionalCommand {
   public ReflectorDrive() {
-    super(new DriveArcadeWithVision(VisionTarget.kReflectorBackward), new DriveArcadeWithVision(VisionTarget.kReflectorForward));
+    super(new DriveArcadeWithVision(VisionTarget.kReflectorBackward), 
+    new DriveArcadeWithVision(VisionTarget.kReflectorForward));
   }
 
   @Override

@@ -155,9 +155,12 @@ public class Robot extends TimedRobot {
     //lol
     Robot.oi = new OI();  
 
-    Robot.driveTrain.setDefaultCommand(
-      new CheesyDrive(()->Robot.oi.driverXbox.getY(Hand.kLeft), ()->Robot.oi.driverXbox.getX(Hand.kLeft)));
-    
+    //Robot.driveTrain.setDefaultCommand(
+      //new CheesyDrive(()->Robot.oi.driverXbox.getY(Hand.kLeft), ()->Robot.oi.driverXbox.getX(Hand.kLeft)));
+   
+    Robot.driveTrain.setDefaultCommand(new DriveArcade(Robot.driveTrain, 
+    ()->Robot.oi.driverXbox.getY(Hand.kLeft), ()->Robot.oi.driverXbox.getX(Hand.kLeft)));
+
     // Open/Close solenoids
     SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
     SmartDashboard.putData("Hatch Unlock", new SetHatchLock(Value.kReverse));
