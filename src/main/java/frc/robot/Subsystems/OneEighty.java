@@ -3,11 +3,9 @@ package frc.robot.Subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import frc.robot.RobotStates;
 import frc.robot.OneEightyCommands.OneEightyDefaultCommand;
-import frc.robot.RobotConstants.OneEightyAngle;
 
 /**
  * the class that is on the lift and turns 180 degrees allowing the placement of

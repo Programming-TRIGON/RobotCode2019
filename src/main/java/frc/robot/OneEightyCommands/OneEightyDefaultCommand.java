@@ -1,12 +1,9 @@
 package frc.robot.OneEightyCommands;
 
 import java.util.function.Supplier;
-
 import com.spikes2212.utils.PIDSettings;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.RobotConstants.OneEightyAngle;
-import frc.robot.RobotStates;
 
 public class OneEightyDefaultCommand extends CommandGroup {
 

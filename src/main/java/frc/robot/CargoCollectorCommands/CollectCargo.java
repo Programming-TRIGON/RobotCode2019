@@ -1,9 +1,7 @@
 package frc.robot.CargoCollectorCommands;
 
-import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotStates;
 
 /** collects and holds the cargo */
 public class CollectCargo extends Command {

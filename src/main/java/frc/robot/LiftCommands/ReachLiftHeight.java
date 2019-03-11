@@ -1,22 +1,15 @@
 package frc.robot.LiftCommands;
 
 import java.util.function.Supplier;
-
-import javax.swing.Timer;
-
 import com.spikes2212.utils.PIDSettings;
-
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
-import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.RobotConstants.LiftHeight;
-import frc.robot.RobotConstants.RobotPIDSettings;
 
 public class ReachLiftHeight extends Command {
   private Supplier<LiftHeight> height;
