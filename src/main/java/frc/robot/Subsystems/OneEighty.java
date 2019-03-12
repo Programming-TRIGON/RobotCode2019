@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import frc.robot.RobotStates;
 import frc.robot.OneEightyCommands.OneEightyDefaultCommand;
+import frc.robot.RobotConstants.OneEightyAngle;
 
 /**
  * the class that is on the lift and turns 180 degrees allowing the placement of
@@ -35,12 +36,10 @@ public class OneEighty extends JoystickOverridableSubsystem {
 
   /** turns the SS to where the driver wants it */
   public void setOneEighty(double power) {
-    // if (((power > 0 && getAngle() >= OneEightyAngle.kTopStraight.key)
-    //     || (power < 0 && getAngle() <= OneEightyAngle.kTopBack.key) 
-    // )//|| (Robot.lift.getHeight() <= LiftHeight.kOneEightySafety.key))
-    //     && this.isSafe)
-    //   this.motor.set(ControlMode.PercentOutput, 0);
-    // else
+    if ((power > 0 && getAngle() >= OneEightyAngle.kTopStraight.key)
+        || (power < 0 && getAngle() <= OneEightyAngle.kTopBack.key)) 
+      this.motor.set(ControlMode.PercentOutput, 0);
+    else
       this.motor.set(ControlMode.PercentOutput, power);
   }
   

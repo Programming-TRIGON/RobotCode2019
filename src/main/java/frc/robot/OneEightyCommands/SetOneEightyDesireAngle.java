@@ -1,7 +1,6 @@
 package frc.robot.OneEightyCommands;
 
 import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.RobotStates;
 import frc.robot.RobotConstants.OneEightyAngle;
