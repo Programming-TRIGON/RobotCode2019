@@ -37,6 +37,9 @@ public class Lift extends JoystickOverridableSubsystem {
     rightMotor.configPeakCurrentDuration(2000);
     leftMotor.configPeakCurrentDuration(2000);
 
+    leftMotor.configContinuousCurrentLimit(15);
+    rightMotor.configContinuousCurrentLimit(15);
+
     leftMotor.configPeakCurrentLimit(peakCurrentLimit);
     rightMotor.configPeakCurrentLimit(peakCurrentLimit);
 

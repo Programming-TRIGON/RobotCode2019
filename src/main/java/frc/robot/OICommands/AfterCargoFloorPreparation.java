@@ -18,12 +18,15 @@ public class AfterCargoFloorPreparation extends CommandGroup {
    */
   public AfterCargoFloorPreparation() {
     addSequential(new CollectCargo(0,0,false), 0.05);
+    
+    // --------we might want to uncomment this--------
+    
     /** prepare the lift and the 180 subsystems to score */
-    addSequential(new GenericIfCommand(new SetHeightIndex(LiftHeight.kOneEightyCargoSafety), 
-    RobotStates::isHasCargo));
-    addSequential(new WaitCommand(0.3));
-    addSequential(new GenericIfCommand(new SetOneEightyDesireAngle(OneEightyAngle.kStraight),
-    RobotStates::isHasCargo));
-    addSequential(new SetCargoFolderState(Value.kForward)); //we might want to make it if command
+    // addSequential(new GenericIfCommand(new SetHeightIndex(LiftHeight.kOneEightyCargoSafety), 
+    // RobotStates::isHasCargo)); 
+    // addSequential(new WaitCommand(0.3));
+    // addSequential(new GenericIfCommand(new SetOneEightyDesireAngle(OneEightyAngle.kStraight),
+    // RobotStates::isHasCargo));
+    // addSequential(new SetCargoFolderState(Value.kForward)); //we might want to make it if command
   }
 }

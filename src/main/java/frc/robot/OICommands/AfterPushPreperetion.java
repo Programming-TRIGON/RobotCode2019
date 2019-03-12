@@ -17,6 +17,6 @@ public class AfterPushPreperetion extends CommandGroup {
     addSequential(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));
     addSequential(new SetCargoFolderState(Value.kReverse));
     addSequential(new WaitCommand(0.3));
-    addSequential(new SetHeightIndex(LiftHeight.kOneEightySafety));
+    addSequential(new SetHeightIndex(LiftHeight.kCargoCollection));
   }
 }
