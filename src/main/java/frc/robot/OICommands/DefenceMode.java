@@ -8,7 +8,6 @@ import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
 import frc.robot.HatchHolderCommands.SetHatchLock;
-import frc.robot.LiftCommands.ResetLift;
 import frc.robot.LiftCommands.SetHeightIndex;
 import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
  /**
