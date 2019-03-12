@@ -9,10 +9,12 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotConstants.PrepareToScoreHeight;
 import frc.robot.Triggers.XboxTrigger;
 import frc.robot.Commands.CancelCommand;
+import frc.robot.Commands.GenericIfCommand;
 import frc.robot.Commands.ReflectorDrive;
 import frc.robot.DrivingCommands.ToggleDriveInverted;
 import frc.robot.LiftCommands.LiftSwitchOverride;
@@ -26,6 +28,7 @@ import frc.robot.OICommands.PrepareToScore;
 import frc.robot.OICommands.Push;
 import frc.robot.OneEightyCommands.OneEightyToggleOverride;
 import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
+import frc.robot.OneEightyCommands.ToggleOneEightyAngle;
 
 public class OI {
     
@@ -80,7 +83,9 @@ public class OI {
         this.RTrigger.whenActive(new Push());
         this.RTrigger.whenInactive(new AfterPushPreperetion());
 
-        this.LTrigger.whenActive(new InstantCommand(() -> RobotStates.toggleOneEightyDesiredAngle()));
+        this.LTrigger.whenActive(new GenericIfCommand(new ToggleOneEightyAngle(),
+            new InstantCommand(() -> RobotStates.toggleOneEightyDesiredAngle()),
+            () -> Robot.lift.getHeight() <= LiftHeight.kOneEightyCargoSafety.key));
 
         //-------------------- OPERATOR --------------------------------------------
         this.operatorButtonY.whenPressed(new CollectHatchFromFeeder());
