@@ -44,7 +44,7 @@ public class ReachLiftHeight extends Command {
 
     this.pidOutput = new PIDOutput() {
       public void pidWrite(double output) {
-        Robot.lift.setMotorSpeed(output);
+        Robot.lift.setMotorSpeed(output + RobotConstants.LIFT_BASE_POWER);
       }
     };
     this.pidController = new PIDController(this.pidSettings.getKP(),
@@ -54,7 +54,7 @@ public class ReachLiftHeight extends Command {
     this.setpoint = height.get().key;
     pidController.setSetpoint(setpoint);
     pidController.setAbsoluteTolerance(this.pidSettings.getTolerance());
-    pidController.setOutputRange(-0.5, 1); // was 0.5,1
+    pidController.setOutputRange(-0.5, 0.8); // was 0.5,1
     pidController.enable();
   }
 

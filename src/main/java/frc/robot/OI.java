@@ -13,19 +13,22 @@ import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotConstants.PrepareToScoreHeight;
 import frc.robot.Triggers.XboxTrigger;
+import frc.robot.CargoCollectorCommands.PushCargo;
 import frc.robot.Commands.CancelCommand;
 import frc.robot.Commands.GenericIfCommand;
-import frc.robot.Commands.ReflectorDrive;
 import frc.robot.DrivingCommands.ToggleDriveInverted;
+import frc.robot.HatchHolderCommands.EjectHatch;
 import frc.robot.LiftCommands.LiftSwitchOverride;
 import frc.robot.OICommands.AfterCargoFloorPreparation;
 import frc.robot.OICommands.AfterHatchFeederPreparation;
 import frc.robot.OICommands.AfterPushPreperetion;
+import frc.robot.OICommands.AfterReflectorDrivePreperetion;
 import frc.robot.OICommands.CollectCargoFromFloor;
 import frc.robot.OICommands.CollectHatchFromFeeder;
 import frc.robot.OICommands.DefenceMode;
 import frc.robot.OICommands.PrepareToScore;
 import frc.robot.OICommands.Push;
+import frc.robot.OICommands.ReflectorDrive;
 import frc.robot.OneEightyCommands.OneEightyToggleOverride;
 import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
 import frc.robot.OneEightyCommands.ToggleOneEightyAngle;
@@ -76,12 +79,15 @@ public class OI {
 
         //-------------------- DRIVER --------------------------------------------
         this.driverButtonB.whenPressed(new ReflectorDrive());
-        this.driverButtonB.whenReleased(new CancelCommand(() -> Robot.driveTrain.getCurrentCommand()));
+        this.driverButtonB.whenReleased(new AfterReflectorDrivePreperetion());
 
         this.driverButtonA.whenPressed(new ToggleDriveInverted());
         
-        this.RTrigger.whenActive(new Push());
-        this.RTrigger.whenInactive(new AfterPushPreperetion());
+        this.RTrigger.whenActive(new EjectHatch());
+        //this.RTrigger.whenInactive(new AfterPushPreperetion());
+
+        driverButtonRB.whenPressed(new PushCargo());
+        driverButtonRB.whenReleased(new AfterPushPreperetion());
 
         this.LTrigger.whenActive(new GenericIfCommand(new ToggleOneEightyAngle(),
             new InstantCommand(() -> RobotStates.toggleOneEightyDesiredAngle()),
@@ -100,8 +106,8 @@ public class OI {
         this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip)); 
         this.operatorButtonB.whenPressed(new PrepareToScore(PrepareToScoreHeight.kMedium));
 
-        this.operatorButtonAxisRight.whenPressed(new OneEightyToggleOverride());
-        this.operatorButtonAxisLeft.whenPressed(new LiftSwitchOverride());
+        this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride());
+        this.operatorButtonAxisLeft.whenPressed(new OneEightyToggleOverride());
 
         this.operatorLeftPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kBack));
         this.operatorRightPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));  

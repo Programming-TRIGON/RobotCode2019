@@ -46,9 +46,9 @@ public class StabilizeOneEightyAngle extends Command {
   @Override
   protected void initialize() {
     this.angle = angleSupplier.get().key;
-    if (this.angle == OneEightyAngle.kCargoCollection.key){ 
-      Robot.oneEighty.setSafeControl(false);
-    }
+    // if (this.angle == OneEightyAngle.kCargoCollection.key){ 
+    //   Robot.oneEighty.setSafeControl(false);
+    // }
     this.pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
         Robot.oneEighty.getPotentiometer(), (output) -> Robot.oneEighty.setOneEighty(output));
 
@@ -61,17 +61,18 @@ public class StabilizeOneEightyAngle extends Command {
   @Override
   protected void execute() {
     this.previousAngle = this.angle;
-    if (liftHeight.get() >= LiftHeight.kOneEightySafety.key){
-      this.angle = angleSupplier.get().key;
-    }else{
-      this.angle = Robot.oneEighty.getAngle();
-    }
+    this.angle = this.angleSupplier.get().key;
+    // if (liftHeight.get() >= LiftHeight.kOneEightySafety.key - 0.2){
+    //   this.angle = angleSupplier.get().key;
+    // } else {
+    //   this.angle = Robot.oneEighty.getAngle();
+    // }
   }
 
   @Override
   protected boolean isFinished() {
-    return RobotStates.isOneEightyOverride() ||
-    this.angle != this.previousAngle;
+    return RobotStates.isOneEightyOverride() //צריך להוסיף תנאי עצירה נוסף שבו אם הסט פויינט מרובוט כונסטנס שונה מהסטפוניט הנוכחי אז הקומנד יפסיק
+     || this.angle != this.previousAngle;
   }
 
   @Override

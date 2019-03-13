@@ -5,6 +5,7 @@ import frc.robot.RobotStates;
 
 public class OneEightyToggleOverride extends Command {
   public OneEightyToggleOverride() {
+    setRunWhenDisabled(true);
   }
 
   @Override

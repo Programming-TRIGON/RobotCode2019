@@ -26,7 +26,7 @@ public class ToggleOneEightyAngle extends CommandGroup {
 
   @Override
   protected void initialize(){
-    if(RobotStates.getLiftHeight().equals(LiftHeight.kLiftBottomHatchCargoSide))
+    if(RobotStates.getLiftHeight().equals(LiftHeight.kLiftBottomHatchCargoSide) || RobotStates.getLiftHeight().equals(LiftHeight.kCargoCollection))
       this.heightToSet = LiftHeight.kLiftBottomHatch;  
     else if(RobotStates.getLiftHeight().equals(LiftHeight.kLiftBottomHatch))
       this.heightToSet = LiftHeight.kLiftBottomHatchCargoSide;

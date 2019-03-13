@@ -166,8 +166,6 @@ public class Robot extends TimedRobot {
     Robot.driveTrain.setDefaultCommand(
       new CheesyDrive(Robot.driveTrain, ()->Robot.oi.driverXbox.getY(Hand.kLeft), ()->Robot.oi.driverXbox.getX(Hand.kLeft)));
 
-
-   
     // Open/Close solenoids
     SmartDashboard.putData("Hatch Lock", new SetHatchLock(Value.kForward));
     SmartDashboard.putData("Hatch Unlock", new SetHatchLock(Value.kReverse));
@@ -183,12 +181,11 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putData("Stop Compressor", new CompressorStop());
     SmartDashboard.putData("Start Compressor", new CompressorStart());
-
+    
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
     SmartDashboard.putData("Push Cargo", new PushCargo());
 
     SmartDashboard.putData(new TestPID());
-    SmartDashboard.putData("Move lift With Joystick", new MoveSubsystemWithJoystick(Robot.lift, Robot.oi.operatorXbox));
 
     // Auto command tests
     SmartDashboard.putData("Test auto", new testAuto());
@@ -217,6 +214,9 @@ public class Robot extends TimedRobot {
     RobotStates.LiftOverride = false;
 
     Scheduler.getInstance().add(new SetHatchLock(Value.kReverse));
+    Scheduler.getInstance().add(new SetHeightIndex(LiftHeight.kCargoCollection));
+    Scheduler.getInstance().add(new SetOneEightyDesireAngle(OneEightyAngle.kCargoCollection));
+    
   }
 
   @Override
@@ -271,7 +271,9 @@ public class Robot extends TimedRobot {
       autoCommand.close();
 
     Scheduler.getInstance().add(new SetHatchEject(Value.kForward));
-    Scheduler.getInstance().add(new SetHatchLock(Value.kReverse));
+    Scheduler.getInstance().add(new SetHatchLock(Value.kForward));
+    Scheduler.getInstance().add(new SetCargoFolderState(Value.kForward));
+    Scheduler.getInstance().add(new SetOneEightyDesireAngle(OneEightyAngle.kCargoCollection));
 
     testCommand = testsChooser.getSelected();
     SmartDashboard.putData("Test Command", testCommand);

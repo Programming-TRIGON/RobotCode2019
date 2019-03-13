@@ -15,7 +15,7 @@ public class Lift extends JoystickOverridableSubsystem {
   private boolean safeControl = true;
   double motorRamp = 0.25;
 
-  final int peakCurrentLimit = 20, continuousCurrentLimit = 3;
+  final int peakCurrentLimit = 20, continuousCurrentLimit = 6;
 
   public Lift(TalonSRX rightMotor, TalonSRX leftMotor, DigitalInput topwSwitch, DigitalInput bottomSwitch,
       Encoder encoder) {
@@ -34,22 +34,21 @@ public class Lift extends JoystickOverridableSubsystem {
     leftMotor.configContinuousCurrentLimit(continuousCurrentLimit);
     rightMotor.configContinuousCurrentLimit(continuousCurrentLimit);
 
-    rightMotor.configPeakCurrentDuration(2000);
-    leftMotor.configPeakCurrentDuration(2000);
-
-    leftMotor.configContinuousCurrentLimit(15);
-    rightMotor.configContinuousCurrentLimit(15);
+    rightMotor.configPeakCurrentDuration(500);
+    leftMotor.configPeakCurrentDuration(500);
 
     leftMotor.configPeakCurrentLimit(peakCurrentLimit);
     rightMotor.configPeakCurrentLimit(peakCurrentLimit);
 
-    leftMotor.enableCurrentLimit(true);
-    rightMotor.enableCurrentLimit(true);
+    leftMotor.enableCurrentLimit(false);
+    rightMotor.enableCurrentLimit(false);
   }
 
   /** sets the speed of the motors of the lift to higher/lower it */
   public void setMotorSpeed(double speed) {
-    if (((speed > 0 && isAtTop()) || (speed < 0 && isAtBottom()))) {
+    if (((speed > 0 && isAtTop()) || (speed < 0 && isAtBottom())) 
+      || (leftMotor.getOutputCurrent() < 0.5 && rightMotor.getOutputCurrent() > 1) ||
+      (rightMotor.getOutputCurrent() < 0.5 && leftMotor.getOutputCurrent() > 1)) {
       rightMotor.set(ControlMode.PercentOutput, 0);
       leftMotor.set(ControlMode.PercentOutput, 0);
     } else {
@@ -76,7 +75,7 @@ public class Lift extends JoystickOverridableSubsystem {
   }
 
   public double getHeight() {
-    return this.encoder.getDistance() / 0.555;
+    return this.encoder.getDistance();// / 0.555;
   }
 
   @Override

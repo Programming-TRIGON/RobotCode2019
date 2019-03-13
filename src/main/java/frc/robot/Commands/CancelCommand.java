@@ -23,8 +23,6 @@ public class CancelCommand extends InstantCommand {
   Supplier<Command> command;
   public CancelCommand(Command c) {
     super();
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     command = () -> c;
   }
 

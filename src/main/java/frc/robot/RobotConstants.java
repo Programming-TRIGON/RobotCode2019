@@ -18,7 +18,7 @@ public class RobotConstants {
     /** constants for sensors on the robot */
     public static class Sensors {
         public static final double ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER = -3600;
-        public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET =3340;
+        public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET =3398+45;
 
         public static final double DRIVE_ENCODER_DPP = RobotDimensions.DRIVE_WHEEL_DIAMETER * Math.PI / 360;
 
@@ -43,13 +43,13 @@ public class RobotConstants {
 
     /** the angles of the oneEighty subsystem when performing a task */
     public static enum OneEightyAngle {
-        kStraight(-3), // The cargo collector faces ahead in this angle.
-        kBack(178), // The cargo collector faces back in this angle.
-        kTopStraight(-45),
-        kTopBack(207),
-        kCargoCollection(18),
-        kCargoShipForward(7),
-        kCargoShipBack(168);     
+        kStraight(0), // The cargo collector faces ahead in this angle.
+        kBack(180), // The cargo collector faces back in this angle.
+        kTopStraight(-40),
+        kTopBack(220),
+        kCargoCollection(17),
+        kCargoShipForward(3),
+        kCargoShipBack(177);     
         public double key;
 
         OneEightyAngle(double angle) {
@@ -60,17 +60,17 @@ public class RobotConstants {
     /** the height the lift should be in for certain tasks */
     public static enum LiftHeight {
         /** Hatch rocket heights */
-        kLiftBottomHatch(0.28), kLiftBottomHatchCargoSide(0.2), kRocketMiddleHatch(1.55), kRocketTopHatch(0.8641190476190477),
+        kLiftBottomHatch(0.28), kLiftBottomHatchCargoSide(0.4), kRocketMiddleHatch(0.8), kRocketTopHatch(1),
         /** Cargo rocket heights */
-        kRocketTopCargo(0.8641190476190477), kRocketBottomCargo(0.25979761904761905), kRocketMiddleCargo(1.2), 
+        kRocketTopCargo(1), kRocketBottomCargo(1.0449377949377947), kRocketMiddleCargo(1.45), 
         /** A height that is safe to use OneEighty */
         kOneEightySafety(1), kOneEightyCargoSafety(1), //kOneEightySafety not checked currently on cargo safety
         /** Collection heights */
         kCargoCollection(0), kHatchCollection(0.12),
         /** Cargo ship height */
-        kCargoShip(0.496452380952381),
+        kCargoShip(1.2),
         /** Cargo safty height */
-        kCargoFolderSafty(0.3159166666666667);
+        kCargoFolderSafty(0.45);
 
         public double key;
 
@@ -82,6 +82,8 @@ public class RobotConstants {
     public static enum PrepareToScoreHeight {
         kLow, kMedium, kHigh, kCargoShip
     }
+
+	public static final double LIFT_BASE_POWER = 0;
 
     public static PrepareToScoreHeight[] heights = {PrepareToScoreHeight.kLow, PrepareToScoreHeight.kMedium, 
         PrepareToScoreHeight.kHigh, PrepareToScoreHeight.kCargoShip};

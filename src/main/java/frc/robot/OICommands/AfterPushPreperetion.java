@@ -14,9 +14,9 @@ public class AfterPushPreperetion extends CommandGroup {
    * prepare the robot after pushing the right game piece
    */
   public AfterPushPreperetion() {
-    addSequential(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));
+    /*addSequential(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));
     addSequential(new SetCargoFolderState(Value.kReverse));
     addSequential(new WaitCommand(0.3));
-    addSequential(new SetHeightIndex(LiftHeight.kCargoCollection));
+    addSequential(new SetHeightIndex(LiftHeight.kCargoCollection));*/
   }
 }

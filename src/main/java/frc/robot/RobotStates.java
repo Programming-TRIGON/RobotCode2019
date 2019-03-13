@@ -15,6 +15,7 @@ public class RobotStates {
     static boolean isCollected = false;
     static int heightIndex = -1; // The values can be 0,1,2 for rocket - low, middle and high. 3 for cargo ship height And -1 for none of these heights
     static LiftHeight liftHeight = LiftHeight.kCargoCollection;
+    static LiftHeight lastHeight = LiftHeight.kCargoCollection;
 
     public static void increaseHeight() {
         if (RobotStates.heightIndex < 2)
@@ -110,5 +111,13 @@ public class RobotStates {
         } else {
             RobotStates.desireOneEightyAngle = OneEightyAngle.kTopStraight;
         }
+    }
+
+    public static void setLastHeight(LiftHeight heightToSet){
+        RobotStates.lastHeight = heightToSet; 
+    }
+
+    public static LiftHeight getLastHeight(){
+        return RobotStates.lastHeight; 
     }
 }

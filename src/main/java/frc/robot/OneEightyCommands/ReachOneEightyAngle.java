@@ -51,7 +51,7 @@ public class ReachOneEightyAngle extends Command {
   protected boolean isFinished() {
     double currentAngle = Robot.oneEighty.getAngle();
     return  RobotStates.isOneEightyOverride() || 
-    liftHeight.get() <= LiftHeight.kOneEightySafety.key ||
+    //liftHeight.get() <= LiftHeight.kOneEightySafety.key ||
     ((currentAngle > angle.get() - 7) && (currentAngle < angle.get() + 7));
   }
 

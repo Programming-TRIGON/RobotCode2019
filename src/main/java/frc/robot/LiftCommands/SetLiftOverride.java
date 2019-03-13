@@ -21,7 +21,7 @@ public class SetLiftOverride extends Command {
 
   @Override
   protected void execute() {
-    Robot.lift.setMotorSpeed(Robot.oi.operatorXbox.getY(Hand.kLeft));
+    Robot.lift.setMotorSpeed(Robot.oi.operatorXbox.getY(Hand.kRight));
   }
 
   @Override

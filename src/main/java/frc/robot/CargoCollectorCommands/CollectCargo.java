@@ -23,7 +23,6 @@ public class CollectCargo extends Command {
 
   @Override
   protected void initialize() {
-    
   }
 
   @Override

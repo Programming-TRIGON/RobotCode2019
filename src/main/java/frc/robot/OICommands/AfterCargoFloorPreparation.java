@@ -7,6 +7,7 @@ import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotStates;
 import frc.robot.CargoCollectorCommands.CollectCargo;
+import frc.robot.CargoCollectorCommands.KeepCargo;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.Commands.GenericIfCommand;
 import frc.robot.LiftCommands.SetHeightIndex;
@@ -17,7 +18,8 @@ public class AfterCargoFloorPreparation extends CommandGroup {
    * prepare the robot after collecting cargo from the floor
    */
   public AfterCargoFloorPreparation() {
-    addSequential(new CollectCargo(0,0,false), 0.05);
+    addSequential(new GenericIfCommand(new CollectCargo(0,0,false), 
+    new KeepCargo(), () -> !RobotStates.isHasCargo()));
     
     // --------we might want to uncomment this--------
     

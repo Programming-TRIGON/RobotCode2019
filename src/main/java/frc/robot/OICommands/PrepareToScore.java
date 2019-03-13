@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
+import frc.robot.Commands.GenericIfCommand;
 import frc.robot.LiftCommands.SetHeightIndex;
 import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
 import frc.robot.RobotConstants.LiftHeight;
@@ -24,18 +25,20 @@ public class PrepareToScore extends CommandGroup {
 
   public PrepareToScore(PrepareToScoreHeight height) {
     this.height = height;
-    addSequential(new SetCargoFolderState(Value.kReverse, ()-> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
     addSequential(new SetHeightIndex(()-> heightToSet));
     addSequential(new WaitCommand(0.5));   
     addSequential(new SetOneEightyDesireAngle(()-> angleToSet));
+    addSequential(new GenericIfCommand(new SetCargoFolderState(Value.kReverse),
+     new SetCargoFolderState(Value.kForward), ()-> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
   }
 
   public PrepareToScore(boolean increaseHeight) {
     this.increaseHeight = increaseHeight;
-    addSequential(new SetCargoFolderState(Value.kReverse, ()-> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
     addSequential(new SetHeightIndex(()-> heightToSet));
     addSequential(new WaitCommand(0.5));
     addSequential(new SetOneEightyDesireAngle(()-> angleToSet));
+    addSequential(new GenericIfCommand(new SetCargoFolderState(Value.kReverse), 
+      new SetCargoFolderState(Value.kForward), ()-> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
   }
 
   @Override
@@ -58,7 +61,8 @@ public class PrepareToScore extends CommandGroup {
       case kLow:
         if (RobotStates.isHasCargo()){
           heightToSet = LiftHeight.kRocketBottomCargo;
-          angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kBack : OneEightyAngle.kStraight;
+          //angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kBack : OneEightyAngle.kStraight;
+          angleToSet = OneEightyAngle.kStraight;
         } else
           if(RobotStates.getDesireOneEightyAngle().equals(OneEightyAngle.kStraight)){   
             heightToSet = LiftHeight.kLiftBottomHatch;
@@ -71,10 +75,12 @@ public class PrepareToScore extends CommandGroup {
       case kMedium:
         if (RobotStates.isHasCargo()){
           heightToSet = LiftHeight.kRocketMiddleCargo;
-          angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kBack : OneEightyAngle.kStraight;
+          //angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kBack : OneEightyAngle.kStraight;
+          angleToSet = OneEightyAngle.kStraight;
         } else {
           heightToSet = LiftHeight.kRocketMiddleHatch;
-          angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack;
+          //angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack;
+          angleToSet = OneEightyAngle.kStraight;
         }
         break;
       case kHigh:
@@ -84,7 +90,8 @@ public class PrepareToScore extends CommandGroup {
           angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kTopBack : OneEightyAngle.kTopStraight;
         } else {
           heightToSet = LiftHeight.kRocketTopHatch;
-          angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack;
+          //angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack;
+          angleToSet = OneEightyAngle.kStraight;
         }
         break;
       case kCargoShip:
@@ -92,8 +99,9 @@ public class PrepareToScore extends CommandGroup {
           heightToSet = LiftHeight.kCargoShip;
           angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kCargoShipBack : OneEightyAngle.kCargoShipForward;
         } else {
-          heightToSet = LiftHeight.kLiftBottomHatch;
-          angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack;
+          heightToSet = LiftHeight.kCargoShip;
+          //angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack;
+          angleToSet = OneEightyAngle.kStraight;
         }
         break;
     } 
