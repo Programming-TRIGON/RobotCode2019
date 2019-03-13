@@ -25,10 +25,10 @@ public class HatchHolder extends Subsystem {
    * DoubleSolinoids require "values" that represent off, forward, and reversed.
    */
   public void setLock(Value value) {
-    if (ejectionState == Value.kReverse) {
-      lockState = value;
+    //if (ejectionState == Value.kReverse) {
+      //lockState = value;
       this.hatchLocker.set(value);
-    }
+    //}
   }
 
   /**
@@ -36,10 +36,10 @@ public class HatchHolder extends Subsystem {
    * DoubleSolinoids require "values" that represent off, forward, and reversed
    */
   public void setEjection(Value value) {
-    if(lockState == Value.kReverse){
-      ejectionState = value;      
+    //if(lockState == Value.kReverse){
+      //ejectionState = value;      
       this.hatchEjector.set(value);
-    }
+    //}
   }
 
   @Override

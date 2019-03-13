@@ -15,9 +15,10 @@ public class AfterHatchFeederPreparation extends CommandGroup {
    */
   public AfterHatchFeederPreparation() {
     addSequential(new SetHatchLock(Value.kForward));
-    //addParallel(new InstantCommand(() -> RobotStates.setIsCollected(true)));
-    //addParallel(new RumbleXbox(false));
+    addParallel(new InstantCommand(() -> RobotStates.setIsCollected(true)));
+    addParallel(new RumbleXbox(false));
     //addSequential(new WaitCommand(0.85));
     //addSequential(new ToggleOneEightyAngle());
   }
 }
+
