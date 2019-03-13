@@ -12,7 +12,7 @@ public class RobotStates {
     static boolean driveInverted = false;
     static boolean oneEightyOverride = false;
     static boolean LiftOverride = false;
-    static boolean isPushed = false;
+    static boolean isCollected = false;
     static int heightIndex = -1; // The values can be 0,1,2 for rocket - low, middle and high. 3 for cargo ship height And -1 for none of these heights
     static LiftHeight liftHeight = LiftHeight.kCargoCollection;
 
@@ -86,12 +86,12 @@ public class RobotStates {
         return RobotStates.desireOneEightyAngle;
     }
 
-    public static boolean isPushed(){
-        return RobotStates.isPushed;
+    public static boolean isCollected(){
+        return RobotStates.isCollected;
     }
 
-    public static void setIsPushed(boolean isPushed){
-        RobotStates.isPushed = isPushed;
+    public static void setIsCollected(boolean isCollected){
+        RobotStates.isCollected = isCollected;
     }
 
     public static void toggleOneEightyDesiredAngle(){
@@ -105,6 +105,8 @@ public class RobotStates {
             RobotStates.desireOneEightyAngle = OneEightyAngle.kCargoShipBack;
         } else if(RobotStates.desireOneEightyAngle.equals(OneEightyAngle.kCargoShipBack)){
             RobotStates.desireOneEightyAngle = OneEightyAngle.kCargoShipForward;
+        } else if(RobotStates.desireOneEightyAngle.equals(OneEightyAngle.kCargoCollection)){
+            RobotStates.desireOneEightyAngle = OneEightyAngle.kBack;
         } else {
             RobotStates.desireOneEightyAngle = OneEightyAngle.kTopStraight;
         }

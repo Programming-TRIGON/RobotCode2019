@@ -16,15 +16,21 @@ public class ToggleOneEightyAngle extends CommandGroup {
   LiftHeight heightToSet;
   public ToggleOneEightyAngle() {
     addSequential(new SetCargoFolderState(Value.kReverse));
-    addSequential(new WaitCommand(0.3));
+    addSequential(new WaitCommand(0.35));
     addSequential(new SetHeightIndex(LiftHeight.kOneEightyCargoSafety));
+    addSequential(new WaitCommand(0.2));
     addSequential(new InstantCommand(() -> RobotStates.toggleOneEightyDesiredAngle()));
-    addSequential(new WaitCommand(0.3));
+    addSequential(new WaitCommand(2));
     addSequential(new SetHeightIndex(() -> this.heightToSet));
   }
 
   @Override
   protected void initialize(){
-    this.heightToSet = RobotStates.getLiftHeight();
+    if(RobotStates.getLiftHeight().equals(LiftHeight.kLiftBottomHatchCargoSide))
+      this.heightToSet = LiftHeight.kLiftBottomHatch;  
+    else if(RobotStates.getLiftHeight().equals(LiftHeight.kLiftBottomHatch))
+      this.heightToSet = LiftHeight.kLiftBottomHatchCargoSide;
+    else
+      this.heightToSet = RobotStates.getLiftHeight();
   }
 }

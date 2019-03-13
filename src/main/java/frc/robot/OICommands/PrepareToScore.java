@@ -26,7 +26,7 @@ public class PrepareToScore extends CommandGroup {
     this.height = height;
     addSequential(new SetCargoFolderState(Value.kReverse, ()-> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
     addSequential(new SetHeightIndex(()-> heightToSet));
-    addSequential(new WaitCommand(0.3));   
+    addSequential(new WaitCommand(0.5));   
     addSequential(new SetOneEightyDesireAngle(()-> angleToSet));
   }
 
@@ -34,58 +34,67 @@ public class PrepareToScore extends CommandGroup {
     this.increaseHeight = increaseHeight;
     addSequential(new SetCargoFolderState(Value.kReverse, ()-> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
     addSequential(new SetHeightIndex(()-> heightToSet));
-    addSequential(new WaitCommand(0.3));
+    addSequential(new WaitCommand(0.5));
     addSequential(new SetOneEightyDesireAngle(()-> angleToSet));
   }
 
   @Override
   protected void initialize(){
-    if(RobotStates.getHeightIndex()==-1)
+    if(RobotStates.isCollected() || RobotStates.getHeightIndex() == -1 || RobotStates.getHeightIndex() == 3)
       RobotStates.setHeightIndex(1);
-
+    RobotStates.setIsCollected(false);
+    
     if(this.height==null){
       if(this.increaseHeight)
         RobotStates.increaseHeight();
       else 
         RobotStates.decreaseHeight();
       prepareToScoreHeight = RobotConstants.heights[RobotStates.getHeightIndex()];
-    }else 
+    } else 
       prepareToScoreHeight = this.height;
       
     // Choose which height should be set based on what the operator input and what game piece we have
     switch (prepareToScoreHeight){
       case kLow:
-        if (RobotStates.isHasCargo())
+        if (RobotStates.isHasCargo()){
           heightToSet = LiftHeight.kRocketBottomCargo;
-        else 
-          if(angleToSet.equals(OneEightyAngle.kStraight))   
+          angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kBack : OneEightyAngle.kStraight;
+        } else
+          if(RobotStates.getDesireOneEightyAngle().equals(OneEightyAngle.kStraight)){   
             heightToSet = LiftHeight.kLiftBottomHatch;
-          else
+            angleToSet = OneEightyAngle.kStraight;
+          } else {
             heightToSet = LiftHeight.kLiftBottomHatchCargoSide;
-        break;
+            angleToSet = OneEightyAngle.kBack;
+          }
+          break;
       case kMedium:
-        if (RobotStates.isHasCargo())
+        if (RobotStates.isHasCargo()){
           heightToSet = LiftHeight.kRocketMiddleCargo;
-        else 
+          angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kBack : OneEightyAngle.kStraight;
+        } else {
           heightToSet = LiftHeight.kRocketMiddleHatch;
+          angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack;
+        }
         break;
       case kHigh:
         if (RobotStates.isHasCargo()){
           heightToSet = LiftHeight.kRocketTopCargo;
           // The only time the 180 isn't straight is when it has to be angled up
           angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kTopBack : OneEightyAngle.kTopStraight;
-        }
-        else {
+        } else {
           heightToSet = LiftHeight.kRocketTopHatch;
-          angleToSet = OneEightyAngle.kStraight;
+          angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack;
         }
         break;
       case kCargoShip:
         if (RobotStates.isHasCargo()){
           heightToSet = LiftHeight.kCargoShip;
           angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kCargoShipBack : OneEightyAngle.kCargoShipForward;
-        }else 
+        } else {
           heightToSet = LiftHeight.kLiftBottomHatch;
+          angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack;
+        }
         break;
     } 
   }

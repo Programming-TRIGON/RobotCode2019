@@ -208,10 +208,10 @@ public class Robot extends TimedRobot {
     dbc.addBoolean("Lift Override", RobotStates::isLiftOverride);
     dbc.addBoolean("Is Has Cargo", RobotStates::isHasCargo);
     dbc.addBoolean("Inverted Drive", RobotStates::isDriveInverted);
+    dbc.addBoolean("Is collected", RobotStates::isCollected);
 
     addTests();
 
-    // CameraServer.getInstance().startAutomaticCapture();
     SmartDashboard.putData(new ChangeCam());
     RobotStates.oneEightyOverride = false;
     RobotStates.LiftOverride = false;
