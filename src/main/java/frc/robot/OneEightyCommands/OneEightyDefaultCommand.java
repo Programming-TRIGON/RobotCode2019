@@ -7,6 +7,7 @@ import frc.robot.RobotConstants.OneEightyAngle;
 
 public class OneEightyDefaultCommand extends CommandGroup {
 
+  // TODO: refactor default command format
   public OneEightyDefaultCommand(OneEightyAngle angle, PIDSettings pIDSettings, Supplier<Double> liftHeight) {
     addSequential(new ReachOneEightyAngle(angle, liftHeight));
     addSequential(new StabilizeOneEightyAngle(angle, pIDSettings, liftHeight));
