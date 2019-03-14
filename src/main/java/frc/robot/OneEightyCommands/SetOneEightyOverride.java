@@ -23,7 +23,8 @@ public class SetOneEightyOverride extends Command {
   @Override
   protected void execute() {
     double power = Robot.oi.operatorXbox.getY(Hand.kLeft);
-    power = power >= DEADBAND ? power : 0;
+    int sign = power >0 ? 1:-1;
+    power = Math.abs(power) >= DEADBAND ? (power-(sign*DEADBAND)) : 0;
     Robot.oneEighty.setOneEighty(-SENSITIVITY*power);
   }
 
