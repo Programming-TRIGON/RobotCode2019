@@ -37,7 +37,6 @@ public class SecondHatchMiddle extends CommandGroup {
         TARGET_TRACK_TIME);*/
 
     // score the hatch.
-    // TODO: switch to the needed hatch height.
 
   }
 }

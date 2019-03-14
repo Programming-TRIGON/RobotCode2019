@@ -11,14 +11,12 @@ public abstract class BaseAutoCommand extends CommandGroup {
    */
   public BaseAutoCommand() {
     // Drive off platform and align against platform
-    // TODO: create ArcadeDrive that isFinishes when a supplier (a joystick button) is released
     //addSequential(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getX, Robot.oi.operatorXbox::getY));
 
     // drive to first hatch destination 
     driveToFirstHatch();
 
     // place hatch 
-    // TODO: get vision commands
 
     // drive to hatch feeder 
     addSequential(new DriveArcade(Robot.driveTrain, Robot.oi.operatorXbox::getX, Robot.oi.operatorXbox::getY));
