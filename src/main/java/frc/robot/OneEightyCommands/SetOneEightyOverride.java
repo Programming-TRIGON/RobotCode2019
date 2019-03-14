@@ -10,6 +10,7 @@ import frc.robot.RobotStates;
  * the sensors break
  */
 public class SetOneEightyOverride extends Command {
+  final double DEADBAND = 0.2, SENSITIVITY = 0.25;
   public SetOneEightyOverride() {
     requires(Robot.oneEighty);
   }
@@ -21,7 +22,9 @@ public class SetOneEightyOverride extends Command {
 
   @Override
   protected void execute() {
-    Robot.oneEighty.setOneEighty(-0.25*Robot.oi.operatorXbox.getY(Hand.kLeft));
+    double power = Robot.oi.operatorXbox.getY(Hand.kLeft);
+    power = power >= DEADBAND ? power : 0;
+    Robot.oneEighty.setOneEighty(-SENSITIVITY*power);
   }
 
   @Override
