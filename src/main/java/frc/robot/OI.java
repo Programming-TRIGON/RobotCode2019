@@ -122,7 +122,7 @@ public class OI {
         this.operatorStartButton.whenPressed(new DefenceMode());
 
         operatorRTrigger.whileActive(new CollectCargo(-0.5, -1, false));
-        operatorLTrigger.whenActive(new SetCargoFolderState(Value.kReverse));
+        operatorLTrigger.whenActive(new SetCargoFolderState(Value.kForward));
         
     }
 

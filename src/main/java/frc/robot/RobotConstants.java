@@ -48,8 +48,9 @@ public class RobotConstants {
         kTopStraight(-40),
         kTopBack(220),
         kCargoCollection(17),
-        kCargoShipForward(3),
-        kCargoShipBack(177);     
+        kCargoShipForward(-40),
+        kCargoShipBack(220),
+        kHatchToMiddle(35);     
         public double key;
 
         OneEightyAngle(double angle) {
@@ -60,7 +61,7 @@ public class RobotConstants {
     /** the height the lift should be in for certain tasks */
     public static enum LiftHeight {
         /** Hatch rocket heights */
-        kLiftBottomHatch(0.28), kLiftBottomHatchCargoSide(0.4), kRocketMiddleHatch(0.8), kRocketTopHatch(1),
+        kLiftBottomHatch(0.28), kLiftBottomHatchCargoSide(0.4), kRocketMiddleHatch(1.95), kRocketTopHatch(1),
         /** Cargo rocket heights */
         kRocketTopCargo(1), kRocketBottomCargo(1.0449377949377947), kRocketMiddleCargo(1.45), 
         /** A height that is safe to use OneEighty */
@@ -68,9 +69,11 @@ public class RobotConstants {
         /** Collection heights */
         kCargoCollection(0), kHatchCollection(0.12),
         /** Cargo ship height */
-        kCargoShip(1.2),
+        kCargoShip(1.9),
         /** Cargo safty height */
-        kCargoFolderSafty(0.45);
+        kCargoFolderSafty(0.45),
+        /** A height that is use to do image processing with the cameras */
+        kImageProcessing(0.45);
 
         public double key;
 
@@ -85,6 +88,8 @@ public class RobotConstants {
 
 	public static final double LIFT_BASE_POWER = 0;
 
-    public static PrepareToScoreHeight[] heights = {PrepareToScoreHeight.kLow, PrepareToScoreHeight.kMedium, 
-        PrepareToScoreHeight.kHigh, PrepareToScoreHeight.kCargoShip};
+    // public static PrepareToScoreHeight[] heights = {PrepareToScoreHeight.kLow, PrepareToScoreHeight.kMedium, 
+    //     PrepareToScoreHeight.kHigh, PrepareToScoreHeight.kCargoShip};
+
+    public static PrepareToScoreHeight[] heights = {PrepareToScoreHeight.kLow, PrepareToScoreHeight.kMedium, PrepareToScoreHeight.kCargoShip};
 }

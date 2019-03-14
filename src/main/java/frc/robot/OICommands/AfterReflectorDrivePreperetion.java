@@ -14,7 +14,7 @@ public class AfterReflectorDrivePreperetion extends CommandGroup {
   LiftHeight heightToSet;
   public AfterReflectorDrivePreperetion() {
     addSequential(new CancelCommand(() -> Robot.driveTrain.getCurrentCommand()));
-    addSequential(new SetHeightIndex(() -> heightToSet));
+    //addSequential(new SetHeightIndex(() -> heightToSet));
   }
 
   @Override
