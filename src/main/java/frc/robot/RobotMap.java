@@ -30,8 +30,8 @@ public class RobotMap {
         public static final int HATCH_HOLDER_PVC_SOLENOID_FORWARD = 0;
         public static final int HATCH_HOLDER_PVC_SOLENOID_REVERSE = 1;
 
-        public static final int HATCH_HOLDER_PUSH_SOLENOID_FORWARD = 2;
-        public static final int HATCH_HOLDER_PUSH_SOLENOID_REVERSE = 3;
+        public static final int HATCH_HOLDER_PUSH_SOLENOID_FORWARD = 3;
+        public static final int HATCH_HOLDER_PUSH_SOLENOID_REVERSE = 2;
 
         public static final int CARGO_FOLDER_SOLENOID_FORWARD = 5; 
         public static final int CARGO_FOLDER_SOLENOID_REVERSE = 4; 
@@ -43,7 +43,7 @@ public class RobotMap {
         public static final int LIFT_BOTTOM_MICRO_SWITCH = 4;
         public final static int LIFT_ENCODER_CHANNEL_A = 9;
         public final static int LIFT_ENCODER_CHANNEL_B = 8;
-        public static final int CARGO_COLLECTOR_SWITCH = 6;
+        public static final int CARGO_COLLECTOR_SWITCH = 5;
         public final static int DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_A = 0;        
         public final static int DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_B = 1;
         public final static int DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_A = 3;

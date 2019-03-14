@@ -14,6 +14,7 @@ public class CompressorStart extends Command {
   public CompressorStart() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    setRunWhenDisabled(true);
   }
 
   // Called just before this Command runs the first time

@@ -5,6 +5,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
@@ -13,7 +14,9 @@ import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotConstants.PrepareToScoreHeight;
 import frc.robot.Triggers.XboxTrigger;
+import frc.robot.CargoCollectorCommands.CollectCargo;
 import frc.robot.CargoCollectorCommands.PushCargo;
+import frc.robot.CargoFolderCommands.SetCargoFolderState;
 import frc.robot.Commands.CancelCommand;
 import frc.robot.Commands.GenericIfCommand;
 import frc.robot.DrivingCommands.ToggleDriveInverted;
@@ -40,7 +43,7 @@ public class OI {
     Button driverButtonY, driverButtonA, driverButtonB, driverButtonX, driverButtonLB, driverButtonRB;
     Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, operatorStartButton, operatorButtonAxisRight, operatorButtonAxisLeft;
     POVButton operatorRightPOVButton, operatorLeftPOVButton, operatorBottomPOVButton, operatorTopPOVButton;
-    XboxTrigger LTrigger, RTrigger; 
+    XboxTrigger driverLTrigger, driverRTrigger, operatorRTrigger, operatorLTrigger; 
 
     UsbCamera cam0, cam1;
     UsbCamera[] cams = new UsbCamera[2];
@@ -54,8 +57,8 @@ public class OI {
         this.driverButtonY = new JoystickButton(driverXbox, 4);
         this.driverButtonLB = new JoystickButton(driverXbox, 5);
         this.driverButtonRB = new JoystickButton(driverXbox, 6);
-        this.LTrigger = new XboxTrigger(this.driverXbox, Hand.kLeft); 
-        this.RTrigger = new XboxTrigger(this.driverXbox, Hand.kRight);
+        this.driverLTrigger = new XboxTrigger(this.driverXbox, Hand.kLeft); 
+        this.driverRTrigger = new XboxTrigger(this.driverXbox, Hand.kRight);
 
         // operator buttons
         this.operatorButtonA = new JoystickButton(operatorXbox, 1);
@@ -71,6 +74,10 @@ public class OI {
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
         this.operatorTopPOVButton = new POVButton(operatorXbox, 0);
         this.operatorBottomPOVButton = new POVButton(operatorXbox, 180);
+        operatorLTrigger = new XboxTrigger(this.operatorXbox, Hand.kLeft);
+        operatorRTrigger = new XboxTrigger(this.operatorXbox, Hand.kRight);
+
+
 
         cam0 = CameraServer.getInstance().startAutomaticCapture(0);
         cam1 = CameraServer.getInstance().startAutomaticCapture(1);
@@ -83,13 +90,13 @@ public class OI {
 
         this.driverButtonA.whenPressed(new ToggleDriveInverted());
         
-        this.RTrigger.whenActive(new EjectHatch());
+        this.driverRTrigger.whenActive(new EjectHatch());
         //this.RTrigger.whenInactive(new AfterPushPreperetion());
 
         driverButtonRB.whenPressed(new PushCargo());
         driverButtonRB.whenReleased(new AfterPushPreperetion());
 
-        this.LTrigger.whenActive(new GenericIfCommand(new ToggleOneEightyAngle(),
+        this.driverLTrigger.whenActive(new GenericIfCommand(new ToggleOneEightyAngle(),
             new InstantCommand(() -> RobotStates.toggleOneEightyDesiredAngle()),
             () -> Robot.lift.getHeight() <= LiftHeight.kOneEightyCargoSafety.key));
 
@@ -113,6 +120,9 @@ public class OI {
         this.operatorRightPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));  
         
         this.operatorStartButton.whenPressed(new DefenceMode());
+
+        operatorRTrigger.whileActive(new CollectCargo(-0.5, -1, false));
+        operatorLTrigger.whenActive(new SetCargoFolderState(Value.kReverse));
         
     }
 

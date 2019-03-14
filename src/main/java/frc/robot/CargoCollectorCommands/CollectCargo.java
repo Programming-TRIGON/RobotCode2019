@@ -9,7 +9,7 @@ public class CollectCargo extends Command {
   double holderPower;
   boolean switchStop;
 
-  public CollectCargo(double collectPower, double holderPower,boolean switchStop) {
+  public CollectCargo(double collectPower, double holderPower, boolean switchStop) {
     requires(Robot.cargoCollector);
     this.collectorPower = collectPower;
     this.holderPower = holderPower;

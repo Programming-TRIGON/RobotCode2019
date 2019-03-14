@@ -25,20 +25,22 @@ public class PrepareToScore extends CommandGroup {
 
   public PrepareToScore(PrepareToScoreHeight height) {
     this.height = height;
-    addSequential(new SetHeightIndex(()-> heightToSet));
-    addSequential(new WaitCommand(0.5));   
-    addSequential(new SetOneEightyDesireAngle(()-> angleToSet));
     addSequential(new GenericIfCommand(new SetCargoFolderState(Value.kReverse),
      new SetCargoFolderState(Value.kForward), ()-> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
+    addSequential(new SetHeightIndex(()-> heightToSet));
+    addSequential(new WaitCommand(0.3));   
+    addSequential(new SetOneEightyDesireAngle(()-> angleToSet));
+    
   }
 
   public PrepareToScore(boolean increaseHeight) {
     this.increaseHeight = increaseHeight;
-    addSequential(new SetHeightIndex(()-> heightToSet));
-    addSequential(new WaitCommand(0.5));
-    addSequential(new SetOneEightyDesireAngle(()-> angleToSet));
     addSequential(new GenericIfCommand(new SetCargoFolderState(Value.kReverse), 
       new SetCargoFolderState(Value.kForward), ()-> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
+    addSequential(new SetHeightIndex(()-> heightToSet));
+    addSequential(new WaitCommand(0.3));
+    addSequential(new SetOneEightyDesireAngle(()-> angleToSet));
+    
   }
 
   @Override
@@ -97,7 +99,8 @@ public class PrepareToScore extends CommandGroup {
       case kCargoShip:
         if (RobotStates.isHasCargo()){
           heightToSet = LiftHeight.kCargoShip;
-          angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kCargoShipBack : OneEightyAngle.kCargoShipForward;
+          //angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kCargoShipBack : OneEightyAngle.kCargoShipForward;
+          angleToSet = OneEightyAngle.kCargoShipForward;
         } else {
           heightToSet = LiftHeight.kCargoShip;
           //angleToSet = RobotStates.isDriveInverted() ? OneEightyAngle.kStraight : OneEightyAngle.kBack;
