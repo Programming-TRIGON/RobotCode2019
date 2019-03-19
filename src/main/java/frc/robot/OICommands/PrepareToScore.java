@@ -26,21 +26,27 @@ public class PrepareToScore extends CommandGroup {
   public PrepareToScore(PrepareToScoreHeight height) {
     this.height = height;
     addSequential(new GenericIfCommand(new SetCargoFolderState(Value.kReverse), 
-    ()-> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
-    addSequential(new SetHeightIndex(()-> heightToSet));
+    () -> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
+    addSequential(new GenericIfCommand(new WaitCommand(0.5), 
+    () -> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
+    addSequential(new SetHeightIndex(() -> heightToSet));
     addSequential(new WaitCommand(0.5));   
-    addSequential(new SetOneEightyDesireAngle(()-> angleToSet));
+    addSequential(new SetOneEightyDesireAngle(() -> angleToSet));
+    addSequential(new WaitCommand(0.2));
     addSequential(new GenericIfCommand(new SetCargoFolderState(Value.kForward),
-    ()-> !heightToSet.equals(LiftHeight.kLiftBottomHatch)));
+    () -> !heightToSet.equals(LiftHeight.kLiftBottomHatch)));
   }
 
   public PrepareToScore(boolean increaseHeight) {
     this.increaseHeight = increaseHeight;
     addSequential(new GenericIfCommand(new SetCargoFolderState(Value.kReverse), 
       ()-> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
+      addSequential(new GenericIfCommand(new WaitCommand(0.5), 
+    () -> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
     addSequential(new SetHeightIndex(()-> heightToSet));
     addSequential(new WaitCommand(0.5));
     addSequential(new SetOneEightyDesireAngle(()-> angleToSet));
+    addSequential(new WaitCommand(0.2));
     addSequential(new GenericIfCommand(new SetCargoFolderState(Value.kForward),
     ()-> !heightToSet.equals(LiftHeight.kLiftBottomHatch)));
     
@@ -48,7 +54,7 @@ public class PrepareToScore extends CommandGroup {
 
   @Override
   protected void initialize(){
-    if(RobotStates.isCollected() || RobotStates.getHeightIndex() == -1)
+    if(RobotStates.isCollected() || RobotStates.getHeightIndex() == -1 || RobotStates.getHeightIndex() == 2)
       RobotStates.setHeightIndex(1);
     RobotStates.setIsCollected(false);
     
@@ -76,7 +82,7 @@ public class PrepareToScore extends CommandGroup {
             heightToSet = LiftHeight.kLiftBottomHatchCargoSide;
             angleToSet = OneEightyAngle.kBack;
           }
-          break;
+        break;
       case kMedium:
         if (RobotStates.isHasCargo()){
           heightToSet = LiftHeight.kRocketMiddleCargo;

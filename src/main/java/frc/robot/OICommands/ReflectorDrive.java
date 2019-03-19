@@ -17,8 +17,8 @@ public class ReflectorDrive extends CommandGroup {
   LiftHeight heightToSet;
   boolean cargoFoldDown;
   public ReflectorDrive() {
-    addSequential(new GenericIfCommand(new SetCargoFolderState(Value.kReverse), () -> cargoFoldDown));
-    addSequential(new WaitCommand(0.5));
+    addSequential(new GenericIfCommand(new SetCargoFolderState(Value.kReverse), () -> this.cargoFoldDown));
+    addSequential(new GenericIfCommand(new WaitCommand(0.5), () -> this.cargoFoldDown));
     addSequential(new SetHeightIndex(() -> this.heightToSet));
     addSequential(new ReflectorDriveChooser());
   }

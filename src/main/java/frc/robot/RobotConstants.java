@@ -37,7 +37,7 @@ public class RobotConstants {
         public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.009, 0.00005, 0.00075, 2, 0);
         public static final PIDSettings VISION_TURN_SETTINGS = new PIDSettings(0.4, 0, 0.01, 2, 2);
         public static final PIDSettings VISION_DISTANCE_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
-        public static final PIDSettings LIFT_HEIGHT_SETTINGS = new PIDSettings(4,0,5.5,0.05,1);
+        public static final PIDSettings LIFT_HEIGHT_SETTINGS = new PIDSettings(6,0,5.5,0.05,1);
     }
 
 

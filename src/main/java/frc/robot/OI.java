@@ -17,7 +17,6 @@ import frc.robot.Triggers.XboxTrigger;
 import frc.robot.CargoCollectorCommands.CollectCargo;
 import frc.robot.CargoCollectorCommands.PushCargo;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
-import frc.robot.Commands.CancelCommand;
 import frc.robot.Commands.GenericIfCommand;
 import frc.robot.DrivingCommands.ToggleDriveInverted;
 import frc.robot.HatchHolderCommands.EjectHatch;
@@ -30,14 +29,12 @@ import frc.robot.OICommands.CollectCargoFromFloor;
 import frc.robot.OICommands.CollectHatchFromFeeder;
 import frc.robot.OICommands.DefenceMode;
 import frc.robot.OICommands.PrepareToScore;
-import frc.robot.OICommands.Push;
 import frc.robot.OICommands.ReflectorDrive;
 import frc.robot.OneEightyCommands.OneEightyToggleOverride;
 import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
 import frc.robot.OneEightyCommands.ToggleOneEightyAngle;
 
-public class OI {
-    
+public class OI {    
     public XboxController operatorXbox = new XboxController(0);
     public XboxController driverXbox = new XboxController(1);
     Button driverButtonY, driverButtonA, driverButtonB, driverButtonX, driverButtonLB, driverButtonRB;
@@ -74,10 +71,8 @@ public class OI {
         this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
         this.operatorTopPOVButton = new POVButton(operatorXbox, 0);
         this.operatorBottomPOVButton = new POVButton(operatorXbox, 180);
-        operatorLTrigger = new XboxTrigger(this.operatorXbox, Hand.kLeft);
-        operatorRTrigger = new XboxTrigger(this.operatorXbox, Hand.kRight);
-
-
+        this.operatorLTrigger = new XboxTrigger(this.operatorXbox, Hand.kLeft);
+        this.operatorRTrigger = new XboxTrigger(this.operatorXbox, Hand.kRight);
 
         cam0 = CameraServer.getInstance().startAutomaticCapture(0);
         cam1 = CameraServer.getInstance().startAutomaticCapture(1);
@@ -111,7 +106,7 @@ public class OI {
         this.operatorButtonLB.whenPressed(new PrepareToScore(false));
         
         this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip)); 
-        this.operatorButtonB.whenPressed(new PrepareToScore(PrepareToScoreHeight.kMedium));
+        this.operatorButtonB.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip));
 
         this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride());
         this.operatorButtonAxisLeft.whenPressed(new OneEightyToggleOverride());
@@ -123,7 +118,6 @@ public class OI {
 
         operatorRTrigger.whileActive(new CollectCargo(-0.5, -1, false));
         operatorLTrigger.whenActive(new SetCargoFolderState(Value.kForward));
-        
     }
 
 	public void changeCam(int cam) {

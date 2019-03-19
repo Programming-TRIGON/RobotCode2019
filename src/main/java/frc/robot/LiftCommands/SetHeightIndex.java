@@ -33,14 +33,14 @@ public class SetHeightIndex extends Command {
       case kRocketMiddleHatch:
         RobotStates.setHeightIndex(1);
         break;
-      case kRocketTopCargo:
+      /*case kRocketTopCargo:
         RobotStates.setHeightIndex(2);
         break;
       case kRocketTopHatch:
         RobotStates.setHeightIndex(2);
-        break;
+        break;*/
       case kCargoShip:
-        RobotStates.setHeightIndex(3);
+        RobotStates.setHeightIndex(2); //was 3 
         break;
       default: 
         RobotStates.setHeightIndex(-1);

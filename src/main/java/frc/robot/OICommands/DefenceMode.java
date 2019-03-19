@@ -19,7 +19,7 @@ public class DefenceMode extends CommandGroup {
     addParallel(new SetCargoFolderState(Value.kReverse)); //open so lift can go down
     addSequential(new SetOneEightyDesireAngle(OneEightyAngle.kCargoCollection));    
     addSequential(new Push());
-    addSequential(new WaitCommand(0.3));
+    addSequential(new WaitCommand(0.5));
     addSequential(new SetHeightIndex(LiftHeight.kCargoCollection));
     addParallel(new SetCargoFolderState(Value.kForward));
     addParallel(new SetHatchCollectorState(Value.kReverse));

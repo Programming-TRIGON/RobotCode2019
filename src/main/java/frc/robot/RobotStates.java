@@ -14,7 +14,7 @@ public class RobotStates {
     static boolean LiftOverride = false;
     static boolean isCollected = false;
     static int heightIndex = -1; // The values can be 0,1,2 for rocket - low, middle and cargo ship height And -1 for none of these heights
-    // high height removed from the code from distric 4!
+    // high height have removed from the code from distric 4!
     static LiftHeight liftHeight = LiftHeight.kCargoCollection;
     static LiftHeight lastHeight = LiftHeight.kCargoCollection;
 
