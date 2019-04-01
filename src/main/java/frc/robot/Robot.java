@@ -251,6 +251,11 @@ public class Robot extends TimedRobot {
     RobotComponents.DriveTrain.RIGHT_ENCODER.reset();
     RobotComponents.DriveTrain.LEFT_ENCODER.reset();
     RobotComponents.DriveTrain.GYRO.reset();
+    for(int i = 15; i >= 0; i--)
+    {
+      SmartDashboard.putNumber("Sandstorm time left:", i);
+      new WaitCommand(1);
+    }
 
     switch (m_autoSelected) {
     case right:
@@ -266,11 +271,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
-    for(int i = 15; i >= 0; i--)
-    {
-      SmartDashboard.putNumber("Sandstorm time left:", i);
-      new WaitCommand(1);
-    }
+
   }
 
   @Override
