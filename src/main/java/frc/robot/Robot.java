@@ -265,6 +265,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
+    for(int i = 15; i => 0; i--;)
+    {
+      SmartDashboard.putNumber("Sandstorm time left:", i);
+      new WaitCommand(1);
+    }
   }
 
   @Override
