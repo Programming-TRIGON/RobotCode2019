@@ -76,7 +76,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     compressor = new Compressor(1);
     compressor.start();
-    // compressor.stop();
 
     auto_chooser.setDefaultOption("Default Auto", left);
     auto_chooser.addOption("My Auto", right);
@@ -238,7 +237,6 @@ public class Robot extends TimedRobot {
 
   public void disabledInit() {
     RobotStates.setLiftHeight(LiftHeight.kCargoCollection);
-    RobotComponents.Lift.ENCODER.reset();
   }
 
   @Override

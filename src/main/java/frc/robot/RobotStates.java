@@ -19,7 +19,7 @@ public class RobotStates {
     static LiftHeight lastHeight = LiftHeight.kCargoCollection;
 
     public static void increaseHeight() {
-        if (RobotStates.heightIndex < 1)
+        if (RobotStates.heightIndex < 2)
             RobotStates.heightIndex++;
     }
 

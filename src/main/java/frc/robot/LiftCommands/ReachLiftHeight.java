@@ -54,7 +54,7 @@ public class ReachLiftHeight extends Command {
     this.setpoint = height.get().key;
     pidController.setSetpoint(setpoint);
     pidController.setAbsoluteTolerance(this.pidSettings.getTolerance());
-    pidController.setOutputRange(-0.7, 1); // was 0.5,1
+    pidController.setOutputRange(-0.5, 0.8); // was 0.5,1
     pidController.enable();
   }
 
