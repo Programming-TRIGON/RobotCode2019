@@ -45,7 +45,7 @@ public class RobotConstants {
     public static enum OneEightyAngle {
         kStraight(0), // The cargo collector faces ahead in this angle.
         kBack(180), // The cargo collector faces back in this angle.
-        kTopStraight(-40),
+        kTopStraight(-45),
         kTopBack(220),
         kCargoCollection(17),
         kCargoShipForward(3),
@@ -60,15 +60,15 @@ public class RobotConstants {
     /** the height the lift should be in for certain tasks */
     public static enum LiftHeight {
         /** Hatch rocket heights */
-        kLiftBottomHatch(0.28), kLiftBottomHatchCargoSide(0.4), kRocketMiddleHatch(0.8), kRocketTopHatch(1),
+        kLiftBottomHatch(0.45), kLiftBottomHatchCargoSide(0.4), kRocketMiddleHatch(1.95), kRocketTopHatch(1),
         /** Cargo rocket heights */
-        kRocketTopCargo(1), kRocketBottomCargo(1.0449377949377947), kRocketMiddleCargo(1.45), 
+        kRocketTopCargo(1), kRocketBottomCargo(1.2), kRocketMiddleCargo(1.95), 
         /** A height that is safe to use OneEighty */
         kOneEightySafety(1), kOneEightyCargoSafety(1), //kOneEightySafety not checked currently on cargo safety
         /** Collection heights */
-        kCargoCollection(0), kHatchCollection(0.12),
+        kCargoCollection(0), kHatchCollection(0.3),
         /** Cargo ship height */
-        kCargoShip(1.2),
+        kCargoShip(1.9),
         /** Cargo safty height */
         kCargoFolderSafty(0.45);
 

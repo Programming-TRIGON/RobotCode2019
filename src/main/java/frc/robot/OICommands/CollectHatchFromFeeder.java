@@ -20,6 +20,6 @@ public class CollectHatchFromFeeder extends CommandGroup {
         addSequential(new SetCargoFolderState(Value.kReverse));
         addSequential(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));
         addSequential(new WaitCommand(0.5));
-        addSequential(new SetHeightIndex(LiftHeight.kLiftBottomHatch));
+        addSequential(new SetHeightIndex(LiftHeight.kHatchCollection));
     }
 }
