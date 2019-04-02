@@ -102,11 +102,11 @@ public class OI {
         this.operatorButtonA.whenPressed(new CollectCargoFromFloor());
         this.operatorButtonA.whenReleased(new AfterCargoFloorPreparation());
 
-        // this.operatorButtonRB.whenPressed(new PrepareToScore(true));  
-        // this.operatorButtonLB.whenPressed(new PrepareToScore(false));
+        this.operatorButtonRB.whenPressed(new PrepareToScore(true));  
+        this.operatorButtonLB.whenPressed(new PrepareToScore(false));
         
         this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip)); 
-        this.operatorButtonB.whenPressed(new PrepareToScore(PrepareToScoreHeight.kLow));
+        this.operatorButtonB.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip));
 
         this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride());
         this.operatorButtonAxisLeft.whenPressed(new OneEightyToggleOverride());
