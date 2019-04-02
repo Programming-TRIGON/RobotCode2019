@@ -26,7 +26,7 @@ public class SetCargoFolderState extends Command {
   @Override
   protected void initialize() {
     // Folds/unfolds based on the fold parameter.
-    if(run.get()==false);
+    // if(run.get()==true);
       Robot.cargoFolder.setFold(this.folderState);
   }
 

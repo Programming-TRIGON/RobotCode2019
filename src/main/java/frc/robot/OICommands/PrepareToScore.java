@@ -79,8 +79,8 @@ public class PrepareToScore extends CommandGroup {
             heightToSet = LiftHeight.kLiftBottomHatch;
             angleToSet = OneEightyAngle.kStraight;
           } else {
-            heightToSet = LiftHeight.kLiftBottomHatchCargoSide;
-            angleToSet = OneEightyAngle.kBack;
+            heightToSet = LiftHeight.kLiftBottomHatch;//kLiftBottomHatchCargoSide;
+            // angleToSet = OneEightyAngle.kBack;
           }
         break;
       case kMedium:
