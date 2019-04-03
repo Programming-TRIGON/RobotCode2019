@@ -211,7 +211,7 @@ public class Robot extends TimedRobot {
 
     addTests();
 
-    SmartDashboard.putData(new ChangeCam());
+    // SmartDashboard.putData(new ChangeCam());
     RobotStates.oneEightyOverride = false;
     RobotStates.LiftOverride = false;
 

@@ -9,15 +9,12 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
-import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.RobotConstants.LiftHeight;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotConstants.PrepareToScoreHeight;
 import frc.robot.Triggers.XboxTrigger;
 import frc.robot.CargoCollectorCommands.CollectCargo;
 import frc.robot.CargoCollectorCommands.PushCargo;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
-import frc.robot.Commands.GenericIfCommand;
 import frc.robot.DrivingCommands.ToggleDriveInverted;
 import frc.robot.HatchHolderCommands.EjectHatch;
 import frc.robot.LiftCommands.LiftSwitchOverride;
@@ -32,7 +29,6 @@ import frc.robot.OICommands.PrepareToScore;
 import frc.robot.OICommands.ReflectorDrive;
 import frc.robot.OneEightyCommands.OneEightyToggleOverride;
 import frc.robot.OneEightyCommands.SetOneEightyDesireAngle;
-import frc.robot.OneEightyCommands.ToggleOneEightyAngle;
 
 public class OI {    
     public XboxController operatorXbox = new XboxController(0);
@@ -75,7 +71,7 @@ public class OI {
         this.operatorRTrigger = new XboxTrigger(this.operatorXbox, Hand.kRight);
 
         cam0 = CameraServer.getInstance().startAutomaticCapture(0);
-        cam1 = CameraServer.getInstance().startAutomaticCapture(1);
+        // cam1 = CameraServer.getInstance().startAutomaticCapture(1);
         cams[0] = cam0;
         cams[1] = cam1;
 
@@ -86,10 +82,13 @@ public class OI {
         this.driverButtonA.whenPressed(new ToggleDriveInverted());
         
         this.driverRTrigger.whenActive(new EjectHatch());
-        //this.RTrigger.whenInactive(new AfterPushPreperetion());
+        this.driverLTrigger.whenActive(new PushCargo());
+        
+        //this.driverButtonRB.whenReleased(new AfterPushPreperetion());
 
-        driverButtonRB.whenPressed(new PushCargo());
-        driverButtonRB.whenReleased(new AfterPushPreperetion());
+
+        //this.RTrigger.whenInactive(new AfterPushPreperetion());
+        //this.driverButtonRB.whenPressed(new PushCargo());        
 
         // this.driverLTrigger.whenActive(new GenericIfCommand(new ToggleOneEightyAngle(),
         //     new InstantCommand(() -> RobotStates.toggleOneEightyDesiredAngle()),
@@ -105,7 +104,7 @@ public class OI {
         // this.operatorButtonRB.whenPressed(new PrepareToScore(true));  
         // this.operatorButtonLB.whenPressed(new PrepareToScore(false));
 
-        operatorButtonLB.whenPressed(new  PrepareToScore(PrepareToScoreHeight.kCargoShip));
+        this.operatorButtonLB.whenPressed(new PrepareToScore(PrepareToScoreHeight.kCargoShip));
         
         this.operatorButtonX.whenPressed(new PrepareToScore(PrepareToScoreHeight.kMedium)); 
         this.operatorButtonB.whenPressed(new PrepareToScore(PrepareToScoreHeight.kLow));
@@ -116,13 +115,13 @@ public class OI {
         this.operatorLeftPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kBack));
         this.operatorRightPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));
         
-        operatorTopPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kTopStraight));
-        operatorBottomPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kFortyFive));
+        this.operatorTopPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kTopStraight));
+        this.operatorBottomPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kFortyFive));
         
         this.operatorStartButton.whenPressed(new DefenceMode());
 
-        operatorRTrigger.whileActive(new CollectCargo(-0.5, -1, false));
-        operatorLTrigger.whenActive(new SetCargoFolderState(Value.kForward));
+        this.operatorRTrigger.whileActive(new CollectCargo(-0.5, -1, false));
+        this.operatorLTrigger.whenActive(new SetCargoFolderState(Value.kForward));
     }
 
 	public void changeCam(int cam) {
