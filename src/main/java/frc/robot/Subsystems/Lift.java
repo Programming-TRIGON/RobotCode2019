@@ -57,6 +57,11 @@ public class Lift extends JoystickOverridableSubsystem {
     }
   }
 
+  public void setMotorSpeed_UNRESTRICTED(double power){
+    rightMotor.set(ControlMode.PercentOutput, power);
+    leftMotor.set(ControlMode.PercentOutput, power);
+  }
+
   /** This function checks whether the lift has activated the top micro switch. */
   public boolean isAtTop() {
     return !topSwitch.get();

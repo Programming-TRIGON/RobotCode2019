@@ -8,6 +8,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -191,7 +192,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Test auto", new testAuto());
 
     // Robot data to be periodically published to SmartDashboard
-    dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngleX);
+    // dbc.addNumber("Gyro", RobotComponents.DriveTrain.GYRO::getAngleX);
     dbc.addNumber("Right encoder", RobotComponents.DriveTrain.RIGHT_ENCODER::getDistance);
     dbc.addNumber("Left encoder", RobotComponents.DriveTrain.LEFT_ENCODER::getDistance);
     dbc.addNumber("180 potentiometer", Robot.oneEighty::getAngle);
@@ -206,6 +207,7 @@ public class Robot extends TimedRobot {
     dbc.addBoolean("Is Has Cargo", RobotStates::isHasCargo);
     dbc.addBoolean("Inverted Drive", RobotStates::isDriveInverted);
     dbc.addBoolean("Is collected", RobotStates::isCollected);
+    dbc.addNumber("game time", () -> DriverStation.getInstance().getMatchTime());
 
     addTests();
 

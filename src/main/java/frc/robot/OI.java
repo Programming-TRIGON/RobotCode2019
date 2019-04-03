@@ -91,9 +91,9 @@ public class OI {
         driverButtonRB.whenPressed(new PushCargo());
         driverButtonRB.whenReleased(new AfterPushPreperetion());
 
-        this.driverLTrigger.whenActive(new GenericIfCommand(new ToggleOneEightyAngle(),
-            new InstantCommand(() -> RobotStates.toggleOneEightyDesiredAngle()),
-            () -> Robot.lift.getHeight() <= LiftHeight.kOneEightyCargoSafety.key));
+        // this.driverLTrigger.whenActive(new GenericIfCommand(new ToggleOneEightyAngle(),
+        //     new InstantCommand(() -> RobotStates.toggleOneEightyDesiredAngle()),
+        //     () -> Robot.lift.getHeight() <= LiftHeight.kOneEightyCargoSafety.key));
 
         //-------------------- OPERATOR --------------------------------------------
         this.operatorButtonY.whenPressed(new CollectHatchFromFeeder());
@@ -114,7 +114,10 @@ public class OI {
         this.operatorButtonAxisLeft.whenPressed(new OneEightyToggleOverride());
 
         this.operatorLeftPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kBack));
-        this.operatorRightPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));  
+        this.operatorRightPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));
+        
+        operatorTopPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kTopStraight));
+        operatorBottomPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kFortyFive));
         
         this.operatorStartButton.whenPressed(new DefenceMode());
 

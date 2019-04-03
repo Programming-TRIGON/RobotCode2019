@@ -18,7 +18,7 @@ public class RobotConstants {
     /** constants for sensors on the robot */
     public static class Sensors {
         public static final double ONE_EIGHTY_POTENTIOMETER_ANGLE_MULTIPLIER = -3600;
-        public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET =3398+45;
+        public static final double ONE_EIGHTY_POTENTIOMETER_OFFSET =3080+17;
 
         public static final double DRIVE_ENCODER_DPP = RobotDimensions.DRIVE_WHEEL_DIAMETER * Math.PI / 360;
 
@@ -48,8 +48,9 @@ public class RobotConstants {
         kTopStraight(-45),
         kTopBack(220),
         kCargoCollection(17),
-        kCargoShipForward(3),
-        kCargoShipBack(177);     
+        kCargoShipForward(0),
+        kCargoShipBack(177),
+        kFortyFive(20);     
         public double key;
 
         OneEightyAngle(double angle) {

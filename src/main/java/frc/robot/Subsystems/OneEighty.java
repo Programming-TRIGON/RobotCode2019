@@ -15,6 +15,8 @@ import frc.robot.RobotConstants.OneEightyAngle;
  * cargo/hatch according to the need of the driver
  */
 public class OneEighty extends JoystickOverridableSubsystem {
+  private static final double MIN_ANGLE = -60;
+  private static final double MAX_ANGLE = 280;
   /** declares the motor that turns the SS */
   private TalonSRX motor;
   private AnalogPotentiometer potentiometer;
@@ -36,10 +38,10 @@ public class OneEighty extends JoystickOverridableSubsystem {
 
   /** turns the SS to where the driver wants it */
   public void setOneEighty(double power) {
-    // if ((power > 0 && getAngle() >= OneEightyAngle.kTopStraight.key)
-    //     || (power < 0 && getAngle() <= OneEightyAngle.kTopBack.key)) 
-    //   this.motor.set(ControlMode.PercentOutput, 0);
-    // else
+    if ((power > 0 && getAngle() >= MAX_ANGLE)
+        || (power < 0 && getAngle() <= MIN_ANGLE)) 
+      this.motor.set(ControlMode.PercentOutput, 0);
+    else
       this.motor.set(ControlMode.PercentOutput, power);
   }
   

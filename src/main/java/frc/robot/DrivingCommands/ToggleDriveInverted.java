@@ -9,6 +9,7 @@ import frc.robot.RobotStates;
 public class ToggleDriveInverted extends InstantCommand {
   
   public ToggleDriveInverted() {
+    setRunWhenDisabled(true);
   }
 
   @Override
