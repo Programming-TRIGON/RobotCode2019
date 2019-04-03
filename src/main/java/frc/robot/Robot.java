@@ -207,7 +207,7 @@ public class Robot extends TimedRobot {
     dbc.addBoolean("Is Has Cargo", RobotStates::isHasCargo);
     dbc.addBoolean("Inverted Drive", RobotStates::isDriveInverted);
     dbc.addBoolean("Is collected", RobotStates::isCollected);
-    dbc.addNumber("game time", () -> DriverStation.getInstance().getMatchTime());
+    dbc.addNumber("gameTime", () -> DriverStation.getInstance().getMatchTime());
 
     addTests();
 

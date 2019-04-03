@@ -17,7 +17,6 @@ public class ReachLiftHeight extends Command {
   private PIDOutput pidOutput;
   private PIDSettings pidSettings;
   private double setpoint;
-
   private double lastTimeNotOn = 0;
 
   /** sets the height of the lift depending on the situation */
@@ -32,6 +31,7 @@ public class ReachLiftHeight extends Command {
     this.height = () -> finishingHeight;
     this.pidSettings = pidSettings;
   }
+  
   public ReachLiftHeight(Supplier<LiftHeight> finishingHeight) {
     requires(Robot.lift);
     this.height =  finishingHeight;

@@ -32,7 +32,7 @@ public class PrepareToScore extends CommandGroup {
     addSequential(new SetHeightIndex(() -> heightToSet));
     addSequential(new WaitCommand(0.7));   
     addSequential(new SetOneEightyDesireAngle(() -> angleToSet));
-    addSequential(new WaitCommand(0.35));
+    addSequential(new WaitCommand(0.2));
     addSequential(new GenericIfCommand(new SetCargoFolderState(Value.kForward),
     () -> !heightToSet.equals(LiftHeight.kLiftBottomHatch)));
   }
@@ -44,7 +44,7 @@ public class PrepareToScore extends CommandGroup {
       addSequential(new GenericIfCommand(new WaitCommand(0.5), 
     () -> heightToSet.equals(LiftHeight.kLiftBottomHatch)));
     addSequential(new SetHeightIndex(()-> heightToSet));
-    addSequential(new WaitCommand(0.7));
+    addSequential(new WaitCommand(0.3));
     addSequential(new SetOneEightyDesireAngle(()-> angleToSet));
     addSequential(new WaitCommand(0.2));
     addSequential(new GenericIfCommand(new SetCargoFolderState(Value.kForward),

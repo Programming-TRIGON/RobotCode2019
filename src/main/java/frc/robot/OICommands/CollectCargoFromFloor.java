@@ -25,7 +25,7 @@ public class CollectCargoFromFloor extends CommandGroup {
     addSequential(new SetCargoFolderState(Value.kReverse));
     /** turns to the required angle */
     addSequential(new SetOneEightyDesireAngle(OneEightyAngle.kCargoCollection));
-    addSequential(new WaitCommand(0.3));
+    addSequential(new WaitCommand(0.8));
     /** set lift height to bottom in order to collect cargo */
     addSequential(new SetHeightIndex(LiftHeight.kCargoCollection));
     /** collects the cargo */

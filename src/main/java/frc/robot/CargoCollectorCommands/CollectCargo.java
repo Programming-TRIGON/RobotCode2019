@@ -28,7 +28,10 @@ public class CollectCargo extends Command {
   @Override
   protected void execute() {
     /** sets the power of the holder and collector motors */
-    Robot.cargoCollector.setCollectorMotor(collectorPower);
+    if(Robot.lift.getHeight() <= 0.2)
+      Robot.cargoCollector.setCollectorMotor(collectorPower);
+    else 
+      Robot.cargoCollector.setCollectorMotor(0);
     Robot.cargoCollector.setHolderMotors(-holderPower);
   }
 

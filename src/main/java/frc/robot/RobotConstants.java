@@ -45,11 +45,11 @@ public class RobotConstants {
     public static enum OneEightyAngle {
         kStraight(0), // The cargo collector faces ahead in this angle.
         kBack(180), // The cargo collector faces back in this angle.
-        kTopStraight(-45),
+        kTopStraight(-65),
         kTopBack(220),
         kCargoCollection(17),
-        kCargoShipForward(0),
-        kCargoShipBack(177),
+        kCargoShipForward(-27.5),
+        kCargoShipBack(180 + 22),
         kFortyFive(20);     
         public double key;
 
@@ -69,7 +69,7 @@ public class RobotConstants {
         /** Collection heights */
         kCargoCollection(0), kHatchCollection(0.3),
         /** Cargo ship height */
-        kCargoShip(1.9),
+        kCargoShip(1.6), //was 1.9
         /** Cargo safty height */
         kCargoFolderSafty(0.45);
 

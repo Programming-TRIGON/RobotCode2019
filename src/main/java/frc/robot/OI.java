@@ -112,7 +112,7 @@ public class OI {
         this.operatorButtonAxisRight.whenPressed(new LiftSwitchOverride());
         this.operatorButtonAxisLeft.whenPressed(new OneEightyToggleOverride());
 
-        this.operatorLeftPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kBack));
+        this.operatorLeftPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kCargoShipBack));
         this.operatorRightPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));
         
         this.operatorTopPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kTopStraight));
