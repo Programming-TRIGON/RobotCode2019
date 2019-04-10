@@ -23,7 +23,7 @@ public class GyroPIDSource implements PIDSource {
 
     @Override
     public double pidGet() {
-        return RobotComponents.DriveTrain.GYRO.getAngleX();
+        return RobotComponents.DriveTrain.GYRO.getAngle();
     }
 
     @Override

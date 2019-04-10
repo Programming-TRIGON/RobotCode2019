@@ -1,20 +1,26 @@
 package frc.robot;
 
+import com.spikes2212.genericsubsystems.drivetrains.TankDrivetrain;
+import com.spikes2212.genericsubsystems.drivetrains.commands.DriveArcadeWithPID;
+
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.RobotConstants.OneEightyAngle;
 import frc.robot.RobotConstants.PrepareToScoreHeight;
 import frc.robot.Triggers.XboxTrigger;
 import frc.robot.CargoCollectorCommands.CollectCargo;
 import frc.robot.CargoCollectorCommands.PushCargo;
 import frc.robot.CargoFolderCommands.SetCargoFolderState;
+import frc.robot.DrivingCommands.GyroDriveWithJoystick;
 import frc.robot.DrivingCommands.ToggleDriveInverted;
 import frc.robot.HatchHolderCommands.EjectHatch;
 import frc.robot.LiftCommands.LiftSwitchOverride;
@@ -76,13 +82,16 @@ public class OI {
         cams[1] = cam1;
 
         //-------------------- DRIVER --------------------------------------------
-        this.driverButtonB.whenPressed(new ReflectorDrive());
-        this.driverButtonB.whenReleased(new AfterReflectorDrivePreperetion());
+        // this.driverButtonB.whenPressed(new ReflectorDrive());
+        // this.driverButtonB.whenReleased(new AfterReflectorDrivePreperetion());
 
         this.driverButtonA.whenPressed(new ToggleDriveInverted());
         
         this.driverRTrigger.whenActive(new EjectHatch());
         this.driverLTrigger.whenActive(new PushCargo());
+
+        driverButtonB.whenPressed(new GyroDriveWithJoystick());
+        driverButtonB.whenReleased(new InstantCommand(() -> Robot.driveTrain.getCurrentCommand().cancel()));
         
         //this.driverButtonRB.whenReleased(new AfterPushPreperetion());
 
@@ -113,7 +122,7 @@ public class OI {
         this.operatorButtonAxisLeft.whenPressed(new OneEightyToggleOverride());
 
         this.operatorLeftPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kCargoShipBack));
-        this.operatorRightPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kStraight));
+        this.operatorRightPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kTopBackHatch));
         
         this.operatorTopPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kTopStraight));
         this.operatorBottomPOVButton.whenPressed(new SetOneEightyDesireAngle(OneEightyAngle.kFortyFive));

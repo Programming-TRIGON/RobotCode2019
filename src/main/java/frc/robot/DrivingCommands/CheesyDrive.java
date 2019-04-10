@@ -9,7 +9,7 @@ import frc.robot.RobotStates;
 
 public class CheesyDrive extends Command {
   Supplier<Double> rotentionSupplier, speedSupplier;
-  double sensetivity = 1.25;  
+  double sensetivity = 1.15;
   TankDrivetrain drivetrain;
   public CheesyDrive(TankDrivetrain drivetrain, Supplier<Double> speedSupplier, Supplier<Double> rotentionSupplier) {
     requires(drivetrain);

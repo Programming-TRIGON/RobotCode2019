@@ -30,6 +30,7 @@ import frc.robot.Commands.ChangeCam;
 import frc.robot.Commands.CompressorStart;
 import frc.robot.Commands.CompressorStop;
 import frc.robot.Commands.MoveSubsystemWithJoystick;
+import frc.robot.Commands.ResetGyro;
 import frc.robot.Commands.TestPID;
 import frc.robot.DrivingCommands.CheesyDrive;
 import frc.robot.HatchCollectorCommands.SetHatchCollectorState;
@@ -182,6 +183,8 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putData("Stop Compressor", new CompressorStop());
     SmartDashboard.putData("Start Compressor", new CompressorStart());
+
+    SmartDashboard.putData("Reset Gyro", new ResetGyro());
     
     SmartDashboard.putData("Collect Cargo", new CollectCargo(0.85, 0.5));
     SmartDashboard.putData("Push Cargo", new PushCargo());

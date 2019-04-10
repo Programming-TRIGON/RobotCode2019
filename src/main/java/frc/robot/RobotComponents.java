@@ -8,10 +8,12 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 /** this class sets what all of the robot components are */
 public class RobotComponents {
@@ -60,7 +62,7 @@ public class RobotComponents {
         public static final WPI_TalonSRX FRONT_RIGHT_M = new WPI_TalonSRX(RobotMap.CAN.FRONT_RIGHT_MOTOR);
         public static final Encoder LEFT_ENCODER = new Encoder(RobotMap.DIO.DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DIO.DRIVE_TRAIN_LEFT_ENCODER_CHANNEL_B); 
         public static final Encoder RIGHT_ENCODER = new Encoder(RobotMap.DIO.DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DIO.DRIVE_TRAIN_RIGHT_ENCODER_CHANNEL_B); 
-        public static final ADIS16448_IMU GYRO = new ADIS16448_IMU();
+        public static final ADXRS450_Gyro GYRO = new ADXRS450_Gyro();
         public static Supplier<Double> AverageDistance = () -> (DriveTrain.LEFT_ENCODER.getDistance() + DriveTrain.RIGHT_ENCODER.getDistance())/2;
     }    
 }

@@ -41,7 +41,7 @@ public class DriveWithGyro extends CommandGroup {
     movementPidController.setOutputRange(-1, 1);
     movementPidController.setSetpoint(distance);
 
-    double angleSetPoint = RobotComponents.DriveTrain.GYRO.getAngleX();
+    double angleSetPoint = RobotComponents.DriveTrain.GYRO.getAngle();
     
     addSequential(new DriveArcadeWithPID(Robot.driveTrain, GYRO_PID_SOURCE,
     () -> angleSetPoint, this.movementSupplier, () -> movementPidController.onTarget(), RobotConstants.RobotPIDSettings.GYRO_DRIVE_SETTINGS, 360, true));    

@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.RobotStates;
-import frc.robot.DrivingCommands.DriveArcadeWithPID;
+import frc.robot.DrivingCommands.DriveArcadeWithPID_edited;
 import frc.robot.Subsystems.DifferentialTankDrivetrain;
 import frc.robot.Vision.VisionPIDSource.VisionTarget;
 
 /** Drives to a given target using vision */
-public class DriveArcadeWithVision extends DriveArcadeWithPID {
+public class DriveArcadeWithVision extends DriveArcadeWithPID_edited {
   protected double lastTimeFound = 0;
   DifferentialTankDrivetrain drivetrain;
 
@@ -29,7 +29,7 @@ public class DriveArcadeWithVision extends DriveArcadeWithPID {
       default:
         return RobotConstants.Sensors.FORWARD_REFLECTOR_SETPOINT;
       }
-    }, () -> movement, PIDSettings, 2, false);
+    }, () -> movement, PIDSettings, 2.0, false);
     this.drivetrain = drivetrain;
   }
   public DriveArcadeWithVision(VisionPIDSource.VisionTarget target) {

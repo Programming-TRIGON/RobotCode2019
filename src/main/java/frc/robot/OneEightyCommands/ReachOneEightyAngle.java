@@ -37,9 +37,9 @@ public class ReachOneEightyAngle extends Command {
   @Override
   protected void initialize() {
     if (this.angle.get() > Robot.oneEighty.getAngle())
-      power = 0.5;
+      power = 0.6;
     else
-      power = -0.5;
+      power = -0.6;
   }
 
   @Override

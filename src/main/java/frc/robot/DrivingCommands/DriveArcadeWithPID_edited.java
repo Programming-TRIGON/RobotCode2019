@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * @see TankDrivetrain
  * @author Simon "C" Kharmatsky
  */
-public class DriveArcadeWithPID extends Command {
+public class DriveArcadeWithPID_edited extends Command {
 
 	protected TankDrivetrain drivetrain;
 	protected PIDSource PIDSource;
@@ -39,12 +39,12 @@ public class DriveArcadeWithPID extends Command {
 	protected PIDController rotationController;
 
 	/**
-	 * This constructs a new {@link DriveArcadeWithPID} using <a href=
+	 * This constructs a new {@link DriveArcadeWithPID_edited} using <a href=
 	 * "http://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/PIDSource.html">PIDSources</a>,
 	 * {@link Supplier<Double>}s for the setpoint and the movement, and the
 	 * {@link PIDSettings} for this command
 	 * 
-	 * @param drivetrain         the {@link DriveArcadeWithPID} this command
+	 * @param drivetrain         the {@link DriveArcadeWithPID_edited} this command
 	 *                           operates on
 	 * @param PIDSource          the <a href=
 	 *                           "http://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/PIDSource.html">PIDSources</a>
@@ -73,7 +73,7 @@ public class DriveArcadeWithPID extends Command {
 	 *                           the same point and automatically calculates the
 	 *                           shortest route to the setpoint.
 	 */
-	public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDSource PIDSource, Supplier<Double> setpointSupplier,
+	public DriveArcadeWithPID_edited(TankDrivetrain drivetrain, PIDSource PIDSource, Supplier<Double> setpointSupplier,
 			Supplier<Double> movementSupplier, Supplier<Boolean> isFinishedSupplier, PIDSettings PIDSettings,
 			double inputRange, boolean continuous) {
 		requires(drivetrain);
@@ -88,12 +88,12 @@ public class DriveArcadeWithPID extends Command {
 	}
 
 	/**
-	 * This constructs a new {@link DriveArcadeWithPID} using static values for
-	 * {@link DriveArcadeWithPID#setpointSupplier} and
-	 * {@link DriveArcadeWithPID#movementSupplier} instead of
+	 * This constructs a new {@link DriveArcadeWithPID_edited} using static values for
+	 * {@link DriveArcadeWithPID_edited#setpointSupplier} and
+	 * {@link DriveArcadeWithPID_edited#movementSupplier} instead of
 	 * {@link Supplier<Double>}s
 	 * 
-	 * @param drivetrain         the {@link DriveArcadeWithPID} this command
+	 * @param drivetrain         the {@link DriveArcadeWithPID_edited} this command
 	 *                           operates on
 	 * @param PIDSource          the <a href=
 	 *                           "http://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/PIDSource.html">PIDSources</a>
@@ -107,7 +107,7 @@ public class DriveArcadeWithPID extends Command {
 	 *                           source.
 	 *                           </p>
 	 * @param movement           static value for
-	 *                           {@link DriveArcadeWithPID#movementSupplier}
+	 *                           {@link DriveArcadeWithPID_edited#movementSupplier}
 	 * @param isFinishedSupplier a condition upon returning true stops this command
 	 * @param PIDSettings        {@link PIDSettings} for this command
 	 * @param inputRange         the range of the source's input. For example,
@@ -121,17 +121,17 @@ public class DriveArcadeWithPID extends Command {
 	 *                           the same point and automatically calculates the
 	 *                           shortest route to the setpoint.
 	 */
-	public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDSource PIDSource, double setpoint, double movement,
+	public DriveArcadeWithPID_edited(TankDrivetrain drivetrain, PIDSource PIDSource, double setpoint, double movement,
 			Supplier<Boolean> isFinishedSupplier, PIDSettings PIDSettings, double inputRange, boolean continuous) {
 		this(drivetrain, PIDSource, () -> setpoint, () -> movement, isFinishedSupplier, PIDSettings, inputRange,
 				continuous);
 	}
 
 	/**
-	 * This constructs a new {@link DriveArcadeWithPID} ignoring the
-	 * {@link DriveArcadeWithPID#isFinishedSupplier}
+	 * This constructs a new {@link DriveArcadeWithPID_edited} ignoring the
+	 * {@link DriveArcadeWithPID_edited#isFinishedSupplier}
 	 * 
-	 * @param drivetrain       the {@link DriveArcadeWithPID} this command operates
+	 * @param drivetrain       the {@link DriveArcadeWithPID_edited} this command operates
 	 *                         on
 	 * @param PIDSource        the <a href=
 	 *                         "http://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/PIDSource.html">PIDSources</a>
@@ -158,7 +158,7 @@ public class DriveArcadeWithPID extends Command {
 	 *                         the same point and automatically calculates the
 	 *                         shortest route to the setpoint.
 	 */
-	public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDSource PIDSource, Supplier<Double> setpointSupplier,
+	public DriveArcadeWithPID_edited(TankDrivetrain drivetrain, PIDSource PIDSource, Supplier<Double> setpointSupplier,
 			Supplier<Double> movementSupplier, PIDSettings PIDSettings, double inputRange, boolean continuous) {
 		this(drivetrain, PIDSource, setpointSupplier, movementSupplier, () -> false, PIDSettings, inputRange,
 				continuous);
@@ -166,16 +166,16 @@ public class DriveArcadeWithPID extends Command {
 	}
 
 	/**
-	 * This constructs a new {@link DriveArcadeWithPID} ignoring the
-	 * {@link DriveArcadeWithPID#isFinishedSupplier} and uses constant values for
-	 * {@link DriveArcadeWithPID#setpointSupplier} and
-	 * {@link DriveArcadeWithPID#movementSupplier}
+	 * This constructs a new {@link DriveArcadeWithPID_edited} ignoring the
+	 * {@link DriveArcadeWithPID_edited#isFinishedSupplier} and uses constant values for
+	 * {@link DriveArcadeWithPID_edited#setpointSupplier} and
+	 * {@link DriveArcadeWithPID_edited#movementSupplier}
 	 * 
-	 * @param drivetrain  the {@link DriveArcadeWithPID} this command operates on
+	 * @param drivetrain  the {@link DriveArcadeWithPID_edited} this command operates on
 	 * @param PIDSource   the <a href=
 	 *                    "http://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/PIDSource.html">PIDSources</a>
 	 *                    that this command uses to get feedback about the
-	 *                    {@link DriveArcadeWithPID#drivetrain}'s current state
+	 *                    {@link DriveArcadeWithPID_edited#drivetrain}'s current state
 	 * @param setpoint    the target point of this command.
 	 *                    <p>
 	 *                    This command will try to move {@link TankDrivetrain} to
@@ -183,7 +183,7 @@ public class DriveArcadeWithPID extends Command {
 	 *                    units
 	 *                    </p>
 	 * @param movement    constant value for
-	 *                    {@link DriveArcadeWithPID#movementSupplier}
+	 *                    {@link DriveArcadeWithPID_edited#movementSupplier}
 	 * @param PIDSettings {@link PIDSettings} for this command
 	 * @param inputRange  the range of the source's input. For example, gyro's is
 	 *                    360. Camera that has 640 px on the wanted axis has output
@@ -195,7 +195,7 @@ public class DriveArcadeWithPID extends Command {
 	 *                    automatically calculates the shortest route to the
 	 *                    setpoint.
 	 */
-	public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDSource PIDSource, double setpoint, double movement,
+	public DriveArcadeWithPID_edited(TankDrivetrain drivetrain, PIDSource PIDSource, double setpoint, double movement,
 			PIDSettings PIDSettings, double inputRange, boolean continuous) {
 		this(drivetrain, PIDSource, () -> setpoint, () -> movement, PIDSettings, inputRange, continuous);
 	}

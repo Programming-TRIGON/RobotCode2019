@@ -33,7 +33,7 @@ public class RobotConstants {
         // (kP, kI, kD, Tolerance, WaitTime)
         public static final PIDSettings DRIVE_SETTINGS = new PIDSettings(0.0025, 0, 0.004, 5, 0.5);
         public static final PIDSettings TURN_SETTINGS = new PIDSettings(0.022, 0.00009, 0.0735, 4, 0.5);
-        public static final PIDSettings GYRO_DRIVE_SETTINGS = new PIDSettings(0.075, 0, 0.35, 0, 0);
+        public static final PIDSettings GYRO_DRIVE_SETTINGS = new PIDSettings(0.06, 0.0001, 0.2, 0, 0);
         public static final PIDSettings ONE_EIGHTY_STABILIZE_ANGLE_SETTINGS = new PIDSettings(0.009, 0.00005, 0.00075, 2, 0);
         public static final PIDSettings VISION_TURN_SETTINGS = new PIDSettings(0.4, 0, 0.01, 2, 2);
         public static final PIDSettings VISION_DISTANCE_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
@@ -43,14 +43,15 @@ public class RobotConstants {
 
     /** the angles of the oneEighty subsystem when performing a task */
     public static enum OneEightyAngle {
-        kStraight(0), // The cargo collector faces ahead in this angle.
+        kStraight(-3), // The cargo collector faces ahead in this angle.
         kBack(180), // The cargo collector faces back in this angle.
         kTopStraight(-65),
         kTopBack(220),
         kCargoCollection(17),
         kCargoShipForward(-27.5),
         kCargoShipBack(180 + 22),
-        kFortyFive(20);     
+        kFortyFive(20),  
+        kTopBackHatch(135);   
         public double key;
 
         OneEightyAngle(double angle) {
